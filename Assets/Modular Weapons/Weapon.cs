@@ -26,18 +26,74 @@ namespace Game
             public Weapon Weapon => Reference;
         }
 
-        protected virtual void Start()
+        public IList<IConstraint> Constraints { get; protected set; }
+        public interface IConstraint
+        {
+            bool Active { get; }
+        }
+        public bool HasActiveConstraints
+        {
+            get
+            {
+                for (int i = 0; i < Constraints.Count; i++)
+                    if (Constraints[i].Active)
+                        return true;
+
+                return false;
+            }
+        }
+
+
+        public virtual void Setup()
+        {
+            Configure();
+
+            Init();
+        }
+
+        protected virtual void Configure()
         {
             Modules.Configure(this);
 
+            Constraints = GetComponentsInChildren<IConstraint>();
+        }
+
+        protected virtual void Init()
+        {
             Modules.Init(this);
         }
 
-        public delegate void ProcessDelegate();
+        public delegate void ProcessDelegate(IProcessData data);
         public event ProcessDelegate OnProcess;
-        protected virtual void Process()
+        public virtual void Process(IProcessData data)
         {
-            OnProcess?.Invoke();
+            OnProcess?.Invoke(data);
+
+            if(data.PrimaryInput)
+            {
+                if(HasActiveConstraints)
+                {
+
+                }
+                else
+                {
+                    Action();
+                }
+            }
+        }
+
+        public interface IProcessData
+        {
+            bool PrimaryInput { get; }
+        }
+        public struct ProcessData : IProcessData
+        {
+            public bool PrimaryInput { get; private set; }
+
+            public ProcessData(bool input)
+            {
+                this.PrimaryInput = input;
+            }
         }
 
         public delegate void ActionDelegate();
