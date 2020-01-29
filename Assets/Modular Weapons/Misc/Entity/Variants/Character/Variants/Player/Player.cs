@@ -19,23 +19,38 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Player : MonoBehaviour
+    [RequireComponent(typeof(Character))]
+    [RequireComponent(typeof(CapsuleCollider))]
+    public class Player : MonoBehaviour, IModule<Character>
 	{
+#pragma warning disable CS0108
+        public CapsuleCollider collider { get; protected set; }
+#pragma warning restore CS0108
+
         public PlayerWeapons Weapons { get; protected set; }
 
 		public class Module : Module<Player>
         {
             public Player Player => Reference;
+            public Character Character => Player.Character;
+            public Entity Entity => Character.Entity;
         }
 
-        protected virtual void Awake()
+        public Character Character { get; protected set; }
+        public virtual void Configure(Character reference)
         {
+            Character = reference;
+
+            collider = Character.collider as CapsuleCollider;
+
             Modules.Configure(this);
 
             Weapons = GetComponentInChildren<PlayerWeapons>();
         }
 
-        protected virtual void Start()
+        public Entity Entity => Character.Entity;
+
+        public virtual void Init()
         {
             Modules.Init(this);
         }

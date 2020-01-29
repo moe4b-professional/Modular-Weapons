@@ -24,6 +24,8 @@ namespace Game
 		public class Module : Module<Weapon>
         {
             public Weapon Weapon => Reference;
+
+            public Entity Owner => Weapon.Owner;
         }
 
         public IList<IConstraint> Constraints { get; protected set; }
@@ -43,9 +45,11 @@ namespace Game
             }
         }
 
-
-        public virtual void Setup()
+        public Entity Owner { get; protected set; }
+        public virtual void Setup(Entity owner)
         {
+            this.Owner = owner;
+
             Configure();
 
             Init();

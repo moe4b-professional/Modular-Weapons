@@ -22,7 +22,7 @@ namespace Game
 	public class WeaponRaycastAction : Weapon.Module
 	{
         [SerializeField]
-        protected float range = Mathf.Infinity;
+        protected float range = 400;
         public float Range { get { return range; } }
 
         [SerializeField]
@@ -35,14 +35,18 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += ActionCallback;
+            Weapon.OnAction += Action;
         }
 
-        void ActionCallback()
+        void Action()
         {
-            if(Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
+            Debug.DrawLine(transform.position, transform.position + transform.forward * range, Color.red, 5f);
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {
                 Debug.Log("Hit: " + hit.transform.name);
+
+                var result = Owner.DoDamage(hit.transform.gameObject, 20, Damage.Method.Undefined);
             }
             else
             {
