@@ -19,9 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+#pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-	public class AI : MonoBehaviour, IModule<Character>
+    public class AI : MonoBehaviour, IModule<Character>, AI.IDamager
     {
+        public Rigidbody rigidbody => Character.rigidbody;
+
         public AIController Controller { get; protected set; }
 
         public class Module : Module<AI>
@@ -29,6 +32,8 @@ namespace Game
             public AI AI => Reference;
             public Character Character => AI.Character;
             public Entity Entity => Character.Entity;
+
+            public Rigidbody rigidbody => Character.rigidbody;
         }
 
         public Character Character { get; protected set; }
@@ -58,5 +63,11 @@ namespace Game
         {
             OnProcess?.Invoke();
         }
+
+        public interface IDamager
+        {
+
+        }
     }
+#pragma warning restore CS0108
 }

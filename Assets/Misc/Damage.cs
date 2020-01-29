@@ -19,18 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public interface IDamagable
-    {
-        Damage.Result TakeDamage(Damage.Request request);
-    }
-
-    public interface IDamager
-    {
-
-    }
-
     public static class Damage
     {
+        public interface IDamagable
+        {
+            Result TakeDamage(Damage.Request request);
+        }
+
+        public interface IDamager
+        {
+
+        }
+
         public static Result? Invoke(GameObject target, Request request)
         {
             var damagable = target.GetComponent<IDamagable>();

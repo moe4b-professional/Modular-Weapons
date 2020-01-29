@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ZombieAI : MonoBehaviour
+	public class ZombieAI : AIController
 	{
 		
 	}

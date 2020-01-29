@@ -19,13 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+#pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Player : MonoBehaviour, IModule<Character>
-	{
-#pragma warning disable CS0108
+    public class Player : MonoBehaviour, IModule<Character>, Player.IDamager
+    {
         public CapsuleCollider collider { get; protected set; }
-#pragma warning restore CS0108
+
+        public Rigidbody rigidbody => Character.rigidbody;
 
         public PlayerWeapons Weapons { get; protected set; }
 
@@ -35,6 +36,8 @@ namespace Game
             public Character Character => Player.Character;
             public Entity Entity => Character.Entity;
         }
+
+        Player IDamager.Player => this;
 
         public Character Character { get; protected set; }
         public virtual void Configure(Character reference)
@@ -65,5 +68,11 @@ namespace Game
         {
             OnProcess?.Invoke();
         }
+
+        public interface IDamager : Character.IDamager
+        {
+            Player Player { get; }
+        }
     }
+#pragma warning restore CS0108
 }

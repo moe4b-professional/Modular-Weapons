@@ -19,15 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+#pragma warning disable CS0108
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Rigidbody))]
 	public class Character : MonoBehaviour, IModule<Entity>
-	{
-#pragma warning disable CS0108
+    {
         public Rigidbody rigidbody { get; protected set; }
 
         public Collider collider { get; protected set; }
-#pragma warning restore CS0108
 
         public class Module : Module<Character>
         {
@@ -41,12 +40,24 @@ namespace Game
         {
             Entity = reference;
 
+            rigidbody = GetComponent<Rigidbody>();
+
+            collider = GetComponent<Collider>();
+
             Modules.Configure(this);
         }
 
         public virtual void Init()
         {
             Modules.Init(this);
+
+            Debug.Log("Character Collider Bounds: " + collider.bounds);
+        }
+
+        public interface IDamager : Entity.IDamager
+        {
+            Character Character { get; }
         }
     }
+#pragma warning restore CS0108
 }
