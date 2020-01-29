@@ -50,8 +50,6 @@ namespace Game
         public virtual void Init()
         {
             Modules.Init(this);
-
-            Debug.Log("Character Collider Bounds: " + collider.bounds);
         }
 
         public interface IDamager : Entity.IDamager
