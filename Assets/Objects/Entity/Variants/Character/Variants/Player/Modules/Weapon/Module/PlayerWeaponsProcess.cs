@@ -19,15 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponsProcess : PlayerWeapons.Module, IPlayerWeaponProcessData
+	public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData
     {
         public bool PrimaryInput => Input.GetMouseButton(0);
 
-        public Vector2 Sway => Vector2.zero;
-	}
-
-    public interface IPlayerWeaponProcessData : Weapon.IProcessData
-    {
-        Vector2 Sway { get; }
+        public interface IData : Weapon.IProcessData
+        {
+            
+        }
     }
 }

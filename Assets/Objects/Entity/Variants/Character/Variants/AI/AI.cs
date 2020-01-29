@@ -64,7 +64,7 @@ namespace Game
             OnProcess?.Invoke();
         }
 
-        public interface IDamager
+        public interface IDamager : Character.IDamager
         {
 
         }

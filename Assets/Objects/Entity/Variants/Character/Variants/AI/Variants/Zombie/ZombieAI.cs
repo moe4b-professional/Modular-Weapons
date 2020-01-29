@@ -21,6 +21,13 @@ namespace Game
 {
 	public class ZombieAI : AIController
 	{
-		
-	}
+        public override void Init()
+        {
+            base.Init();
+
+            var target = FindObjectOfType<Player>().Entity;
+
+            Entity.DoDamage(target, 20, Damage.Method.Contact);
+        }
+    }
 }
