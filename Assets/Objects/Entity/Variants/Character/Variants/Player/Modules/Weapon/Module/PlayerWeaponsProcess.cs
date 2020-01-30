@@ -23,9 +23,11 @@ namespace Game
     {
         public bool PrimaryInput => Input.GetMouseButton(0);
 
+        public bool SecondaryInput => Input.GetMouseButton(1);
+
         public interface IData : Weapon.IProcessData
         {
-            
+            bool SecondaryInput { get; }
         }
     }
 }
