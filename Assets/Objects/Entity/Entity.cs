@@ -43,6 +43,13 @@ namespace Game
 
             Damager = GetComponent<Damage.IDamager>();
 
+            var components = GetComponents<Damage.IDamager>();
+
+            for (int i = 0; i < components.Length; i++)
+            {
+                Debug.Log(components[i].GetType());
+            }
+
             Modules.Configure(this);
         }
         

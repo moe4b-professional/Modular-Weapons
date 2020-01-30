@@ -21,13 +21,36 @@ namespace Game
 {
 	public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData
     {
-        public bool PrimaryInput => Input.GetMouseButton(0);
+        public ButtonInput PrimaryInput { get; protected set; }
 
-        public bool SecondaryInput => Input.GetMouseButton(1);
+        public ButtonInput SecondaryInput { get; protected set; }
+
+        public override void Configure(Player reference)
+        {
+            base.Configure(reference);
+
+            PrimaryInput = new ButtonInput();
+
+            SecondaryInput = new ButtonInput();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Player.OnProcess += Process;
+        }
+
+        void Process()
+        {
+            PrimaryInput.Process(Input.GetMouseButton(0));
+
+            SecondaryInput.Process(Input.GetMouseButton(1));
+        }
 
         public interface IData : Weapon.IProcessData
         {
-            bool SecondaryInput { get; }
+            ButtonInput SecondaryInput { get; }
         }
     }
 }

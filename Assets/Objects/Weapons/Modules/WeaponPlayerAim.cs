@@ -25,13 +25,21 @@ namespace Game
         protected Animator animator;
         public Animator Animator { get { return animator; } }
 
-        public const string AnimatorFieldName = "Aim";
+        public int AnimatorLayerIndex => Animator.GetLayerIndex("Aim");
 
-        public virtual bool Value
+        [SerializeField]
+        protected float speed = 5f;
+        public float Speed { get { return speed; } }
+
+        public bool IsOn { get; protected set; }
+
+        public float Value
         {
-            get => animator.GetBool(AnimatorFieldName);
-            set => Animator.SetBool(AnimatorFieldName, value);
+            get => animator.GetLayerWeight(AnimatorLayerIndex);
+            set => animator.SetLayerWeight(AnimatorLayerIndex, value);
         }
+
+        public float Target => IsOn ? 1f : 0f;
 
         public override void Init()
         {
@@ -42,8 +50,6 @@ namespace Game
 
         void Process(Weapon.IProcessData data)
         {
-            Debug.Log(Value);
-
             if(data is PlayerWeaponsProcess.IData)
             {
                 var playerData = data as PlayerWeaponsProcess.IData;
@@ -54,7 +60,10 @@ namespace Game
 
         public virtual void Process(PlayerWeaponsProcess.IData data)
         {
-            Value = data.SecondaryInput;
+            if (data.SecondaryInput.Press)
+                IsOn = !IsOn;
+
+            Value = Mathf.MoveTowards(Value, Target, speed * Time.deltaTime);
         }
 	}
 }

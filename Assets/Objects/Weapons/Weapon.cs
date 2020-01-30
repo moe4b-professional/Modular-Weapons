@@ -73,7 +73,7 @@ namespace Game
         {
             OnProcess?.Invoke(data);
 
-            if(data.PrimaryInput)
+            if(data.PrimaryInput.Held)
             {
                 if(HasActiveConstraints)
                 {
@@ -88,16 +88,7 @@ namespace Game
 
         public interface IProcessData
         {
-            bool PrimaryInput { get; }
-        }
-        public struct ProcessData : IProcessData
-        {
-            public bool PrimaryInput { get; private set; }
-
-            public ProcessData(bool input)
-            {
-                this.PrimaryInput = input;
-            }
+            ButtonInput PrimaryInput { get; }
         }
 
         public delegate void ActionDelegate();
