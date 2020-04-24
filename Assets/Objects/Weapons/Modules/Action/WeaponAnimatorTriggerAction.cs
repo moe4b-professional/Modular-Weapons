@@ -21,9 +21,7 @@ namespace Game
 {
 	public class WeaponAnimatorTriggerAction : Weapon.Module
 	{
-        [SerializeField]
-        protected Animator animator;
-        public Animator Animator { get { return animator; } }
+        public Animator Animator => Weapon.Animator;
 
         [SerializeField]
         protected string trigger;
@@ -38,7 +36,7 @@ namespace Game
 
         void Action()
         {
-            animator.SetTrigger(trigger);
+            Animator.SetTrigger(trigger);
         }
     }
 }

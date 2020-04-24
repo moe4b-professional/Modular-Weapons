@@ -46,6 +46,7 @@ namespace Game
             Modules.Configure(this);
         }
 
+        AI IDamager.AI => this;
         public Entity Entity => Character.Entity;
 
         public virtual void Init()
@@ -66,7 +67,7 @@ namespace Game
 
         public interface IDamager : Character.IDamager
         {
-
+            AI AI { get; }
         }
     }
 #pragma warning restore CS0108

@@ -22,8 +22,10 @@ namespace Game
 	public class WeaponPlayerAim : Weapon.Module
 	{
         [SerializeField]
-        protected Animator animator;
-        public Animator Animator { get { return animator; } }
+        protected InputAggregationMode inputMode = InputAggregationMode.Toggle;
+        public InputAggregationMode InputMode { get { return inputMode; } }
+
+        public Animator Animator => Weapon.Animator;
 
         public int AnimatorLayerIndex => Animator.GetLayerIndex("Aim");
 
@@ -35,8 +37,8 @@ namespace Game
 
         public float Value
         {
-            get => animator.GetLayerWeight(AnimatorLayerIndex);
-            set => animator.SetLayerWeight(AnimatorLayerIndex, value);
+            get => Animator.GetLayerWeight(AnimatorLayerIndex);
+            set => Animator.SetLayerWeight(AnimatorLayerIndex, value);
         }
 
         public float Target => IsOn ? 1f : 0f;
@@ -60,10 +62,21 @@ namespace Game
 
         public virtual void Process(PlayerWeaponsProcess.IData data)
         {
-            if (data.SecondaryInput.Press)
-                IsOn = !IsOn;
+            if(inputMode == InputAggregationMode.Toggle)
+            {
+                if (data.SecondaryButton.Press) IsOn = !IsOn;
+            }
+            else if(inputMode == InputAggregationMode.Hold)
+            {
+                IsOn = data.SecondaryButton.Held;
+            }
 
             Value = Mathf.MoveTowards(Value, Target, speed * Time.deltaTime);
         }
 	}
+
+    public enum InputAggregationMode
+    {
+        Hold, Toggle
+    }
 }

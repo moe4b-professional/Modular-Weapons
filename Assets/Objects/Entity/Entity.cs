@@ -43,13 +43,6 @@ namespace Game
 
             Damager = GetComponent<Damage.IDamager>();
 
-            var components = GetComponents<Damage.IDamager>();
-
-            for (int i = 0; i < components.Length; i++)
-            {
-                Debug.Log(components[i].GetType());
-            }
-
             Modules.Configure(this);
         }
         
@@ -63,20 +56,6 @@ namespace Game
         public event TakeDamgeDelegate OnTakeDamage;
         public virtual Damage.Result TakeDamage(Damage.Request request)
         {
-            if (request.Source is IDamager)
-            {
-                var source = request.Source as IDamager;
-
-                Debug.Log(name + " Took Damage From Entity: " + source.Entity.name);
-            }
-
-            if (request.Source is Player.IDamager)
-            {
-                var source = request.Source as Player.IDamager;
-
-                Debug.Log(name + " Took Damage From Player: " + source.Player.name);
-            }
-
             if (IsDead)
             {
                 //TODO

@@ -21,12 +21,18 @@ namespace Game
 {
 	public class Weapon : MonoBehaviour
 	{
+        public WeaponDamage Damage { get; protected set; }
+
 		public class Module : Module<Weapon>
         {
             public Weapon Weapon => Reference;
 
             public Entity Owner => Weapon.Owner;
         }
+
+        public Animator Animator { get; protected set; }
+
+        public AudioSource AudioSource { get; protected set; }
 
         public IList<IConstraint> Constraints { get; protected set; }
         public interface IConstraint
@@ -57,6 +63,12 @@ namespace Game
 
         protected virtual void Configure()
         {
+            Animator = GetComponentInChildren<Animator>();
+
+            AudioSource = GetComponentInChildren<AudioSource>();
+
+            Damage = GetComponentInChildren<WeaponDamage>();
+
             Modules.Configure(this);
 
             Constraints = GetComponentsInChildren<IConstraint>();
@@ -73,7 +85,7 @@ namespace Game
         {
             OnProcess?.Invoke(data);
 
-            if(data.PrimaryInput.Held)
+            if(data.PrimaryInput)
             {
                 if(HasActiveConstraints)
                 {
@@ -88,7 +100,7 @@ namespace Game
 
         public interface IProcessData
         {
-            ButtonInput PrimaryInput { get; }
+            bool PrimaryInput { get; }
         }
 
         public delegate void ActionDelegate();

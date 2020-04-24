@@ -44,9 +44,7 @@ namespace Game
 
             if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {
-                Debug.Log("Hit: " + hit.transform.name);
-
-                var result = Owner.DoDamage(hit.transform.gameObject, 20, Damage.Method.Undefined);
+                var result = Weapon.Damage.Do(hit.transform.gameObject);
             }
             else
             {

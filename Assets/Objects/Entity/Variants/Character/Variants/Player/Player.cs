@@ -37,8 +37,6 @@ namespace Game
             public Entity Entity => Character.Entity;
         }
 
-        Player IDamager.Player => this;
-
         public Character Character { get; protected set; }
         public virtual void Configure(Character reference)
         {
@@ -50,8 +48,9 @@ namespace Game
 
             Weapons = GetComponentInChildren<PlayerWeapons>();
         }
-
+        Player IDamager.Player => this;
         public Entity Entity => Character.Entity;
+
 
         public virtual void Init()
         {

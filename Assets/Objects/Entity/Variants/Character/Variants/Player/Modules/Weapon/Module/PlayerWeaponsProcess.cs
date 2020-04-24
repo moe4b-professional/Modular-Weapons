@@ -19,19 +19,24 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData
+    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData
     {
-        public ButtonInput PrimaryInput { get; protected set; }
+        public ButtonInput PrimaryButton { get; protected set; }
+        public bool PrimaryInput => PrimaryButton.Held;
 
-        public ButtonInput SecondaryInput { get; protected set; }
+        public ButtonInput SecondaryButton { get; protected set; }
+
+        public ButtonInput ReloadButton { get; protected set; }
 
         public override void Configure(Player reference)
         {
             base.Configure(reference);
 
-            PrimaryInput = new ButtonInput();
+            PrimaryButton = new ButtonInput();
 
-            SecondaryInput = new ButtonInput();
+            SecondaryButton = new ButtonInput();
+
+            ReloadButton = new ButtonInput();
         }
 
         public override void Init()
@@ -43,14 +48,20 @@ namespace Game
 
         void Process()
         {
-            PrimaryInput.Process(Input.GetMouseButton(0));
+            PrimaryButton.Process(Input.GetMouseButton(0));
 
-            SecondaryInput.Process(Input.GetMouseButton(1));
+            SecondaryButton.Process(Input.GetMouseButton(1));
+
+            ReloadButton.Process(Input.GetKey(KeyCode.R));
         }
 
         public interface IData : Weapon.IProcessData
         {
-            ButtonInput SecondaryInput { get; }
+            ButtonInput PrimaryButton { get; }
+
+            ButtonInput SecondaryButton { get; }
+
+            ButtonInput ReloadButton { get; }
         }
     }
 }

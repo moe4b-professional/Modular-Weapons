@@ -21,9 +21,7 @@ namespace Game
 {
 	public class WeaponPlaySoundAction : Weapon.Module
 	{
-        [SerializeField]
-        protected AudioSource audioSource;
-        public AudioSource AudioSource { get { return audioSource; } }
+        public AudioSource AudioSource => Weapon.AudioSource;
 
         [SerializeField]
         protected AudioClip clip;
@@ -38,7 +36,7 @@ namespace Game
 
         void Action()
         {
-            audioSource.PlayOneShot(clip);
+            AudioSource.PlayOneShot(clip);
         }
     }
 }
