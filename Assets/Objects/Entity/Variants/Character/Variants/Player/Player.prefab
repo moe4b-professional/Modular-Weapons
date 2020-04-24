@@ -626,6 +626,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   method: 1
   value: 25
+--- !u!114 &502543690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044756264859685330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e75cba2bbac124c9aa85f6a4f8dbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed:
+    set: 2
+    reset: 3
+  multiplier: 1
+  effect:
+    position:
+      vertical: 0.02
+      horizontal: 0.02
+    rotation:
+      roll: 5
+      tilt: 5
 --- !u!1001 &5017018087913727822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -656,17 +679,17 @@ PrefabInstance:
     - target: {fileID: 2580912749659744783, guid: 2ab843b1368ca65408d1c1ec87d9ac83,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580912749659744783, guid: 2ab843b1368ca65408d1c1ec87d9ac83,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580912749659744783, guid: 2ab843b1368ca65408d1c1ec87d9ac83,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580912749659744783, guid: 2ab843b1368ca65408d1c1ec87d9ac83,
         type: 3}

@@ -29,8 +29,8 @@ namespace Game
         public Rigidbody rigidbody => Character.rigidbody;
 
         public PlayerWeapons Weapons { get; protected set; }
-
-		public class Module : Module<Player>
+        public PlayerLook Look { get; protected set; }
+        public class Module : Module<Player>
         {
             public Player Player => Reference;
             public Character Character => Player.Character;
@@ -44,13 +44,14 @@ namespace Game
 
             collider = Character.collider as CapsuleCollider;
 
-            Modules.Configure(this);
+            Look = GetComponentInChildren<PlayerLook>();
 
             Weapons = GetComponentInChildren<PlayerWeapons>();
+
+            Modules.Configure(this);
         }
         Player IDamager.Player => this;
         public Entity Entity => Character.Entity;
-
 
         public virtual void Init()
         {

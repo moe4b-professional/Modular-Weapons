@@ -28,6 +28,8 @@ namespace Game
 
         public ButtonInput ReloadButton { get; protected set; }
 
+        public Vector2 Sway => Player.Look.Vector * Player.Look.Sensitivity;
+
         public override void Configure(Player reference)
         {
             base.Configure(reference);
@@ -62,6 +64,8 @@ namespace Game
             ButtonInput SecondaryButton { get; }
 
             ButtonInput ReloadButton { get; }
+
+            Vector2 Sway { get; }
         }
     }
 }

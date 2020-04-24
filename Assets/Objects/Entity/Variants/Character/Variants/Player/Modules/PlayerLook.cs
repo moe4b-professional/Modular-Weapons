@@ -26,6 +26,8 @@ namespace Game
         protected Transform _camera;
         public Transform camera { get { return _camera; } }
 
+        public Vector2 Vector { get; protected set; }
+
         [SerializeField]
         protected float sensitivity;
         public float Sensitivity { get { return sensitivity; } }
@@ -39,15 +41,15 @@ namespace Game
 
         void Process()
         {
-            var input = new Vector2()
+            Vector = new Vector2()
             {
                 x = Input.GetAxis("Mouse X"),
                 y = Input.GetAxis("Mouse Y")
             };
 
-            camera.Rotate(Vector3.right, -input.y * sensitivity, Space.Self);
+            camera.Rotate(Vector3.right, -Vector.y * sensitivity, Space.Self);
 
-            Player.transform.Rotate(Vector3.up, input.x * sensitivity, Space.Self);
+            Player.transform.Rotate(Vector3.up, Vector.x * sensitivity, Space.Self);
         }
     }
 #pragma warning restore CS0108

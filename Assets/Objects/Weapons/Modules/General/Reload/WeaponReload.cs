@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponReload : Weapon.Module
+	public abstract class BaseWeaponReload : Weapon.Module
 	{
         [SerializeField]
         protected bool auto;
@@ -50,13 +50,51 @@ namespace Game
 
         void ConsumptionCallback()
         {
-            if(auto)
+            if (Ammo.Magazine.IsEmpty)
+                if (auto && CanPerform)
+                    Perform();
+        }
+
+        public bool CanPerform
+        {
+            get
             {
-                if(Ammo.Active)
-                {
-                    Ammo.Refill();
-                }
+                if (Ammo.Magazine.IsFull) return false;
+
+                if (Ammo.Reserve.IsEmpty) return false;
+
+                if (IsProcessing) return false;
+
+                return true;
             }
+        }
+        public bool IsProcessing { get; protected set; } = false;
+        public virtual void Perform()
+        {
+            IsProcessing = true;
+        }
+
+        protected virtual void Complete()
+        {
+            IsProcessing = false;
+            Ammo.Refill();
+        }
+    }
+
+    public class WeaponReload : BaseWeaponReload
+    {
+        public override void Perform()
+        {
+            base.Perform();
+
+            StartCoroutine(Procedure());
+        }
+
+        IEnumerator Procedure()
+        {
+            yield return new WaitForSeconds(1f);
+
+            Complete();
         }
     }
 }

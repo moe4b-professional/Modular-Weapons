@@ -63,7 +63,8 @@ namespace Game
         {
             if(data.ReloadButton.Press)
             {
-                Ammo.Refill();
+                if (Reload.CanPerform)
+                    Reload.Perform();
             }
         }
     }
