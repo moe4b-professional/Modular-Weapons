@@ -21,9 +21,9 @@ namespace Game
 {
     public class WeaponAmmo : Weapon.Module, Weapon.IConstraint
     {
-        public bool Active => RequiresRefill;
+        public bool Active => CanConsume == false;
 
-        public bool RequiresRefill => magazine.Value < consumption;
+        public bool CanConsume => magazine.Value >= consumption;
 
         [SerializeField]
         protected MaxValue magazine = new MaxValue(30);

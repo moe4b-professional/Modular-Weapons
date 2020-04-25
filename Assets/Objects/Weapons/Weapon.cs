@@ -28,6 +28,11 @@ namespace Game
             public Weapon Weapon => Reference;
 
             public Entity Owner => Weapon.Owner;
+
+            public string FormatDependancyError<TDependancy>()
+            {
+                return "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";
+            }
         }
 
         public Animator Animator { get; protected set; }

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponPlayerSway : Weapon.Module
+	public class WeaponSway : Weapon.Module
 	{
         [SerializeField]
         protected SpeedData speed;
@@ -44,8 +44,12 @@ namespace Game
         }
 
         [SerializeField]
-        protected float multiplier = 1f;
-        public float Multiplier { get { return multiplier; } }
+        protected float scale = 1f;
+        public float Scale
+        {
+            get => scale;
+            set => scale = value;
+        }
 
         [SerializeField]
         protected EffectData effect = new EffectData(0.02f, 5f);
@@ -135,13 +139,13 @@ namespace Game
 
         void Process(Weapon.IProcessData data)
         {
-            if (data is PlayerWeaponsProcess.IData)
-                Process(data as PlayerWeaponsProcess.IData);
+            if (data is IData)
+                Process(data as IData);
         }
 
-        void Process(PlayerWeaponsProcess.IData data)
+        void Process(IData data)
         {
-            Value = Vector2.Lerp(Value, -data.Sway, speed.Set * Time.deltaTime);
+            Value = Vector2.Lerp(Value, -data.Value, speed.Set * Time.deltaTime);
 
             Value = Vector2.ClampMagnitude(Value, 1f);
 
@@ -150,9 +154,14 @@ namespace Game
 
         void LateUpdate()
         {
-            Weapon.transform.localPosition = effect.Position.Sample(Value) * multiplier;
+            Weapon.transform.localPosition = effect.Position.Sample(Value) * scale;
 
-            Weapon.transform.localEulerAngles = effect.Rotation.Sample(Value) * multiplier;
+            Weapon.transform.localEulerAngles = effect.Rotation.Sample(Value) * scale;
+        }
+
+        public interface IData
+        {
+            Vector2 Value { get; }
         }
     }
 }

@@ -19,10 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class BaseWeaponReload : Weapon.Module
+	public abstract class BaseWeaponReload : Weapon.Module, Weapon.IConstraint
 	{
+        public bool IsProcessing { get; protected set; } = false;
+        public bool Active => IsProcessing;
+
         [SerializeField]
-        protected bool auto;
+        protected bool auto = true;
         public bool Auto { get { return auto; } }
 
         public WeaponAmmo Ammo { get; protected set; }
@@ -40,19 +43,34 @@ namespace Game
 
             if(Ammo == null)
             {
-                Debug.LogError(GetType().Name + " needs a " + nameof(WeaponAmmo) + " module to function, ignoring module");
+                Debug.LogError(FormatDependancyError<WeaponAmmo>());
                 enabled = false;
                 return;
             }
 
             Ammo.OnConsumption += ConsumptionCallback;
+
+            Weapon.OnProcess += Process;
+        }
+
+        void Process(Weapon.IProcessData data)
+        {
+            if (data is IData)
+                Process(data as IData);
+        }
+        void Process(IData data)
+        {
+            if (data.Input)
+            {
+                if (CanPerform)
+                    Perform();
+            }
         }
 
         void ConsumptionCallback()
         {
-            if (Ammo.Magazine.IsEmpty)
-                if (auto && CanPerform)
-                    Perform();
+            if (auto && Ammo.CanConsume == false && CanPerform)
+                Perform();
         }
 
         public bool CanPerform
@@ -68,7 +86,6 @@ namespace Game
                 return true;
             }
         }
-        public bool IsProcessing { get; protected set; } = false;
         public virtual void Perform()
         {
             IsProcessing = true;
@@ -78,6 +95,11 @@ namespace Game
         {
             IsProcessing = false;
             Ammo.Refill();
+        }
+
+        public interface IData
+        {
+            bool Input { get; }
         }
     }
 

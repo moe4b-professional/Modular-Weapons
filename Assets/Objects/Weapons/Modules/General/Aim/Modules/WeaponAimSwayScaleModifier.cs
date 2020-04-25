@@ -19,33 +19,43 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponPlayerReload : Weapon.Module
+	public class WeaponAimSwayScaleModifier : Weapon.Module
 	{
-		public WeaponReload Reload { get; protected set; }
+        [SerializeField]
+        protected float min = 0.2f;
+        public float Min { get { return min; } }
 
-        public WeaponAmmo Ammo => Reload.Ammo;
+        [SerializeField]
+        protected float max = 1f;
+        public float Max { get { return max; } }
+
+        public WeaponAim Aim { get; protected set; }
+
+        public WeaponSway Sway { get; protected set; }
 
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
-            Reload = Weapon.GetComponentInChildren<WeaponReload>();
+            Aim = Weapon.GetComponentInChildren<WeaponAim>();
+
+            Sway = Weapon.GetComponentInChildren<WeaponSway>();
         }
 
         public override void Init()
         {
             base.Init();
 
-            if(Reload == null)
+            if (Aim == null)
             {
-                Debug.LogError(GetType().Name + " needs a " + nameof(WeaponReload) + " module to function, ignoring module");
+                Debug.LogError(FormatDependancyError<WeaponAim>());
                 enabled = false;
                 return;
             }
 
-            if(Ammo == null)
+            if (Sway == null)
             {
-                Debug.LogError(GetType().Name + " needs a " + nameof(WeaponAmmo) + " module to function, ignoring module");
+                Debug.LogError(FormatDependancyError<WeaponSway>());
                 enabled = false;
                 return;
             }
@@ -55,17 +65,7 @@ namespace Game
 
         void Process(Weapon.IProcessData data)
         {
-            if (data is PlayerWeaponsProcess.IData)
-                Process(data as PlayerWeaponsProcess.IData);
-        }
-
-        void Process(PlayerWeaponsProcess.IData data)
-        {
-            if(data.ReloadButton.Press)
-            {
-                if (Reload.CanPerform)
-                    Reload.Perform();
-            }
+            Sway.Scale = Mathf.Lerp(max, min, Aim.Rate);
         }
     }
 }

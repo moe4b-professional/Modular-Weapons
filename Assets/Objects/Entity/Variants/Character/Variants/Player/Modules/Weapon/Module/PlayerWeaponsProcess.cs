@@ -19,16 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData
+    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData, WeaponAim.IData, WeaponSway.IData, WeaponReload.IData
     {
         public ButtonInput PrimaryButton { get; protected set; }
         public bool PrimaryInput => PrimaryButton.Held;
 
         public ButtonInput SecondaryButton { get; protected set; }
+        bool WeaponAim.IData.Input => SecondaryButton.Held;
 
         public ButtonInput ReloadButton { get; protected set; }
+        bool BaseWeaponReload.IData.Input => ReloadButton.Press;
 
         public Vector2 Sway => Player.Look.Vector * Player.Look.Sensitivity;
+        Vector2 WeaponSway.IData.Value => Sway;
 
         public override void Configure(Player reference)
         {
