@@ -19,13 +19,42 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData, WeaponAim.IData, WeaponSway.IData, WeaponReload.IData
+    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData,
+        WeaponAim.IData, WeaponSway.IData, WeaponReload.IData
     {
         public ButtonInput PrimaryButton { get; protected set; }
         public bool PrimaryInput => PrimaryButton.Held;
 
         public ButtonInput SecondaryButton { get; protected set; }
-        bool WeaponAim.IData.Input => SecondaryButton.Held;
+        [SerializeField]
+        protected AimData aim;
+        public AimData Aim { get { return aim; } }
+        [Serializable]
+        public class AimData
+        {
+            [SerializeField]
+            protected InputAggregationMode mode = InputAggregationMode.Toggle;
+            public InputAggregationMode Mode { get { return mode; } }
+
+            public bool Input { get; protected set; }
+
+            public virtual void Process(ButtonInput button)
+            {
+                if (mode == InputAggregationMode.Hold)
+                {
+                    Input = button.Held;
+                }
+                else if(mode == InputAggregationMode.Toggle)
+                {
+                    if (button.Press) Input = !Input;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+        bool WeaponAim.IData.Input => Aim.Input;
 
         public ButtonInput ReloadButton { get; protected set; }
         bool BaseWeaponReload.IData.Input => ReloadButton.Press;
@@ -58,6 +87,8 @@ namespace Game
             SecondaryButton.Process(Input.GetMouseButton(1));
 
             ReloadButton.Process(Input.GetKey(KeyCode.R));
+
+            aim.Process(SecondaryButton);
         }
 
         public interface IData : Weapon.IProcessData

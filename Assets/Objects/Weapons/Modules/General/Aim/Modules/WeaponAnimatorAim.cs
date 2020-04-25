@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponPlayerAnimatorAim : Weapon.Module
+	public class WeaponAnimatorAim : Weapon.Module
     {
         public Animator Animator => Weapon.Animator;
 
