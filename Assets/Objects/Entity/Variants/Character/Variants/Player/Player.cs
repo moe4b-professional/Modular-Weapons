@@ -22,7 +22,7 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Player : MonoBehaviour, IModule<Character>, Player.IDamageData
+    public class Player : MonoBehaviour, IModule<Character>, Player.IDamageMeta
     {
         public CapsuleCollider collider { get; protected set; }
 
@@ -50,7 +50,7 @@ namespace Game
 
             Modules.Configure(this);
         }
-        Player IDamageData.Player => this;
+        Player IDamageMeta.Player => this;
 
         public virtual void Init()
         {
@@ -68,7 +68,7 @@ namespace Game
             OnProcess?.Invoke();
         }
 
-        public interface IDamageData
+        public interface IDamageMeta : Damage.IMeta
         {
             Player Player { get; }
         }

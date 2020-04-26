@@ -22,7 +22,7 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Rigidbody))]
-	public class Character : MonoBehaviour, IModule<Entity>, Character.IDamageData, Weapon.IOwner
+	public class Character : MonoBehaviour, IModule<Entity>, Character.IDamageMeta, Weapon.IOwner
     {
         public Rigidbody rigidbody { get; protected set; }
 
@@ -36,7 +36,7 @@ namespace Game
         }
 
         public Entity Entity { get; protected set; }
-        Character IDamageData.Character => this;
+        Character IDamageMeta.Character => this;
 
         public Damage.IDamager Damager => Entity.Damager;
 
@@ -56,7 +56,7 @@ namespace Game
             Modules.Init(this);
         }
 
-        public interface IDamageData
+        public interface IDamageMeta : Damage.IMeta
         {
             Character Character { get; }
         }

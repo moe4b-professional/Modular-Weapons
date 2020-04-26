@@ -55,7 +55,7 @@ namespace Game
 
             if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {
-                var result = Weapon.Damage.Do(hit.transform.gameObject);
+                Weapon.Damage.Do(hit.transform.gameObject);
             }
             else
             {

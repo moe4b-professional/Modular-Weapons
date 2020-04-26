@@ -60,7 +60,7 @@ namespace Game
 
         void ProjectileHitCallback(Projectile projectile, Collider collider)
         {
-            Debug.Log(projectile.name + " Hit: " + collider.name);
+            Weapon.Damage.Do(collider.gameObject);
 
             projectile.Destroy();
         }

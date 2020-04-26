@@ -21,7 +21,7 @@ namespace Game
 {
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-    public class AI : MonoBehaviour, IModule<Character>, AI.IDamageData
+    public class AI : MonoBehaviour, IModule<Character>, AI.IDamageMeta
     {
         public Rigidbody rigidbody => Character.rigidbody;
 
@@ -45,7 +45,7 @@ namespace Game
 
             Modules.Configure(this);
         }
-        AI IDamageData.AI => this;
+        AI IDamageMeta.AI => this;
 
         public virtual void Init()
         {
@@ -63,7 +63,7 @@ namespace Game
             OnProcess?.Invoke();
         }
 
-        public interface IDamageData
+        public interface IDamageMeta : Damage.IMeta
         {
             AI AI { get; }
         }

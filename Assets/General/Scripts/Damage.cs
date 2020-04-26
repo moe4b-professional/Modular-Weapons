@@ -31,7 +31,7 @@ namespace Game
             Result DoDamage(IDamagable target, Request request);
         }
 
-        public interface IData
+        public interface IMeta
         {
 
         }

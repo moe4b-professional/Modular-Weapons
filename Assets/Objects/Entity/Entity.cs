@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Entity : MonoBehaviour, Entity.IDamageData,
+	public class Entity : MonoBehaviour, Entity.IDamageMeta,
         Damage.IDamagable, Damage.IDamager
     {
         #region Health
@@ -36,7 +36,7 @@ namespace Game
             public Entity Entity => Reference;
         }
 
-        Entity IDamageData.Entity => this;
+        Entity IDamageMeta.Entity => this;
 
         public Damage.IDamager Damager => this;
 
@@ -94,7 +94,7 @@ namespace Game
             OnDeath?.Invoke(cause);
         }
 
-        public interface IDamageData : Damage.IData
+        public interface IDamageMeta : Damage.IMeta
         {
             Entity Entity { get; }
         }
