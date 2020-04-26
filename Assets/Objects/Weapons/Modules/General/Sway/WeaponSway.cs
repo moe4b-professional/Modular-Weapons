@@ -130,6 +130,9 @@ namespace Game
 
         public Vector2 Value { get; protected set; }
 
+        public Vector3 Position { get; protected set; } = Vector3.zero;
+        public Vector3 Rotation { get; protected set; } = Vector3.zero;
+
         public override void Init()
         {
             base.Init();
@@ -145,18 +148,21 @@ namespace Game
 
         void Process(IData data)
         {
+            Weapon.transform.localPosition -= Position;
+            Weapon.transform.localEulerAngles -= Rotation;
+
             Value = Vector2.Lerp(Value, -data.Value, speed.Set * Time.deltaTime);
-
             Value = Vector2.ClampMagnitude(Value, 1f);
-
             Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
+
+            Position = effect.Position.Sample(Value) * scale;
+            Rotation = effect.Rotation.Sample(Value) * scale;
         }
 
         protected virtual void LateUpdate()
         {
-            Weapon.transform.localPosition = effect.Position.Sample(Value) * scale;
-
-            Weapon.transform.localEulerAngles = effect.Rotation.Sample(Value) * scale;
+            Weapon.transform.localPosition += Position;
+            Weapon.transform.localEulerAngles += Rotation;
         }
 
         public interface IData

@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     public class PlayerWeaponsProcess : PlayerWeapons.Module, Weapon.IProcessData,
-        WeaponAim.IData, WeaponSway.IData, WeaponReload.IData
+        WeaponAim.IData, WeaponSway.IData, WeaponReload.IData, WeaponBob.IData
     {
         public ButtonInput PrimaryButton { get; protected set; }
         bool Weapon.IProcessData.Input => PrimaryButton.Held;
@@ -63,7 +63,9 @@ namespace Game
 
         public Vector2 Sway => Player.Look.Vector * Player.Look.Sensitivity;
         Vector2 WeaponSway.IData.Value => Sway;
-        
+
+        Vector3 WeaponBob.IData.Velocity => Player.rigidbody.velocity;
+
         public override void Configure(Player reference)
         {
             base.Configure(reference);

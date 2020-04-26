@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimSwayScaleModifier : Weapon.Module
+	public class WeaponAimScaleModifier : Weapon.Module
 	{
         [SerializeField]
         protected float min = 0.2f;
@@ -32,6 +32,7 @@ namespace Game
         public WeaponAim Aim { get; protected set; }
 
         public WeaponSway Sway { get; protected set; }
+        public WeaponBob Bob { get; protected set; }
 
         public override void Configure(Weapon reference)
         {
@@ -40,6 +41,8 @@ namespace Game
             Aim = Weapon.GetComponentInChildren<WeaponAim>();
 
             Sway = Weapon.GetComponentInChildren<WeaponSway>();
+
+            Bob = Weapon.GetComponentInChildren<WeaponBob>();
         }
 
         public override void Init()
@@ -53,19 +56,16 @@ namespace Game
                 return;
             }
 
-            if (Sway == null)
-            {
-                Debug.LogError(FormatDependancyError<WeaponSway>());
-                enabled = false;
-                return;
-            }
-
             Weapon.OnProcess += Process;
         }
 
         void Process(Weapon.IProcessData data)
         {
-            Sway.Scale = Mathf.Lerp(max, min, Aim.Rate);
+            var rate = Mathf.Lerp(max, min, Aim.Rate);
+
+            if (Sway != null) Sway.Scale = rate;
+
+            if(Bob != null) Bob.Scale = rate;
         }
     }
 }
