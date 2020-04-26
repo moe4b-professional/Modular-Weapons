@@ -31,18 +31,20 @@ namespace Game
         public bool IsAlive => Health.Value > 0f;
         #endregion
 
+        public EntityDamage Damage { get; protected set; }
+
         public class Module : Module<Entity>
         {
             public Entity Entity => Reference;
         }
 
-        Entity IDamageMeta.Entity => this;
-
-        public Damage.IDamager Damager => this;
+        Entity IDamageMeta.Reference => this;
 
         protected virtual void Awake()
         {
             Health = GetComponentInChildren<EntityHealth>();
+
+            Damage = GetComponentInChildren<EntityDamage>();
 
             Modules.Configure(this);
         }
@@ -52,52 +54,20 @@ namespace Game
             Modules.Init(this);
         }
 
-        #region Damage
-        public delegate void TakeDamgeDelegate(Damage.Result result);
-        public event TakeDamgeDelegate OnTakeDamage;
-        public virtual Damage.Result TakeDamage(Damage.IDamager source, Damage.Request request)
-        {
-            if (IsDead)
-            {
-                //TODO
-            }
-            else
-            {
-                Health.Value -= request.Value;
-
-                if (Health.Value == 0f)
-                    Death(source);
-            }
-
-            var result = new Damage.Result(source, this, request);
-
-            OnTakeDamage?.Invoke(result);
-
-            return result;
-        }
-
-        public delegate void DoDamageDelegate(Damage.Result result);
-        public event DoDamageDelegate OnDoDamage;
-        public virtual Damage.Result DoDamage(Damage.IDamagable target, Damage.Request request)
-        {
-            var result = Damage.Invoke(Damager, target, request);
-
-            OnDoDamage?.Invoke(result);
-
-            return result;
-        }
-
         public delegate void DeathDelegate(Damage.IDamager cause);
         public event DeathDelegate OnDeath;
-        protected virtual void Death(Damage.IDamager cause)
+        public virtual void Death(Damage.IDamager cause)
         {
             OnDeath?.Invoke(cause);
         }
 
-        public interface IDamageMeta : Damage.IMeta
+        Damage.Meta Damage.IInterface.Meta => Damage.Meta;
+        Damage.Result Damage.IDamagable.TakeDamage(Damage.IDamager source, Damage.Request request) => Damage.Take(source, request);
+        Damage.Result Damage.IDamager.DoDamage(Damage.IDamagable target, Damage.Request request) => Damage.Do(target, request);
+
+        public interface IDamageMeta : Damage.Meta.IInterface
         {
-            Entity Entity { get; }
+            Entity Reference { get; }
         }
-        #endregion
     }
 }

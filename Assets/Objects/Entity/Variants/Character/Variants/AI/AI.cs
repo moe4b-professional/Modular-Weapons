@@ -45,7 +45,7 @@ namespace Game
 
             Modules.Configure(this);
         }
-        AI IDamageMeta.AI => this;
+        AI IDamageMeta.Reference => this;
 
         public virtual void Init()
         {
@@ -63,9 +63,9 @@ namespace Game
             OnProcess?.Invoke();
         }
 
-        public interface IDamageMeta : Damage.IMeta
+        public interface IDamageMeta : Damage.Meta.IInterface
         {
-            AI AI { get; }
+            AI Reference { get; }
         }
     }
 #pragma warning restore CS0108

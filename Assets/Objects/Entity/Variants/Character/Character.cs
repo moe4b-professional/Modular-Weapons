@@ -36,9 +36,9 @@ namespace Game
         }
 
         public Entity Entity { get; protected set; }
-        Character IDamageMeta.Character => this;
+        Character IDamageMeta.Reference => this;
 
-        public Damage.IDamager Damager => Entity.Damager;
+        public Damage.IDamager Damager => Entity;
 
         public virtual void Configure(Entity reference)
         {
@@ -56,9 +56,9 @@ namespace Game
             Modules.Init(this);
         }
 
-        public interface IDamageMeta : Damage.IMeta
+        public interface IDamageMeta : Damage.Meta.IInterface
         {
-            Character Character { get; }
+            Character Reference { get; }
         }
     }
 #pragma warning restore CS0108

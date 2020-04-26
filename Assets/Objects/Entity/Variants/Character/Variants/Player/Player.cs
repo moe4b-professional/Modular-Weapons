@@ -50,7 +50,7 @@ namespace Game
 
             Modules.Configure(this);
         }
-        Player IDamageMeta.Player => this;
+        Player IDamageMeta.Reference => this;
 
         public virtual void Init()
         {
@@ -68,9 +68,9 @@ namespace Game
             OnProcess?.Invoke();
         }
 
-        public interface IDamageMeta : Damage.IMeta
+        public interface IDamageMeta : Damage.Meta.IInterface
         {
-            Player Player { get; }
+            Player Reference { get; }
         }
     }
 #pragma warning restore CS0108
