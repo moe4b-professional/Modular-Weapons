@@ -25,9 +25,11 @@ namespace Game
         {
             base.Init();
 
-            var target = FindObjectOfType<Player>().Entity;
+            var target = FindObjectOfType<Player>().Character.Entity;
 
-            Entity.DoDamage(target, 20, Damage.Method.Contact);
+            var request = new Damage.Request(20, Damage.Method.Contact);
+
+            Entity.DoDamage(target, request);
         }
     }
 }

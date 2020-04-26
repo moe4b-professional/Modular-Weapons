@@ -152,7 +152,7 @@ namespace Game
             Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
         }
 
-        void LateUpdate()
+        protected virtual void LateUpdate()
         {
             Weapon.transform.localPosition = effect.Position.Sample(Value) * scale;
 

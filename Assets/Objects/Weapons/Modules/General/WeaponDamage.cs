@@ -30,7 +30,9 @@ namespace Game
             var value = SampleDamageValue(target);
             var method = SampleDamageMethod(target);
 
-            var result = Owner.DoDamage(target, value, method);
+            var request = new Damage.Request(value, method);
+
+            var result = Owner.Damager.DoDamage(target, request);
 
             return result;
         }

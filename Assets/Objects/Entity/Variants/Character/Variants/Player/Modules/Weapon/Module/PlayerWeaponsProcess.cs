@@ -19,13 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponsProcess : PlayerWeapons.Module, PlayerWeaponsProcess.IData,
+    public class PlayerWeaponsProcess : PlayerWeapons.Module, Weapon.IProcessData,
         WeaponAim.IData, WeaponSway.IData, WeaponReload.IData
     {
         public ButtonInput PrimaryButton { get; protected set; }
-        public bool PrimaryInput => PrimaryButton.Held;
+        bool Weapon.IProcessData.Input => PrimaryButton.Held;
 
         public ButtonInput SecondaryButton { get; protected set; }
+
         [SerializeField]
         protected AimData aim;
         public AimData Aim { get { return aim; } }
@@ -54,6 +55,7 @@ namespace Game
                 }
             }
         }
+
         bool WeaponAim.IData.Input => Aim.Input;
 
         public ButtonInput ReloadButton { get; protected set; }
@@ -61,7 +63,7 @@ namespace Game
 
         public Vector2 Sway => Player.Look.Vector * Player.Look.Sensitivity;
         Vector2 WeaponSway.IData.Value => Sway;
-
+        
         public override void Configure(Player reference)
         {
             base.Configure(reference);
@@ -82,24 +84,13 @@ namespace Game
 
         void Process()
         {
-            PrimaryButton.Process(Input.GetMouseButton(0));
+            PrimaryButton.Process(UnityEngine.Input.GetMouseButton(0));
 
-            SecondaryButton.Process(Input.GetMouseButton(1));
+            SecondaryButton.Process(UnityEngine.Input.GetMouseButton(1));
 
-            ReloadButton.Process(Input.GetKey(KeyCode.R));
+            ReloadButton.Process(UnityEngine.Input.GetKey(KeyCode.R));
 
             aim.Process(SecondaryButton);
-        }
-
-        public interface IData : Weapon.IProcessData
-        {
-            ButtonInput PrimaryButton { get; }
-
-            ButtonInput SecondaryButton { get; }
-
-            ButtonInput ReloadButton { get; }
-
-            Vector2 Sway { get; }
         }
     }
 }

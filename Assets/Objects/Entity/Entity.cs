@@ -19,7 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Entity : MonoBehaviour, Damage.IDamagable
+	public class Entity : MonoBehaviour, Entity.IDamageData,
+        Damage.IDamagable, Damage.IDamager
     {
         #region Health
         public EntityHealth Health { get; protected set; }
@@ -35,13 +36,13 @@ namespace Game
             public Entity Entity => Reference;
         }
 
-        public Damage.IDamager Damager { get; protected set; }
+        Entity IDamageData.Entity => this;
+
+        public Damage.IDamager Damager => this;
 
         protected virtual void Awake()
         {
             Health = GetComponentInChildren<EntityHealth>();
-
-            Damager = GetComponent<Damage.IDamager>();
 
             Modules.Configure(this);
         }
@@ -54,7 +55,7 @@ namespace Game
         #region Damage
         public delegate void TakeDamgeDelegate(Damage.Result result);
         public event TakeDamgeDelegate OnTakeDamage;
-        public virtual Damage.Result TakeDamage(Damage.Request request)
+        public virtual Damage.Result TakeDamage(Damage.IDamager source, Damage.Request request)
         {
             if (IsDead)
             {
@@ -65,10 +66,10 @@ namespace Game
                 Health.Value -= request.Value;
 
                 if (Health.Value == 0f)
-                    Death(request.Source);
+                    Death(source);
             }
 
-            var result = new Damage.Result(this, request);
+            var result = new Damage.Result(source, this, request);
 
             OnTakeDamage?.Invoke(result);
 
@@ -79,25 +80,11 @@ namespace Game
         public event DoDamageDelegate OnDoDamage;
         public virtual Damage.Result DoDamage(Damage.IDamagable target, Damage.Request request)
         {
-            var result = Damage.Invoke(target, request);
+            var result = Damage.Invoke(Damager, target, request);
 
             OnDoDamage?.Invoke(result);
 
             return result;
-        }
-        public virtual Damage.Result DoDamage(Damage.IDamagable target, float value, Damage.Method method)
-        {
-            var request = new Damage.Request(Damager, value, method);
-
-            return DoDamage(target, request);
-        }
-        public virtual Damage.Result? DoDamage(GameObject target, float value, Damage.Method method)
-        {
-            var damagable = target.GetComponent<Damage.IDamagable>();
-
-            if (damagable == null) return null;
-
-            return DoDamage(damagable, value, method);
         }
 
         public delegate void DeathDelegate(Damage.IDamager cause);
@@ -106,11 +93,11 @@ namespace Game
         {
             OnDeath?.Invoke(cause);
         }
-        #endregion
 
-        public interface IDamager : Damage.IDamager
+        public interface IDamageData : Damage.IData
         {
             Entity Entity { get; }
         }
+        #endregion
     }
 }

@@ -27,7 +27,7 @@ namespace Game
         {
             public Weapon Weapon => Reference;
 
-            public Entity Owner => Weapon.Owner;
+            public IOwner Owner => Weapon.Owner;
 
             public string FormatDependancyError<TDependancy>()
             {
@@ -56,8 +56,8 @@ namespace Game
             }
         }
 
-        public Entity Owner { get; protected set; }
-        public virtual void Setup(Entity owner)
+        public IOwner Owner { get; protected set; }
+        public virtual void Setup(IOwner owner)
         {
             this.Owner = owner;
 
@@ -90,7 +90,7 @@ namespace Game
         {
             OnProcess?.Invoke(data);
 
-            if(data.PrimaryInput)
+            if(data.Input)
             {
                 if(HasActiveConstraints)
                 {
@@ -105,7 +105,14 @@ namespace Game
 
         public interface IProcessData
         {
-            bool PrimaryInput { get; }
+            bool Input { get; }
+        }
+
+        public interface IOwner
+        {
+            GameObject gameObject { get; }
+
+            Damage.IDamager Damager { get; }
         }
 
         public delegate void ActionDelegate();

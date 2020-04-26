@@ -45,7 +45,7 @@ namespace Game
 
             Player.OnProcess += ProcessCallback;
 
-            weapon.Setup(Player.Entity);
+            weapon.Setup(Player.Character);
         }
 
         void ProcessCallback()

@@ -23,39 +23,32 @@ namespace Game
     {
         public interface IDamagable
         {
-            Result TakeDamage(Damage.Request request);
+            Result TakeDamage(IDamager source, Request request);
         }
 
         public interface IDamager
         {
+            Result DoDamage(IDamagable target, Request request);
+        }
+
+        public interface IData
+        {
 
         }
 
-        public static Result? Invoke(GameObject target, Request request)
+        public static Result Invoke(IDamager source, IDamagable target, Request request)
         {
-            var damagable = target.GetComponent<IDamagable>();
-
-            if (damagable == null)
-                return null;
-
-            return Invoke(damagable, request);
-        }
-        public static Result Invoke(IDamagable target, Request request)
-        {
-            return target.TakeDamage(request);
+            return target.TakeDamage(source, request);
         }
 
         public struct Request
         {
-            public IDamager Source { get; private set; }
-
             public float Value { get; private set; }
 
             public Method Method { get; private set; }
 
-            public Request(IDamager cause, float value, Method method)
+            public Request(float value, Method method)
             {
-                this.Source = cause;
                 this.Value = value;
                 this.Method = method;
             }
@@ -71,9 +64,9 @@ namespace Game
 
             public Method Method { get; private set; }
 
-            public Result(IDamagable target, Request request)
+            public Result(IDamager source, IDamagable target, Request request)
             {
-                this.Source = request.Source;
+                this.Source = source;
                 this.Target = target;
                 this.Value = request.Value;
                 this.Method = request.Method;

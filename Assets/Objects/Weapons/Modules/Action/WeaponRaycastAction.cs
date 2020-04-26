@@ -26,16 +26,27 @@ namespace Game
         public float Range { get { return range; } }
 
         [SerializeField]
+        protected Transform point;
+        public Transform Point { get { return point; } }
+
+        [SerializeField]
         protected LayerMask mask = Physics.DefaultRaycastLayers;
         public LayerMask Mask { get { return mask; } }
 
         RaycastHit hit;
+
+        protected virtual void Reset()
+        {
+            point = transform;
+        }
 
         public override void Init()
         {
             base.Init();
 
             Weapon.OnAction += Action;
+
+            if (point == null) point = transform;
         }
 
         void Action()

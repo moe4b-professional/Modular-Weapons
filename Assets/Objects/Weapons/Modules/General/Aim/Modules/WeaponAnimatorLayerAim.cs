@@ -19,11 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimatorAim : Weapon.Module
+	public class WeaponAnimatorLayerAim : Weapon.Module
     {
         public Animator Animator => Weapon.Animator;
 
-        public int LayerIndex => Animator.GetLayerIndex("Aim");
+        [SerializeField]
+        protected string layerName = "Aim";
+        public string LayerName { get { return layerName; } }
+
+        public int LayerIndex { get; protected set; }
 
         public float LayerWeight
         {
@@ -50,6 +54,8 @@ namespace Game
                 enabled = false;
                 return;
             }
+
+            LayerIndex = Animator.GetLayerIndex(layerName);
 
             Weapon.OnProcess += Process;
         }
