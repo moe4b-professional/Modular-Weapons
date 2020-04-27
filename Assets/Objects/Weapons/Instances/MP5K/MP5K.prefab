@@ -230,7 +230,7 @@ MonoBehaviour:
     reset: 3
   multiplier:
     look: 1
-    move: 0.3
+    move: 0.5
   scale: 1
   effect:
     position:
