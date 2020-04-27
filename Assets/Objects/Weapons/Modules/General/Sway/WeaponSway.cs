@@ -44,6 +44,28 @@ namespace Game
         }
 
         [SerializeField]
+        protected MultiplierData multiplier = new MultiplierData(1f, 0.3f);
+        public MultiplierData Multiplier { get { return multiplier; } }
+        [Serializable]
+        public struct MultiplierData
+        {
+            [SerializeField]
+            float look;
+            public float Look { get { return look; } }
+
+            [SerializeField]
+            float move;
+            public float Move { get { return move; } }
+
+            public MultiplierData(float look, float move)
+            {
+                this.look = look;
+
+                this.move = move;
+            }
+        }
+
+        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -151,7 +173,9 @@ namespace Game
             Weapon.transform.localPosition -= Position;
             Weapon.transform.localEulerAngles -= Rotation;
 
-            Value = Vector2.Lerp(Value, -data.Value, speed.Set * Time.deltaTime);
+            var target = -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
+
+            Value = Vector2.Lerp(Value, target, speed.Set * Time.deltaTime);
             Value = Vector2.ClampMagnitude(Value, 1f);
             Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
 
@@ -167,7 +191,9 @@ namespace Game
 
         public interface IData
         {
-            Vector2 Value { get; }
+            Vector2 Look { get; }
+
+            Vector3 RelativeVelocity { get; }
         }
     }
 }

@@ -62,7 +62,8 @@ namespace Game
         bool BaseWeaponReload.IData.Input => ReloadButton.Press;
 
         public Vector2 Sway => Player.Look.Vector * Player.Look.Sensitivity;
-        Vector2 WeaponSway.IData.Value => Sway;
+        Vector2 WeaponSway.IData.Look => Sway;
+        Vector3 WeaponSway.IData.RelativeVelocity => Player.transform.InverseTransformDirection(Player.rigidbody.velocity);
 
         Vector3 WeaponBob.IData.Velocity => Player.rigidbody.velocity;
 

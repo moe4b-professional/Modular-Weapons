@@ -228,6 +228,9 @@ MonoBehaviour:
   speed:
     set: 2
     reset: 3
+  multiplier:
+    look: 1
+    move: 0.3
   scale: 1
   effect:
     position:
@@ -849,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4921549836139256207, guid: f8c94a3c38d27564789ddf1d09d66dab, type: 3}
   point: {fileID: 250738501}
-  velocity: 5
+  velocity: 50
 --- !u!114 &742742151
 MonoBehaviour:
   m_ObjectHideFlags: 0
