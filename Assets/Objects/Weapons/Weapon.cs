@@ -21,6 +21,8 @@ namespace Game
 {
 	public class Weapon : MonoBehaviour
 	{
+        public WeaponHit Hit { get; protected set; }
+
         public WeaponDamage Damage { get; protected set; }
 
 		public class Module : Module<Weapon>
@@ -73,6 +75,8 @@ namespace Game
             AudioSource = GetComponentInChildren<AudioSource>();
 
             Damage = GetComponentInChildren<WeaponDamage>();
+
+            Hit = GetComponentInChildren<WeaponHit>();
 
             Modules.Configure(this);
 

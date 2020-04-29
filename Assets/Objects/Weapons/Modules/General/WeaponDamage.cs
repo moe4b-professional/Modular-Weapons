@@ -36,15 +36,6 @@ namespace Game
 
             return result;
         }
-
-        public virtual Damage.Result? Do(GameObject target)
-        {
-            var damagable = target.GetComponent<Damage.IDamagable>();
-
-            if (damagable == null) return null;
-
-            return Do(damagable);
-        }
     }
 
     public class WeaponDamage : BaseWeaponDamage

@@ -51,11 +51,11 @@ namespace Game
 
         void Action()
         {
-            Debug.DrawLine(transform.position, transform.position + transform.forward * range, Color.red, 5f);
-
             if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {
-                Weapon.Damage.Do(hit.transform.gameObject);
+                var data = new HitData(hit);
+
+                Weapon.Hit.Process(data);
             }
             else
             {

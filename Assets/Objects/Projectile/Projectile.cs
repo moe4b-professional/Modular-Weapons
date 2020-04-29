@@ -28,6 +28,10 @@ namespace Game
 
         public Collider collider { get; protected set; }
 
+        public Bounds Bounds => collider.bounds;
+
+        public float Radius => (Bounds.size.x + Bounds.size.y + Bounds.size.z) / 3f;
+
         public bool Armed { get; protected set; }
         public virtual void Arm()
         {
@@ -61,19 +65,31 @@ namespace Game
 
         void OnCollisionEnter(Collision collision)
         {
-            if(Armed) HitAction(collision.collider);
+            if(Armed)
+            {
+                var data = new HitData(collision.collider, collision.contacts[0]);
+
+                ProcessHit(data);
+            }
         }
 
         void OnTriggerEnter(Collider collider)
         {
-            if(Armed) HitAction(collider);
+            if (Armed)
+            {
+                var contact = new HitContact(transform.forward * (Radius / 2f), -transform.forward);
+
+                var data = new HitData(collider, contact);
+
+                ProcessHit(data);
+            }
         }
 
-        public delegate void HitDelegate(Projectile projectile, Collider collider);
+        public delegate void HitDelegate(Projectile projectile, HitData data);
         public event HitDelegate OnHit;
-        protected virtual void HitAction(Collider collider)
+        protected virtual void ProcessHit(HitData data)
         {
-            OnHit?.Invoke(this, collider);
+            OnHit?.Invoke(this, data);
         }
 
         public event Action OnDestroy;

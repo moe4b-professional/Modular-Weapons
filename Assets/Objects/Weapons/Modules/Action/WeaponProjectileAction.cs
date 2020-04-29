@@ -58,9 +58,9 @@ namespace Game
             instance.OnHit += ProjectileHitCallback;
         }
 
-        void ProjectileHitCallback(Projectile projectile, Collider collider)
+        void ProjectileHitCallback(Projectile projectile, HitData data)
         {
-            Weapon.Damage.Do(collider.gameObject);
+            Weapon.Hit.Process(data);
 
             projectile.Destroy();
         }
