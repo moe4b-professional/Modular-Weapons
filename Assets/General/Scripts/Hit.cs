@@ -19,24 +19,6 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponHit : Weapon.Module
-	{
-        public delegate void ProcessDelegate(HitData data);
-        public event ProcessDelegate OnProcess;
-		public virtual void Process(HitData data)
-        {
-            var damagable = data.GameObject.GetComponent<Damage.IDamagable>();
-            if(damagable != null)
-            {
-                Weapon.Damage.Do(damagable);
-            }
-
-            Debug.DrawRay(data.Contact.Point, data.Contact.Noraml, Color.red, 5f);
-
-            OnProcess?.Invoke(data);
-        }
-    }
-
     public struct HitData
     {
         public Collider Collider { get; private set; }
@@ -78,13 +60,13 @@ namespace Game
     {
         public Vector3 Point { get; private set; }
 
-        public Vector3 Noraml { get; private set; }
+        public Vector3 Normal { get; private set; }
 
         public HitContact(Vector3 point, Vector3 normal)
         {
             this.Point = point;
 
-            this.Noraml = normal;
+            this.Normal = normal;
         }
         public HitContact(ContactPoint contact) : this(contact.point, contact.normal)
         {

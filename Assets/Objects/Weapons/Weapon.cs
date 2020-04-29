@@ -31,6 +31,12 @@ namespace Game
 
             public IOwner Owner => Weapon.Owner;
 
+            //To force the enabled tick box on the component to show
+            protected virtual void Start()
+            {
+
+            }
+
             public string FormatDependancyError<TDependancy>()
             {
                 return "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";

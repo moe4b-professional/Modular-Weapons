@@ -44,12 +44,17 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += Action;
+            Weapon.OnAction += ActionCallback;
 
             if (point == null) point = transform;
         }
 
-        void Action()
+        void ActionCallback()
+        {
+            if (enabled) Shoot();
+        }
+
+        protected virtual void Shoot()
         {
             if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
             {

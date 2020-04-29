@@ -21,20 +21,22 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        ButtonInput button;
+        public Vector3 vector;
 
-        private void Start()
+        void Start()
         {
-            button = new ButtonInput();
+
         }
 
-        private void Update()
+        void OnDrawGizmos()
         {
-            button.Process(Input.GetKey(KeyCode.Mouse0));
+            Gizmos.color = Color.yellow;
+            var transform = this.transform.TransformVector(vector);
+            Gizmos.DrawSphere(transform, 0.2f);
 
-            if (button.Press) Debug.Log("Button Down");
-
-            if (button.Up) Debug.Log("Button Up");
+            Gizmos.color = Color.red;
+            var project = Vector3.ProjectOnPlane(vector, this.transform.forward);
+            Gizmos.DrawSphere(project, 0.2f);
         }
     }
 }

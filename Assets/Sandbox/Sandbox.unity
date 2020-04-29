@@ -337,3 +337,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24173e2873bdf7048a5c768d3d4d3c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vector: {x: 0, y: 0, z: 0}
