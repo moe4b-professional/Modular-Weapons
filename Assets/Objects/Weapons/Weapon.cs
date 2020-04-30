@@ -98,6 +98,8 @@ namespace Game
         public event ProcessDelegate OnProcess;
         public virtual void Process(IProcessData data)
         {
+            LateProcessData = data;
+
             OnProcess?.Invoke(data);
 
             if(data.Input)
@@ -113,6 +115,21 @@ namespace Game
             }
         }
 
+        protected virtual void LateUpdate()
+        {
+            if(LateProcessData != null)
+            {
+                LateProcess(LateProcessData);
+                LateProcessData = null;
+            }
+        }
+        public IProcessData LateProcessData { get; protected set; }
+        public event ProcessDelegate OnLateProcess;
+        protected virtual void LateProcess(IProcessData data)
+        {
+            OnLateProcess?.Invoke(data);
+        }
+
         public interface IProcessData
         {
             bool Input { get; }
@@ -123,6 +140,11 @@ namespace Game
             GameObject gameObject { get; }
 
             Damage.IDamager Damager { get; }
+        }
+
+        public interface IEffect
+        {
+            float Scale { get; set; }
         }
 
         public delegate void ActionDelegate();

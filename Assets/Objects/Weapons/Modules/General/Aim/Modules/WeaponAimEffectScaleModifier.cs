@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimScaleModifier : Weapon.Module
+	public class WeaponAimEffectScaleModifier : Weapon.Module
 	{
         [SerializeField]
         protected float min = 0.2f;
@@ -31,9 +31,7 @@ namespace Game
 
         public WeaponAim Aim { get; protected set; }
 
-        public WeaponSway Sway { get; protected set; }
-        public WeaponBob Bob { get; protected set; }
-        public WeaponRecoil Recoil { get; protected set; }
+        public IList<Weapon.IEffect> Targets { get; protected set; }
 
         public override void Configure(Weapon reference)
         {
@@ -41,11 +39,7 @@ namespace Game
 
             Aim = Weapon.GetComponentInChildren<WeaponAim>();
 
-            Sway = Weapon.GetComponentInChildren<WeaponSway>();
-
-            Bob = Weapon.GetComponentInChildren<WeaponBob>();
-
-            Recoil = Weapon.GetComponentInChildren<WeaponRecoil>();
+            Targets = Weapon.GetComponentsInChildren<Weapon.IEffect>();
         }
 
         public override void Init()
@@ -73,11 +67,8 @@ namespace Game
         {
             var value = Mathf.Lerp(max, min, Aim.Rate);
 
-            if (Sway != null) Sway.Scale = value;
-
-            if (Bob != null) Bob.Scale = value;
-
-            if (Recoil != null) Recoil.Scale = value;
+            for (int i = 0; i < Targets.Count; i++)
+                Targets[i].Scale = value;
         }
     }
 }

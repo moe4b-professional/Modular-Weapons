@@ -19,14 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSway : Weapon.Module
-	{
+	public class WeaponSway : Weapon.Module, Weapon.IEffect
+    {
         [SerializeField]
         protected Transform context;
-        public Transform Target { get { return context; } }
+        public Transform Context { get { return context; } }
 
         [SerializeField]
-        protected SpeedData speed;
+        protected SpeedData speed = new SpeedData(2f, 3f);
         public SpeedData Speed { get { return speed; } }
         [Serializable]
         public struct SpeedData
@@ -48,7 +48,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected MultiplierData multiplier = new MultiplierData(1f, 0.3f);
+        protected MultiplierData multiplier = new MultiplierData(1f, 0.5f);
         public MultiplierData Multiplier { get { return multiplier; } }
         [Serializable]
         public struct MultiplierData
@@ -154,6 +154,7 @@ namespace Game
             }
         }
 
+        public Vector2 Target { get; protected set; }
         public Vector2 Value { get; protected set; }
 
         public Vector3 Position { get; protected set; } = Vector3.zero;
@@ -163,33 +164,38 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnProcess += Process;
+            Weapon.OnLateProcess += LateProcess;
         }
 
-        void Process(Weapon.IProcessData data)
+        void LateProcess(Weapon.IProcessData data)
         {
             if (data is IData)
-                Process(data as IData);
+                LateProcess(data as IData);
         }
-        void Process(IData data)
-        {
-            var target = -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
-
-            Value = Vector2.Lerp(Value, target, speed.Set * Time.deltaTime);
-            Value = Vector2.ClampMagnitude(Value, 1f);
-            Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
-        }
-
-        protected virtual void LateUpdate()
+        void LateProcess(IData data)
         {
             context.localPosition -= Position;
             context.localEulerAngles -= Rotation;
-            {
-                Position = effect.Position.Sample(Value) * scale;
-                Rotation = effect.Rotation.Sample(Value) * scale;
-            }
+
+            Target = CalculateTarget(data);
+
+            Value = Vector2.Lerp(Value, Target, speed.Set * Time.deltaTime);
+            Value = Vector2.ClampMagnitude(Value, 1f);
+            Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
+
+            Position = effect.Position.Sample(Value) * scale;
+            Rotation = effect.Rotation.Sample(Value) * scale;
+
             context.localPosition += Position;
             context.localEulerAngles += Rotation;
+        }
+
+        protected virtual Vector2 CalculateTarget(IData data)
+        {
+            if(enabled)
+                return -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
+
+            return Vector2.zero;
         }
 
         public interface IData

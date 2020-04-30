@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponBob : Weapon.Module
-	{
+	public class WeaponBob : Weapon.Module, Weapon.IEffect
+    {
         [SerializeField]
         protected Transform context;
         public Transform Context { get { return context; } }
@@ -30,7 +30,7 @@ namespace Game
         public AnimationCurve Curve { get { return curve; } }
 
         [SerializeField]
-        protected float range;
+        protected float range = 0.02f;
         public float Range { get { return range; } }
 
         [SerializeField]
@@ -50,7 +50,7 @@ namespace Game
         public float Rate => Distance / stepLength;
 
         [SerializeField]
-        protected float resetSpeed;
+        protected float resetSpeed = 4f;
         public float ResetSpeed { get { return resetSpeed; } }
 
         public Vector3 Offset { get; protected set; }
@@ -59,20 +59,22 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnProcess += Process;
+            Weapon.OnLateProcess += LateProcess;
         }
 
-        void Process(Weapon.IProcessData data)
+        void LateProcess(Weapon.IProcessData data)
         {
             if (data is IData)
-                Process(data as IData);
+                LateProcess(data as IData);
         }
-        protected virtual void Process(IData data)
+        protected virtual void LateProcess(IData data)
         {
+            context.localPosition -= Offset;
+
             var velocity = Vector3.Scale(data.Velocity, Vector3.right + Vector3.forward);
             var magnitude = velocity.magnitude;
 
-            if (magnitude > 0f)
+            if (magnitude > 0f && enabled)
             {
                 Distance += magnitude * Time.deltaTime;
             }
@@ -84,14 +86,9 @@ namespace Game
             }
 
             while (Distance >= stepLength) Distance -= stepLength;
-        }
 
-        protected virtual void LateUpdate()
-        {
-            context.localPosition -= Offset;
-            {
-                Offset = Vector3.up * curve.Evaluate(Rate) * range * scale;
-            }
+            Offset = Vector3.up * curve.Evaluate(Rate) * range * scale;
+
             context.localPosition += Offset;
         }
 
