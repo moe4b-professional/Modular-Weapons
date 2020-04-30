@@ -193,7 +193,7 @@ namespace Game
         protected virtual Vector2 CalculateTarget(IData data)
         {
             if(enabled)
-                return -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
+                return -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move * scale));
 
             return Vector2.zero;
         }

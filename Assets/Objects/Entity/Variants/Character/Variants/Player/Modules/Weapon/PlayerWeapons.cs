@@ -21,9 +21,7 @@ namespace Game
 {
 	public class PlayerWeapons : Player.Module
 	{
-        [SerializeField]
-        protected Weapon weapon;
-        public Weapon Weapon { get { return weapon; } }
+        public Weapon Weapon { get; protected set; }
 
         public PlayerWeaponsProcess Process { get; protected set; }
 
@@ -36,6 +34,8 @@ namespace Game
         {
             base.Configure(reference);
 
+            Weapon = GetComponentInChildren<Weapon>();
+
             Process = GetComponentInChildren<PlayerWeaponsProcess>();
         }
 
@@ -45,12 +45,12 @@ namespace Game
 
             Player.OnProcess += ProcessCallback;
 
-            weapon.Setup(Player.Character);
+            Weapon.Setup(Player.Character);
         }
 
         void ProcessCallback()
         {
-            weapon.Process(Process);
+            Weapon.Process(Process);
         }
     }
 }

@@ -54,8 +54,6 @@ namespace Game
 
         protected virtual void Shoot()
         {
-            Debug.DrawRay(point.position, point.forward * 10f, Color.green, 5f);
-
             if (Physics.Raycast(point.position, point.forward, out hit, range, mask))
             {
                 var data = new HitData(hit, point.forward);
