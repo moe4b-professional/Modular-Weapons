@@ -43,9 +43,31 @@ namespace Game
             }
         }
 
-        float time = 0f;
+        private float timer = 0f;
 
-        public bool Active { get { return time > 0f; } }
+        public bool Active { get { return timer > 0f; } }
+
+        public IList<IModifier> Modifiers { get; protected set; }
+
+        public float Scale
+        {
+            get
+            {
+                var value = 1f;
+
+                for (int i = 0; i < Modifiers.Count; i++)
+                    value *= Modifiers[i].Multiplier;
+
+                return value;
+            }
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Modifiers = Weapon.GetComponentsInChildren<IModifier>();
+        }
 
         public override void Init()
         {
@@ -57,12 +79,17 @@ namespace Game
 
         void Process(Weapon.IProcessData data)
         {
-            time = Mathf.MoveTowards(time, 0f, Time.deltaTime);
+            timer = Mathf.MoveTowards(timer, 0f, Scale * Time.deltaTime);
         }
 
         void Action()
         {
-            time = Delay;
+            timer = Delay;
+        }
+
+        public interface IModifier
+        {
+            float Multiplier { get; }
         }
     }
 }
