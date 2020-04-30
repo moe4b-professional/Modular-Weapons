@@ -535,11 +535,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 6173412211608427915}
   off:
-    position: {x: 0.036, y: -0.109, z: 0.163}
-    angle: {x: -0, y: 0, z: 0.000004978375}
+    position: {x: 0.036, y: -0.109, z: 0.22}
+    angle: {x: -0, y: 0, z: 0}
   on:
-    position: {x: 0.0015, y: -0.095, z: 0.11}
-    angle: {x: -0, y: 0, z: 0.000004978375}
+    position: {x: 0.0015, y: -0.095, z: 0.15}
+    angle: {x: -0, y: 0, z: 0}
 --- !u!1001 &4237237290827819192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -625,7 +625,7 @@ PrefabInstance:
     - target: {fileID: 8025957073964381491, guid: 7195c33998f9c004085b53f1cbbcbc2c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.163
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 8025957073649349318, guid: 7195c33998f9c004085b53f1cbbcbc2c,
         type: 3}
