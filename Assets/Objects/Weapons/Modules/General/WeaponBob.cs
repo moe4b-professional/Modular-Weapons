@@ -26,14 +26,6 @@ namespace Game
         public Transform Context { get { return context; } }
 
         [SerializeField]
-        protected AnimationCurve curve;
-        public AnimationCurve Curve { get { return curve; } }
-
-        [SerializeField]
-        protected float range = 0.02f;
-        public float Range { get { return range; } }
-
-        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -41,6 +33,14 @@ namespace Game
             set => scale = value;
         }
 
+        [SerializeField]
+        protected AnimationCurve curve;
+        public AnimationCurve Curve { get { return curve; } }
+
+        [SerializeField]
+        protected float range = 0.02f;
+        public float Range { get { return range; } }
+        
         [SerializeField]
         protected float stepLength = 1.5f;
         public float StepLength { get { return stepLength; } }

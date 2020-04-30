@@ -22,6 +22,14 @@ namespace Game
 	public class WeaponSway : Weapon.Module, Weapon.IEffect
     {
         [SerializeField]
+        protected float scale = 1f;
+        public float Scale
+        {
+            get => scale;
+            set => scale = value;
+        }
+
+        [SerializeField]
         protected Transform context;
         public Transform Context { get { return context; } }
 
@@ -67,14 +75,6 @@ namespace Game
 
                 this.move = move;
             }
-        }
-
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
         }
 
         [SerializeField]
