@@ -22,6 +22,10 @@ namespace Game
 	public class WeaponBob : Weapon.Module
 	{
         [SerializeField]
+        protected Transform context;
+        public Transform Context { get { return context; } }
+
+        [SerializeField]
         protected AnimationCurve curve;
         public AnimationCurve Curve { get { return curve; } }
 
@@ -38,7 +42,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected float stepLength = 5f;
+        protected float stepLength = 1.5f;
         public float StepLength { get { return stepLength; } }
 
         public float Distance { get; protected set; }
@@ -63,11 +67,8 @@ namespace Game
             if (data is IData)
                 Process(data as IData);
         }
-
         protected virtual void Process(IData data)
         {
-            Weapon.transform.localPosition -= Offset;
-
             var velocity = Vector3.Scale(data.Velocity, Vector3.right + Vector3.forward);
             var magnitude = velocity.magnitude;
 
@@ -77,7 +78,7 @@ namespace Game
             }
             else
             {
-                var target = Distance >= 0.5f ? 1f : 0f;
+                var target = Distance >= stepLength / 2f ? stepLength : 0f;
 
                 Distance = Mathf.MoveTowards(Distance, target, resetSpeed * Time.deltaTime);
             }
@@ -87,9 +88,11 @@ namespace Game
 
         protected virtual void LateUpdate()
         {
-            Offset = Vector3.up * curve.Evaluate(Rate) * range * scale;
-
-            Weapon.transform.localPosition += Offset;
+            context.localPosition -= Offset;
+            {
+                Offset = Vector3.up * curve.Evaluate(Rate) * range * scale;
+            }
+            context.localPosition += Offset;
         }
 
         public interface IData

@@ -57,10 +57,17 @@ namespace Game
 
             LayerIndex = Animator.GetLayerIndex(layerName);
 
-            Weapon.OnProcess += Process;
+            Aim.OnRateChange += RateChangeCallback;
+
+            UpdateState();
         }
 
-        void Process(Weapon.IProcessData data)
+        void RateChangeCallback(float rate)
+        {
+            UpdateState();
+        }
+
+        protected virtual void UpdateState()
         {
             LayerWeight = Aim.Rate;
         }

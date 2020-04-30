@@ -45,8 +45,6 @@ namespace Game
             base.Init();
 
             Weapon.OnAction += ActionCallback;
-
-            if (point == null) point = transform;
         }
 
         void ActionCallback()
@@ -56,9 +54,11 @@ namespace Game
 
         protected virtual void Shoot()
         {
-            if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
+            Debug.DrawRay(point.position, point.forward * 10f, Color.green, 5f);
+
+            if (Physics.Raycast(point.position, point.forward, out hit, range, mask))
             {
-                var data = new HitData(hit);
+                var data = new HitData(hit, point.forward);
 
                 Weapon.Hit.Process(data);
             }

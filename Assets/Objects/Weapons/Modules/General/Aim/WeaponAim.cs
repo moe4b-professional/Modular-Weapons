@@ -29,6 +29,8 @@ namespace Game
         public float Target => IsOn ? 1f : 0f;
 
         public float Rate { get; protected set; }
+        public delegate void RateChangeDelegate(float rate);
+        public event RateChangeDelegate OnRateChange;
 
         public override void Init()
         {
@@ -49,7 +51,11 @@ namespace Game
         {
             IsOn = Detect(data);
 
-            Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
+            if(Rate != Target)
+            {
+                Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
+                OnRateChange?.Invoke(Rate);
+            }
         }
 
         protected virtual bool Detect(IData data)

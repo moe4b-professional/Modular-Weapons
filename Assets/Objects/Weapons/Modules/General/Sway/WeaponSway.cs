@@ -22,6 +22,10 @@ namespace Game
 	public class WeaponSway : Weapon.Module
 	{
         [SerializeField]
+        protected Transform context;
+        public Transform Target { get { return context; } }
+
+        [SerializeField]
         protected SpeedData speed;
         public SpeedData Speed { get { return speed; } }
         [Serializable]
@@ -167,26 +171,25 @@ namespace Game
             if (data is IData)
                 Process(data as IData);
         }
-
         void Process(IData data)
         {
-            Weapon.transform.localPosition -= Position;
-            Weapon.transform.localEulerAngles -= Rotation;
-
             var target = -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
 
             Value = Vector2.Lerp(Value, target, speed.Set * Time.deltaTime);
             Value = Vector2.ClampMagnitude(Value, 1f);
             Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
-
-            Position = effect.Position.Sample(Value) * scale;
-            Rotation = effect.Rotation.Sample(Value) * scale;
         }
 
         protected virtual void LateUpdate()
         {
-            Weapon.transform.localPosition += Position;
-            Weapon.transform.localEulerAngles += Rotation;
+            context.localPosition -= Position;
+            context.localEulerAngles -= Rotation;
+            {
+                Position = effect.Position.Sample(Value) * scale;
+                Rotation = effect.Rotation.Sample(Value) * scale;
+            }
+            context.localPosition += Position;
+            context.localEulerAngles += Rotation;
         }
 
         public interface IData

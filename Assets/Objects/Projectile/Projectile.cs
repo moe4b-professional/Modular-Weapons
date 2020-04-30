@@ -67,7 +67,7 @@ namespace Game
         {
             if(Armed)
             {
-                var data = new HitData(collision.collider, collision.contacts[0]);
+                var data = new HitData(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
 
                 ProcessHit(data);
             }
@@ -79,7 +79,7 @@ namespace Game
             {
                 var contact = new HitContact(transform.forward * (Radius / 2f), -transform.forward);
 
-                var data = new HitData(collider, contact);
+                var data = new HitData(collider, contact, rigidbody.velocity.normalized);
 
                 ProcessHit(data);
             }

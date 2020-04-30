@@ -19,4 +19,28 @@ MonoBehaviour:
     offset:
       depth: 0
       angle: {x: 0, y: 0, z: 0}
-  list: []
+  list:
+  - materials:
+    - {fileID: 11400000, guid: ec5ab4bbf12b0b54faf6fd016837f82c, type: 2}
+    data:
+      prefab: {fileID: 100012, guid: 4124bcd25ead6874eb9c83ebc2b1586b, type: 3}
+      flip: 0
+      offset:
+        depth: 0
+        angle: {x: -90, y: 0, z: 0}
+  - materials:
+    - {fileID: 11400000, guid: 5b6035e13cb5c524099e7959e2cc5e65, type: 2}
+    data:
+      prefab: {fileID: 100012, guid: 79e5c2720bfff514abf9939e110c701d, type: 3}
+      flip: 0
+      offset:
+        depth: 0
+        angle: {x: -90, y: 0, z: 0}
+  - materials:
+    - {fileID: 11400000, guid: c311e524af5a90842875c7085d52f932, type: 2}
+    data:
+      prefab: {fileID: 100008, guid: 3a46e13d0a80774488ee04bd42f08c14, type: 3}
+      flip: 0
+      offset:
+        depth: 0
+        angle: {x: -90, y: 0, z: 0}

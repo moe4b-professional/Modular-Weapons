@@ -33,6 +33,7 @@ namespace Game
 
         public WeaponSway Sway { get; protected set; }
         public WeaponBob Bob { get; protected set; }
+        public WeaponRecoil Recoil { get; protected set; }
 
         public override void Configure(Weapon reference)
         {
@@ -43,6 +44,8 @@ namespace Game
             Sway = Weapon.GetComponentInChildren<WeaponSway>();
 
             Bob = Weapon.GetComponentInChildren<WeaponBob>();
+
+            Recoil = Weapon.GetComponentInChildren<WeaponRecoil>();
         }
 
         public override void Init()
@@ -56,16 +59,25 @@ namespace Game
                 return;
             }
 
-            Weapon.OnProcess += Process;
+            Aim.OnRateChange += RateChangeCallback;
+
+            UpdateState();
         }
 
-        void Process(Weapon.IProcessData data)
+        void RateChangeCallback(float rate)
         {
-            var rate = Mathf.Lerp(max, min, Aim.Rate);
+            UpdateState();
+        }
 
-            if (Sway != null) Sway.Scale = rate;
+        protected virtual void UpdateState()
+        {
+            var value = Mathf.Lerp(max, min, Aim.Rate);
 
-            if(Bob != null) Bob.Scale = rate;
+            if (Sway != null) Sway.Scale = value;
+
+            if (Bob != null) Bob.Scale = value;
+
+            if (Recoil != null) Recoil.Scale = value;
         }
     }
 }

@@ -39,18 +39,22 @@ namespace Game
 
         public HitContact Contact { get; private set; }
 
-        public HitData(Collider collider, HitContact contact)
+        public Vector3 Direction { get; private set; }
+
+        public HitData(Collider collider, HitContact contact, Vector3 direction)
         {
             this.Collider = collider;
 
             this.Contact = contact;
+
+            this.Direction = direction;
         }
-        public HitData(Collider collider, ContactPoint contact) :
-            this(collider, new HitContact(contact))
+        public HitData(Collider collider, ContactPoint contact, Vector3 direction) :
+            this(collider, new HitContact(contact), direction)
         {
 
         }
-        public HitData(RaycastHit hit) : this(hit.collider, new HitContact(hit))
+        public HitData(RaycastHit hit, Vector3 direction) : this(hit.collider, new HitContact(hit), direction)
         {
 
         }

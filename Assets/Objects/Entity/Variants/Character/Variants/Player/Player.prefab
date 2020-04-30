@@ -480,6 +480,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &508408275
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720950362513170629}
+  m_Material: {fileID: 13400000, guid: 059d863606fab45459b0bb94c0eee0af, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &148328507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720950362513170629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9359e38af950f4e46955e5a030d50d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5543591341948617031
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,32 +538,6 @@ Transform:
   m_Father: {fileID: 5746673740857877123}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &508408275
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2720950362513170629}
-  m_Material: {fileID: 13400000, guid: 059d863606fab45459b0bb94c0eee0af, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.4
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &148328507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2720950362513170629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9359e38af950f4e46955e5a030d50d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5017018087913727822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +604,34 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: position.sway.vertical
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: position.sway.horizontal
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: rotation.kick.min
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: rotation.kick.max
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: rotation.sway.vertical
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 476654195, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
+      propertyPath: rotation.sway.horizontal
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ab843b1368ca65408d1c1ec87d9ac83, type: 3}
