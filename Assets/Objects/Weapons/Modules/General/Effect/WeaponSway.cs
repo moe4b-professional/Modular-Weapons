@@ -22,6 +22,10 @@ namespace Game
 	public class WeaponSway : Weapon.Module, Weapon.IEffect
     {
         [SerializeField]
+        protected Transform context;
+        public Transform Context { get { return context; } }
+
+        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -30,8 +34,26 @@ namespace Game
         }
 
         [SerializeField]
-        protected Transform context;
-        public Transform Context { get { return context; } }
+        protected MultiplierData multiplier = new MultiplierData(1f, 1f);
+        public MultiplierData Multiplier { get { return multiplier; } }
+        [Serializable]
+        public struct MultiplierData
+        {
+            [SerializeField]
+            float look;
+            public float Look { get { return look; } }
+
+            [SerializeField]
+            float move;
+            public float Move { get { return move; } }
+
+            public MultiplierData(float look, float move)
+            {
+                this.look = look;
+
+                this.move = move;
+            }
+        }
 
         [SerializeField]
         protected SpeedData speed = new SpeedData(2f, 3f);
@@ -52,28 +74,6 @@ namespace Game
                 this.set = set;
 
                 this.reset = reset;
-            }
-        }
-
-        [SerializeField]
-        protected MultiplierData multiplier = new MultiplierData(1f, 0.5f);
-        public MultiplierData Multiplier { get { return multiplier; } }
-        [Serializable]
-        public struct MultiplierData
-        {
-            [SerializeField]
-            float look;
-            public float Look { get { return look; } }
-
-            [SerializeField]
-            float move;
-            public float Move { get { return move; } }
-
-            public MultiplierData(float look, float move)
-            {
-                this.look = look;
-
-                this.move = move;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Game
                     this.vertical = vertical;
                     this.horizontal = horizontal;
                 }
-                public PositionData(float value) : this(value, value)
+                public PositionData(float value) : this(value / 2f, value)
                 {
 
                 }
@@ -137,7 +137,7 @@ namespace Game
                     this.roll = roll;
                     this.tilt = tilt;
                 }
-                public RotationData(float value) : this(value, value)
+                public RotationData(float value) : this(value, value / 2f)
                 {
 
                 }

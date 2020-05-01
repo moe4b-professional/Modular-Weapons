@@ -22,14 +22,6 @@ namespace Game
     public abstract class WeaponRecoil : Weapon.Module, Weapon.IEffect
     {
         [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
-
-        [SerializeField]
         protected Transform context;
         public Transform Context
         {
@@ -37,42 +29,19 @@ namespace Game
             set => context = value;
         }
 
+        [SerializeField]
+        protected float scale = 1f;
+        public float Scale
+        {
+            get => scale;
+            set => scale = value;
+        }
+
         public ValueRange kick;
 
         [SerializeField]
         protected SwayData sway;
         public SwayData Sway { get { return sway; } }
-
-        [SerializeField]
-        protected SpeedData speed;
-        public SpeedData Speed { get { return speed; } }
-
-        public Vector3 Target { get; protected set; }
-
-        public Vector3 Value { get; protected set; }
-
-        [Serializable]
-        public struct ValueRange
-        {
-            [SerializeField]
-            float min;
-            public float Min { get { return min; } }
-
-            [SerializeField]
-            float max;
-            public float Max { get { return max; } }
-
-            public float Random => UnityEngine.Random.Range(min, max);
-
-            public float Lerp(float t) => Mathf.Lerp(min, max, t);
-
-            public ValueRange(float min, float max)
-            {
-                this.min = min;
-                this.max = max;
-            }
-        }
-
         [Serializable]
         public struct SwayData
         {
@@ -95,6 +64,9 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected SpeedData speed;
+        public SpeedData Speed { get { return speed; } }
         [Serializable]
         public struct SpeedData
         {
@@ -112,7 +84,11 @@ namespace Game
                 this.reset = reset;
             }
         }
-        
+
+        public Vector3 Target { get; protected set; }
+
+        public Vector3 Value { get; protected set; }
+                        
         protected virtual void Reset()
         {
             context = transform;
