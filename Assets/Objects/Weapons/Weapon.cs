@@ -27,6 +27,12 @@ namespace Game
 
 		public class Module : Module<Weapon>
         {
+            new public bool enabled
+            {
+                get => base.enabled && gameObject.activeInHierarchy;
+                set => base.enabled = value;
+            }
+
             public Weapon Weapon => Reference;
 
             public IOwner Owner => Weapon.Owner;

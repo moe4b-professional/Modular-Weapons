@@ -39,4 +39,17 @@ namespace Game
             Gizmos.DrawSphere(project, 0.2f);
         }
     }
+
+    public class MyComponent : MonoBehaviour
+    {
+        public int id;
+
+        void Start()
+        {
+            MyComponent[] list = FindObjectsOfType<MyComponent>();
+
+            for (int i = 0; i < list.Length; i++)
+                list[i].id = i;
+        }
+    }
 }
