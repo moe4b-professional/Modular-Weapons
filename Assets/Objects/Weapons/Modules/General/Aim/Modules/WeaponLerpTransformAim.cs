@@ -25,15 +25,14 @@ namespace Game
         protected Transform context;
         public Transform Context { get { return context; } }
 
-        [SerializeField]
-        protected CoordinatesData off;
-        public CoordinatesData Off { get { return off; } }
+        public Coordinates Idle { get; protected set; }
 
         [SerializeField]
-        protected CoordinatesData on;
-        public CoordinatesData On { get { return on; } }
+        [UnityEngine.Serialization.FormerlySerializedAs("on")]
+        protected Coordinates target;
+        public Coordinates Target { get { return target; } }
         
-        public CoordinatesData Coordinates { get; protected set; }
+        public Coordinates Offset { get; protected set; }
 
         public WeaponAim Aim { get; protected set; }
 
@@ -41,8 +40,8 @@ namespace Game
         {
             context = transform;
 
-            off = new CoordinatesData(context);
-            on = new CoordinatesData(context);
+            Idle = new Coordinates(context);
+            target = new Coordinates(context);
         }
 
         public override void Init()
@@ -59,17 +58,30 @@ namespace Game
             }
 
             Weapon.OnLateProcess += LateProcess;
+
+            Idle = new Coordinates(context);
+
+            Offset = new Coordinates(Vector3.zero, Vector3.zero);
         }
 
         void LateProcess(Weapon.IProcessData data)
         {
-            context.localPosition -= Position;
-            context.localRotation /= Rotation;
+            Apply(-Offset);
+
+            Offset = Coordinates.Lerp(Coordinates.Zero, target - Idle, Aim.Rate);
+
+            Apply(Offset);
+        }
+
+        protected virtual void Apply(Coordinates coordinates)
+        {
+            context.localPosition += coordinates.Position;
+            context.localRotation *= coordinates.Rotation;
         }
     }
 
     [Serializable]
-    public struct CoordinatesData
+    public struct Coordinates
     {
         [SerializeField]
         Vector3 position;
@@ -78,39 +90,50 @@ namespace Game
         [SerializeField]
         Vector3 angle;
         public Vector3 Angle { get { return angle; } }
-        public Quaternion Rotation => Quaternion.Euler(angle);
-
-        public void Apply(Transform target)
+        public Quaternion Rotation
         {
-            target.position = position;
-            target.rotation = Rotation;
-        }
-        public void ApplyLocal(Transform target)
-        {
-            target.localPosition = position;
-            target.localRotation = Rotation;
+            get => Quaternion.Euler(angle);
+            private set => angle = value.eulerAngles;
         }
 
-        public CoordinatesData(Vector3 position, Vector3 angle)
+        public Coordinates(Vector3 position, Vector3 angle)
         {
             this.position = position;
             this.angle = angle;
         }
-        public CoordinatesData(Transform transform) : this(transform.localPosition, transform.localEulerAngles)
+        public Coordinates(Transform transform) : this(transform.localPosition, transform.localEulerAngles)
         {
 
         }
 
-        //Static Utility
-        public static void Lerp(Transform target, CoordinatesData a, CoordinatesData b, float t)
+        //Operators
+        public static Coordinates operator -(Coordinates a, Coordinates b)
         {
-            target.position = Vector3.Lerp(a.position, b.position, t);
-            target.rotation = Quaternion.Lerp(a.Rotation, b.Rotation, t);
+            return new Coordinates()
+            {
+                position = a.position - b.position,
+                angle = (a.Rotation * Quaternion.Inverse(b.Rotation)).eulerAngles
+            };
         }
-        public static void LerpLocal(Transform target, CoordinatesData a, CoordinatesData b, float t)
+        public static Coordinates operator -(Coordinates a)
         {
-            target.localPosition = Vector3.Lerp(a.position, b.position, t);
-            target.localRotation = Quaternion.Lerp(a.Rotation, b.Rotation, t);
+            return new Coordinates()
+            {
+                position = -a.position,
+                angle = Quaternion.Inverse(a.Rotation).eulerAngles
+            };
         }
+
+        //Static
+        public static Coordinates Lerp(Coordinates a, Coordinates b, float t)
+        {
+            return new Coordinates()
+            {
+                position = Vector3.Lerp(a.position, b.position, t),
+                angle = Quaternion.Lerp(a.Rotation, b.Rotation, t).eulerAngles
+            };
+        }
+
+        public static Coordinates Zero => new Coordinates(Vector3.zero, Vector3.zero);
     }
 }
