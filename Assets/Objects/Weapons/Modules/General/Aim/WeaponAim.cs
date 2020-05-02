@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAim : Weapon.Module
+	public class WeaponAim : Weapon.Module, WeaponOperation.IInterface
 	{
         [SerializeField]
         protected float speed = 5f;
@@ -49,18 +49,33 @@ namespace Game
 
         protected virtual void Process(IData data)
         {
-            IsOn = Detect(data);
+            IsOn = data.Input;
 
-            if(Rate != Target)
+            if(Weapon.Operation.Value == null)
+            {
+                if (IsOn)
+                    Weapon.Operation.Set(this);
+            }
+            else if(Weapon.Operation.Value.Equals(this))
+            {
+                if (IsOn == false)
+                    Weapon.Operation.Clear();
+            }
+            else
+            {
+                IsOn = false;
+            }
+
+            if (Rate != Target)
             {
                 Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
                 OnRateChange?.Invoke(Rate);
             }
         }
 
-        protected virtual bool Detect(IData data)
+        public virtual void Stop()
         {
-            return data.Input;
+            
         }
 
         public interface IData

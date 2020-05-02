@@ -19,13 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Weapon : MonoBehaviour
-	{
+    public class Weapon : MonoBehaviour
+    {
         public WeaponHit Hit { get; protected set; }
 
         public WeaponDamage Damage { get; protected set; }
 
-		public class Module : Module<Weapon>
+        public WeaponOperation Operation { get; protected set; }
+
+        public WeaponActivation Activation { get; protected set; }
+
+        public WeaponMesh Mesh { get; protected set; }
+
+        public class Module : Module<Weapon>
         {
             new public bool enabled
             {
@@ -69,7 +75,7 @@ namespace Game
                 return false;
             }
         }
-
+        
         public IOwner Owner { get; protected set; }
         public virtual void Setup(IOwner owner)
         {
@@ -78,6 +84,12 @@ namespace Game
             Configure();
 
             Init();
+        }
+        public interface IOwner
+        {
+            GameObject gameObject { get; }
+
+            Damage.IDamager Damager { get; }
         }
 
         protected virtual void Configure()
@@ -89,6 +101,12 @@ namespace Game
             Damage = GetComponentInChildren<WeaponDamage>();
 
             Hit = GetComponentInChildren<WeaponHit>();
+
+            Operation = GetComponentInChildren<WeaponOperation>();
+
+            Activation = GetComponentInChildren<WeaponActivation>();
+
+            Mesh = GetComponentInChildren<WeaponMesh>();
 
             Modules.Configure(this);
 
@@ -108,9 +126,9 @@ namespace Game
 
             OnProcess?.Invoke(data);
 
-            if(data.Input)
+            if (data.Input)
             {
-                if(HasActiveConstraints)
+                if (HasActiveConstraints)
                 {
 
                 }
@@ -123,7 +141,7 @@ namespace Game
 
         protected virtual void LateUpdate()
         {
-            if(LateProcessData != null)
+            if (LateProcessData != null)
             {
                 LateProcess(LateProcessData);
                 LateProcessData = null;
@@ -136,28 +154,24 @@ namespace Game
             OnLateProcess?.Invoke(data);
         }
 
-        public interface IProcessData
-        {
-            bool Input { get; }
-        }
-
-        public interface IOwner
-        {
-            GameObject gameObject { get; }
-
-            Damage.IDamager Damager { get; }
-        }
-
-        public interface IEffect
-        {
-            float Scale { get; set; }
-        }
-
         public delegate void ActionDelegate();
         public event ActionDelegate OnAction;
         protected virtual void Action()
         {
             OnAction?.Invoke();
+        }
+
+        public virtual void Equip() => Activation.Enable();
+        public virtual void UnEquip() => Activation.Disable();
+
+        public interface IProcessData
+        {
+            bool Input { get; }
+        }
+
+        public interface IEffect
+        {
+            float Scale { get; set; }
         }
     }
 

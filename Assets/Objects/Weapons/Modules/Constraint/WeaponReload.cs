@@ -19,9 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class BaseWeaponReload : Weapon.Module, Weapon.IConstraint
+	public abstract class BaseWeaponReload : Weapon.Module, Weapon.IConstraint, WeaponOperation.IInterface
 	{
-        public bool IsProcessing { get; protected set; } = false;
+        public bool IsProcessing => Weapon.Operation == this;
         public bool Active => IsProcessing;
 
         [SerializeField]
@@ -88,13 +88,19 @@ namespace Game
         }
         public virtual void Perform()
         {
-            IsProcessing = true;
+            Weapon.Operation.Set(this);
         }
 
         protected virtual void Complete()
         {
-            IsProcessing = false;
+            Weapon.Operation.Clear();
+
             Ammo.Refill();
+        }
+
+        public virtual void Stop()
+        {
+            //TODO provide functionality to stop reload
         }
 
         public interface IData
