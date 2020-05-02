@@ -22,8 +22,8 @@ namespace Game
 	public class WeaponLerpTransformAim : Weapon.Module
 	{
 		[SerializeField]
-        protected Transform target;
-        public Transform Target { get { return target; } }
+        protected Transform context;
+        public Transform Context { get { return context; } }
 
         [SerializeField]
         protected CoordinatesData off;
@@ -32,44 +32,17 @@ namespace Game
         [SerializeField]
         protected CoordinatesData on;
         public CoordinatesData On { get { return on; } }
-
-        [Serializable]
-        public struct CoordinatesData
-        {
-            [SerializeField]
-            Vector3 position;
-            public Vector3 Position { get { return position; } }
-
-            [SerializeField]
-            Vector3 angle;
-            public Vector3 Angle { get { return angle; } }
-            public Quaternion Rotation => Quaternion.Euler(angle);
-
-            public static void Lerp(Transform target, CoordinatesData a, CoordinatesData b, float t)
-            {
-                target.transform.localPosition = Vector3.Lerp(a.position, b.position, t);
-                target.transform.localRotation = Quaternion.Lerp(a.Rotation, b.Rotation, t);
-            }
-
-            public CoordinatesData(Vector3 position, Vector3 angle)
-            {
-                this.position = position;
-                this.angle = angle;
-            }
-            public CoordinatesData(Transform transform) : this(transform.localPosition, transform.localEulerAngles)
-            {
-
-            }
-        }
+        
+        public CoordinatesData Coordinates { get; protected set; }
 
         public WeaponAim Aim { get; protected set; }
 
         protected virtual void Reset()
         {
-            target = transform;
+            context = transform;
 
-            off = new CoordinatesData(target);
-            on = new CoordinatesData(target);
+            off = new CoordinatesData(context);
+            on = new CoordinatesData(context);
         }
 
         public override void Init()
@@ -85,19 +58,59 @@ namespace Game
                 return;
             }
 
-            Aim.OnRateChange += RateChangeCallback;
-
-            UpdateState();
+            Weapon.OnLateProcess += LateProcess;
         }
 
-        void RateChangeCallback(float rate)
+        void LateProcess(Weapon.IProcessData data)
         {
-           UpdateState();
+            context.localPosition -= Position;
+            context.localRotation /= Rotation;
+        }
+    }
+
+    [Serializable]
+    public struct CoordinatesData
+    {
+        [SerializeField]
+        Vector3 position;
+        public Vector3 Position { get { return position; } }
+
+        [SerializeField]
+        Vector3 angle;
+        public Vector3 Angle { get { return angle; } }
+        public Quaternion Rotation => Quaternion.Euler(angle);
+
+        public void Apply(Transform target)
+        {
+            target.position = position;
+            target.rotation = Rotation;
+        }
+        public void ApplyLocal(Transform target)
+        {
+            target.localPosition = position;
+            target.localRotation = Rotation;
         }
 
-        protected virtual void UpdateState()
+        public CoordinatesData(Vector3 position, Vector3 angle)
         {
-            CoordinatesData.Lerp(target, off, on, Aim.Rate);
+            this.position = position;
+            this.angle = angle;
+        }
+        public CoordinatesData(Transform transform) : this(transform.localPosition, transform.localEulerAngles)
+        {
+
+        }
+
+        //Static Utility
+        public static void Lerp(Transform target, CoordinatesData a, CoordinatesData b, float t)
+        {
+            target.position = Vector3.Lerp(a.position, b.position, t);
+            target.rotation = Quaternion.Lerp(a.Rotation, b.Rotation, t);
+        }
+        public static void LerpLocal(Transform target, CoordinatesData a, CoordinatesData b, float t)
+        {
+            target.localPosition = Vector3.Lerp(a.position, b.position, t);
+            target.localRotation = Quaternion.Lerp(a.Rotation, b.Rotation, t);
         }
     }
 }
