@@ -21,8 +21,8 @@ namespace Game
 {
 	public abstract class BaseWeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
-        public bool IsProcessing => Weapon.Operation == this;
-        public bool Constraint => IsProcessing;
+        public bool IsProcessing => Equals(Weapon.Operation.Value);
+        bool WeaponConstraint.IInterface.Constraint => IsProcessing;
 
         [SerializeField]
         protected bool auto = true;
@@ -86,6 +86,7 @@ namespace Game
                 return true;
             }
         }
+        
         public virtual void Perform()
         {
             Weapon.Operation.Set(this);

@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08eb7b66ce9e0d34eb4125125c27d7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 3
-  delay: 0.3
+  iterations: 2
+  delay: 0.2
   lockInput: 1
 --- !u!114 &878063471
 MonoBehaviour:

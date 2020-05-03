@@ -39,15 +39,7 @@ namespace Game
 
         bool WeaponAction.IOverride.Input => Counter > 0;
 
-        public bool IsProcessing
-        {
-            get
-            {
-                if (Weapon.Action.Override == null) return false;
-
-                return Weapon.Action.Override.Equals(this);
-            }
-        }
+        public bool IsProcessing => Equals(Weapon.Action.Override);
         
         public override void Init()
         {
