@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponRPM : Weapon.Module, Weapon.IConstraint
+    public class WeaponRPM : Weapon.Module, WeaponConstraint.IInterface
     {
         [SerializeField]
         uint value = 800;
@@ -74,7 +74,7 @@ namespace Game
             base.Init();
 
             Weapon.OnProcess += Process;
-            Weapon.OnAction += Action;
+            Weapon.Action.OnPerform += Action;
         }
 
         void Process(Weapon.IProcessData data)

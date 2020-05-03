@@ -31,7 +31,7 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += Action;
+            Weapon.Action.OnPerform += Action;
         }
 
         void Action()

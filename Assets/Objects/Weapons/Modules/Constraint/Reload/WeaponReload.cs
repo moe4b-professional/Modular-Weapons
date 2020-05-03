@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class BaseWeaponReload : Weapon.Module, Weapon.IConstraint, WeaponOperation.IInterface
+	public abstract class BaseWeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation == this;
         public bool Active => IsProcessing;

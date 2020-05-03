@@ -42,7 +42,7 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += ActionCallback;
+            Weapon.Action.OnPerform += ActionCallback;
 
             if (point == null) point = transform;
         }

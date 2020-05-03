@@ -21,7 +21,7 @@ namespace Game
 {
 	public class WeaponAnimatorLayerAim : Weapon.Module
     {
-        public Animator Animator => Weapon.Animator;
+        public Animator Animator => Weapon.Mesh.Animator;
 
         [SerializeField]
         protected string layerName = "Aim";

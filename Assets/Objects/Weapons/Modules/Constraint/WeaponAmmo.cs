@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponAmmo : Weapon.Module, Weapon.IConstraint
+    public class WeaponAmmo : Weapon.Module, WeaponConstraint.IInterface
     {
         public bool Active => CanConsume == false;
 
@@ -84,7 +84,7 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += Action;
+            Weapon.Action.OnPerform += Action;
         }
 
         void Action()

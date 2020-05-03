@@ -21,6 +21,10 @@ namespace Game
 {
     public class Weapon : MonoBehaviour
     {
+        public WeaponConstraint Constraint { get; protected set; }
+
+        public WeaponAction Action { get; protected set; }
+
         public WeaponHit Hit { get; protected set; }
 
         public WeaponDamage Damage { get; protected set; }
@@ -55,26 +59,7 @@ namespace Game
             }
         }
 
-        public Animator Animator { get; protected set; }
-
         public AudioSource AudioSource { get; protected set; }
-
-        public IList<IConstraint> Constraints { get; protected set; }
-        public interface IConstraint
-        {
-            bool Active { get; }
-        }
-        public bool HasActiveConstraints
-        {
-            get
-            {
-                for (int i = 0; i < Constraints.Count; i++)
-                    if (Constraints[i].Active)
-                        return true;
-
-                return false;
-            }
-        }
         
         public IOwner Owner { get; protected set; }
         public virtual void Setup(IOwner owner)
@@ -94,23 +79,17 @@ namespace Game
 
         protected virtual void Configure()
         {
-            Animator = GetComponentInChildren<Animator>();
-
             AudioSource = GetComponentInChildren<AudioSource>();
 
+            Constraint = GetComponentInChildren<WeaponConstraint>();
+            Action = GetComponentInChildren<WeaponAction>();
             Damage = GetComponentInChildren<WeaponDamage>();
-
             Hit = GetComponentInChildren<WeaponHit>();
-
             Operation = GetComponentInChildren<WeaponOperation>();
-
             Activation = GetComponentInChildren<WeaponActivation>();
-
             Mesh = GetComponentInChildren<WeaponMesh>();
 
             Modules.Configure(this);
-
-            Constraints = GetComponentsInChildren<IConstraint>();
         }
 
         protected virtual void Init()
@@ -125,18 +104,6 @@ namespace Game
             LateProcessData = data;
 
             OnProcess?.Invoke(data);
-
-            if (data.Input)
-            {
-                if (HasActiveConstraints)
-                {
-
-                }
-                else
-                {
-                    Action();
-                }
-            }
         }
 
         protected virtual void LateUpdate()
@@ -153,14 +120,7 @@ namespace Game
         {
             OnLateProcess?.Invoke(data);
         }
-
-        public delegate void ActionDelegate();
-        public event ActionDelegate OnAction;
-        protected virtual void Action()
-        {
-            OnAction?.Invoke();
-        }
-
+        
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
 

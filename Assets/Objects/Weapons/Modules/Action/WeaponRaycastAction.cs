@@ -44,7 +44,7 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnAction += ActionCallback;
+            Weapon.Action.OnPerform += ActionCallback;
         }
 
         void ActionCallback()

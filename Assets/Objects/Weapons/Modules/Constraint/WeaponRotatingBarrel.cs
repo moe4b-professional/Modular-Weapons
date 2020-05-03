@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponRotatingBarrel : Weapon.Module, Weapon.IConstraint, WeaponRPM.IModifier
+	public class WeaponRotatingBarrel : Weapon.Module, WeaponConstraint.IInterface, WeaponRPM.IModifier
 	{
 		[SerializeField]
         protected Transform context;
@@ -63,7 +63,7 @@ namespace Game
 
         float WeaponRPM.IModifier.Multiplier => Rate;
 
-        bool Weapon.IConstraint.Active => Rate < activationRate;
+        bool WeaponConstraint.IInterface.Active => Rate < activationRate;
 
         public override void Init()
         {
