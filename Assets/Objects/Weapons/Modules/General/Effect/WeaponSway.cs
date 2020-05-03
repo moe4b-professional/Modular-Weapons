@@ -177,11 +177,10 @@ namespace Game
             context.localPosition -= Position;
             context.localEulerAngles -= Rotation;
 
-            Target = CalculateTarget(data);
+            CalculateTarget(data);
 
             Value = Vector2.Lerp(Value, Target, speed.Set * Time.deltaTime);
-            Value = Vector2.ClampMagnitude(Value, 1f);
-            Value = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
+            Target = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
 
             Position = effect.Position.Sample(Value) * scale;
             Rotation = effect.Rotation.Sample(Value) * scale;
@@ -190,12 +189,16 @@ namespace Game
             context.localEulerAngles += Rotation;
         }
 
-        protected virtual Vector2 CalculateTarget(IData data)
+        protected virtual void CalculateTarget(IData data)
         {
             if(enabled)
-                return -(data.Look * multiplier.Look) + -(Vector2.right * (data.RelativeVelocity.x * multiplier.Move * scale));
-
-            return Vector2.zero;
+            {
+                Target = (-data.Look * multiplier.Look) + (-Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
+            }
+            else
+            {
+                Target = Vector2.zero;
+            }
         }
 
         public interface IData

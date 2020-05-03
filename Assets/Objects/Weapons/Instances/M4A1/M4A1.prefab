@@ -233,11 +233,11 @@ MonoBehaviour:
   context: {fileID: 6173412211608427915}
   scale: 1
   multiplier:
-    look: 1
-    move: 1
+    look: 0.3
+    move: 0.2
   speed:
-    set: 2
-    reset: 3
+    set: 4
+    reset: 5
   effect:
     position:
       vertical: 0.01
