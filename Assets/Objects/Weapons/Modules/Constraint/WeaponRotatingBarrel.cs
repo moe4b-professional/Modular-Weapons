@@ -63,7 +63,7 @@ namespace Game
 
         float WeaponRPM.IModifier.Multiplier => Rate;
 
-        bool WeaponConstraint.IInterface.Active => Rate < activationRate;
+        bool WeaponConstraint.IInterface.Constraint => Rate < activationRate;
 
         public override void Init()
         {

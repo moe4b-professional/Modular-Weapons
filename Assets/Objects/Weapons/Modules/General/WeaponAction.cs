@@ -28,11 +28,31 @@ namespace Game
             base.Init();
 
             Weapon.OnProcess += Process;
+
+            Weapon.OnLateProcess += LateProcess;
+        }
+
+        void LateProcess(Weapon.IProcessData data)
+        {
+            if(LatePerformCondition)
+            {
+                LatePerform();
+
+                LatePerformCondition = false;
+            }
+        }
+
+        public IOverride Override { get; set; }
+        public interface IOverride
+        {
+            bool Input { get; }
         }
 
         void Process(Weapon.IProcessData data)
         {
-            if (data.Input)
+            var input = Override == null ? data.Input : Override.Input;
+
+            if (input)
             {
                 if (Constraint.Active)
                 {
@@ -50,6 +70,16 @@ namespace Game
         public virtual void Perform()
         {
             OnPerform?.Invoke();
+
+            LatePerformCondition = true;
+        }
+
+        bool LatePerformCondition;
+
+        public event PerformDelegate OnLatePerform;
+        public virtual void LatePerform()
+        {
+            OnLatePerform?.Invoke();
         }
     }
 }

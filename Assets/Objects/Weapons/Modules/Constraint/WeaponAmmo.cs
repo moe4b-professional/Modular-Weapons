@@ -21,9 +21,9 @@ namespace Game
 {
     public class WeaponAmmo : Weapon.Module, WeaponConstraint.IInterface
     {
-        public bool Active => CanConsume == false;
-
         public bool CanConsume => magazine.Value >= consumption;
+
+        bool WeaponConstraint.IInterface.Constraint => CanConsume == false;
 
         [SerializeField]
         protected MaxValue magazine = new MaxValue(30);
@@ -79,7 +79,7 @@ namespace Game
         [SerializeField]
         protected int consumption = 1;
         public int Consumption { get { return consumption; } }
-
+        
         public override void Init()
         {
             base.Init();

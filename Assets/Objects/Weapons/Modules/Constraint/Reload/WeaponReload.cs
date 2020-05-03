@@ -22,7 +22,7 @@ namespace Game
 	public abstract class BaseWeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation == this;
-        public bool Active => IsProcessing;
+        public bool Constraint => IsProcessing;
 
         [SerializeField]
         protected bool auto = true;

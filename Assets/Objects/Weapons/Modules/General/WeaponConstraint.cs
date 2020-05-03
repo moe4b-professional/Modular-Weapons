@@ -22,22 +22,29 @@ namespace Game
 	public class WeaponConstraint : Weapon.Module
 	{
         public IList<IInterface> List { get; protected set; }
+
+        public bool CheckAny(Predicate<IInterface> predicate)
+        {
+            for (int i = 0; i < List.Count; i++)
+                if (predicate(List[i]))
+                    return true;
+
+            return false;
+        }
         
         public bool Active
         {
             get
             {
-                for (int i = 0; i < List.Count; i++)
-                    if (List[i].Active)
-                        return true;
+                bool IsActive(IInterface element) => element.Constraint;
 
-                return false;
+                return CheckAny(IsActive);
             }
         }
 
         public interface IInterface
         {
-            bool Active { get; }
+            bool Constraint { get; }
         }
 
         public override void Configure(Weapon reference)

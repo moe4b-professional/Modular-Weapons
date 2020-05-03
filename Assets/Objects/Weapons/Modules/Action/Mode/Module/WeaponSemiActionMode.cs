@@ -19,11 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSemiActionMode : Weapon.Module, WeaponConstraint.IInterface, WeaponActionMode.IInterface
+	public class WeaponSemiActionMode : Weapon.Module, WeaponConstraint.IInterface, WeaponActionMode.IModule
     {
 		public bool InputLock { get; protected set; }
 
-        bool WeaponConstraint.IInterface.Active => InputLock;
+        bool WeaponConstraint.IInterface.Constraint => InputLock;
 
         public override void Init()
         {
