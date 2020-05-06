@@ -58,7 +58,7 @@ namespace Game
         }
         public static IList<IModule<TReference>> Retrieve<TReference>(GameObject gameObject)
         {
-            return gameObject.GetComponentsInChildren<IModule<TReference>>();
+            return gameObject.GetComponentsInChildren<IModule<TReference>>(true);
         }
     }
 

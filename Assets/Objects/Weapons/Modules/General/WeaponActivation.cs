@@ -24,12 +24,16 @@ namespace Game
         public event Action OnEnable;
 		public virtual void Enable()
         {
+            Weapon.gameObject.SetActive(true);
+
             OnEnable?.Invoke();
         }
 
         public event Action OnDisable;
         public virtual void Disable()
         {
+            Weapon.gameObject.SetActive(false);
+
             OnDisable?.Invoke();
         }
     }

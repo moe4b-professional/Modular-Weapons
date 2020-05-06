@@ -40,7 +40,7 @@ namespace Game
         bool WeaponAction.IOverride.Input => Counter > 0;
 
         public bool IsProcessing => Equals(Weapon.Action.Override);
-        
+
         public override void Init()
         {
             base.Init();
@@ -48,6 +48,13 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.Action.OnLatePerform += LateAction;
+
+            Weapon.Activation.OnDisable += DisableCallback;
+        }
+
+        void DisableCallback()
+        {
+            if (IsProcessing) Weapon.Action.Override = null;
         }
 
         void Process(Weapon.IProcessData data)
@@ -72,7 +79,8 @@ namespace Game
         {
             if (enabled)
             {
-                if (Weapon.Action.Override == null) Begin();
+                if (Weapon.Action.Override == null)
+                    Begin();
             }
 
             if (IsProcessing)
@@ -84,20 +92,20 @@ namespace Game
             }
         }
 
-        public virtual bool IsBreaking(WeaponConstraint.IInterface target)
+        protected virtual void Begin()
+        {
+            Weapon.Action.Override = this;
+
+            Counter = iterations;
+        }
+
+        protected virtual bool IsBreaking(WeaponConstraint.IInterface target)
         {
             if (target.Constraint == false) return false;
 
             if (target is WeaponAmmo) return true;
 
             return false;
-        }
-
-        protected virtual void Begin()
-        {
-            Weapon.Action.Override = this;
-
-            Counter = iterations;
         }
 
         protected virtual void End()
@@ -107,7 +115,6 @@ namespace Game
             if (lockInput) InputLock = true;
 
             StartCoroutine(Procedure());
-
             IEnumerator Procedure()
             {
                 yield return new WaitForSeconds(delay);

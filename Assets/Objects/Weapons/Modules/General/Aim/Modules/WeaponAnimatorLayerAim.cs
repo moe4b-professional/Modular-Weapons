@@ -55,17 +55,19 @@ namespace Game
                 return;
             }
 
-            LayerIndex = Animator.GetLayerIndex(layerName);
-
             Aim.OnRateChange += RateChangeCallback;
 
+            Weapon.Activation.OnEnable += EnableCallback;
+        }
+
+        void EnableCallback()
+        {
+            LayerIndex = Animator.GetLayerIndex(layerName);
+
             UpdateState();
         }
 
-        void RateChangeCallback(float rate)
-        {
-            UpdateState();
-        }
+        void RateChangeCallback(float rate) => UpdateState();
 
         protected virtual void UpdateState()
         {

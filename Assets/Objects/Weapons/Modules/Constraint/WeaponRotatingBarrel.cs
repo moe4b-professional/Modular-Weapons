@@ -70,6 +70,13 @@ namespace Game
             base.Init();
 
             Weapon.OnProcess += Porcess;
+
+            Weapon.Activation.OnDisable += DisableCallback;
+        }
+
+        void DisableCallback()
+        {
+            Rate = 0f;
         }
 
         void Porcess(Weapon.IProcessData data)

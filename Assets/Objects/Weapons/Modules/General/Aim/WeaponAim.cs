@@ -28,7 +28,19 @@ namespace Game
         public bool IsOn { get; protected set; }
         public float Target => IsOn ? 1f : 0f;
 
-        public float Rate { get; protected set; }
+        private float _rate;
+        public float Rate
+        {
+            get => _rate;
+            set
+            {
+                if (value == _rate) return;
+
+                _rate = value;
+
+                OnRateChange?.Invoke(Rate);
+            }
+        }
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
 
@@ -37,29 +49,30 @@ namespace Game
             base.Init();
 
             Weapon.OnProcess += Process;
+
+            Weapon.Activation.OnDisable += DisableCallback;
+        }
+
+        void DisableCallback()
+        {
+            Rate = 0f;
         }
 
         void Process(Weapon.IProcessData data)
         {
-            if (data is IData)
-            {
-                Process(data as IData);
-            }
+            if (data is IData) Process(data as IData);
         }
-
         protected virtual void Process(IData data)
         {
             IsOn = data.Input;
 
             if(Weapon.Operation.Value == null)
             {
-                if (IsOn)
-                    Weapon.Operation.Set(this);
+                if (IsOn) Begin();
             }
             else if(Weapon.Operation.Value.Equals(this))
             {
-                if (IsOn == false)
-                    Weapon.Operation.Clear();
+                if (IsOn == false) End();
             }
             else
             {
@@ -67,15 +80,22 @@ namespace Game
             }
 
             if (Rate != Target)
-            {
                 Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
-                OnRateChange?.Invoke(Rate);
-            }
+        }
+
+        protected virtual void Begin()
+        {
+            Weapon.Operation.Set(this);
+        }
+
+        protected virtual void End()
+        {
+            Weapon.Operation.Clear();
         }
 
         public virtual void Stop()
         {
-            
+            End();
         }
 
         public interface IData

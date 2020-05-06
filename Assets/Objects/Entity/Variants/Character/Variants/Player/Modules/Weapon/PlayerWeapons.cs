@@ -21,7 +21,11 @@ namespace Game
 {
 	public class PlayerWeapons : Player.Module
 	{
-        public Weapon Weapon { get; protected set; }
+        public Weapon[] Weapons { get; protected set; }
+
+        public int Index { get; protected set; }
+
+        public Weapon Current => Weapons[Index];
 
         public PlayerWeaponsProcess Process { get; protected set; }
 
@@ -34,7 +38,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            Weapon = GetComponentInChildren<Weapon>();
+            Weapons = GetComponentsInChildren<Weapon>(true);
 
             Process = GetComponentInChildren<PlayerWeaponsProcess>();
         }
@@ -45,14 +49,41 @@ namespace Game
 
             Player.OnProcess += ProcessCallback;
 
-            Weapon.Setup(Player.Character);
+            for (int i = 0; i < Weapons.Length; i++)
+            {
+                Weapons[i].Setup(Player.Character);
+            }
 
-            Weapon.Equip();
+            Index = Array.FindIndex(Weapons, (Weapon instance) => instance.gameObject.activeSelf);
+
+            if (Index < 0) Index = 0;
+
+            Weapons[Index].Equip();
+        }
+
+        protected virtual void Equip(int target)
+        {
+            Weapons[Index].UnEquip();
+
+            Index = target;
+
+            Weapons[Index].Equip();
         }
 
         void ProcessCallback()
         {
-            Weapon.Process(Process);
+            if (Input.GetKeyDown(KeyCode.Q)) Switch(Index - 1);
+            else if (Input.GetKeyDown(KeyCode.E)) Switch(Index + 1);
+
+            Current.Process(Process);
+        }
+
+        protected virtual void Switch(int target)
+        {
+            if (target < 0) target = Weapons.Length - 1;
+            if (target >= Weapons.Length) target = 0;
+
+            Equip(target);
         }
     }
 }

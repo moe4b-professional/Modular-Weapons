@@ -49,8 +49,10 @@ namespace Game
             }
 
             Weapon.OnLateProcess += LateProcess;
-        }
 
+            Weapon.Action.OnLatePerform += LateAction;
+        }
+        
         void LateProcess(Weapon.IProcessData data)
         {
             if (data is IData)
@@ -63,13 +65,17 @@ namespace Game
                 if (CanPerform)
                     Perform();
             }
-            else if(auto)
+        }
+
+        void LateAction()
+        {
+            if (auto)
             {
                 if (Ammo.CanConsume == false && CanPerform)
                     Perform();
             }
         }
-        
+
         public bool CanPerform
         {
             get

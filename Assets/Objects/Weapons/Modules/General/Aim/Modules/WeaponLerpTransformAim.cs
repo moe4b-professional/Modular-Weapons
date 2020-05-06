@@ -36,6 +36,8 @@ namespace Game
 
         public WeaponAim Aim { get; protected set; }
 
+        public float ActivationScale { get; protected set; } = 0f;
+
         protected virtual void Reset()
         {
             context = transform;
@@ -68,7 +70,11 @@ namespace Game
         {
             Apply(-Offset);
 
-            Offset = Coordinates.Lerp(Coordinates.Zero, target - Idle, Aim.Rate);
+            if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
+
+            ActivationScale = Mathf.MoveTowards(ActivationScale, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
+
+            Offset = Coordinates.Lerp(Coordinates.Zero, target - Idle, Aim.Rate * ActivationScale);
 
             Apply(Offset);
         }
