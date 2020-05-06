@@ -21,35 +21,11 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        public Vector3 vector;
-
-        void Start()
-        {
-
-        }
-
         void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            var transform = this.transform.TransformVector(vector);
-            Gizmos.DrawSphere(transform, 0.2f);
+            var normal = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
 
-            Gizmos.color = Color.red;
-            var project = Vector3.ProjectOnPlane(vector, this.transform.forward);
-            Gizmos.DrawSphere(project, 0.2f);
-        }
-    }
-
-    public class MyComponent : MonoBehaviour
-    {
-        public int id;
-
-        void Start()
-        {
-            MyComponent[] list = FindObjectsOfType<MyComponent>();
-
-            for (int i = 0; i < list.Length; i++)
-                list[i].id = i;
+            Gizmos.DrawLine(transform.position, transform.position + (normal * 2));
         }
     }
 }

@@ -37,8 +37,14 @@ namespace Game
         public override void Perform()
         {
             base.Perform();
+            
+            StartCoroutine(Procedure());
+            IEnumerator Procedure()
+            {
+                yield return new WaitForSeconds(0.2f);
 
-            Mesh.Animator.SetTrigger(trigger);
+                Mesh.Animator.SetTrigger(trigger);
+            }
         }
     }
 }

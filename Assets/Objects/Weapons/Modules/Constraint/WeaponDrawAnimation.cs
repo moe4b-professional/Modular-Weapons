@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponDrawAnimation : Weapon.Module, WeaponOperation.IInterface
+	public class WeaponDrawAnimation : Weapon.Module, WeaponOperation.IInterface, WeaponConstraint.IInterface
 	{
         [SerializeField]
         protected string trigger = "Draw";
         public string Trigger { get { return trigger; } }
 
         public WeaponMesh Mesh => Weapon.Mesh;
+
+        bool WeaponConstraint.IInterface.Constraint => Equals(Weapon.Operation.Value);
 
         public override void Init()
         {

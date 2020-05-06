@@ -5,19 +5,22 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 3835196046584563322
-    second: Draw
+    second: CZ-805 - Draw
   - first:
       74: -5324238279805231817
-    second: Idle
+    second: CZ-805 - Hip Idle
   - first:
       74: -8413879291437822456
-    second: Reload
+    second: CZ-805 - Reload
   - first:
       74: -6712614978111879229
-    second: Shoot
+    second: CZ-805 - Shoot
   - first:
       74: 2727169094506325443
-    second: Idle in Place
+    second: CZ-805 - Aim Idle
+  - first:
+      74: 2470746560048901276
+    second: CZ-805 - Pose
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -77,7 +80,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleCurves: 0
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
@@ -88,7 +91,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -97,7 +100,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Draw
+      name: CZ-805 - Draw
       takeName: metarig|Draw
       internalID: 3835196046584563322
       firstFrame: 0
@@ -133,7 +136,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle
+      name: CZ-805 - Hip Idle
       takeName: metarig|Idle
       internalID: -5324238279805231817
       firstFrame: 0
@@ -162,7 +165,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload
+      name: CZ-805 - Reload
       takeName: metarig|Reload
       internalID: -8413879291437822456
       firstFrame: 0
@@ -198,7 +201,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Shoot
+      name: CZ-805 - Shoot
       takeName: metarig|Shoot
       internalID: -6712614978111879229
       firstFrame: 0
@@ -227,18 +230,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle in Place
+      name: CZ-805 - Aim Idle
       takeName: metarig|Draw
       internalID: 2727169094506325443
       firstFrame: 104
-      lastFrame: 113
+      lastFrame: 105
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

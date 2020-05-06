@@ -48,31 +48,28 @@ namespace Game
                 return;
             }
 
-            Ammo.OnConsumption += ConsumptionCallback;
-
-            Weapon.OnProcess += Process;
+            Weapon.OnLateProcess += LateProcess;
         }
 
-        void Process(Weapon.IProcessData data)
+        void LateProcess(Weapon.IProcessData data)
         {
             if (data is IData)
-                Process(data as IData);
+                LateProcess(data as IData);
         }
-        void Process(IData data)
+        void LateProcess(IData data)
         {
             if (data.Input)
             {
                 if (CanPerform)
                     Perform();
             }
+            else if(auto)
+            {
+                if (Ammo.CanConsume == false && CanPerform)
+                    Perform();
+            }
         }
-
-        void ConsumptionCallback()
-        {
-            if (auto && Ammo.CanConsume == false && CanPerform)
-                Perform();
-        }
-
+        
         public bool CanPerform
         {
             get
@@ -86,7 +83,6 @@ namespace Game
                 return true;
             }
         }
-        
         public virtual void Perform()
         {
             Weapon.Operation.Set(this);
@@ -94,14 +90,21 @@ namespace Game
 
         protected virtual void Complete()
         {
-            Weapon.Operation.Clear();
+            End();
 
             Ammo.Refill();
+        }
+
+        protected virtual void End()
+        {
+            Weapon.Operation.Clear();
         }
 
         public virtual void Stop()
         {
             //TODO provide functionality to stop reload
+
+            End();
         }
 
         public interface IData

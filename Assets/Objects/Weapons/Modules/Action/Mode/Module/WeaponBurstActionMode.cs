@@ -79,9 +79,8 @@ namespace Game
             {
                 Counter--;
 
-                if (Counter == 0) End();
-
-                if (Weapon.Constraint.CheckAny(IsBreaking)) End();
+                if (Counter == 0 || Weapon.Constraint.CheckAny(IsBreaking))
+                    End();
             }
         }
 
