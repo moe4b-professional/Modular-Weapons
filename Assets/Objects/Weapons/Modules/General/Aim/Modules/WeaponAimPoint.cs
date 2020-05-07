@@ -21,79 +21,103 @@ namespace Game
 {
 	public class WeaponAimPoint : Weapon.Module
 	{
-        [SerializeField]
-        protected Transform context;
-        public Transform Context { get { return context; } }
-
-        [SerializeField]
-        protected Transform point;
-        public Transform Point { get { return point; } }
-
-        public Coordinates Idle { get; protected set; }
-
         public Coordinates Target { get; protected set; }
 
-        public Coordinates Offset { get; protected set; }
-
         public WeaponAim Aim { get; protected set; }
+
+        public WeaponAimPointContext Context { get; protected set; }
 
         public float Rate { get; protected set; } = 0f;
 
         protected virtual void Reset()
         {
-            context = transform;
+            
+        }
 
-            Idle = new Coordinates(context);
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Aim = Weapon.GetComponentInChildren<WeaponAim>();
+
+            Context = Weapon.GetComponentInChildren<WeaponAimPointContext>();
         }
 
         public override void Init()
         {
             base.Init();
-
-            Aim = Weapon.GetComponentInChildren<WeaponAim>();
-
+            
             if (Aim == null)
             {
-                Debug.LogError(FormatDependancyError<WeaponAim>());
+                Debug.LogError(FormatDependancyError<WeaponAim>(), gameObject);
                 enabled = false;
                 return;
             }
 
-            Weapon.OnLateProcess += LateProcess;
+            if(Context == null)
+            {
+                Debug.LogError(FormatDependancyError<WeaponAimPointContext>(), gameObject);
+                enabled = false;
+                return;
+            }
 
-            Idle = new Coordinates(context);
+            Weapon.OnLateProcess += LateProrcess;
 
-            Target = CalculateTarget();
+            Context.OnApply += ApplyCallback;
 
-            Offset = new Coordinates(Vector3.zero, Vector3.zero);
+            Target = CalculateTarget(Weapon.transform, Context.transform, transform);
         }
 
-        protected virtual Coordinates CalculateTarget()
+        void LateProrcess(Weapon.IProcessData data)
         {
-            var position = Idle.Position - Weapon.transform.InverseTransformPoint(point.position);
-
-            var rotation = Idle.Rotation * Quaternion.Inverse(Quaternion.Inverse(Weapon.transform.rotation) * point.rotation);
-
-            return new Coordinates(position, rotation.eulerAngles);
-        }
-
-        void LateProcess(Weapon.IProcessData data)
-        {
-            Apply(-Offset);
-
             if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
 
             Rate = Mathf.MoveTowards(Rate, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
-
-            Offset = Coordinates.Lerp(Coordinates.Zero, Target - Idle, Aim.Rate * Rate);
-
-            Apply(Offset);
         }
 
-        protected virtual void Apply(Coordinates coordinates)
+        void ApplyCallback()
         {
-            context.localPosition += coordinates.Position;
-            context.localRotation *= coordinates.Rotation;
+            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Context.Idle, Aim.Rate * Rate);
+
+            Add(Offset);
+        }
+
+        void Add(Coordinates coordinates)
+        {
+            Context.transform.localPosition += coordinates.Position;
+
+            Context.transform.localRotation *= coordinates.Rotation;
+        }
+
+        public static Coordinates CalculateTarget(Transform anchor, Transform context, Transform point)
+        {
+            Transform Clone(Transform source, Transform parent)
+            {
+                var instance = new GameObject(source.name + " Clone").transform;
+
+                instance.SetParent(parent, true);
+
+                instance.position = source.position;
+                instance.rotation = source.rotation;
+
+                return instance;
+            }
+
+            var iPoint = Clone(point, anchor);
+
+            var iContext = Clone(context, iPoint);
+
+            iPoint.localPosition = Vector3.zero;
+            iPoint.localRotation = Quaternion.identity;
+
+            iContext.SetParent(context.parent);
+
+            var result = new Coordinates(iContext);
+
+            Destroy(iPoint.gameObject);
+            Destroy(iContext.gameObject);
+
+            return result;
         }
     }
 }
