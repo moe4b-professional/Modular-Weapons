@@ -131,6 +131,8 @@ namespace Game
 
         public interface IEffect
         {
+            bool enabled { get; set; }
+
             float Scale { get; set; }
         }
     }
