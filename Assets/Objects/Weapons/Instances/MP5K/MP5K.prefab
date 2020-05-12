@@ -1132,17 +1132,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MP5K
       objectReference: {fileID: 0}
-    - target: {fileID: 8025957073649349318, guid: 7195c33998f9c004085b53f1cbbcbc2c,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 4e098340e48874e4c848d8cde354281d,
-        type: 2}
-    - target: {fileID: 8025957073649349318, guid: 7195c33998f9c004085b53f1cbbcbc2c,
-        type: 3}
-      propertyPath: MinDistance
-      value: 0.9872991
-      objectReference: {fileID: 0}
     - target: {fileID: 8025957073566884415, guid: 7195c33998f9c004085b53f1cbbcbc2c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1222,6 +1211,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pivot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025957073649349318, guid: 7195c33998f9c004085b53f1cbbcbc2c,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 4e098340e48874e4c848d8cde354281d,
+        type: 2}
+    - target: {fileID: 8025957073649349318, guid: 7195c33998f9c004085b53f1cbbcbc2c,
+        type: 3}
+      propertyPath: MinDistance
+      value: 0.9872991
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7195c33998f9c004085b53f1cbbcbc2c, type: 3}

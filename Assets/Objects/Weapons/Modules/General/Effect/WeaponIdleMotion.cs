@@ -33,7 +33,7 @@ namespace Game
             set => scale = value;
         }
 
-        public float Activation { get; protected set; }
+        public float ActivationRate { get; protected set; }
 
         [SerializeField]
         protected float speed = 2f;
@@ -64,9 +64,9 @@ namespace Game
         {
             context.localPosition -= Offset;
 
-            Activation = Mathf.MoveTowards(Activation, enabled ? 1f : 0f, speed * Time.deltaTime);
+            ActivationRate = Mathf.MoveTowards(ActivationRate, enabled ? 1f : 0f, speed * Time.deltaTime);
 
-            Offset = range * Mathf.Sin(speed * Time.time) * axis * scale * Activation;
+            Offset = range * Mathf.Sin(speed * Time.time) * axis * scale * ActivationRate;
 
             context.localPosition += Offset;
         }

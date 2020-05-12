@@ -21,11 +21,38 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        void OnDrawGizmos()
-        {
-            var normal = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
+        public Gradient gradient;
 
-            Gizmos.DrawLine(transform.position, transform.position + (normal * 2));
+        public Slider slider;
+
+        private Graphic fill;
+
+        private void Start()
+        {
+            slider.onValueChanged.AddListener(SliderValueChanged);
+
+            fill = slider.fillRect.GetComponent<Graphic>();
+
+            UpdateState();
+        }
+
+        void UpdateState()
+        {
+            fill.color = gradient.Evaluate(Mathf.InverseLerp(slider.minValue, slider.maxValue, slider.value));
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                slider.value -= 0.1f;
+
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+                slider.value += 0.1f;
+        }
+
+        void SliderValueChanged(float value)
+        {
+            UpdateState();
         }
     }
 }
