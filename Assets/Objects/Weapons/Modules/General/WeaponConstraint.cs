@@ -51,7 +51,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            List = Weapon.GetComponentsInChildren<IInterface>();
+            List = Weapon.GetAllDependancies<IInterface>();
         }
     }
 }

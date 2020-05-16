@@ -66,7 +66,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            Modifiers = Weapon.GetComponentsInChildren<IModifier>();
+            Modifiers = Weapon.GetAllDependancies<IModifier>();
         }
 
         public override void Init()

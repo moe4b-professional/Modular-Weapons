@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class Entity : MonoBehaviour, Entity.IDamageMeta,
+	public class Entity : MonoBehaviour,
         Damage.IDamagable, Damage.IDamager
     {
         #region Health
@@ -33,25 +33,23 @@ namespace Game
 
         public EntityDamage Damage { get; protected set; }
 
-        public class Module : Module<Entity>
+        public class Module : ReferenceBehaviour<Entity>
         {
             public Entity Entity => Reference;
         }
 
-        Entity IDamageMeta.Reference => this;
-
         protected virtual void Awake()
         {
-            Health = GetComponentInChildren<EntityHealth>();
+            Health = this.GetDependancy<EntityHealth>();
 
-            Damage = GetComponentInChildren<EntityDamage>();
+            Damage = this.GetDependancy<EntityDamage>();
 
-            Modules.Configure(this);
+            References.Configure(this);
         }
         
         protected virtual void Start()
         {
-            Modules.Init(this);
+            References.Init(this);
         }
 
         public delegate void DeathDelegate(Damage.IDamager cause);
@@ -61,13 +59,7 @@ namespace Game
             OnDeath?.Invoke(cause);
         }
 
-        Damage.Meta Damage.IInterface.Meta => Damage.Meta;
         Damage.Result Damage.IDamagable.TakeDamage(Damage.IDamager source, Damage.Request request) => Damage.Take(source, request);
         Damage.Result Damage.IDamager.DoDamage(Damage.IDamagable target, Damage.Request request) => Damage.Do(target, request);
-
-        public interface IDamageMeta : Damage.Meta.IInterface
-        {
-            Entity Reference { get; }
-        }
     }
 }

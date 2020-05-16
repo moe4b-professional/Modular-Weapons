@@ -21,13 +21,13 @@ namespace Game
 {
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-    public class AI : MonoBehaviour, IModule<Character>, AI.IDamageMeta
+    public class AI : MonoBehaviour, IReference<Character>
     {
         public Rigidbody rigidbody => Character.rigidbody;
 
         public AIController Controller { get; protected set; }
 
-        public class Module : Module<AI>
+        public class Module : ReferenceBehaviour<AI>
         {
             public AI AI => Reference;
             public Character Character => AI.Character;
@@ -41,15 +41,14 @@ namespace Game
         {
             Character = reference;
 
-            Controller = GetComponentInChildren<AIController>();
+            Controller = this.GetDependancy<AIController>();
 
-            Modules.Configure(this);
+            References.Configure(this);
         }
-        AI IDamageMeta.Reference => this;
 
         public virtual void Init()
         {
-            Modules.Init(this);
+            References.Init(this);
         }
 
         protected virtual void Update()
@@ -61,11 +60,6 @@ namespace Game
         protected virtual void Process()
         {
             OnProcess?.Invoke();
-        }
-
-        public interface IDamageMeta : Damage.Meta.IInterface
-        {
-            AI Reference { get; }
         }
     }
 #pragma warning restore CS0108

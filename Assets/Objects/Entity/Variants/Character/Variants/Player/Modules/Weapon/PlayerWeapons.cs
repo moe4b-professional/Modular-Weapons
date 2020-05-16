@@ -21,26 +21,30 @@ namespace Game
 {
 	public class PlayerWeapons : Player.Module
 	{
-        public Weapon[] Weapons { get; protected set; }
+        public List<Weapon> List { get; protected set; }
 
         public int Index { get; protected set; }
 
-        public Weapon Current => Weapons[Index];
+        public Weapon Current => List[Index];
 
         public PlayerWeaponsProcess Process { get; protected set; }
 
-        public class Module : Player.Module
+        public class Module : ReferenceBehaviour<PlayerWeapons>
         {
-            public PlayerWeapons Weapons => Player.Weapons;
+            public PlayerWeapons Weapons => Reference;
+
+            public Player Player => Weapons.Player;
         }
 
         public override void Configure(Player reference)
         {
             base.Configure(reference);
 
-            Weapons = GetComponentsInChildren<Weapon>(true);
+            List = this.GetAllDependancies<Weapon>();
 
-            Process = GetComponentInChildren<PlayerWeaponsProcess>();
+            Process = this.GetDependancy<PlayerWeaponsProcess>();
+
+            References.Configure(this);
         }
 
         public override void Init()
@@ -49,25 +53,27 @@ namespace Game
 
             Player.OnProcess += ProcessCallback;
 
-            for (int i = 0; i < Weapons.Length; i++)
+            for (int i = 0; i < List.Count; i++)
             {
-                Weapons[i].Setup(Player.Character);
+                List[i].Setup(Player.Character);
             }
 
-            Index = Array.FindIndex(Weapons, (Weapon instance) => instance.gameObject.activeSelf);
+            Index = List.FindIndex((Weapon instance) => instance.gameObject.activeSelf);
 
             if (Index < 0) Index = 0;
 
-            Weapons[Index].Equip();
+            List[Index].Equip();
+
+            References.Init(this);
         }
 
         protected virtual void Equip(int target)
         {
-            Weapons[Index].UnEquip();
+            List[Index].UnEquip();
 
             Index = target;
 
-            Weapons[Index].Equip();
+            List[Index].Equip();
         }
 
         void ProcessCallback()
@@ -80,8 +86,8 @@ namespace Game
 
         protected virtual void Switch(int target)
         {
-            if (target < 0) target = Weapons.Length - 1;
-            if (target >= Weapons.Length) target = 0;
+            if (target < 0) target = List.Count - 1;
+            if (target >= List.Count) target = 0;
 
             Equip(target);
         }

@@ -41,7 +41,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            Aim = Weapon.GetComponentInChildren<WeaponAim>();
+            Aim = Weapon.GetDependancy<WeaponAim>();
         }
 
         public override void Init()

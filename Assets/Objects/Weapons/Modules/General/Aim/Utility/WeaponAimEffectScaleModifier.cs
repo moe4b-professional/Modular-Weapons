@@ -37,9 +37,9 @@ namespace Game
         {
             base.Configure(reference);
 
-            Aim = Weapon.GetComponentInChildren<WeaponAim>();
+            Aim = Weapon.GetDependancy<WeaponAim>();
 
-            Targets = Weapon.GetComponentsInChildren<Weapon.IEffect>();
+            Targets = Weapon.GetAllDependancies<Weapon.IEffect>();
         }
 
         public override void Init()

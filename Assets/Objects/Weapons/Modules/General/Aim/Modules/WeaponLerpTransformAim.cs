@@ -50,7 +50,7 @@ namespace Game
         {
             base.Init();
 
-            Aim = Weapon.GetComponentInChildren<WeaponAim>();
+            Aim = Weapon.GetDependancy<WeaponAim>();
 
             if(Aim == null)
             {

@@ -34,7 +34,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            Ammo = Weapon.GetComponentInChildren<WeaponAmmo>();
+            Ammo = Weapon.GetDependancy<WeaponAmmo>();
         }
 
         public override void Init()

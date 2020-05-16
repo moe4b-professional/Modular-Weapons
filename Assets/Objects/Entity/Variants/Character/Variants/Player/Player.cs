@@ -22,7 +22,7 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Player : MonoBehaviour, IModule<Character>, Player.IDamageMeta
+    public class Player : MonoBehaviour, IReference<Character>
     {
         public CapsuleCollider collider { get; protected set; }
 
@@ -30,7 +30,7 @@ namespace Game
 
         public PlayerWeapons Weapons { get; protected set; }
         public PlayerLook Look { get; protected set; }
-        public class Module : Module<Player>
+        public class Module : ReferenceBehaviour<Player>
         {
             public Player Player => Reference;
             public Character Character => Player.Character;
@@ -44,17 +44,16 @@ namespace Game
 
             collider = Character.collider as CapsuleCollider;
 
-            Look = GetComponentInChildren<PlayerLook>();
+            Look = this.GetDependancy<PlayerLook>();
 
-            Weapons = GetComponentInChildren<PlayerWeapons>();
+            Weapons = this.GetDependancy<PlayerWeapons>();
 
-            Modules.Configure(this);
+            References.Configure(this);
         }
-        Player IDamageMeta.Reference => this;
 
         public virtual void Init()
         {
-            Modules.Init(this);
+            References.Init(this);
         }
 
         protected virtual void Update()
@@ -66,11 +65,6 @@ namespace Game
         protected virtual void Process()
         {
             OnProcess?.Invoke();
-        }
-
-        public interface IDamageMeta : Damage.Meta.IInterface
-        {
-            Player Reference { get; }
         }
     }
 #pragma warning restore CS0108

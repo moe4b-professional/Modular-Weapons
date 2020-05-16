@@ -35,7 +35,7 @@ namespace Game
 
         public WeaponMesh Mesh { get; protected set; }
 
-        public class Module : Module<Weapon>
+        public class Module : ReferenceBehaviour<Weapon>
         {
             new public bool enabled
             {
@@ -48,10 +48,7 @@ namespace Game
             public IOwner Owner => Weapon.Owner;
 
             //To force the enabled tick box on the component to show
-            protected virtual void Start()
-            {
-
-            }
+            protected virtual void Start() { }
 
             public string FormatDependancyError<TDependancy>()
             {
@@ -79,22 +76,22 @@ namespace Game
 
         protected virtual void Configure()
         {
-            AudioSource = GetComponentInChildren<AudioSource>();
+            AudioSource = this.GetDependancy<AudioSource>();
 
-            Constraint = GetComponentInChildren<WeaponConstraint>();
-            Action = GetComponentInChildren<WeaponAction>();
-            Damage = GetComponentInChildren<WeaponDamage>();
-            Hit = GetComponentInChildren<WeaponHit>();
-            Operation = GetComponentInChildren<WeaponOperation>();
-            Activation = GetComponentInChildren<WeaponActivation>();
-            Mesh = GetComponentInChildren<WeaponMesh>();
+            Constraint = this.GetDependancy<WeaponConstraint>();
+            Action = this.GetDependancy<WeaponAction>();
+            Damage = this.GetDependancy<WeaponDamage>();
+            Hit = this.GetDependancy<WeaponHit>();
+            Operation = this.GetDependancy<WeaponOperation>();
+            Activation = this.GetDependancy<WeaponActivation>();
+            Mesh = this.GetDependancy<WeaponMesh>();
 
-            Modules.Configure(this);
+            References.Configure(this);
         }
 
         protected virtual void Init()
         {
-            Modules.Init(this);
+            References.Init(this);
         }
 
         public delegate void ProcessDelegate(IProcessData data);

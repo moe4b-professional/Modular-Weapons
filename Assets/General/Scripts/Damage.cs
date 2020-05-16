@@ -23,7 +23,7 @@ namespace Game
     {
         public interface IInterface
         {
-            Meta Meta { get; }
+            GameObject gameObject { get; }
         }
 
         public interface IDamagable : IInterface
@@ -34,44 +34,6 @@ namespace Game
         public interface IDamager : IInterface
         {
             Result DoDamage(IDamagable target, Request request);
-        }
-
-        public class Meta
-        {
-            public IList<IInterface> List { get; protected set; }
-
-            public virtual TType Find<TType>()
-                where TType : class, IInterface
-            {
-                for (int i = 0; i < List.Count; i++)
-                    if (List[i] is TType)
-                        return List[i] as TType;
-
-                return null;
-            }
-            public virtual void Find<TType>(out TType variable)
-                where TType : class, IInterface
-            {
-                variable = Find<TType>();
-            }
-
-            public virtual bool Contains<TType>()
-                where TType : class, IInterface
-            {
-                var target = Find<TType>();
-
-                return target != null;
-            }
-
-            public interface IInterface
-            {
-
-            }
-
-            public Meta(GameObject gameObject)
-            {
-                List = gameObject.GetComponentsInChildren<IInterface>();
-            }
         }
 
         public static Result Invoke(IDamager source, IDamagable target, Request request)

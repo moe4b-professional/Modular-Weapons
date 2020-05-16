@@ -39,7 +39,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            List = Weapon.GetComponentsInChildren<IModule>();
+            List = Weapon.GetAllDependancies<IModule>();
         }
 
         public override void Init()

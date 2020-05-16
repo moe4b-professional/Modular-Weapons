@@ -70,7 +70,7 @@ namespace Game
         public ButtonInput SwitchFireModeButton { get; protected set; }
         bool WeaponActionMode.IData.Switch => SwitchFireModeButton.Press;
 
-        public override void Configure(Player reference)
+        public override void Configure(PlayerWeapons reference)
         {
             base.Configure(reference);
 

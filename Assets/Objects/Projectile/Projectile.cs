@@ -57,9 +57,9 @@ namespace Game
 
         public virtual void IgnoreCollisions(GameObject target)
         {
-            var targets = target.GetComponentsInChildren<Collider>();
+            var targets = Dependancy.GetAll<Collider>(target);
 
-            for (int i = 0; i < targets.Length; i++)
+            for (int i = 0; i < targets.Count; i++)
                 Physics.IgnoreCollision(collider, targets[i], true);
         }
 

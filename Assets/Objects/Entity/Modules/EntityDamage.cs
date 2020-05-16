@@ -21,8 +21,6 @@ namespace Game
 {
 	public class EntityDamage : Entity.Module
     {
-        public Damage.Meta Meta { get; protected set; }
-
         public delegate void TakeDelegate(Damage.Result result);
         public event TakeDelegate OnTake;
         public virtual Damage.Result Take(Damage.IDamager source, Damage.Request request)
@@ -55,13 +53,6 @@ namespace Game
             OnDo?.Invoke(result);
 
             return result;
-        }
-
-        public override void Configure(Entity reference)
-        {
-            base.Configure(reference);
-
-            Meta = new Damage.Meta(Entity.gameObject);
         }
     }
 }
