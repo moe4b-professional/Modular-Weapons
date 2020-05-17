@@ -26,22 +26,18 @@ namespace Game
             get => Controller.collider.height;
             set => Controller.collider.height = value;
         }
-
         public float Radius
         {
             get => Controller.collider.radius;
             set => Controller.collider.radius = value;
         }
-
         public float Multiplier { get; protected set; }
 
-        public Data Current => new Data(Height, Radius, Multiplier, Angle.Value);
+        public Data Current => new Data(Height, Radius, Multiplier);
 
         public ControllerStateTransition Transition { get; protected set; }
 
-        public ControllerStateAngle Angle { get; protected set; }
-
-        public ControllerStateHeightAdjustment HeightAdjustment { get; protected set; }
+        public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
         public class Module : ReferenceBehaviour<ControllerState>
         {
@@ -67,23 +63,16 @@ namespace Game
             float multiplier;
             public float Multiplier { get { return multiplier; } }
 
-            [SerializeField]
-            [Range(-90f, 90f)]
-            float angle;
-            public float Angle { get { return angle; } }
-
-            public Data(float height, float radius, float multiplier, float angle)
+            public Data(float height, float radius, float multiplier)
             {
                 this.height = height;
 
                 this.radius = radius;
 
                 this.multiplier = multiplier;
-
-                this.angle = angle;
             }
 
-            public static Data Zero => new Data(0f, 0f, 0f, 0f);
+            public static Data Zero => new Data(0f, 0f, 0f);
 
             public static Data Lerp(Data a, Data b, float rate)
             {
@@ -92,7 +81,6 @@ namespace Game
                     height = Mathf.Lerp(a.height, b.height, rate),
                     radius = Mathf.Lerp(a.radius, b.radius, rate),
                     multiplier = Mathf.Lerp(a.multiplier, b.multiplier, rate),
-                    angle = Mathf.Lerp(a.angle, b.angle, rate),
                 };
             }
 
@@ -103,7 +91,6 @@ namespace Game
                     height = a.height * b,
                     radius = a.radius * b,
                     multiplier = a.multiplier * b,
-                    angle = a.angle * b,
                 };
             }
 
@@ -114,7 +101,6 @@ namespace Game
                     height = a.height + b.height,
                     radius = a.radius + b.radius,
                     multiplier = a.multiplier + b.multiplier,
-                    angle = a.angle + b.angle,
                 };
             }
         }
@@ -125,9 +111,7 @@ namespace Game
 
             Transition = Dependancy.Get<ControllerStateTransition>(gameObject);
 
-            Angle = Dependancy.Get<ControllerStateAngle>(gameObject);
-
-            HeightAdjustment = Dependancy.Get<ControllerStateHeightAdjustment>(gameObject);
+            HeightAdjustment = Dependancy.Get<ControllerStateElevationAdjustment>(gameObject);
 
             Elements = Dependancy.GetAll<ControllerStateElement>(Controller.gameObject);
 
@@ -148,7 +132,6 @@ namespace Game
             Height = data.Height;
             Radius = data.Radius;
             Multiplier = data.Multiplier;
-            Angle.Value = data.Angle;
         }
     }
 }

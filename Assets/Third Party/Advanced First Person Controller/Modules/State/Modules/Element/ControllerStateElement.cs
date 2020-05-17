@@ -44,7 +44,7 @@ namespace Game
             Controller.OnProcess += Process;
         }
 
-        void Process()
+        protected virtual void Process()
         {
             Weight = Mathf.MoveTowards(Weight, Target, State.Transition.Speed * Time.deltaTime);
         }

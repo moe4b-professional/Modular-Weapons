@@ -25,6 +25,8 @@ namespace Game
 
         public Vector2 Look { get; protected set; }
 
+        public bool Jump { get; protected set; }
+
         public override void Init()
         {
             base.Init();
@@ -45,6 +47,8 @@ namespace Game
                 x = Input.GetAxisRaw("Look X"),
                 y = Input.GetAxisRaw("Look Y")
             };
+
+            Jump = Input.GetKey(KeyCode.Space);
         }
     }
 }
