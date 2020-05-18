@@ -35,7 +35,12 @@ namespace Game
 
         public float MaxDistance => range + offset;
 
-        public float Radius => Controller.State.Radius;
+        [SerializeField]
+        [Range(0f, 1f)]
+        protected float radiusScale = 0.8f;
+        public float RadiusScale { get { return radiusScale; } }
+
+        public float Radius => Controller.State.Radius * radiusScale;
 
         [SerializeField]
         [Range(0f, 90f)]
@@ -72,21 +77,30 @@ namespace Game
             ProcessChange(oldHit, Hit);
         }
 
+        #region Detect
         protected virtual void Detect()
         {
             Origin = Controller.transform.position + (Direction * ((Controller.collider.height / 2f) - offset - Radius));
 
-            if (Physics.SphereCast(Origin, Radius, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
-                Hit = Calculate(hit);
-            else
-                Hit = null;
+            Hit = Cast();
         }
 
-        protected HitData Calculate(IList<RaycastHit> list)
+        protected virtual HitData Cast()
+        {
+            if (Physics.SphereCast(Origin, Radius, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+                return Check(hit);
+            else
+                return null;
+        }
+
+        protected HitData Check(IList<RaycastHit> list)
         {
             for (int i = 0; i < list.Count; i++)
+                Debug.DrawRay(list[i].point, list[i].normal * 2f, Color.blue);
+
+            for (int i = 0; i < list.Count; i++)
             {
-                var hit = Calculate(list[i]);
+                var hit = Check(list[i]);
 
                 if (hit == null) continue;
 
@@ -95,7 +109,7 @@ namespace Game
 
             return null;
         }
-        protected virtual HitData Calculate(RaycastHit hit)
+        protected virtual HitData Check(RaycastHit hit)
         {
             if (hit.collider == null) return null;
 
@@ -105,7 +119,9 @@ namespace Game
 
             return new HitData(hit, angle);
         }
+        #endregion
 
+        #region Change
         protected virtual void ProcessChange(HitData oldState, HitData newState)
         {
             if(oldState == null && newState != null) //Landed On Ground
@@ -135,6 +151,7 @@ namespace Game
 
             OnLanding?.Invoke(travel);
         }
+        #endregion
 
         [Serializable]
         public class HitData
