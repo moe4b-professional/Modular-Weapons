@@ -33,8 +33,6 @@ namespace Game
 
         public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
 
-        public ControllerFeetPosition FeetPosition => Controller.FeetPosition;
-
         public override void Init()
         {
             base.Init();
@@ -49,8 +47,6 @@ namespace Game
             CalculateDirection();
 
             Controller.rigidbody.AddForce(Direction * value * multiplier, ForceMode.Acceleration);
-
-            Debug.DrawRay(GroundCheck.IsGrounded ? GroundCheck.Hit.Point : Controller.FeetPosition.Value, Direction, Color.red);
         }
 
         protected virtual void CalculateDirection()

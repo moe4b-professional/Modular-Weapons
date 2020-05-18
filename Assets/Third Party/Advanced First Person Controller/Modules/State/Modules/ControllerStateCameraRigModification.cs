@@ -43,12 +43,12 @@ namespace Game
 
         void Process()
         {
-            Rig.camera.Component.transform.localPosition -= Offset / 2;
+            Rig.camera.transform.localPosition -= Offset / 2;
             Rig.camera.Pivot.localPosition -= Offset / 2;
 
             Offset = CalculateOffset(State.Height) - Anchor;
 
-            Rig.camera.Component.transform.localPosition += Offset / 2;
+            Rig.camera.transform.localPosition += Offset / 2;
             Rig.camera.Pivot.localPosition += Offset / 2;
         }
 

@@ -129,8 +129,7 @@ namespace Game
 
         void Process()
         {
-            if (List.Count == 0)
-                Debug.Log("No Ground");
+            
         }
 
         void OnDrawGizmosSelected()
@@ -146,7 +145,7 @@ namespace Game
 
             void DrawContact(ContactPoint contact)
             {
-                Gizmos.DrawRay(contact.point, contact.normal);
+                Gizmos.DrawRay(contact.point, contact.normal * 0.2f);
             }
         }
     }

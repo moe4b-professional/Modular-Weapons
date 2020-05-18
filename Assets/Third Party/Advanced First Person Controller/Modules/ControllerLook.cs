@@ -40,7 +40,7 @@ namespace Game
 
             Controller.transform.Rotate(Vector3.up * Delta.x, Space.Self);
 
-            Controller.Rig.camera.Component.transform.Rotate(Vector3.right * -Delta.y, Space.Self);
+            Controller.Rig.camera.transform.Rotate(Vector3.right * -Delta.y, Space.Self);
         }
     }
 }

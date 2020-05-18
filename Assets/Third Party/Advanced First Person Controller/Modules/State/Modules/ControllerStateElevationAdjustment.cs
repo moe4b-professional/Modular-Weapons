@@ -21,8 +21,6 @@ namespace Game
 {
 	public class ControllerStateElevationAdjustment : ControllerState.Module
 	{
-        public ControllerFeetPosition FeetPosition => Controller.FeetPosition;
-
         public override void Configure(ControllerState reference)
         {
             base.Configure(reference);
@@ -32,11 +30,9 @@ namespace Game
         {
             if (Controller.GroundCheck.IsGrounded || true)
             {
-                var delta = FeetPosition.Calculate(State) - FeetPosition.Calculate(target);
+                var delta = State.Height - target.Height;
 
-                var dot = Vector3.Dot(delta, Controller.transform.up);
-
-                Controller.transform.position += Controller.transform.up * dot;
+                Controller.transform.position -= Controller.transform.up * delta / 2f;
             }
         }
     }

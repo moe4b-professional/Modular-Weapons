@@ -23,10 +23,6 @@ namespace Game
     public class ControllerRig : FirstPersonController.Module
 	{
         [SerializeField]
-        protected Transform pivot;
-        public Transform Pivot { get { return pivot; } }
-
-        [SerializeField]
         protected CameraData _camera;
         public CameraData camera { get { return _camera; } }
         [Serializable]
@@ -39,6 +35,8 @@ namespace Game
             [SerializeField]
             protected Camera component;
             public Camera Component { get { return component; } }
+
+            public Transform transform => component.transform;
         }
     }
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword

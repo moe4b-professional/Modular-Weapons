@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Rigidbody), typeof(PhysicsRewind))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(PhysicsRewind))]
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     public class FirstPersonController : MonoBehaviour
     {
@@ -33,8 +33,8 @@ namespace Game
 
         public ControllerRig Rig { get; protected set; }
 
-        public ControllerFeetPosition FeetPosition { get; protected set; }
         public ControllerGroundCheck GroundCheck { get; protected set; }
+        public ControllerAirTravel AirTravel { get; protected set; }
         public ControllerCollisions Collisions { get; protected set; }
         public ControllerGravity Gravity { get; protected set; }
 
@@ -54,14 +54,14 @@ namespace Game
 
             PhysicsCallbacks = GetComponent<PhysicsRewind>();
 
-            collider = Dependancy.Get<CapsuleCollider>(gameObject);
+            collider = GetComponent<CapsuleCollider>();
 
             Input = Dependancy.Get<ControllerInput>(gameObject);
 
             Rig = Dependancy.Get<ControllerRig>(gameObject);
 
-            FeetPosition = Dependancy.Get<ControllerFeetPosition>(gameObject);
             GroundCheck = Dependancy.Get<ControllerGroundCheck>(gameObject);
+            AirTravel = Dependancy.Get<ControllerAirTravel>(gameObject);
             Collisions = Dependancy.Get<ControllerCollisions>(gameObject);
             Gravity = Dependancy.Get<ControllerGravity>(gameObject);
 
