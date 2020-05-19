@@ -44,8 +44,8 @@ namespace Game
 
             Look = new Vector2()
             {
-                x = Input.GetAxisRaw("Look X"),
-                y = Input.GetAxisRaw("Look Y")
+                x = Input.GetAxis("Look X"),
+                y = Input.GetAxis("Look Y")
             };
 
             Jump = Input.GetKey(KeyCode.Space);

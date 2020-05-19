@@ -39,11 +39,9 @@ namespace Game
 
         public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
-        public class Module : ReferenceBehaviour<ControllerState>
+        public class Module : FirstPersonController.Module
         {
-            public ControllerState State => Reference;
-
-            public FirstPersonController Controller => State.Controller;
+            public ControllerState State => Controller.State;
         }
 
         public List<ControllerStateElement> Elements { get; protected set; }
@@ -114,15 +112,6 @@ namespace Game
             HeightAdjustment = Dependancy.Get<ControllerStateElevationAdjustment>(gameObject);
 
             Elements = Dependancy.GetAll<ControllerStateElement>(Controller.gameObject);
-
-            References.Configure(this);
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            References.Init(this);
         }
 
         public virtual void Set(Data data)

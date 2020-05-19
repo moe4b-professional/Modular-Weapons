@@ -21,11 +21,6 @@ namespace Game
 {
 	public class ControllerStateElevationAdjustment : ControllerState.Module
 	{
-        public override void Configure(ControllerState reference)
-        {
-            base.Configure(reference);
-        }
-
         public virtual void Process(ControllerState.Data target)
         {
             if (Controller.GroundCheck.IsGrounded || true)

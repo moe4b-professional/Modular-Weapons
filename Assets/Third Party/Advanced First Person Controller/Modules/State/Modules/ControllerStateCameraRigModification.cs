@@ -27,11 +27,6 @@ namespace Game
 
         public ControllerRig Rig => Controller.Rig;
 
-        public override void Configure(ControllerState reference)
-        {
-            base.Configure(reference);
-        }
-
         public override void Init()
         {
             base.Init();
