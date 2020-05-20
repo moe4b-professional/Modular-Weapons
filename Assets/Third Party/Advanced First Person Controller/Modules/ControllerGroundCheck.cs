@@ -43,8 +43,8 @@ namespace Game
         public float MaxSlope { get { return maxSlope; } }
 
         [SerializeField]
-        protected float stepHeight = 0.3f;
-        public float StepHeight { get { return stepHeight; } }
+        protected float maxStepHeight = 0.3f;
+        public float StepHeight { get { return maxStepHeight; } }
 
         public Vector3 Origin { get; protected set; }
 
@@ -79,7 +79,7 @@ namespace Game
         {
             for (int i = 1; i <= 3; i++)
             {
-                Origin = Controller.transform.position + (-Direction * (offset + (Radius / i)));
+                CalculateOrigin(i);
 
                 if (Physics.SphereCast(Origin, Radius / i, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
                 {
@@ -95,6 +95,13 @@ namespace Game
             }
         }
 
+        protected virtual void CalculateOrigin(int index)
+        {
+            Origin = Controller.transform.position + (-Direction * (offset + (Radius / index)));
+
+            Origin += Vector3.ClampMagnitude(Controller.rigidbody.velocity / Controller.Movement.Speed, 1f) * (Controller.State.Radius / 2f / index);
+        }
+
         protected virtual HitData Check(RaycastHit hit)
         {
             if (hit.collider == null) return null;
@@ -102,11 +109,11 @@ namespace Game
             Debug.DrawRay(hit.point, hit.normal * 0.5f, Color.blue);
 
             var angle = Vector3.Angle(Controller.transform.up, hit.normal);
-            var height = Controller.transform.InverseTransformPoint(hit.point).y + (Controller.State.Height / 2f);
+            var stepHeight = Controller.transform.InverseTransformPoint(hit.point).y + (Controller.State.Height / 2f);
 
-            if (angle > maxSlope && height > stepHeight) return null;
+            if (angle > maxSlope && stepHeight > maxStepHeight) return null;
 
-            return new HitData(hit, angle);
+            return new HitData(hit, angle, stepHeight);
         }
         #endregion
 
@@ -151,7 +158,9 @@ namespace Game
 
             public float Angle { get; protected set; }
 
-            public HitData(Vector3 point, Vector3 normal, float angle)
+            public float StepHeight { get; protected set; }
+
+            public HitData(Vector3 point, Vector3 normal, float angle, float stepHeight)
             {
                 this.Point = point;
 
@@ -159,8 +168,8 @@ namespace Game
 
                 this.Angle = angle;
             }
-            public HitData(Collision collision, ContactPoint contact, float angle) : this(contact.point, contact.normal, angle) { }
-            public HitData(RaycastHit hit, float angle) : this(hit.point, hit.normal, angle) { }
+            public HitData(Collision collision, ContactPoint contact, float angle, float stepHeight) : this(contact.point, contact.normal, angle, stepHeight) { }
+            public HitData(RaycastHit hit, float angle, float stepHeight) : this(hit.point, hit.normal, angle, stepHeight) { }
         }
 
         #region Gizmos
