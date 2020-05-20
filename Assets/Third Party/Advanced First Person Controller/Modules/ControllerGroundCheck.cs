@@ -111,9 +111,21 @@ namespace Game
             var angle = Vector3.Angle(Controller.transform.up, hit.normal);
             var stepHeight = Controller.transform.InverseTransformPoint(hit.point).y + (Controller.State.Height / 2f);
 
-            if (angle > maxSlope && stepHeight > maxStepHeight) return null;
+            var result = new HitData(hit, angle, stepHeight);
 
-            return new HitData(hit, angle, stepHeight);
+            if (angle > maxSlope)
+            {
+                if (CheckSlope(result))
+                    return result;
+                return result;
+            }
+
+            return result;
+        }
+
+        protected virtual bool CheckSlope(HitData hit)
+        {
+            return true;
         }
         #endregion
 
@@ -163,10 +175,9 @@ namespace Game
             public HitData(Vector3 point, Vector3 normal, float angle, float stepHeight)
             {
                 this.Point = point;
-
                 this.Normal = normal;
-
                 this.Angle = angle;
+                this.StepHeight = stepHeight;
             }
             public HitData(Collision collision, ContactPoint contact, float angle, float stepHeight) : this(contact.point, contact.normal, angle, stepHeight) { }
             public HitData(RaycastHit hit, float angle, float stepHeight) : this(hit.point, hit.normal, angle, stepHeight) { }
