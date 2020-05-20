@@ -28,8 +28,6 @@ namespace Game
             Controller.OnProcess += Process;
         }
 
-        public float angle;
-
         void Process()
         {
             if(Input.GetKeyDown(KeyCode.F))
@@ -38,14 +36,7 @@ namespace Game
                 Controller.collider.isTrigger = Controller.rigidbody.isKinematic;
             }
 
-            if(Controller.GroundCheck.IsGrounded)
-            {
-                angle = Vector3.Angle(Controller.transform.forward, Controller.GroundCheck.Hit.Normal);
-            }
-            else
-            {
-                angle = 0f;
-            }
+            if (Controller.GroundCheck.IsGrounded) Controller.transform.up = Controller.GroundCheck.Hit.Normal;
         }
     }
 }

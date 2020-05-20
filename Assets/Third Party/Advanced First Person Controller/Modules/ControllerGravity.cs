@@ -37,12 +37,10 @@ namespace Game
         {
             base.Init();
 
-            Controller.OnFixedProcess += FixedProcess;
-
             Controller.rigidbody.useGravity = false;
         }
 
-        void FixedProcess()
+        public virtual void Apply()
         {
             CalculateDirection();
 
@@ -55,11 +53,6 @@ namespace Game
                 Direction = Vector3.Project(-Controller.transform.up, -GroundCheck.Hit.Normal);
             else
                 Direction = -Controller.transform.up;
-        }
-
-        public virtual Vector3 CalculateVelocity()
-        {
-            return Direction * Vector3.Dot(Controller.rigidbody.velocity, Direction);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace Game
         public float Acceleration { get { return acceleration; } }
 
         public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
-
         public ControllerGravity Gravity => Controller.Gravity;
 
         public Vector3 Forward => Controller.transform.forward;
@@ -42,17 +41,27 @@ namespace Game
             base.Init();
 
             Controller.OnProcess += Process;
+            Controller.OnFixedProcess += FixedProcess;
         }
 
         void Process()
         {
-            var velocity = Controller.rigidbody.velocity - Gravity.CalculateVelocity();
+
+        }
+
+        void FixedProcess()
+        {
+            GroundCheck.Do();
+
+            Gravity.Apply();
+
+            var velocity = Controller.rigidbody.velocity;
 
             var target = CalculateTarget();
 
             velocity = Vector3.MoveTowards(velocity, target, acceleration * Time.deltaTime);
 
-            Controller.rigidbody.velocity = velocity + Gravity.CalculateVelocity();
+            Controller.rigidbody.velocity = velocity;
 
             Debug.DrawRay(Controller.transform.position, target, Color.yellow);
             Debug.DrawRay(Controller.transform.position, velocity, Color.red);
@@ -67,7 +76,14 @@ namespace Game
             if (GroundCheck.IsGrounded)
                 target = Vector3.ProjectOnPlane(target, GroundCheck.Hit.Normal);
 
+            target += CalculateVerticalVelocity();
+
             return target;
+        }
+
+        public virtual Vector3 CalculateVerticalVelocity()
+        {
+            return Gravity.Direction * Vector3.Dot(Controller.rigidbody.velocity, Gravity.Direction);
         }
     }
 }

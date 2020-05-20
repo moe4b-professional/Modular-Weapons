@@ -21,7 +21,7 @@ namespace Game
 {
 	public class ControllerCharacterLook : ControllerLook.Module
 	{
-        public float Angle { get; protected set; }
+        public float Angle { get; protected set; } = 0f;
 
         public Quaternion Offset { get; protected set; }
 
@@ -32,6 +32,8 @@ namespace Game
             base.Init();
 
             Controller.OnProcess += Process;
+
+            CalculateOffset();
         }
 
         void Process()
@@ -40,9 +42,14 @@ namespace Game
 
             Angle = ClampAngle(Angle + Look.Delta.x);
 
-            Offset = Quaternion.Euler(0f, Angle, 0f);
+            CalculateOffset();
 
             Controller.transform.localRotation *= Offset;
+        }
+
+        protected virtual void CalculateOffset()
+        {
+            Offset = Quaternion.Euler(0f, Angle, 0f);
         }
 
         protected virtual float ClampAngle(float angle)

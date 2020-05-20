@@ -42,19 +42,25 @@ namespace Game
         {
             base.Init();
 
+            CalculateOffset();
+
             Controller.OnProcess += Process;
         }
 
-        float input;
         void Process()
         {
             CameraRig.transform.localRotation *= Quaternion.Inverse(Offset);
 
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 
-            Offset = Quaternion.Euler(Angle, 0f, 0f);
+            CalculateOffset();
 
             CameraRig.transform.localRotation *= Offset;
+        }
+
+        protected virtual void CalculateOffset()
+        {
+            Offset = Quaternion.Euler(Angle, 0f, 0f);
         }
     }
 }

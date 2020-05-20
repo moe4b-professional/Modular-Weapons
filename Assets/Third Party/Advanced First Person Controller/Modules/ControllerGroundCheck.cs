@@ -33,19 +33,18 @@ namespace Game
         protected float offset = 0.1f;
         public float Offset { get { return offset; } }
 
-        public float MaxDistance => range + offset;
+        public float MaxDistance => range + offset + (Controller.State.Height / 2f);
 
-        [SerializeField]
-        [Range(0f, 1f)]
-        protected float radiusScale = 0.8f;
-        public float RadiusScale { get { return radiusScale; } }
-
-        public float Radius => Controller.State.Radius * radiusScale;
+        public float Radius => Controller.State.Radius;
 
         [SerializeField]
         [Range(0f, 90f)]
         protected float maxSlope = 50f;
         public float MaxSlope { get { return maxSlope; } }
+
+        [SerializeField]
+        protected float stepHeight = 0.3f;
+        public float StepHeight { get { return stepHeight; } }
 
         public Vector3 Origin { get; protected set; }
 
@@ -61,14 +60,12 @@ namespace Game
         {
             base.Init();
 
-            Controller.OnProcess += Process;
-
             Detect();
 
             if (IsGrounded == false) LeftGround();
         }
 
-        void Process()
+        public virtual void Do()
         {
             var oldHit = Hit;
 
@@ -80,42 +77,34 @@ namespace Game
         #region Detect
         protected virtual void Detect()
         {
-            Origin = Controller.transform.position + (Direction * ((Controller.collider.height / 2f) - offset - Radius));
-
-            Hit = Cast();
-        }
-
-        protected virtual HitData Cast()
-        {
-            if (Physics.SphereCast(Origin, Radius, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
-                return Check(hit);
-            else
-                return null;
-        }
-
-        protected HitData Check(IList<RaycastHit> list)
-        {
-            for (int i = 0; i < list.Count; i++)
-                Debug.DrawRay(list[i].point, list[i].normal * 2f, Color.blue);
-
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 1; i <= 3; i++)
             {
-                var hit = Check(list[i]);
+                Origin = Controller.transform.position + (-Direction * (offset + (Radius / i)));
 
-                if (hit == null) continue;
+                if (Physics.SphereCast(Origin, Radius / i, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+                {
+                    Hit = Check(hit);
+                }
+                else
+                {
+                    Hit = null;
+                    break;
+                }
 
-                return hit;
+                if (Hit != null) break;
             }
-
-            return null;
         }
+
         protected virtual HitData Check(RaycastHit hit)
         {
             if (hit.collider == null) return null;
 
-            var angle = Vector3.Angle(Controller.transform.up, hit.normal);
+            Debug.DrawRay(hit.point, hit.normal * 0.5f, Color.blue);
 
-            if (angle > maxSlope) return null;
+            var angle = Vector3.Angle(Controller.transform.up, hit.normal);
+            var height = Controller.transform.InverseTransformPoint(hit.point).y + (Controller.State.Height / 2f);
+
+            if (angle > maxSlope && height > stepHeight) return null;
 
             return new HitData(hit, angle);
         }
