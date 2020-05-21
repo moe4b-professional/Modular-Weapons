@@ -48,6 +48,10 @@ namespace Game
             public FirstPersonController Controller => Reference;
         }
 
+        public Vector3 Position => transform.position;
+
+        public ControllerVelocity Velocity { get; protected set; }
+
         protected virtual void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -64,6 +68,8 @@ namespace Game
             AirTravel = Dependancy.Get<ControllerAirTravel>(gameObject);
             Collisions = Dependancy.Get<ControllerCollisions>(gameObject);
             Gravity = Dependancy.Get<ControllerGravity>(gameObject);
+
+            Velocity = Dependancy.Get<ControllerVelocity>(gameObject);
 
             State = Dependancy.Get<ControllerState>(gameObject);
 

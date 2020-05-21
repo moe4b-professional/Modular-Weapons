@@ -21,6 +21,10 @@ namespace Game
 {
 	public class ControllerSandbox : FirstPersonController.Module
 	{
+        public float forward;
+        public float right;
+        public float up;
+
         public override void Init()
         {
             base.Init();
@@ -36,7 +40,9 @@ namespace Game
                 Controller.collider.isTrigger = Controller.rigidbody.isKinematic;
             }
 
-            if (Controller.GroundCheck.IsGrounded) Controller.transform.up = Controller.GroundCheck.Hit.Normal;
+            forward = Controller.Velocity.Forward.magnitude;
+            right = Controller.Velocity.Right.magnitude;
+            up = Controller.Velocity.Up.magnitude;
         }
     }
 }

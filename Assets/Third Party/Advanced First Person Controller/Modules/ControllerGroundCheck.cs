@@ -44,11 +44,23 @@ namespace Game
 
         [SerializeField]
         protected float maxStepHeight = 0.3f;
-        public float StepHeight { get { return maxStepHeight; } }
+        public float MaxStepHeight { get { return maxStepHeight; } }
 
-        public Vector3 Origin { get; protected set; }
+        public Vector3 Up => Controller.transform.up;
+        public Vector3 Down => -Up;
 
-        public Vector3 Direction => -Controller.transform.up;
+        protected virtual Vector3 CalculateOrigin(int index)
+        {
+            var origin = Controller.Position + (Up * (offset + (Radius / index)));
+
+            var input = Controller.Movement.Target;
+
+            var direction = Vector3.ClampMagnitude(input / Controller.Movement.Speed, 1f);
+
+            origin += direction * (Controller.State.Radius / 4f / index);
+
+            return origin;
+        }
 
         public HitData Hit { get; protected set; }
 
@@ -65,7 +77,7 @@ namespace Game
             if (IsGrounded == false) LeftGround();
         }
 
-        public virtual void Do()
+        public virtual void Do(Vector3 input)
         {
             var oldHit = Hit;
 
@@ -79,9 +91,9 @@ namespace Game
         {
             for (int i = 1; i <= 3; i++)
             {
-                CalculateOrigin(i);
+                var origin = CalculateOrigin(i);
 
-                if (Physics.SphereCast(Origin, Radius / i, Direction, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+                if (Physics.SphereCast(origin, Radius / i, Down, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
                 {
                     Hit = Check(hit);
                 }
@@ -95,40 +107,59 @@ namespace Game
             }
         }
 
-        protected virtual void CalculateOrigin(int index)
-        {
-            Origin = Controller.transform.position + (-Direction * (offset + (Radius / index)));
-
-            Origin += Vector3.ClampMagnitude(Controller.rigidbody.velocity / Controller.Movement.Speed, 1f) * (Controller.State.Radius / 2f / index);
-        }
-
         protected virtual HitData Check(RaycastHit hit)
         {
             if (hit.collider == null) return null;
 
             Debug.DrawRay(hit.point, hit.normal * 0.5f, Color.blue);
 
-            var angle = Vector3.Angle(Controller.transform.up, hit.normal);
+            var angle = Vector3.Angle(Up, hit.normal);
             var stepHeight = Controller.transform.InverseTransformPoint(hit.point).y + (Controller.State.Height / 2f);
 
             var result = new HitData(hit, angle, stepHeight);
 
             if (angle > maxSlope)
             {
-                if (CheckSlope(result))
+                if (CheckStep(result))
                     return result;
-                return result;
+                else
+                    return null;
             }
 
             return result;
         }
 
-        protected virtual bool CheckSlope(HitData hit)
+        protected virtual bool CheckStep(HitData target)
         {
-            return true;
+            if (target.StepHeight > maxStepHeight) return false;
+
+            Debug.Log("Check Slope");
+            var duration = 10f;
+
+            var velocity = Controller.Movement.Target;
+
+            var offset = 0.2f;
+            var range = maxStepHeight * (1f + offset + offset);
+
+            var origin = target.Point + (velocity.normalized * Radius / 4f) + (Up * maxStepHeight * offset);
+
+            if (Physics.Raycast(origin, Down, out var hit, range, mask, QueryTriggerInteraction.Ignore))
+            {
+                Debug.DrawRay(origin, Down * range, Color.green, duration);
+
+                var angle = Vector3.Angle(Up, hit.normal);
+
+                return angle <= maxSlope;
+            }
+            else
+            {
+                Debug.DrawRay(origin, Down * range, Color.red, duration);
+
+                return false;
+            }
         }
         #endregion
-
+        
         #region Change
         protected virtual void ProcessChange(HitData oldState, HitData newState)
         {
@@ -189,13 +220,15 @@ namespace Game
         {
             if (Application.isPlaying)
             {
-                var end = Origin + Direction * MaxDistance;
+                var origin = CalculateOrigin(1);
+
+                var end = origin + Down * MaxDistance;
 
                 Handles.color = Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(Origin, Radius);
+                Gizmos.DrawWireSphere(origin, Radius);
 
                 Handles.color = Gizmos.color = Color.green;
-                DrawWireCapsule(Origin, end, Radius);
+                DrawWireCapsule(origin, end, Radius);
             }
         }
 

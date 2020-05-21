@@ -30,8 +30,8 @@ namespace Game
         public ForceMode Mode { get { return mode; } }
 
         [SerializeField]
-        protected Vector3 direction = Vector3.up;
-        public Vector3 Direction { get { return direction; } }
+        protected Vector3 axis = Vector3.up;
+        public Vector3 Axis { get { return axis; } }
 
         public ButtonInput Button { get; protected set; }
 
@@ -54,11 +54,16 @@ namespace Game
             Button.Process(Controller.Input.Jump);
 
             if(Button.Press)
-            {
-                var vector = Controller.transform.TransformDirection(direction) * force;
+                Do();
+        }
 
-                Controller.rigidbody.AddForce(vector, mode);
-            }
+        protected virtual void Do()
+        {
+            var direction = Controller.transform.TransformDirection(axis);
+
+            Controller.Velocity.Absolute -= Controller.Velocity.Calculate(direction);
+
+            Controller.rigidbody.AddForce(direction * force, mode);
         }
     }
 }

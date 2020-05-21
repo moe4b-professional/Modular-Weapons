@@ -29,6 +29,8 @@ namespace Game
         protected float acceleration = 15f;
         public float Acceleration { get { return acceleration; } }
 
+        public Vector3 Target { get; protected set; }
+
         public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
         public ControllerGravity Gravity => Controller.Gravity;
 
@@ -51,19 +53,19 @@ namespace Game
 
         void FixedProcess()
         {
-            GroundCheck.Do();
+            GroundCheck.Do(Target);
 
             Gravity.Apply();
 
             var velocity = Controller.rigidbody.velocity;
 
-            var target = CalculateTarget();
+            Target = CalculateTarget();
 
-            velocity = Vector3.MoveTowards(velocity, target, acceleration * Time.deltaTime);
+            velocity = Vector3.MoveTowards(velocity, Target, acceleration * Time.deltaTime);
 
             Controller.rigidbody.velocity = velocity;
 
-            Debug.DrawRay(Controller.transform.position, target, Color.yellow);
+            Debug.DrawRay(Controller.transform.position, Target, Color.yellow);
             Debug.DrawRay(Controller.transform.position, velocity, Color.red);
         }
 
@@ -71,19 +73,14 @@ namespace Game
         {
             var input = Forward * Controller.Input.Move.y + Right * Controller.Input.Move.x;
 
-            var target = Vector3.ClampMagnitude(input, 1) * speed * Controller.State.Multiplier;
+            var result = Vector3.ClampMagnitude(input, 1) * speed * Controller.State.Multiplier;
 
             if (GroundCheck.IsGrounded)
-                target = Vector3.ProjectOnPlane(target, GroundCheck.Hit.Normal);
+                result = Vector3.ProjectOnPlane(result, GroundCheck.Hit.Normal);
 
-            target += CalculateVerticalVelocity();
+            result += Controller.Velocity.Calculate(Gravity.Direction);
 
-            return target;
-        }
-
-        public virtual Vector3 CalculateVerticalVelocity()
-        {
-            return Gravity.Direction * Vector3.Dot(Controller.rigidbody.velocity, Gravity.Direction);
+            return result;
         }
     }
 }
