@@ -62,7 +62,12 @@ namespace Game
             if(mode == InputMode.Toggle)
             {
                 if (Input.Sprint.Press)
-                    Toggle(Sets.Normal);
+                {
+                    if (Active)
+                        End();
+                    else
+                        Begin();
+                }
             }
 
             if(Active)

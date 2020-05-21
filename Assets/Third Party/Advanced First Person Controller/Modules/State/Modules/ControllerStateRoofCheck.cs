@@ -60,11 +60,7 @@ namespace Game
 
                 var delta = Transition.Target.Height - State.Height;
 
-                if (delta <= 0) return false;
-
-                if (delta < range) return false;
-
-                Debug.Log(delta);
+                if (delta < 0.001f) return false;
 
                 return true;
             }
@@ -85,8 +81,6 @@ namespace Game
         {
             if(Active)
             {
-                Debug.Log("Checking Roof");
-
                 if (Detect())
                 {
                     var target = FindElement(State.Height);
