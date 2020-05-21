@@ -57,9 +57,11 @@ namespace Game
             origin += Up * Radius / index;
             origin += Up * maxStepHeight;
 
-            var velocity = Controller.Velocity.Planar;
-            var direction = Vector3.ClampMagnitude(velocity / Controller.Movement.Speed, 1f);
-            origin += direction * (Radius / 2f / index);
+            if(Controller.Movement.Speed.Value > 0f)
+            {
+                var direction = Vector3.ClampMagnitude(Controller.Velocity.Planar / Controller.Movement.Speed.Value, 1f);
+                origin += direction * (Radius / 2f / index);
+            }
 
             return origin;
         }
@@ -140,8 +142,7 @@ namespace Game
             var offset = 0.2f;
             var range = maxStepHeight * (1f + offset + offset);
 
-            var velocity = Controller.Velocity.Planar;
-            var origin = target.Point + (velocity.normalized * Radius / 4f) + (Up * maxStepHeight * offset);
+            var origin = target.Point + (Controller.Velocity.Planar.normalized * Radius / 4f) + (Up * maxStepHeight * offset);
 
             if (Physics.Raycast(origin, Down, out var hit, range, mask, QueryTriggerInteraction.Ignore))
             {

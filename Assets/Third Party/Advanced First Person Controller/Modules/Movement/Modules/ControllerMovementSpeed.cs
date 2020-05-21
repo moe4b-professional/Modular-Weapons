@@ -19,16 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateElevationAdjustment : ControllerState.Module
+	public class ControllerMovementSpeed : ControllerMovement.Module
 	{
-        public virtual void Process(ControllerState.IData target)
-        {
-            if (Controller.GroundCheck.IsGrounded || true)
-            {
-                var delta = State.Height - target.Height;
+		[SerializeField]
+        protected float _base = 4f;
+        public float Base { get { return _base; } }
 
-                Controller.transform.position -= Controller.transform.up * delta / 2f;
-            }
+        public float Value { get; protected set; }
+
+        public virtual void Calculate(float multiplier)
+        {
+            Value = Base * multiplier;
         }
     }
 }

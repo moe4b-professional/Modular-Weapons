@@ -25,7 +25,26 @@ namespace Game
 
         public Vector2 Look { get; protected set; }
 
-        public bool Jump { get; protected set; }
+        public ButtonInput Jump { get; protected set; }
+
+        public ButtonInput Sprint { get; protected set; }
+
+        public ButtonInput Crouch { get; protected set; }
+
+        public ButtonInput Prone { get; protected set; }
+
+        public override void Configure(FirstPersonController reference)
+        {
+            base.Configure(reference);
+
+            Jump = new ButtonInput();
+
+            Sprint = new ButtonInput();
+
+            Crouch = new ButtonInput();
+
+            Prone = new ButtonInput();
+        }
 
         public override void Init()
         {
@@ -48,7 +67,13 @@ namespace Game
                 y = Input.GetAxis("Look Y")
             };
 
-            Jump = Input.GetKey(KeyCode.Space);
+            Jump.Process(Input.GetKey(KeyCode.Space));
+
+            Sprint.Process(Input.GetKey(KeyCode.LeftShift));
+
+            Crouch.Process(Input.GetKey(KeyCode.C));
+
+            Prone.Process(Input.GetKey(KeyCode.LeftControl));
         }
     }
 }

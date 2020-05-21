@@ -44,7 +44,12 @@ namespace Game
 
         public virtual Vector3 Calculate(Vector3 direction)
         {
-            return direction * Vector3.Dot(Absolute, direction);
+            return direction * Dot(direction);
+        }
+
+        public virtual float Dot(Vector3 direction)
+        {
+            return Vector3.Dot(Absolute, direction);
         }
 	}
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword

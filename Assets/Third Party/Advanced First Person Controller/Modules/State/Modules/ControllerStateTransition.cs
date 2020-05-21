@@ -24,10 +24,10 @@ namespace Game
         public float Speed { get; protected set; }
 
         [SerializeField]
-        protected ControllerStateElement target;
-        public ControllerStateElement Target { get { return target; } }
+        protected BaseControllerStateElement target;
+        public BaseControllerStateElement Target { get { return target; } }
 
-        public IReadOnlyList<ControllerStateElement> Elements => State.Elements;
+        public IReadOnlyList<BaseControllerStateElement> Elements => State.Elements;
 
         public override void Configure(FirstPersonController reference)
         {
@@ -51,7 +51,7 @@ namespace Game
         {
             CalculateSpeed();
 
-            ProcessElements();
+            ProcessData();
         }
 
         protected virtual void CalculateSpeed()
@@ -62,19 +62,28 @@ namespace Game
                 Speed += Elements[i].TransitionSpeed * Elements[i].Weight;
         }
 
-        protected virtual void ProcessElements()
+        protected virtual void ProcessData()
         {
             var data = ControllerState.Data.Zero;
 
             for (int i = 0; i < Elements.Count; i++)
-                data += Elements[i].Data * Elements[i].Weight;
+            {
+                var instance = new ControllerState.Data(Elements[i]);
+
+                data += instance * Elements[i].Weight;
+
+                if(Elements[i] is ControllerSprintStateElement)
+                {
+
+                }
+            }
 
             State.Set(data);
         }
 
-        public delegate void SetDelegate(ControllerStateElement target);
+        public delegate void SetDelegate(BaseControllerStateElement target);
         public event SetDelegate OnSet;
-        public virtual void Set(ControllerStateElement value)
+        public virtual void Set(BaseControllerStateElement value)
         {
             target = value;
 

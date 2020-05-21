@@ -37,6 +37,8 @@ namespace Game
 
         public ControllerStateTransition Transition { get; protected set; }
 
+        public ControllerStateSets Sets { get; protected set; }
+
         public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
         public class Module : FirstPersonController.Module
@@ -44,10 +46,10 @@ namespace Game
             public ControllerState State => Controller.State;
         }
 
-        public List<ControllerStateElement> Elements { get; protected set; }
+        public List<BaseControllerStateElement> Elements { get; protected set; }
 
         [Serializable]
-        public struct Data
+        public struct Data : IData
         {
             [SerializeField]
             float height;
@@ -69,16 +71,17 @@ namespace Game
 
                 this.multiplier = multiplier;
             }
+            public Data(IData data) : this(data.Height, data.Radius, data.Multiplier) { }
 
             public static Data Zero => new Data(0f, 0f, 0f);
 
-            public static Data Lerp(Data a, Data b, float rate)
+            public static Data Lerp(IData a, IData b, float rate)
             {
                 return new Data()
                 {
-                    height = Mathf.Lerp(a.height, b.height, rate),
-                    radius = Mathf.Lerp(a.radius, b.radius, rate),
-                    multiplier = Mathf.Lerp(a.multiplier, b.multiplier, rate),
+                    height = Mathf.Lerp(a.Height, b.Height, rate),
+                    radius = Mathf.Lerp(a.Radius, b.Radius, rate),
+                    multiplier = Mathf.Lerp(a.Multiplier, b.Multiplier, rate),
                 };
             }
 
@@ -92,15 +95,24 @@ namespace Game
                 };
             }
 
-            public static Data operator + (Data a, Data b)
+            public static Data operator + (Data a, IData b)
             {
                 return new Data()
                 {
-                    height = a.height + b.height,
-                    radius = a.radius + b.radius,
-                    multiplier = a.multiplier + b.multiplier,
+                    height = a.height + b.Height,
+                    radius = a.radius + b.Radius,
+                    multiplier = a.multiplier + b.Multiplier,
                 };
             }
+        }
+
+        public interface IData
+        {
+            float Height { get; }
+
+            float Radius { get; }
+
+            float Multiplier { get; }
         }
         
         public override void Configure(FirstPersonController reference)
@@ -109,12 +121,14 @@ namespace Game
 
             Transition = Dependancy.Get<ControllerStateTransition>(gameObject);
 
+            Sets = Dependancy.Get<ControllerStateSets>(gameObject);
+
             HeightAdjustment = Dependancy.Get<ControllerStateElevationAdjustment>(gameObject);
 
-            Elements = Dependancy.GetAll<ControllerStateElement>(Controller.gameObject);
+            Elements = Dependancy.GetAll<BaseControllerStateElement>(Controller.gameObject);
         }
 
-        public virtual void Set(Data data)
+        public virtual void Set(IData data)
         {
             HeightAdjustment.Process(data);
 

@@ -22,46 +22,23 @@ namespace Game
 	public class ControllerStateSets : ControllerState.Module
 	{
         [SerializeField]
-        protected ControllerStateElement normal;
-        public ControllerStateElement Normal { get { return normal; } }
+        protected ControllerNormalStateElement normal;
+        public ControllerNormalStateElement Normal { get { return normal; } }
 
         [SerializeField]
-        protected ControllerStateElement crouch;
-        public ControllerStateElement Crouch { get { return crouch; } }
+        protected ControllerSprintStateElement sprint;
+        public ControllerSprintStateElement Sprint { get { return sprint; } }
 
         [SerializeField]
-        protected ControllerStateElement prone;
-        public ControllerStateElement Prone { get { return prone; } }
+        protected ControllerCrouchStateElement crouch;
+        public ControllerCrouchStateElement Crouch { get { return crouch; } }
+
+        [SerializeField]
+        protected ControllerProneStateElement prone;
+        public ControllerProneStateElement Prone { get { return prone; } }
 
         public ControllerStateTransition Transition => State.Transition;
 
-        public override void Init()
-        {
-            base.Init();
-
-            Controller.OnProcess += Process;
-        }
-
-        void Process()
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (crouch.Active)
-                    Transition.Set(normal);
-                else
-                    Transition.Set(crouch);
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                if (prone.Active)
-                    Transition.Set(normal);
-                else
-                    Transition.Set(prone);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                State.Transition.Set(normal);
-        }
+        public ControllerInput Input => Controller.Input;
     }
 }

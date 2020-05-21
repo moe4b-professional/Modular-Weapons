@@ -19,16 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateElevationAdjustment : ControllerState.Module
+	public class ControllerProneStateElement : ControllerStateElement
 	{
-        public virtual void Process(ControllerState.IData target)
+        protected override void Process()
         {
-            if (Controller.GroundCheck.IsGrounded || true)
-            {
-                var delta = State.Height - target.Height;
+            base.Process();
 
-                Controller.transform.position -= Controller.transform.up * delta / 2f;
-            }
+            if (Input.Prone.Press)
+                Toggle(Sets.Normal);
+
+            if (Input.Jump.Press && Active)
+                State.Transition.Set(Sets.Normal);
         }
     }
 }
