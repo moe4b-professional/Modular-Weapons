@@ -53,11 +53,9 @@ namespace Game
         {
             var origin = Controller.Position + (Up * (offset + (Radius / index)));
 
-            var input = Controller.Movement.Target;
+            var direction = Vector3.ClampMagnitude(Controller.Movement.Target / Controller.Movement.Speed, 1f);
 
-            var direction = Vector3.ClampMagnitude(input / Controller.Movement.Speed, 1f);
-
-            origin += direction * (Controller.State.Radius / 4f / index);
+            origin += direction * (Radius / 2f / index);
 
             return origin;
         }
@@ -133,9 +131,6 @@ namespace Game
         {
             if (target.StepHeight > maxStepHeight) return false;
 
-            Debug.Log("Check Slope");
-            var duration = 10f;
-
             var velocity = Controller.Movement.Target;
 
             var offset = 0.2f;
@@ -145,7 +140,7 @@ namespace Game
 
             if (Physics.Raycast(origin, Down, out var hit, range, mask, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawRay(origin, Down * range, Color.green, duration);
+                Debug.DrawRay(origin, Down * range, Color.green, 10f);
 
                 var angle = Vector3.Angle(Up, hit.normal);
 
@@ -153,7 +148,7 @@ namespace Game
             }
             else
             {
-                Debug.DrawRay(origin, Down * range, Color.red, duration);
+                Debug.DrawRay(origin, Down * range, Color.red, 10f);
 
                 return false;
             }
