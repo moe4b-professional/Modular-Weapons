@@ -38,6 +38,8 @@ namespace Game
         public Vector3 Right => Calculate(Controller.transform.right);
         public Vector3 Up => Calculate(Controller.transform.up);
 
+        public Vector3 Planar => Forward + Right;
+
         public Rigidbody rigidbody => Controller.rigidbody;
 
         public virtual Vector3 Calculate(Vector3 direction)

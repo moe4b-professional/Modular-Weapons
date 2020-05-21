@@ -33,6 +33,7 @@ namespace Game
 
         public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
         public ControllerGravity Gravity => Controller.Gravity;
+        public ControllerVelocity Velocity => Controller.Velocity;
 
         public Vector3 Forward => Controller.transform.forward;
         public Vector3 Right => Controller.transform.right;
@@ -53,25 +54,21 @@ namespace Game
 
         void FixedProcess()
         {
-            GroundCheck.Do(Target);
-
             Gravity.Apply();
 
-            var velocity = Controller.rigidbody.velocity;
+            GroundCheck.Do();
 
             Target = CalculateTarget();
 
-            velocity = Vector3.MoveTowards(velocity, Target, acceleration * Time.deltaTime);
-
-            Controller.rigidbody.velocity = velocity;
+            Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * Time.deltaTime);
 
             Debug.DrawRay(Controller.transform.position, Target, Color.yellow);
-            Debug.DrawRay(Controller.transform.position, velocity, Color.red);
+            Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);
         }
 
         protected virtual Vector3 CalculateTarget()
         {
-            var input = Forward * Controller.Input.Move.y + Right * Controller.Input.Move.x;
+            var input = (Forward * Controller.Input.Move.y) + (Right * Controller.Input.Move.x);
 
             var result = Vector3.ClampMagnitude(input, 1) * speed * Controller.State.Multiplier;
 

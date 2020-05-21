@@ -33,9 +33,8 @@ namespace Game
         protected float offset = 0.1f;
         public float Offset { get { return offset; } }
 
-        public float MaxDistance => range + offset + (Controller.State.Height / 2f);
-
         public float Radius => Controller.State.Radius;
+        public float Height => Controller.State.Height;
 
         [SerializeField]
         [Range(0f, 90f)]
@@ -51,14 +50,21 @@ namespace Game
 
         protected virtual Vector3 CalculateOrigin(int index)
         {
-            var origin = Controller.Position + (Up * (offset + (Radius / index)));
+            var origin = Controller.transform.position;
 
-            var direction = Vector3.ClampMagnitude(Controller.Movement.Target / Controller.Movement.Speed, 1f);
+            origin += Down * Height / 2f;
+            origin += Up * offset;
+            origin += Up * Radius / index;
+            origin += Up * maxStepHeight;
 
+            var velocity = Controller.Velocity.Planar;
+            var direction = Vector3.ClampMagnitude(velocity / Controller.Movement.Speed, 1f);
             origin += direction * (Radius / 2f / index);
 
             return origin;
         }
+
+        public float MaxDistance => range + offset + maxStepHeight;
 
         public HitData Hit { get; protected set; }
 
@@ -75,7 +81,7 @@ namespace Game
             if (IsGrounded == false) LeftGround();
         }
 
-        public virtual void Do(Vector3 input)
+        public virtual void Do()
         {
             var oldHit = Hit;
 
@@ -131,11 +137,10 @@ namespace Game
         {
             if (target.StepHeight > maxStepHeight) return false;
 
-            var velocity = Controller.Movement.Target;
-
             var offset = 0.2f;
             var range = maxStepHeight * (1f + offset + offset);
 
+            var velocity = Controller.Velocity.Planar;
             var origin = target.Point + (velocity.normalized * Radius / 4f) + (Up * maxStepHeight * offset);
 
             if (Physics.Raycast(origin, Down, out var hit, range, mask, QueryTriggerInteraction.Ignore))
