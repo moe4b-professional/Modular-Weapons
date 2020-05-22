@@ -35,7 +35,7 @@ namespace Game
 
         [SerializeField]
         protected FloatToggleValue multiplier;
-        public override float Multiplier => multiplier.Evaluate(source.Multiplier);
+        public override float Multiplier => Mathf.Lerp(source.Multiplier, multiplier.Evaluate(source.Multiplier), Input.Sprint.Axis);
 
         [SerializeField]
         protected InputMode mode = InputMode.Toggle;
@@ -45,43 +45,53 @@ namespace Game
             Toggle, Hold
         }
 
+        public virtual bool CanDo
+        {
+            get
+            {
+                if (Vector3.Dot(Controller.Movement.Input, transform.forward) < 0.5f) return false;
+
+                return true;
+            }
+        }
+
         protected override void Process()
         {
             base.Process();
 
             if(mode == InputMode.Hold)
             {
-                if (Input.Sprint.Press)
+                if (Input.Sprint.Button.Press && CanDo)
                     Begin();
 
-                if (Input.Sprint.Held == false && Active)
+                if (Active && Input.Sprint.Button.Held == false)
                     End();
             }
+
             if(mode == InputMode.Toggle)
             {
-                if (Input.Sprint.Press)
+                if (Input.Sprint.Button.Press)
                 {
                     if (Active)
                         End();
-                    else
+                    else if (CanDo)
                         Begin();
                 }
             }
 
-            if(Active)
-            {
-                if (Controller.Movement.Input.Value.magnitude < 0.5f)
-                    End();
-            }
+            if (Active && CanDo == false)
+                End();
         }
 
         protected virtual void Begin()
         {
+            Debug.Log("Begin");
             Transition.Set(this);
         }
 
         protected virtual void End()
         {
+            Debug.Log("End");
             Transition.Set(Sets.Normal);
         }
     }

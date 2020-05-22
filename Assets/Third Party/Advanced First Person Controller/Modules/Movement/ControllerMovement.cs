@@ -25,11 +25,12 @@ namespace Game
         protected float acceleration = 15f;
         public float Acceleration { get { return acceleration; } }
 
+        public Vector3 Input { get; protected set; }
+
         public Vector3 Target { get; protected set; }
 
         public ControllerMovementSpeed Speed { get; protected set; }
         public ControllerMovementDirection Direction { get; protected set; }
-        public ControllerMovementInput Input { get; protected set; }
 
         public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
         public ControllerGravity Gravity => Controller.Gravity;
@@ -47,7 +48,6 @@ namespace Game
 
             Speed = Dependancy.Get<ControllerMovementSpeed>(Controller.gameObject);
             Direction = Dependancy.Get<ControllerMovementDirection>(Controller.gameObject);
-            Input = Dependancy.Get<ControllerMovementInput>(Controller.gameObject);
         }
 
         public override void Init()
@@ -60,7 +60,7 @@ namespace Game
 
         void Process()
         {
-            
+            CalculateInput();
         }
 
         public float Multiplier { get; protected set; }
@@ -70,16 +70,8 @@ namespace Game
             Gravity.Apply();
             GroundCheck.Do();
 
-            if(GroundCheck.IsGrounded)
-            {
-                Input.Calculate();
-
+            if (GroundCheck.IsGrounded)
                 Multiplier = State.Multiplier;
-            }
-            else
-            {
-                Input.Calculate();
-            }
 
             Speed.Calculate(Multiplier);
 
@@ -91,9 +83,16 @@ namespace Game
             Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);
         }
 
+        protected virtual void CalculateInput()
+        {
+            Input = (Direction.Forward * Controller.Input.Move.y) + (Direction.Right * Controller.Input.Move.x);
+
+            Input = Vector3.ClampMagnitude(Input, 1f);
+        }
+
         protected virtual Vector3 CalculateTarget()
         {
-            var result = Input.Value * Speed.Value;
+            var result = Input * Speed.Value;
 
             if (GroundCheck.IsGrounded)
                 result = Vector3.ProjectOnPlane(result, GroundCheck.Hit.Normal);

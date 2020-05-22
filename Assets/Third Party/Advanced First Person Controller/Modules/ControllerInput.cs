@@ -27,7 +27,27 @@ namespace Game
 
         public ButtonInput Jump { get; protected set; }
 
-        public ButtonInput Sprint { get; protected set; }
+        public SprintInput Sprint { get; protected set; }
+
+        [Serializable]
+        public class SprintInput
+        {
+            public float Axis { get; protected set; }
+
+            public ButtonInput Button { get; protected set; }
+
+            public virtual void Process(float axis)
+            {
+                this.Axis = axis;
+
+                Button.Process(axis > 0f);
+            }
+
+            public SprintInput()
+            {
+                Button = new ButtonInput();
+            }
+        }
 
         public ButtonInput Crouch { get; protected set; }
 
@@ -39,7 +59,7 @@ namespace Game
 
             Jump = new ButtonInput();
 
-            Sprint = new ButtonInput();
+            Sprint = new SprintInput();
 
             Crouch = new ButtonInput();
 
@@ -55,25 +75,42 @@ namespace Game
 
         void Process()
         {
-            Move = new Vector2()
-            {
-                x = Input.GetAxisRaw("Move X"),
-                y = Input.GetAxisRaw("Move Y")
-            };
+            Move = GetAxes("Move");
 
-            Look = new Vector2()
-            {
-                x = Input.GetAxis("Look X"),
-                y = Input.GetAxis("Look Y")
-            };
+            Look = GetAxes("Look");
 
-            Jump.Process(Input.GetKey(KeyCode.Space));
+            Jump.Process(GetKey(KeyCode.Space, KeyCode.JoystickButton0));
 
-            Sprint.Process(Input.GetKey(KeyCode.LeftShift));
+            Sprint.Process(GetAxis("Sprint"));
 
-            Crouch.Process(Input.GetKey(KeyCode.C));
+            Crouch.Process(GetKey(KeyCode.C, KeyCode.JoystickButton1));
 
-            Prone.Process(Input.GetKey(KeyCode.LeftControl));
+            Prone.Process(GetKey(KeyCode.LeftControl, KeyCode.JoystickButton2));
+        }
+
+        protected virtual Vector2 GetAxes(string name)
+        {
+            var x = GetAxis(name + " X");
+            var y = GetAxis(name + " Y");
+
+            return new Vector2(x, y);
+        }
+        protected virtual float GetAxis(string name)
+        {
+            var keyboard = Input.GetAxisRaw(name + " - PC");
+
+            var joystick = Input.GetAxisRaw(name + " - Joystick");
+
+            return keyboard + joystick;
+        }
+
+        protected virtual bool GetKey(params KeyCode[] keys)
+        {
+            for (int i = 0; i < keys.Length; i++)
+                if (Input.GetKey(keys[i]))
+                    return true;
+
+            return false;
         }
     }
 }
