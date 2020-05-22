@@ -32,11 +32,13 @@ namespace Game
 
         public const float MaxRange = 90f;
 
+        public Vector3 Axis => Vector3.right;
+
         public float Angle { get; protected set; }
 
         public Quaternion Offset { get; protected set; }
 
-        public ControllerRig.CameraData CameraRig => Controller.Rig.camera;
+        public Transform Context => Controller.Rig.camera.Component.transform;
 
         public override void Init()
         {
@@ -49,13 +51,13 @@ namespace Game
 
         void Process()
         {
-            CameraRig.transform.localRotation *= Quaternion.Inverse(Offset);
+            Context.localRotation *= Quaternion.Inverse(Offset);
 
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 
             CalculateOffset();
 
-            CameraRig.transform.localRotation *= Offset;
+            Context.localRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

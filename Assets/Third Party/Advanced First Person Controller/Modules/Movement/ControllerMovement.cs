@@ -25,10 +25,9 @@ namespace Game
         protected float acceleration = 15f;
         public float Acceleration { get { return acceleration; } }
 
-        public Vector3 Input { get; protected set; }
-
         public Vector3 Target { get; protected set; }
 
+        public ControllerMovementInput Input { get; protected set; }
         public ControllerMovementSpeed Speed { get; protected set; }
         public ControllerMovementDirection Direction { get; protected set; }
 
@@ -46,6 +45,7 @@ namespace Game
         {
             base.Configure(reference);
 
+            Input = Dependancy.Get<ControllerMovementInput>(Controller.gameObject);
             Speed = Dependancy.Get<ControllerMovementSpeed>(Controller.gameObject);
             Direction = Dependancy.Get<ControllerMovementDirection>(Controller.gameObject);
         }
@@ -60,7 +60,7 @@ namespace Game
 
         void Process()
         {
-            CalculateInput();
+            Input.Calcaulate();
         }
 
         public float Multiplier { get; protected set; }
@@ -83,16 +83,9 @@ namespace Game
             Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);
         }
 
-        protected virtual void CalculateInput()
-        {
-            Input = (Direction.Forward * Controller.Input.Move.y) + (Direction.Right * Controller.Input.Move.x);
-
-            Input = Vector3.ClampMagnitude(Input, 1f);
-        }
-
         protected virtual Vector3 CalculateTarget()
         {
-            var result = Input * Speed.Value;
+            var result = Vector3.ClampMagnitude(Input.Absolute * Speed.Value, Speed.Value);
 
             if (GroundCheck.IsGrounded)
                 result = Vector3.ProjectOnPlane(result, GroundCheck.Hit.Normal);

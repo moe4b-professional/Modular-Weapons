@@ -44,11 +44,16 @@ namespace Game
             public ControllerSoundSetTemplate Template { get { return template; } }
         }
 
+        public override void Configure(FirstPersonController reference)
+        {
+            base.Configure(reference);
+
+            Value = Default;
+        }
+
         public override void Init()
         {
             base.Init();
-
-            Value = Default;
 
             Controller.GroundCheck.OnDetect += GroundDetectCallback;
         }

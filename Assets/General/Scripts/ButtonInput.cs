@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [Serializable]
 	public class ButtonInput
 	{
 		public bool Press { get; protected set; }
@@ -32,10 +33,14 @@ namespace Game
             if(input)
             {
                 Press = !Press && !Held;
+
+                Up = false;
             }
             else
             {
                 Up = !Up && Held;
+
+                Press = false;
             }
 
             Held = input;

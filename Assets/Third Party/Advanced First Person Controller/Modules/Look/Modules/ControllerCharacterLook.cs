@@ -25,7 +25,7 @@ namespace Game
 
         public Quaternion Offset { get; protected set; }
 
-        public ControllerRig.CameraData CameraRig => Controller.Rig.camera;
+        public Transform Context => Controller.transform;
 
         public override void Init()
         {
@@ -38,13 +38,13 @@ namespace Game
 
         void Process()
         {
-            Controller.transform.localRotation *= Quaternion.Inverse(Offset);
+            Context.localRotation *= Quaternion.Inverse(Offset);
 
             Angle = ClampAngle(Angle + Look.Delta.x);
 
             CalculateOffset();
 
-            Controller.transform.localRotation *= Offset;
+            Context.localRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

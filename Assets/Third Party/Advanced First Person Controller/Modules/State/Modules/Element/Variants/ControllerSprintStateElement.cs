@@ -49,7 +49,7 @@ namespace Game
         {
             get
             {
-                if (Vector3.Dot(Controller.Movement.Input, transform.forward) < 0.5f) return false;
+                if (Vector3.Dot(Controller.Movement.Input.Relative, Vector3.forward) < 0.5f) return false;
 
                 return true;
             }
@@ -85,13 +85,11 @@ namespace Game
 
         protected virtual void Begin()
         {
-            Debug.Log("Begin");
             Transition.Set(this);
         }
 
         protected virtual void End()
         {
-            Debug.Log("End");
             Transition.Set(Sets.Normal);
         }
     }

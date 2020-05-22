@@ -28,19 +28,20 @@ namespace Game
         public ButtonInput Jump { get; protected set; }
 
         public SprintInput Sprint { get; protected set; }
-
         [Serializable]
         public class SprintInput
         {
             public float Axis { get; protected set; }
 
+            public float DeadZone => 0.1f;
+
             public ButtonInput Button { get; protected set; }
 
-            public virtual void Process(float axis)
+            public virtual void Process(float value)
             {
-                this.Axis = axis;
+                Axis = value;
 
-                Button.Process(axis > 0f);
+                Button.Process(value > DeadZone);
             }
 
             public SprintInput()
@@ -53,6 +54,34 @@ namespace Game
 
         public ButtonInput Prone { get; protected set; }
 
+        public LeanInput Lean { get; protected set; }
+        [Serializable]
+        public class LeanInput
+        {
+            public float Axis { get; protected set; }
+
+            public float DeadZone => 0.1f;
+
+            public ButtonInput Right { get; protected set; }
+
+            public ButtonInput Left { get; protected set; }
+
+            public virtual void Process(float value)
+            {
+                Axis = value;
+
+                Right.Process(Axis > DeadZone);
+                Left.Process(Axis < -DeadZone);
+            }
+
+            public LeanInput()
+            {
+                Right = new ButtonInput();
+
+                Left = new ButtonInput();
+            }
+        }
+
         public override void Configure(FirstPersonController reference)
         {
             base.Configure(reference);
@@ -64,6 +93,8 @@ namespace Game
             Crouch = new ButtonInput();
 
             Prone = new ButtonInput();
+
+            Lean = new LeanInput();
         }
 
         public override void Init()
@@ -86,6 +117,8 @@ namespace Game
             Crouch.Process(GetKey(KeyCode.C, KeyCode.JoystickButton1));
 
             Prone.Process(GetKey(KeyCode.LeftControl, KeyCode.JoystickButton2));
+
+            Lean.Process(GetAxis("Lean"));
         }
 
         protected virtual Vector2 GetAxes(string name)
