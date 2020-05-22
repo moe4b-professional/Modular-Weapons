@@ -19,8 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerCrouchStateElement : ControllerStateElement
+	public class ControllerCrouchStateElement : ControllerStateElement, ControllerJump.IState
     {
+        [SerializeField]
+        protected JumpInputAction jumpAction = JumpInputAction.StandUp;
+        public JumpInputAction JumpAction { get { return jumpAction; } }
+        public enum JumpInputAction
+        {
+            Jump, StandUp
+        }
+
+        bool ControllerJump.IState.CanDo => jumpAction == JumpInputAction.Jump || Mathf.Approximately(Weight, 0f);
+
         protected override void Process()
         {
             base.Process();
@@ -28,7 +38,7 @@ namespace Game
             if (Input.Crouch.Press)
                 Toggle(Sets.Normal);
 
-            if (Input.Jump.Press && Active)
+            if (jumpAction == JumpInputAction.StandUp && Input.Jump.Press && Active)
                 State.Transition.Set(Sets.Normal);
         }
     }

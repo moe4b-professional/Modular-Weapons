@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerSprintStateElement : BaseControllerStateElement, ControllerJump.IState
+    public class ControllerSprintStateElement : BaseControllerStateElement
     {
         [SerializeField]
         protected ControllerStateElement source;
@@ -44,8 +44,6 @@ namespace Game
         {
             Toggle, Hold
         }
-
-        bool ControllerJump.IState.CanDo => Weight == 1f;
 
         protected override void Process()
         {

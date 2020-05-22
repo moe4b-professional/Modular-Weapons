@@ -37,6 +37,12 @@ namespace Game
 
         public int Count { get; protected set; }
 
+        public IList<IState> States { get; protected set; }
+        public interface IState
+        {
+            bool CanDo { get; }
+        }
+
         public virtual bool CanDo
         {
             get
@@ -47,19 +53,11 @@ namespace Game
 
                 if (Count == 0 && GroundCheck.IsGrounded == false) return false;
 
-                if (IsValidState(State.Transition.Target) == false) return false;
+                for (int i = 0; i < States.Count; i++)
+                    if (States[i].CanDo == false) return false;
 
                 return true;
             }
-        }
-
-        protected virtual bool IsValidState(BaseControllerStateElement element)
-        {
-            var state = element as IState;
-
-            if (state == null) return false;
-
-            return state.CanDo;
         }
 
         [SerializeField]
@@ -119,6 +117,8 @@ namespace Game
 
             Count = 0;
 
+            States = Dependancy.GetAll<IState>(Controller.gameObject);
+
             References.Configure(this, Lock);
         }
 
@@ -167,11 +167,6 @@ namespace Game
         {
             Lock.Stop();
             Count = 0;
-        }
-
-        public interface IState
-        {
-            bool CanDo { get; }
         }
     }
 }

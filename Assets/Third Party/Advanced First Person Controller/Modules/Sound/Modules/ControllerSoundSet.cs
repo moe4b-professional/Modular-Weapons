@@ -28,9 +28,10 @@ namespace Game
         public ControllerSoundSetTemplate Value { get; protected set; }
 
         [SerializeField]
-        protected Element[] list;
-        public Element[] List { get { return list; } }
-        public class Element
+        protected SurfaceElement[] surfaces;
+        public SurfaceElement[] Surfaces { get { return surfaces; } }
+        [Serializable]
+        public class SurfaceElement
         {
             [SerializeField]
             protected SurfaceMaterial[] materials;
@@ -60,7 +61,7 @@ namespace Game
             }
             else
             {
-                Detect
+                Value = Detect(hit.Collider);
             }
         }
 
@@ -75,11 +76,11 @@ namespace Game
             return element.Template;
         }
 
-        protected virtual Element FromSurface(SurfaceMaterial material)
+        protected virtual SurfaceElement FromSurface(SurfaceMaterial material)
         {
-            for (int i = 0; i < list.Length; i++)
-                if (list[i].Contains(material))
-                    return list[i];
+            for (int i = 0; i < surfaces.Length; i++)
+                if (surfaces[i].Contains(material))
+                    return surfaces[i];
 
             return null;
         }

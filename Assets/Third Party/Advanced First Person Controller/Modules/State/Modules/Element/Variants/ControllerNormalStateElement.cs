@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerNormalStateElement : ControllerStateElement, ControllerJump.IState
+    public class ControllerNormalStateElement : ControllerStateElement
     {
-        bool ControllerJump.IState.CanDo => Weight == 1f;
+
     }
 }

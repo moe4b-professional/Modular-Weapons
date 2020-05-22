@@ -61,7 +61,7 @@ namespace Game
 
         void JumpCallback()
         {
-            PlayOneShot(Set.Value.Jump);
+            if(Controller.Jump.Count == 1) PlayOneShot(Set.Value.Jump);
         }
         void StepCallback()
         {

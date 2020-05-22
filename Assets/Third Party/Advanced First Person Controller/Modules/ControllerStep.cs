@@ -21,13 +21,15 @@ namespace Game
 {
 	public class ControllerStep : FirstPersonController.Module
 	{
+        public float Rate { get; protected set; }
+
         [SerializeField]
-        protected float length = 1.5f;
-        public float Length { get { return length; } }
+        protected float scale;
+        public float Scale { get { return scale; } }
 
-        public float Travel { get; protected set; }
-
-        public float Rate => Travel / length;
+        [SerializeField]
+        protected float resetSpeed;
+        public float ResetSpeed { get { return resetSpeed; } }
 
         public ControllerMovement Movement => Controller.Movement;
         public ControllerVelocity Velocity => Controller.Velocity;
@@ -44,18 +46,19 @@ namespace Game
 
         void Process()
         {
-            var velocity = Velocity.Absolute - Velocity.Calculate(Gravity.Direction);
+            var velocity = Velocity.Absolute;
 
-            if(Mathf.Approximately(velocity.magnitude, 0f))
+            if (velocity.magnitude < 0.01f || GroundCheck.IsGrounded == false)
             {
-                var target = Travel >= length / 2f ? length : 0f;
-                Travel = Mathf.MoveTowards(Travel, target, length * Time.deltaTime);
+                if (Rate > 0.5f) Rate = Mathf.InverseLerp(1f, 0f, Rate);
+
+                Rate = Mathf.MoveTowards(Rate, 0f, resetSpeed * Time.deltaTime);
             }
             else
             {
-                Travel += velocity.magnitude * Time.deltaTime;
+                Rate += velocity.magnitude * scale * Time.deltaTime;
 
-                if (Travel > length)
+                if (Rate >= 1f)
                     Complete();
             }
         }
@@ -63,9 +66,7 @@ namespace Game
         public event Action OnComplete;
         protected virtual void Complete()
         {
-            Debug.Log("Complete");
-
-            Travel = 0f;
+            Rate = 0f;
 
             OnComplete?.Invoke();
         }
