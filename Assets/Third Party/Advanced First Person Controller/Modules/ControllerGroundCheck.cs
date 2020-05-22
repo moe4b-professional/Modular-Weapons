@@ -93,6 +93,8 @@ namespace Game
         }
 
         #region Detect
+        public delegate void DetectDelegate(HitData hit);
+        public event DetectDelegate OnDetect;
         protected virtual void Detect()
         {
             for (int i = 1; i <= 3; i++)
@@ -111,6 +113,8 @@ namespace Game
 
                 if (Hit != null) break;
             }
+
+            OnDetect?.Invoke(Hit);
         }
 
         protected virtual HitData Check(RaycastHit hit)
@@ -196,6 +200,8 @@ namespace Game
         [Serializable]
         public class HitData
         {
+            public Collider Collider { get; protected set; }
+
             public Vector3 Point { get; protected set; }
 
             public Vector3 Normal { get; protected set; }
@@ -204,15 +210,14 @@ namespace Game
 
             public float StepHeight { get; protected set; }
 
-            public HitData(Vector3 point, Vector3 normal, float angle, float stepHeight)
+            public HitData(RaycastHit hit, float angle, float stepHeight)
             {
-                this.Point = point;
-                this.Normal = normal;
+                this.Collider = hit.collider;
+                this.Point = hit.point;
+                this.Normal = hit.normal;
                 this.Angle = angle;
                 this.StepHeight = stepHeight;
             }
-            public HitData(Collision collision, ContactPoint contact, float angle, float stepHeight) : this(contact.point, contact.normal, angle, stepHeight) { }
-            public HitData(RaycastHit hit, float angle, float stepHeight) : this(hit.point, hit.normal, angle, stepHeight) { }
         }
 
         #region Gizmos

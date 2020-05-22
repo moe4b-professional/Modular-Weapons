@@ -25,7 +25,9 @@ namespace Game
         protected float length = 1.5f;
         public float Length { get { return length; } }
 
-        public float Value { get; protected set; }
+        public float Travel { get; protected set; }
+
+        public float Rate => Travel / length;
 
         public ControllerMovement Movement => Controller.Movement;
         public ControllerVelocity Velocity => Controller.Velocity;
@@ -44,12 +46,28 @@ namespace Game
         {
             var velocity = Velocity.Absolute - Velocity.Calculate(Gravity.Direction);
 
-            Value += velocity.magnitude * Time.deltaTime;
-
-            if (Value > length)
+            if(Mathf.Approximately(velocity.magnitude, 0f))
             {
-                Value = 0f;
+                var target = Travel >= length / 2f ? length : 0f;
+                Travel = Mathf.MoveTowards(Travel, target, length * Time.deltaTime);
             }
+            else
+            {
+                Travel += velocity.magnitude * Time.deltaTime;
+
+                if (Travel > length)
+                    Complete();
+            }
+        }
+
+        public event Action OnComplete;
+        protected virtual void Complete()
+        {
+            Debug.Log("Complete");
+
+            Travel = 0f;
+
+            OnComplete?.Invoke();
         }
     }
 }

@@ -144,6 +144,7 @@ namespace Game
             }
         }
 
+        public event Action OnDo;
         protected virtual void Do()
         {
             Count++;
@@ -154,6 +155,8 @@ namespace Game
             if (dot < 0f) Velocity.Absolute -= Direction * dot;
 
             Controller.rigidbody.AddForce(Direction * force, mode);
+
+            OnDo?.Invoke();
         }
 
         void OnLeftGround()

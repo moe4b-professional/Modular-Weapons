@@ -37,6 +37,10 @@ namespace Game
         public ControllerAirTravel AirTravel { get; protected set; }
         public ControllerCollisions Collisions { get; protected set; }
         public ControllerGravity Gravity { get; protected set; }
+        public ControllerStep Step { get; protected set; }
+        public ControllerHeadBob HeadBob { get; protected set; }
+        public ControllerSound Sound { get; protected set; }
+        public ControllerJump Jump { get; protected set; }
 
         public ControllerState State { get; protected set; }
 
@@ -68,6 +72,10 @@ namespace Game
             AirTravel = Dependancy.Get<ControllerAirTravel>(gameObject);
             Collisions = Dependancy.Get<ControllerCollisions>(gameObject);
             Gravity = Dependancy.Get<ControllerGravity>(gameObject);
+            Step = Dependancy.Get<ControllerStep>(gameObject);
+            HeadBob = Dependancy.Get<ControllerHeadBob>(gameObject);
+            Sound = Dependancy.Get<ControllerSound>(gameObject);
+            Jump = Dependancy.Get<ControllerJump>(gameObject);
 
             Velocity = Dependancy.Get<ControllerVelocity>(gameObject);
 

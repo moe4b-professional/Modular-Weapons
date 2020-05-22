@@ -24,5 +24,20 @@ namespace Game
         [SerializeField]
         protected SurfaceMaterial material;
         public SurfaceMaterial Material { get { return material; } }
+
+        public static Surface Get(Collider collider)
+        {
+            Surface surface;
+
+            surface = collider.GetComponent<Surface>();
+            if (surface != null) return surface;
+
+            if (collider.attachedRigidbody == null) return null;
+
+            surface = collider.attachedRigidbody.GetComponent<Surface>();
+            if (surface != null) return surface;
+
+            return null;
+        }
     }
 }
