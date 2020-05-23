@@ -73,8 +73,8 @@ namespace Game
 
         void Process()
         {
-            Rig.Pivot.localRotation = Quaternion.Inverse(Offset) * Rig.Pivot.localRotation;
-            Rig.transform.localRotation = AlignmentOffset * Rig.transform.localRotation;
+            QuatTool.Subtract(Rig.Pivot, Offset);
+            QuatTool.Subtract(Rig.Anchor, AlignmentOffset);
 
             CalculateTarget();
 
@@ -82,8 +82,8 @@ namespace Game
 
             CalculateOffset();
 
-            Rig.Pivot.localRotation = Offset * Rig.Pivot.localRotation;
-            Rig.transform.localRotation = Quaternion.Inverse(AlignmentOffset) * Rig.transform.localRotation;
+            QuatTool.Add(Rig.Pivot, Offset);
+            QuatTool.Add(Rig.Anchor, AlignmentOffset);
         }
 
         protected virtual void CalculateTarget()
@@ -110,7 +110,8 @@ namespace Game
         protected virtual void CalculateOffset()
         {
             Offset = Quaternion.Euler(Axis * -Angle);
-            AlignmentOffset = Quaternion.Lerp(Quaternion.identity, Offset, cameraAlignment);
+
+            AlignmentOffset = Quaternion.Lerp(Quaternion.identity, Quaternion.Inverse(Offset), cameraAlignment);
         }
     }
 }

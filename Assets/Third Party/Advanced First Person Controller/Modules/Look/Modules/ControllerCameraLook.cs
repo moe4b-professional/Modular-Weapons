@@ -51,18 +51,37 @@ namespace Game
 
         void Process()
         {
-            Context.localRotation *= Quaternion.Inverse(Offset);
+            QuatTool.Subtract(Context, Offset);
 
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 
             CalculateOffset();
 
-            Context.localRotation *= Offset;
+            QuatTool.Add(Context, Offset);
         }
 
         protected virtual void CalculateOffset()
         {
-            Offset = Quaternion.Euler(Angle, 0f, 0f);
+            Offset = Quaternion.AngleAxis(Angle, Axis);
+        }
+    }
+
+    public static class QuatTool
+    {
+        public static void Add(Transform target, Quaternion rotation)
+        {
+            target.localRotation *= rotation;
+
+            //target.localRotation = target.localRotation * rotation;
+            //target.localRotation = rotation * target.localRotation;
+        }
+
+        public static void Subtract(Transform target, Quaternion rotation)
+        {
+            target.localRotation *= Quaternion.Inverse(rotation);
+
+            //target.localRotation = Quaternion.Inverse(rotation) * target.localRotation;
+            //target.localRotation = target.localRotation * Quaternion.Inverse(rotation);
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Game
             public Transform Pivot { get { return pivot; } }
 
             [SerializeField]
+            protected Transform anchor;
+            public Transform Anchor { get { return anchor; } }
+
+            [SerializeField]
             protected Camera component;
             public Camera Component { get { return component; } }
 
