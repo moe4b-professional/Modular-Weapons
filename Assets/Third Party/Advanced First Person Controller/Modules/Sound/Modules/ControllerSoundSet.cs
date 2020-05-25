@@ -55,10 +55,10 @@ namespace Game
         {
             base.Init();
 
-            Controller.GroundCheck.OnDetect += GroundDetectCallback;
+            Controller.Ground.Detect.OnProcess += GroundDetectCallback;
         }
 
-        void GroundDetectCallback(ControllerGroundCheck.HitData hit)
+        void GroundDetectCallback(ControllerGroundData hit)
         {
             if (hit == null)
             {

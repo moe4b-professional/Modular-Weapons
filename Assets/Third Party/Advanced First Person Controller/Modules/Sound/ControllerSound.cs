@@ -48,7 +48,7 @@ namespace Game
 
             Controller.Step.OnComplete += StepCallback;
 
-            Controller.GroundCheck.OnLanding += LandingCallback;
+            Controller.Ground.Change.OnLand += LandOnGroundCallback;
         }
 
         protected virtual void PlayOneShot(IList<AudioClip> list) => PlayOneShot(Random(list));
@@ -67,7 +67,7 @@ namespace Game
         {
             PlayOneShot(Set.Value.Step);
         }
-        void LandingCallback(ControllerAirTravel.Data travel)
+        void LandOnGroundCallback(ControllerAirTravel.Data travel)
         {
             PlayOneShot(Set.Value.Land);
         }

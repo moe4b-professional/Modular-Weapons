@@ -51,7 +51,7 @@ namespace Game
 
                 if (Count >= maxCount) return false;
 
-                if (Count == 0 && GroundCheck.IsGrounded == false) return false;
+                if (Count == 0 && Ground.IsGrounded == false) return false;
 
                 for (int i = 0; i < States.Count; i++)
                     if (States[i].CanDo == false) return false;
@@ -107,7 +107,7 @@ namespace Game
             }
         }
 
-        public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
+        public ControllerGround Ground => Controller.Ground;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
         
@@ -128,8 +128,8 @@ namespace Game
 
             Controller.OnProcess += Process;
 
-            GroundCheck.OnLeftGround += OnLeftGround;
-            GroundCheck.OnLanding += OnGroundLanding;
+            Ground.Change.OnLeave += LeaveGroundCallback;
+            Ground.Change.OnLand += LandOnGroundCallback;
 
             References.Init(this, Lock);
         }
@@ -138,7 +138,7 @@ namespace Game
         {
             if (Lock.IsOn == false)
             {
-                if (GroundCheck.IsGrounded && Count > 0) Count = 0;
+                if (Ground.IsGrounded && Count > 0) Count = 0;
 
                 if (Controller.Input.Jump.Press && CanDo) Do();
             }
@@ -149,7 +149,7 @@ namespace Game
         {
             Count++;
 
-            if (GroundCheck.IsGrounded) Lock.Start();
+            if (Ground.IsGrounded) Lock.Start();
 
             var dot = Controller.Velocity.Dot(Direction);
             if (dot < 0f) Velocity.Absolute -= Direction * dot;
@@ -159,11 +159,11 @@ namespace Game
             OnDo?.Invoke();
         }
 
-        void OnLeftGround()
+        void LeaveGroundCallback()
         {
             Lock.Stop();
         }
-        void OnGroundLanding(ControllerAirTravel.Data travel)
+        void LandOnGroundCallback(ControllerAirTravel.Data travel)
         {
             Lock.Stop();
             Count = 0;

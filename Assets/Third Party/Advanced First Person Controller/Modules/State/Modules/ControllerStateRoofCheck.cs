@@ -36,16 +36,15 @@ namespace Game
         public float Radius => Controller.State.Radius * 0.8f;
         public float Height => Controller.State.Height;
 
-        public Vector3 Up => Controller.transform.up;
-        public Vector3 Down => -Up;
+        public ControllerDirection Direction => Controller.Direction;
 
         protected virtual Vector3 CalculateOrigin()
         {
             var origin = Controller.transform.position;
 
-            origin += Up * Height / 2f;
-            origin += Down * offset;
-            origin += Down * Radius;
+            origin += Direction.Up * Height / 2f;
+            origin += Direction.Down * offset;
+            origin += Direction.Down * Radius;
 
             return origin;
         }
@@ -110,7 +109,7 @@ namespace Game
         {
             var origin = CalculateOrigin();
 
-            if(Physics.SphereCast(origin, Radius, Up, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+            if(Physics.SphereCast(origin, Radius, Direction.Up, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
             {
                 return true;
             }
@@ -128,7 +127,7 @@ namespace Game
             {
                 var origin = CalculateOrigin();
 
-                var end = origin + Up * MaxDistance;
+                var end = origin + Direction.Up * MaxDistance;
 
                 Handles.color = Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(origin, Radius);

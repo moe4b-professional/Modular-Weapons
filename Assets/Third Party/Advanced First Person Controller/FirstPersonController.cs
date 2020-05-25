@@ -24,16 +24,18 @@ namespace Game
     public class FirstPersonController : MonoBehaviour
     {
         public Rigidbody rigidbody { get; protected set; }
-
         public PhysicsRewind PhysicsCallbacks { get; protected set; }
 
         public CapsuleCollider collider { get; protected set; }
+        public float Height => collider.height;
+        public float Radius => collider.radius;
 
         public ControllerInput Input { get; protected set; }
 
         public ControllerRig Rig { get; protected set; }
 
-        public ControllerGroundCheck GroundCheck { get; protected set; }
+        public ControllerDirection Direction { get; protected set; }
+        public ControllerGround Ground { get; protected set; }
         public ControllerAirTravel AirTravel { get; protected set; }
         public ControllerCollisions Collisions { get; protected set; }
         public ControllerGravity Gravity { get; protected set; }
@@ -54,6 +56,8 @@ namespace Game
 
         public Vector3 Position => transform.position;
 
+        public bool IsGrounded => Ground.IsGrounded;
+
         public ControllerVelocity Velocity { get; protected set; }
 
         protected virtual void Awake()
@@ -68,7 +72,8 @@ namespace Game
 
             Rig = Dependancy.Get<ControllerRig>(gameObject);
 
-            GroundCheck = Dependancy.Get<ControllerGroundCheck>(gameObject);
+            Direction = Dependancy.Get<ControllerDirection>(gameObject);
+            Ground = Dependancy.Get<ControllerGround>(gameObject);
             AirTravel = Dependancy.Get<ControllerAirTravel>(gameObject);
             Collisions = Dependancy.Get<ControllerCollisions>(gameObject);
             Gravity = Dependancy.Get<ControllerGravity>(gameObject);

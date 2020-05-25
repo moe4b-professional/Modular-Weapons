@@ -34,7 +34,7 @@ namespace Game
         public ControllerMovement Movement => Controller.Movement;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
-        public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
+        public ControllerGround Ground => Controller.Ground;
         public ControllerGravity Gravity => Controller.Gravity;
 
         public override void Init()
@@ -48,7 +48,7 @@ namespace Game
         {
             var velocity = Velocity.Absolute;
 
-            if (velocity.magnitude < 0.01f || GroundCheck.IsGrounded == false)
+            if (velocity.magnitude < 0.01f || Ground.IsGrounded == false)
             {
                 if (Rate > 0.5f) Rate = Mathf.InverseLerp(1f, 0f, Rate);
 

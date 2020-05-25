@@ -31,7 +31,7 @@ namespace Game
 
         public Vector3 Direction { get; protected set; }
 
-        public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
+        public ControllerGround Ground => Controller.Ground;
 
         public override void Init()
         {
@@ -49,8 +49,8 @@ namespace Game
 
         protected virtual void CalculateDirection()
         {
-            if (GroundCheck.IsGrounded)
-                Direction = Vector3.Project(-Controller.transform.up, -GroundCheck.Hit.Normal);
+            if (Ground.IsGrounded)
+                Direction = Vector3.Project(-Controller.transform.up, -Ground.Data.Normal);
             else
                 Direction = -Controller.transform.up;
         }

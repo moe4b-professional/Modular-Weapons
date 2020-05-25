@@ -29,9 +29,9 @@ namespace Game
 
         public ControllerMovementInput Input { get; protected set; }
         public ControllerMovementSpeed Speed { get; protected set; }
-        public ControllerMovementDirection Direction { get; protected set; }
+        public ControllerDirection Direction { get; protected set; }
 
-        public ControllerGroundCheck GroundCheck => Controller.GroundCheck;
+        public ControllerGround Ground => Controller.Ground;
         public ControllerGravity Gravity => Controller.Gravity;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
@@ -47,7 +47,7 @@ namespace Game
 
             Input = Dependancy.Get<ControllerMovementInput>(Controller.gameObject);
             Speed = Dependancy.Get<ControllerMovementSpeed>(Controller.gameObject);
-            Direction = Dependancy.Get<ControllerMovementDirection>(Controller.gameObject);
+            Direction = Dependancy.Get<ControllerDirection>(Controller.gameObject);
         }
 
         public override void Init()
@@ -68,9 +68,9 @@ namespace Game
         void FixedProcess()
         {
             Gravity.Apply();
-            GroundCheck.Do();
+            Ground.Check();
 
-            if (GroundCheck.IsGrounded)
+            if (Ground.IsGrounded)
                 Multiplier = State.Multiplier;
 
             Speed.Calculate(Multiplier);
@@ -87,8 +87,8 @@ namespace Game
         {
             var result = Vector3.ClampMagnitude(Input.Absolute * Speed.Value, Speed.Value);
 
-            if (GroundCheck.IsGrounded)
-                result = Vector3.ProjectOnPlane(result, GroundCheck.Hit.Normal);
+            if (Ground.IsGrounded)
+                result = Vector3.ProjectOnPlane(result, Ground.Data.Normal);
 
             result += Controller.Velocity.Calculate(Gravity.Direction);
 

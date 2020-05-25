@@ -23,7 +23,7 @@ namespace Game
 	{
         public virtual void Process(ControllerState.IData target)
         {
-            if (Controller.GroundCheck.IsGrounded)
+            if (Controller.IsGrounded)
             {
                 var delta = State.Height - target.Height;
 
