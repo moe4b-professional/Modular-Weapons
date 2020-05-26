@@ -67,7 +67,7 @@ namespace Game
         {
             if(Armed)
             {
-                var data = new HitData(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
+                var data = new WeaponHit.Data(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
 
                 ProcessHit(data);
             }
@@ -77,17 +77,17 @@ namespace Game
         {
             if (Armed)
             {
-                var contact = new HitContact(transform.forward * (Radius / 2f), -transform.forward);
+                var contact = new WeaponHit.ContactData(transform.forward * (Radius / 2f), -transform.forward);
 
-                var data = new HitData(collider, contact, rigidbody.velocity.normalized);
+                var data = new WeaponHit.Data(collider, contact, rigidbody.velocity.normalized);
 
                 ProcessHit(data);
             }
         }
 
-        public delegate void HitDelegate(Projectile projectile, HitData data);
+        public delegate void HitDelegate(Projectile projectile, WeaponHit.Data data);
         public event HitDelegate OnHit;
-        protected virtual void ProcessHit(HitData data)
+        protected virtual void ProcessHit(WeaponHit.Data data)
         {
             OnHit?.Invoke(this, data);
         }

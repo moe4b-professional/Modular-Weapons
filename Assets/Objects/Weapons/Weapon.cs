@@ -35,7 +35,7 @@ namespace Game
 
         public WeaponMesh Mesh { get; protected set; }
 
-        public class Module : ReferenceBehaviour<Weapon>
+        public abstract class Module<TReference> : MonoBehaviour, IReference<TReference>
         {
             new public bool enabled
             {
@@ -43,17 +43,39 @@ namespace Game
                 set => base.enabled = value;
             }
 
-            public Weapon Weapon => Reference;
-
-            public IOwner Owner => Weapon.Owner;
-
             //To force the enabled tick box on the component to show
             protected virtual void Start() { }
+
+            public TReference Reference { get; protected set; }
+
+            public abstract Weapon Weapon { get; }
+
+            public virtual void Configure(TReference reference)
+            {
+                this.Reference = reference;
+            }
+
+            public virtual void Init()
+            {
+                
+            }
 
             public string FormatDependancyError<TDependancy>()
             {
                 return "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";
             }
+            public void ExecuteDependancyError<TDependancy>()
+            {
+                Debug.LogError(FormatDependancyError<TDependancy>(), gameObject);
+                enabled = false;
+            }
+        }
+
+        public class Module : Module<Weapon>
+        {
+            public override Weapon Weapon => Reference;
+
+            public IOwner Owner => Weapon.Owner;
         }
 
         public AudioSource AudioSource { get; protected set; }

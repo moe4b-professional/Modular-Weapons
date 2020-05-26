@@ -58,6 +58,5 @@ namespace Game
 
             return instance;
         }
-        public virtual GameObject Spawn(HitData hit) => Spawn(hit.Contact.Point, hit.Contact.Normal, hit.Collider.transform);
     }
 }

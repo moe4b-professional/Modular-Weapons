@@ -24,7 +24,12 @@ namespace Game
         public static void Configure<TReference>(TReference reference)
             where TReference : Component
         {
-            var targets = Dependancy.GetAll<IReference<TReference>>(reference.gameObject);
+            Configure(reference, reference.gameObject);
+        }
+        public static void Configure<TReference>(TReference reference, GameObject root)
+            where TReference : Component
+        {
+            var targets = Dependancy.GetAll<IReference<TReference>>(root);
 
             Configure(reference, targets);
         }
@@ -41,9 +46,14 @@ namespace Game
         public static void Init<TReference>(TReference reference)
             where TReference : Component
         {
-            var targets = Dependancy.GetAll<IReference<TReference>>(reference.gameObject);
+            Init(reference, reference.gameObject);
+        }
+        public static void Init<TReference>(TReference reference, GameObject root)
+            where TReference : Component
+        {
+            var targets = Dependancy.GetAll<IReference<TReference>>(root);
 
-            Init<TReference>(reference, targets);
+            Init(reference, targets);
         }
         public static void Init<TReference>(TReference reference, IList<IReference<TReference>> targets)
         {
