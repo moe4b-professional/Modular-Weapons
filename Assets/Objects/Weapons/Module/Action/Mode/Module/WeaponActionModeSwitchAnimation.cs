@@ -33,23 +33,25 @@ namespace Game
         public override void Init()
         {
             base.Init();
-            
-            Mode.OnChange += ChangeCallback;
-
-            Mesh.TriggerRewind.Add(End, trigger + " End");
 
             Weapon.Activation.OnDisable += DisableCallback;
+
+            Mesh.TriggerRewind.OnTrigger += AnimationTriggerCallback;
+
+            Mode.OnChange += ChangeCallback;
         }
 
         void DisableCallback()
         {
-            if(Active) End();
+            if (Active) End();
         }
 
-        void ChangeCallback(int index, WeaponActionMode.IState module)
+        void AnimationTriggerCallback(string ID)
         {
-            Begin();
+            if (ID == trigger + " End") End();
         }
+
+        void ChangeCallback(int index, WeaponActionMode.IState module) => Begin();
 
         protected virtual void Begin()
         {

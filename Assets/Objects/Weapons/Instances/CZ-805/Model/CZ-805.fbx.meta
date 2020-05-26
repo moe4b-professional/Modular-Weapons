@@ -124,7 +124,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9755501
+      - time: 0.66014665
         functionName: Trigger
         data: Draw End
         objectReferenceParameter: {instanceID: 0}
@@ -189,7 +189,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.98288506
+      - time: 0.85330075
         functionName: Trigger
         data: Reload End
         objectReferenceParameter: {instanceID: 0}

@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [RequireComponent(typeof(Animator), typeof(AnimationTriggerRewind))]
 	public class WeaponMesh : Weapon.Module
 	{
         public Animator Animator { get; protected set; }

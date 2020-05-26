@@ -38,5 +38,12 @@ namespace Game
 
             Complete();
         }
+
+        protected override void Complete()
+        {
+            base.Complete();
+
+            Ammo.Refill();
+        }
     }
 }

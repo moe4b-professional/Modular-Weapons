@@ -35,7 +35,12 @@ namespace Game
 
             Weapon.Activation.OnEnable += Perform;
 
-            Mesh.TriggerRewind.Add(End, trigger + " End");
+            Mesh.TriggerRewind.OnTrigger += AnimationTriggerCallback;
+        }
+
+        void AnimationTriggerCallback(string ID)
+        {
+            if (ID == trigger + " End") End();
         }
 
         public virtual void Perform()

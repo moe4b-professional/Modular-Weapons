@@ -31,20 +31,31 @@ namespace Game
         {
             base.Init();
 
-            Mesh.TriggerRewind.Add(Complete, "Reload End");
+            Mesh.TriggerRewind.OnTrigger += AnimationEventCallback;
+        }
+
+        void AnimationEventCallback(string ID)
+        {
+            if (ID == trigger + " Fill") Fill();
+
+            if (ID == trigger + " End") End();
         }
 
         public override void Perform()
         {
             base.Perform();
-            
-            StartCoroutine(Procedure());
-            IEnumerator Procedure()
-            {
-                yield return new WaitForSeconds(0.2f);
 
-                Mesh.Animator.SetTrigger(trigger);
-            }
+            Mesh.Animator.SetTrigger(trigger);
+        }
+
+        protected virtual void Fill()
+        {
+            Ammo.Refill();
+        }
+
+        protected virtual void End()
+        {
+            if (IsProcessing) Complete();
         }
     }
 }

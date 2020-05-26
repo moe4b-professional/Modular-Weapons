@@ -70,9 +70,16 @@ namespace Game
 
             Weapon.OnLateProcess += LateProcess;
 
+            Weapon.Activation.OnDisable += DisableCallback;
+
             References.Init(this);
         }
-        
+
+        void DisableCallback()
+        {
+            if (IsProcessing) Stop();
+        }
+
         void LateProcess(Weapon.IProcessData data)
         {
             if (data is IData)
@@ -96,8 +103,6 @@ namespace Game
         protected virtual void Complete()
         {
             Stop();
-
-            Ammo.Refill();
 
             OnComplete?.Invoke();
         }

@@ -726,7 +726,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 7400000
       firstFrame: 10
-      lastFrame: 270
+      lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -747,6 +747,13 @@ ModelImporter:
       curves: []
       events:
       - time: 0.6227131
+        functionName: Trigger
+        data: Reload Fill
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7775061
         functionName: Trigger
         data: Reload End
         objectReferenceParameter: {instanceID: 0}
@@ -812,7 +819,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5a5bb06a1c430824e93ab4db90bd9276,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1691f867c6295234b9570ecdc35de92c,
     type: 3}
   animationType: 2
   humanoidOversampling: 1
