@@ -674,7 +674,7 @@ ModelImporter:
     second: Rifle h barrel
   - first:
       74: 7400000
-    second: Rifle Hip - Landing
+    second: Rifle - Landing
   - first:
       95: 9500000
     second: //RootNode
@@ -722,7 +722,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle Hip - Landing
+      name: Rifle - Landing
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0

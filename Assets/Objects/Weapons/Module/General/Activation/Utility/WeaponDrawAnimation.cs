@@ -21,13 +21,13 @@ namespace Game
 {
 	public class WeaponDrawAnimation : Weapon.Module, WeaponOperation.IInterface, WeaponConstraint.IInterface
 	{
-        [SerializeField]
-        protected string trigger = "Draw";
-        public string Trigger { get { return trigger; } }
+        public const string ID = "Draw";
 
         public WeaponMesh Mesh => Weapon.Mesh;
 
-        bool WeaponConstraint.IInterface.Constraint => Equals(Weapon.Operation.Value);
+        public bool IsProcessing => Weapon.Operation.Is(this);
+
+        bool WeaponConstraint.IInterface.Constraint => IsProcessing;
 
         public override void Init()
         {
@@ -38,14 +38,14 @@ namespace Game
             Mesh.TriggerRewind.OnTrigger += AnimationTriggerCallback;
         }
 
-        void AnimationTriggerCallback(string ID)
+        void AnimationTriggerCallback(string trigger)
         {
-            if (ID == trigger + " End") End();
+            if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
         public virtual void Perform()
         {
-            Mesh.Animator.SetTrigger(trigger);
+            Mesh.Animator.SetTrigger(ID);
             Weapon.Operation.Set(this);
         }
 

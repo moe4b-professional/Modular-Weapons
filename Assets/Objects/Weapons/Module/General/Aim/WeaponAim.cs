@@ -82,11 +82,11 @@ namespace Game
         {
             IsOn = data.Input;
 
-            if(Weapon.Operation.Value == null)
+            if(Weapon.Operation.Is(null))
             {
                 if (IsOn) Begin();
             }
-            else if(Weapon.Operation.Value.Equals(this))
+            else if(Weapon.Operation.Is(this))
             {
                 if (IsOn == false) End();
             }

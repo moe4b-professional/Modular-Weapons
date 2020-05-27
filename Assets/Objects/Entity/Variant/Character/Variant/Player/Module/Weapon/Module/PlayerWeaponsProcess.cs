@@ -70,6 +70,7 @@ namespace Game
         bool WeaponActionMode.IData.Switch => SwitchFireModeButton.Press;
 
         float WeaponSprint.IData.Weight => Player.Controller.State.Sets.Sprint.Weight;
+        float WeaponSprint.IData.Axis => Player.Controller.State.Sets.Sprint.Axis;
 
         public override void Configure(PlayerWeapons reference)
         {

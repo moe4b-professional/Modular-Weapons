@@ -21,7 +21,7 @@ namespace Game
 {
 	public abstract class WeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
-        public bool IsProcessing => Equals(Weapon.Operation.Value);
+        public bool IsProcessing => Weapon.Operation.Is(this);
         bool WeaponConstraint.IInterface.Constraint => IsProcessing;
 
         public WeaponAmmo Ammo { get; protected set; }

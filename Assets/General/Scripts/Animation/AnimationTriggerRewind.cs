@@ -106,5 +106,46 @@ namespace Game
                 return false;
             }
         }
+
+        public class StateMachine : StateMachineBehaviour
+        {
+            public AnimationTriggerRewind Rewind { get; protected set; }
+            public virtual void InitComponents(Animator animator)
+            {
+                if (Rewind == null) Rewind = animator.GetComponent<AnimationTriggerRewind>();
+            }
+        }
+    }
+
+    public static class AnimationTrigger
+    {
+        public static Element Start { get; private set; }
+
+        public static Element End { get; private set; }
+
+        public class Element
+        {
+            public string Suffix { get; protected set; }
+
+            public bool Is(string trigger, string ID) => AnimationTrigger.Is(trigger, ID, Suffix);
+
+            public string Format(string ID) => AnimationTrigger.Combine(ID, Suffix);
+
+            public Element(string suffix)
+            {
+                this.Suffix = suffix;
+            }
+        }
+
+        public static bool Is(string trigger, string ID, string suffix) => trigger == Combine(ID, suffix);
+
+        public static string Combine(string ID, string suffix) => ID + " " + suffix;
+
+        static AnimationTrigger()
+        {
+            Start = new Element(nameof(Start));
+
+            End = new Element(nameof(End));
+        }
     }
 }

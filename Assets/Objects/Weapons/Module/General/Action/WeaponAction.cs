@@ -23,6 +23,24 @@ namespace Game
 	{
         public WeaponConstraint Constraint => Weapon.Constraint;
 
+        public WeaponActionOverride Override { get; protected set; }
+
+        public class Module : Weapon.Module<WeaponAction>
+        {
+            public WeaponAction Action => Reference;
+
+            public override Weapon Weapon => Action.Weapon;
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Override = Dependancy.Get<WeaponActionOverride>(gameObject);
+
+            References.Configure(this);
+        }
+
         public override void Init()
         {
             base.Init();
@@ -30,27 +48,13 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.OnLateProcess += LateProcess;
-        }
 
-        void LateProcess(Weapon.IProcessData data)
-        {
-            if(LatePerformCondition)
-            {
-                LatePerform();
-
-                LatePerformCondition = false;
-            }
-        }
-
-        public IOverride Override { get; set; }
-        public interface IOverride
-        {
-            bool Input { get; }
+            References.Init(this);
         }
 
         void Process(Weapon.IProcessData data)
         {
-            var input = Override == null ? data.Input : Override.Input;
+            var input = CalculateInput(data);
 
             if (input)
             {
@@ -63,6 +67,24 @@ namespace Game
                     Perform();
                 }
             }
+        }
+
+        void LateProcess(Weapon.IProcessData data)
+        {
+            if (LatePerformCondition)
+            {
+                LatePerform();
+
+                LatePerformCondition = false;
+            }
+        }
+
+        protected virtual bool CalculateInput(Weapon.IProcessData data)
+        {
+            if (Override.Active)
+                return Override.Value.Input;
+
+            return data.Input;
         }
 
         public delegate void PerformDelegate();

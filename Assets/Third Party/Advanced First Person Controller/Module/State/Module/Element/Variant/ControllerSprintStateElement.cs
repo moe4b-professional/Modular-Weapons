@@ -35,7 +35,9 @@ namespace Game
 
         [SerializeField]
         protected FloatToggleValue multiplier;
-        public override float Multiplier => Mathf.Lerp(source.Multiplier, multiplier.Evaluate(source.Multiplier), Input.Sprint.Axis);
+        public override float Multiplier => Mathf.Lerp(source.Multiplier, multiplier.Evaluate(source.Multiplier), Axis);
+
+        public float Axis => Input.Sprint.Axis;
 
         [SerializeField]
         protected InputMode mode = InputMode.Toggle;

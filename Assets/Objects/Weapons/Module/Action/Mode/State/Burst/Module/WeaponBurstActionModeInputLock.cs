@@ -19,28 +19,29 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSprintAnimation : WeaponSprint.Module
-	{
-        public const string ID = "Sprint";
+	public class WeaponBurstActionModeInputLock : WeaponBurstActionMode.Module, WeaponConstraint.IInterface
+    {
+        public bool Active { get; protected set; }
 
-        public Animator Animator => Weapon.Mesh.Animator;
+        bool WeaponConstraint.IInterface.Constraint => Active;
 
         public override void Init()
         {
             base.Init();
-            
-            Sprint.OnBegin += BeginCallback;
-            Sprint.OnStop += StopCallback;
+
+            Weapon.OnProcess += Process;
+
+            Burst.OnEnd += EndCallback;
         }
 
-        void BeginCallback()
+        void Process(Weapon.IProcessData data)
         {
-            Animator.SetBool(ID, true);
+            if (data.Input == false || enabled == false) Active = false;
         }
 
-        void StopCallback()
+        void EndCallback()
         {
-            Animator.SetBool(ID, false);
+            if(enabled) Active = true;
         }
     }
 }

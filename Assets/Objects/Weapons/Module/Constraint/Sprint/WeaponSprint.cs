@@ -25,7 +25,7 @@ namespace Game
         protected float minWeight = 0.5f;
         public float MinWeight { get { return minWeight; } }
 
-        public bool Active => Equals(Weapon.Operation.Value);
+        public bool Active => Weapon.Operation.Is(this);
 
         bool WeaponConstraint.IInterface.Constraint => Active;
 
@@ -65,7 +65,7 @@ namespace Game
         }
         void Process(IData data)
         {
-            if (data.Weight > minWeight)
+            if (data.Weight > minWeight && data.Axis > minWeight)
             {
                 if(Active == false)
                     Begin();
@@ -96,6 +96,8 @@ namespace Game
         public interface IData
         {
             float Weight { get; }
+
+            float Axis { get; }
         }
 	}
 }

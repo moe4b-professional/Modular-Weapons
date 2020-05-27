@@ -187,5 +187,17 @@ namespace Game
 
     [Serializable]
     public class Vector3ToggleValue : ToggleValue<Vector3> { }
+
+    [Serializable]
+    public class AnimationCurveToggleValue : ToggleValue<AnimationCurve>
+    {
+        public virtual float Evaluate(float time)
+        {
+            if (enabled)
+                return value.Evaluate(time);
+
+            return time;
+        }
+    }
     #endregion
 }

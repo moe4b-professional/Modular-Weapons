@@ -21,9 +21,7 @@ namespace Game
 {
     public class WeaponActionModeSwitchAnimation : WeaponActionMode.Module, WeaponConstraint.IInterface
     {
-        [SerializeField]
-        protected string trigger = "Switch Action Mode";
-        public string Trigger { get { return trigger; } }
+        public const string ID = "Switch Action Mode";
 
         public bool Active { get; protected set; }
         bool WeaponConstraint.IInterface.Constraint => Active;
@@ -46,9 +44,9 @@ namespace Game
             if (Active) End();
         }
 
-        void AnimationTriggerCallback(string ID)
+        void AnimationTriggerCallback(string trigger)
         {
-            if (ID == trigger + " End") End();
+            if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
         void ChangeCallback(int index, WeaponActionMode.IState module) => Begin();
@@ -57,7 +55,7 @@ namespace Game
         {
             Active = true;
 
-            Mesh.Animator.SetTrigger(trigger);
+            Mesh.Animator.SetTrigger(ID);
         }
 
         protected virtual void End()

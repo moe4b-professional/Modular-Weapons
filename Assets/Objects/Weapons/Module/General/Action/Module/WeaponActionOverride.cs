@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponOperation : Weapon.Module
+	public class WeaponActionOverride : WeaponAction.Module
 	{
         public IInterface Value { get; protected set; }
+
+        public bool Active => Value != null;
 
         public virtual void Set(IInterface target)
         {
@@ -46,6 +48,8 @@ namespace Game
 
         public interface IInterface
         {
+            bool Input { get; }
+
             void Stop();
         }
     }

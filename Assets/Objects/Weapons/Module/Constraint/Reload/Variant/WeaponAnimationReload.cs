@@ -21,9 +21,7 @@ namespace Game
 {
 	public class WeaponAnimationReload : WeaponReload
 	{
-        [SerializeField]
-        protected string trigger = "Reload";
-        public string Trigger { get { return trigger; } }
+        public const string ID = "Reload";
 
         public WeaponMesh Mesh => Weapon.Mesh;
 
@@ -34,18 +32,18 @@ namespace Game
             Mesh.TriggerRewind.OnTrigger += AnimationEventCallback;
         }
 
-        void AnimationEventCallback(string ID)
+        void AnimationEventCallback(string trigger)
         {
-            if (ID == trigger + " Fill") Fill();
+            if (AnimationTrigger.Is(trigger, ID, "Fill")) Fill();
 
-            if (ID == trigger + " End") End();
+            if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
         public override void Perform()
         {
             base.Perform();
 
-            Mesh.Animator.SetTrigger(trigger);
+            Mesh.Animator.SetTrigger(ID);
         }
 
         protected virtual void Fill()

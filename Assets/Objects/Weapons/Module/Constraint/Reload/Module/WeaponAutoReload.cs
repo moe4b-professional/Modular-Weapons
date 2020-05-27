@@ -37,7 +37,7 @@ namespace Game
 
             void Process(Weapon.IProcessData data)
             {
-                if (Reload.CanPerform)
+                if (Reload.CanPerform && data.Input == false)
                 {
                     Weapon.OnProcess -= Process;
 
