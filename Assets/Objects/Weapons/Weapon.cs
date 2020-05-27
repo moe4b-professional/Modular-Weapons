@@ -35,7 +35,8 @@ namespace Game
 
         public WeaponMesh Mesh { get; protected set; }
 
-        public abstract class Module<TReference> : MonoBehaviour, IReference<TReference>
+        public abstract class BaseModule<TReference, TProcessor> : MonoBehaviour, IReference<TReference>
+            where TProcessor : class
         {
             new public bool enabled
             {
@@ -50,9 +51,16 @@ namespace Game
 
             public abstract Weapon Weapon { get; }
 
+            public IOwner Owner => Weapon.Owner;
+
+            public TProcessor Processor { get; protected set; }
+            public bool HasProcessor => Processor != null;
+
             public virtual void Configure(TReference reference)
             {
                 this.Reference = reference;
+
+                Processor = Owner.Processor.GetDependancy<TProcessor>();
             }
 
             public virtual void Init()
@@ -70,13 +78,14 @@ namespace Game
                 enabled = false;
             }
         }
+        public abstract class BaseModule<TReference> : BaseModule<TReference, IProcessor> { }
 
-        public class Module : Module<Weapon>
+        public class Module<TProcessor> : BaseModule<Weapon, TProcessor>
+            where TProcessor : class
         {
             public override Weapon Weapon => Reference;
-
-            public IOwner Owner => Weapon.Owner;
         }
+        public class Module : Module<IProcessor> { }
 
         public AudioSource AudioSource { get; protected set; }
         
@@ -94,6 +103,8 @@ namespace Game
             GameObject gameObject { get; }
 
             Damage.IDamager Damager { get; }
+
+            IProcessor Processor { get; }
         }
 
         protected virtual void Configure()
@@ -116,36 +127,38 @@ namespace Game
             References.Init(this);
         }
 
-        public delegate void ProcessDelegate(IProcessData data);
+        public delegate void ProcessDelegate();
         public event ProcessDelegate OnProcess;
-        public virtual void Process(IProcessData data)
+        public virtual void Process()
         {
-            LateProcessData = data;
+            LatePerformCondition = true;
 
-            OnProcess?.Invoke(data);
+            OnProcess?.Invoke();
         }
 
         protected virtual void LateUpdate()
         {
-            if (LateProcessData != null)
+            if (LatePerformCondition)
             {
-                LateProcess(LateProcessData);
-                LateProcessData = null;
+                LateProcess();
+                LatePerformCondition = false;
             }
         }
-        public IProcessData LateProcessData { get; protected set; }
+        bool LatePerformCondition;
         public event ProcessDelegate OnLateProcess;
-        protected virtual void LateProcess(IProcessData data)
+        protected virtual void LateProcess()
         {
-            OnLateProcess?.Invoke(data);
+            OnLateProcess?.Invoke();
         }
         
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
 
-        public interface IProcessData
+        public interface IProcessor
         {
             bool Input { get; }
+
+            T GetDependancy<T>() where T : class;
         }
 
         public interface IEffect

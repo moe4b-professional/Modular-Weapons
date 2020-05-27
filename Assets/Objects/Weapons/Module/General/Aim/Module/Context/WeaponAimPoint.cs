@@ -34,14 +34,14 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnLateProcess += LateProrcess;
+            Weapon.OnProcess += Process;
 
             Context.OnApply += ApplyCallback;
 
             Target = CalculateTarget(Weapon.transform, Context.transform, transform);
         }
 
-        void LateProrcess(Weapon.IProcessData data)
+        void Process()
         {
             if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
 

@@ -35,9 +35,9 @@ namespace Game
             if(enabled && Ammo.CanConsume == false)
                 Weapon.OnProcess += Process;
 
-            void Process(Weapon.IProcessData data)
+            void Process()
             {
-                if (Reload.CanPerform && data.Input == false)
+                if (Reload.CanPerform && Processor.Input == false)
                 {
                     Weapon.OnProcess -= Process;
 

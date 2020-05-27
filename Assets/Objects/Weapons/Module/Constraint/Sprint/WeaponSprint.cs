@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSprint : Weapon.Module, WeaponOperation.IInterface, WeaponConstraint.IInterface
+	public class WeaponSprint : Weapon.Module<WeaponSprint.IProcess>, WeaponOperation.IInterface, WeaponConstraint.IInterface
 	{
         [SerializeField]
         protected float minWeight = 0.5f;
@@ -29,7 +29,7 @@ namespace Game
 
         bool WeaponConstraint.IInterface.Constraint => Active;
 
-        public class Module : Weapon.Module<WeaponSprint>
+        public class Module : Weapon.BaseModule<WeaponSprint>
         {
             public WeaponSprint Sprint => Reference;
 
@@ -59,11 +59,11 @@ namespace Game
             if (Active) Stop();
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            if (data is IData) Process(data as IData);
+            if (HasProcessor) Process(Processor);
         }
-        void Process(IData data)
+        void Process(IProcess data)
         {
             if (data.Weight > minWeight && data.Axis > minWeight)
             {
@@ -93,7 +93,7 @@ namespace Game
             OnStop?.Invoke();
         }
 
-        public interface IData
+        public interface IProcess
         {
             float Weight { get; }
 

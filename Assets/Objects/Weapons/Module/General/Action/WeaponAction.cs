@@ -25,7 +25,7 @@ namespace Game
 
         public WeaponActionOverride Override { get; protected set; }
 
-        public class Module : Weapon.Module<WeaponAction>
+        public class Module : Weapon.BaseModule<WeaponAction>
         {
             public WeaponAction Action => Reference;
 
@@ -52,9 +52,9 @@ namespace Game
             References.Init(this);
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            var input = CalculateInput(data);
+            var input = CalculateInput(Processor);
 
             if (input)
             {
@@ -69,7 +69,7 @@ namespace Game
             }
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
             if (LatePerformCondition)
             {
@@ -79,7 +79,7 @@ namespace Game
             }
         }
 
-        protected virtual bool CalculateInput(Weapon.IProcessData data)
+        protected virtual bool CalculateInput(Weapon.IProcessor data)
         {
             if (Override.Active)
                 return Override.Value.Input;

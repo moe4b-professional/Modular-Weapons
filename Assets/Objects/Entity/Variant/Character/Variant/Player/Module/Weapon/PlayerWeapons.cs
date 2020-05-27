@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeapons : Player.Module
+	public class PlayerWeapons : Player.Module, Character.IWeapons
 	{
         public List<Weapon> List { get; protected set; }
 
@@ -27,9 +27,10 @@ namespace Game
 
         public Weapon Current => List[Index];
 
-        public PlayerWeaponsProcess Process { get; protected set; }
+        public PlayerWeaponProcessor Processor { get; protected set; }
+        Weapon.IProcessor Character.IWeapons.Process => Processor;
 
-        public class Module : ReferenceBehaviour<PlayerWeapons>
+        public class Module : Player.Module<PlayerWeapons>
         {
             public PlayerWeapons Weapons => Reference;
 
@@ -42,7 +43,9 @@ namespace Game
 
             List = this.GetAllDependancies<Weapon>();
 
-            Process = this.GetDependancy<PlayerWeaponsProcess>();
+            Processor = this.GetDependancy<PlayerWeaponProcessor>();
+
+            Character.Set(this);
 
             References.Configure(this);
         }
@@ -51,7 +54,7 @@ namespace Game
         {
             base.Init();
 
-            Player.OnProcess += ProcessCallback;
+            Player.OnProcess += Process;
 
             for (int i = 0; i < List.Count; i++)
             {
@@ -76,11 +79,11 @@ namespace Game
             List[Index].Equip();
         }
 
-        void ProcessCallback()
+        void Process()
         {
             if (Input.GetKeyDown(KeyCode.X)) Switch(Index + 1);
 
-            Current.Process(Process);
+            Current.Process();
         }
 
         protected virtual void Switch(int target)

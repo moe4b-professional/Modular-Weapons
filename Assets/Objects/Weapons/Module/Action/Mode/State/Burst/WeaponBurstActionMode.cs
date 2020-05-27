@@ -31,7 +31,7 @@ namespace Game
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 
-        public class Module : Weapon.Module<WeaponBurstActionMode>
+        public class Module : Weapon.BaseModule<WeaponBurstActionMode>
         {
             public WeaponBurstActionMode Burst => Reference;
 

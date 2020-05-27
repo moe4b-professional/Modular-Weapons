@@ -26,8 +26,13 @@ namespace Game
     {
         public FirstPersonController Controller { get; protected set; }
 
+        public PlayerInput Input { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
-        public class Module : ReferenceBehaviour<Player>
+        public abstract class Module<T> : ReferenceBehaviour<T>
+        {
+
+        }
+        public abstract class Module : Module<Player>
         {
             public Player Player => Reference;
             public Character Character => Player.Character;
@@ -41,7 +46,9 @@ namespace Game
 
             Controller = GetComponent<FirstPersonController>();
 
-            Weapons = this.GetDependancy<PlayerWeapons>();
+            Input = Dependancy.Get<PlayerInput>(gameObject);
+
+            Weapons = Dependancy.Get< PlayerWeapons>(gameObject);
 
             References.Configure(this);
         }

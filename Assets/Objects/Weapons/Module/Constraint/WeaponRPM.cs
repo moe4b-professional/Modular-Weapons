@@ -77,7 +77,7 @@ namespace Game
             Weapon.Action.OnPerform += Action;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
             timer = Mathf.MoveTowards(timer, 0f, Scale * Time.deltaTime);
         }

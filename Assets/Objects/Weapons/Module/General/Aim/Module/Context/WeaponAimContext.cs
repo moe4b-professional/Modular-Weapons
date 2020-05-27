@@ -23,7 +23,7 @@ namespace Game
 	{
 		public Coordinates Idle { get; protected set; }
 
-        public class Module : Weapon.Module<WeaponAimContext>
+        public class Module : Weapon.BaseModule<WeaponAimContext>
         {
             public WeaponAimContext Context => Reference;
 
@@ -50,7 +50,7 @@ namespace Game
             References.Init(this);
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
             Apply();
         }

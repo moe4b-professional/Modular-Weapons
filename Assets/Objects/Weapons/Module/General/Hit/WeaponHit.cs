@@ -94,7 +94,7 @@ namespace Game
             }
         }
 
-        public class Module : Weapon.Module<WeaponHit>
+        public class Module : Weapon.BaseModule<WeaponHit>
         {
             public WeaponHit Hit => Reference;
 

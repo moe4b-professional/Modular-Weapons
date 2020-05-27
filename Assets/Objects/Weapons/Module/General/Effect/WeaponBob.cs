@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponBob : Weapon.Module, Weapon.IEffect
+	public class WeaponBob : Weapon.Module<WeaponBob.IProcessor>, Weapon.IEffect
     {
         [SerializeField]
         protected Transform context;
@@ -50,12 +50,11 @@ namespace Game
             Weapon.OnLateProcess += LateProcess;
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
-            if (data is IData)
-                LateProcess(data as IData);
+            if (HasProcessor) LateProcess(Processor);
         }
-        protected virtual void LateProcess(IData data)
+        protected virtual void LateProcess(IProcessor data)
         {
             context.localPosition -= Offset;
 
@@ -64,7 +63,7 @@ namespace Game
             context.localPosition += Offset;
         }
 
-        public interface IData
+        public interface IProcessor
         {
             float Step { get; }
         }

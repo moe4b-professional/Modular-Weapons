@@ -110,7 +110,7 @@ namespace Game
 
         protected abstract Vector3 CalculateTarget();
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
             Apply(-Value);
             {

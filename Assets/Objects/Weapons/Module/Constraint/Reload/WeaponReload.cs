@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class WeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
+	public abstract class WeaponReload : Weapon.Module<WeaponReload.IProcessor>, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation.Is(this);
         bool WeaponConstraint.IInterface.Constraint => IsProcessing;
@@ -42,7 +42,7 @@ namespace Game
             }
         }
 
-        public class Module : Weapon.Module<WeaponReload>
+        public class Module : Weapon.BaseModule<WeaponReload>
         {
             public WeaponReload Reload => Reference;
 
@@ -68,7 +68,7 @@ namespace Game
                 return;
             }
 
-            Weapon.OnLateProcess += LateProcess;
+            Weapon.OnProcess += Process;
 
             Weapon.Activation.OnDisable += DisableCallback;
 
@@ -80,12 +80,11 @@ namespace Game
             if (IsProcessing) Stop();
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void Process()
         {
-            if (data is IData)
-                LateProcess(data as IData);
+            if (HasProcessor) Process(Processor);
         }
-        void LateProcess(IData data)
+        void Process(IProcessor data)
         {
             if (data.Input)
             {
@@ -114,7 +113,7 @@ namespace Game
             Weapon.Operation.Clear();
         }
 
-        public interface IData
+        public interface IProcessor
         {
             bool Input { get; }
         }

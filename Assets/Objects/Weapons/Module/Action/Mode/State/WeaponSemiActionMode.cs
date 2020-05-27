@@ -34,11 +34,11 @@ namespace Game
             Weapon.Action.OnPerform += Action;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
             if(enabled)
             {
-                if (data.Input == false)
+                if (Processor.Input == false)
                     InputLock = false;
             }
             else

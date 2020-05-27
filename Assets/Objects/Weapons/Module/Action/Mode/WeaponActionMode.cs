@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponActionMode : Weapon.Module
+    public class WeaponActionMode : Weapon.Module<WeaponActionMode.IProcessor>
     {
         public IList<IState> List { get; protected set; }
         public interface IState
@@ -35,7 +35,7 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public class Module : Weapon.Module<WeaponActionMode>
+        public class Module : Weapon.BaseModule<WeaponActionMode>
         {
             public WeaponActionMode Mode => Reference;
 
@@ -73,13 +73,13 @@ namespace Game
             References.Init(this);
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            if (data is IData) Process(data as IData);
+            if (HasProcessor) Process(Processor);
         }
-        void Process(IData data)
+        void Process(IProcessor data)
         {
-            if(data.Switch)
+            if(data.Input)
             {
                 if (CanChange)
                     Change();
@@ -113,9 +113,9 @@ namespace Game
             OnChange?.Invoke(Index, List[Index]);
         }
 
-        public interface IData
+        public interface IProcessor
         {
-            bool Switch { get; }
+            bool Input { get; }
         }
     }
 }

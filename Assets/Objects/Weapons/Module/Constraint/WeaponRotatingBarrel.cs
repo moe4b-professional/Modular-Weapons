@@ -79,9 +79,9 @@ namespace Game
             Rate = 0f;
         }
 
-        void Porcess(Weapon.IProcessData data)
+        void Porcess()
         {
-            if (data.Input)
+            if (Processor.Input)
                 Rate = Mathf.MoveTowards(Rate, 1f, acceleration.Set * Time.deltaTime);
             else
                 Rate = Mathf.MoveTowards(Rate, 0f, acceleration.Reset * Time.deltaTime);

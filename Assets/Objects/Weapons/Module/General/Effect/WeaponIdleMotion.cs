@@ -60,7 +60,7 @@ namespace Game
             Weapon.OnLateProcess += LateProcess;
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
             context.localPosition -= Offset;
 

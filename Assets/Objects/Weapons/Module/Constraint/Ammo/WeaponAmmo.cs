@@ -78,7 +78,7 @@ namespace Game
         protected int consumption = 1;
         public int Consumption { get { return consumption; } }
 
-        public class Module : Weapon.Module<WeaponAmmo>
+        public class Module : Weapon.BaseModule<WeaponAmmo>
         {
             public WeaponAmmo Ammo => Reference;
 

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSway : Weapon.Module, Weapon.IEffect
+	public class WeaponSway : Weapon.Module<WeaponSway.IProcessor>, Weapon.IEffect
     {
         [SerializeField]
         protected Transform context;
@@ -167,12 +167,11 @@ namespace Game
             Weapon.OnLateProcess += LateProcess;
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
-            if (data is IData)
-                LateProcess(data as IData);
+            if (HasProcessor) LateProcess(Processor);
         }
-        void LateProcess(IData data)
+        void LateProcess(IProcessor data)
         {
             context.localPosition -= Position;
             context.localEulerAngles -= Rotation;
@@ -189,7 +188,7 @@ namespace Game
             context.localEulerAngles += Rotation;
         }
 
-        protected virtual void CalculateTarget(IData data)
+        protected virtual void CalculateTarget(IProcessor data)
         {
             if(enabled)
             {
@@ -201,7 +200,7 @@ namespace Game
             }
         }
 
-        public interface IData
+        public interface IProcessor
         {
             Vector2 Look { get; }
 

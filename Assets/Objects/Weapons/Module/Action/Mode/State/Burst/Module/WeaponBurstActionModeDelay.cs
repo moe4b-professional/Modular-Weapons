@@ -40,7 +40,7 @@ namespace Game
             Weapon.OnProcess += Process;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
             if(Timer != 0f)
             {

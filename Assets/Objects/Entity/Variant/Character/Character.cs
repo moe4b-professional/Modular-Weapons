@@ -39,6 +39,17 @@ namespace Game
 
         public Damage.IDamager Damager => Entity;
 
+        public IWeapons Weapons { get; protected set; }
+        public virtual void Set(IWeapons reference)
+        {
+            Weapons = reference;
+        }
+        public interface IWeapons
+        {
+            Weapon.IProcessor Process { get; }
+        }
+        Weapon.IProcessor Weapon.IOwner.Processor => Weapons.Process;
+
         public virtual void Configure(Entity reference)
         {
             Entity = reference;

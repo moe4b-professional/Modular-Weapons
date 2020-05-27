@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAim : Weapon.Module, WeaponOperation.IInterface
+	public class WeaponAim : Weapon.Module<WeaponAim.IProcessor>, WeaponOperation.IInterface
 	{
         [SerializeField]
         protected float speed = 5f;
@@ -44,7 +44,7 @@ namespace Game
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
 
-        public class Module : Weapon.Module<WeaponAim>
+        public class Module : Weapon.BaseModule<WeaponAim>
         {
             public WeaponAim Aim => Reference;
 
@@ -74,19 +74,19 @@ namespace Game
             Rate = 0f;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            if (data is IData) Process(data as IData);
+            if (HasProcessor) Process(Processor);
         }
-        protected virtual void Process(IData data)
+        protected virtual void Process(IProcessor data)
         {
             IsOn = data.Input;
 
-            if(Weapon.Operation.Is(null))
+            if (Weapon.Operation.Is(null))
             {
                 if (IsOn) Begin();
             }
-            else if(Weapon.Operation.Is(this))
+            else if (Weapon.Operation.Is(this))
             {
                 if (IsOn == false) End();
             }
@@ -114,7 +114,7 @@ namespace Game
             End();
         }
 
-        public interface IData
+        public interface IProcessor
         {
             bool Input { get; }
         }

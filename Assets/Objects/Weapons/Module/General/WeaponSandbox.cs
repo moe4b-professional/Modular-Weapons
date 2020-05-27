@@ -28,12 +28,9 @@ namespace Game
             Weapon.OnProcess += Process;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                Weapon.Mesh.Animator.SetTrigger("Jump");
-            }
+            
         }
     }
 }

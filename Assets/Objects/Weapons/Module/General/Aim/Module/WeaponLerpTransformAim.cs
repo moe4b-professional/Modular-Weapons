@@ -55,7 +55,7 @@ namespace Game
             Offset = new Coordinates(Vector3.zero, Vector3.zero);
         }
 
-        void LateProcess(Weapon.IProcessData data)
+        void LateProcess()
         {
             Apply(-Offset);
 

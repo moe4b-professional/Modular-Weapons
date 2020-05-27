@@ -34,9 +34,9 @@ namespace Game
             Burst.OnEnd += EndCallback;
         }
 
-        void Process(Weapon.IProcessData data)
+        void Process()
         {
-            if (data.Input == false || enabled == false) Active = false;
+            if (Processor.Input == false || enabled == false) Active = false;
         }
 
         void EndCallback()
