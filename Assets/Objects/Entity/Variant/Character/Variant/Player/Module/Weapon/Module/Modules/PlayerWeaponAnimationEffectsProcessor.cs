@@ -21,6 +21,8 @@ namespace Game
 {
     public class PlayerWeaponAnimationEffectsProcessor : PlayerWeaponProcessor.Module, WeaponAnimationEffects.IProcessor
     {
+        public FirstPersonController Controller => Player.Controller;
+
         public event WeaponAnimationEffects.JumpDelegate OnJump;
 
         public event WeaponAnimationEffects.LandDelegate OnLand;
@@ -29,13 +31,13 @@ namespace Game
         {
             base.Init();
 
-            Player.Controller.Jump.OnDo += JumpCallback;
+            Controller.Jump.OnDo += JumpCallback;
 
-            Player.Controller.Ground.Change.OnLand += LandCallback;
+            Controller.Ground.Change.OnLand += LandCallback;
         }
 
-        void JumpCallback() => OnJump?.Invoke();
+        void JumpCallback() => OnJump?.Invoke(Controller.Jump.Count);
 
-        void LandCallback(ControllerAirTravel.Data travel) => OnLand?.Invoke();
+        void LandCallback(ControllerAirTravel.Data travel) => OnLand?.Invoke(Controller.Velocity.Relative);
     }
 }
