@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class BaseWeaponDamage : Weapon.Module
-	{
+    public abstract class WeaponDamage : Weapon.Module
+    {
         public abstract Damage.Method SampleDamageMethod(Damage.IDamagable target);
 
         public abstract float SampleDamageValue(Damage.IDamagable target);
@@ -36,18 +36,5 @@ namespace Game
 
             return result;
         }
-    }
-
-    public class WeaponDamage : BaseWeaponDamage
-    {
-        [SerializeField]
-        protected Damage.Method method = Damage.Method.Contact;
-        public Damage.Method Method { get { return method; } }
-        public override Damage.Method SampleDamageMethod(Damage.IDamagable target) => method;
-
-        [SerializeField]
-        protected float value = 25f;
-        public float Value { get { return value; } }
-        public override float SampleDamageValue(Damage.IDamagable target) => value;
     }
 }
