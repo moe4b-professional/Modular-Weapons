@@ -24,11 +24,11 @@ namespace Game
         [SerializeField]
         protected Damage.Method method = Damage.Method.Contact;
         public Damage.Method Method { get { return method; } }
-        public override Damage.Method SampleDamageMethod(Damage.IDamagable target) => method;
+        public override Damage.Method SampleDamageMethod(Damage.IDamagable target, WeaponHit.Data hit) => method;
 
         [SerializeField]
         protected float value = 25f;
         public float Value { get { return value; } }
-        public override float SampleDamageValue(Damage.IDamagable target) => value;
+        public override float SampleDamageValue(Damage.IDamagable target, WeaponHit.Data hit) => value;
     }
 }

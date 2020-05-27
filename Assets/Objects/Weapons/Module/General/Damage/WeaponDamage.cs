@@ -21,14 +21,14 @@ namespace Game
 {
     public abstract class WeaponDamage : Weapon.Module
     {
-        public abstract Damage.Method SampleDamageMethod(Damage.IDamagable target);
+        public abstract Damage.Method SampleDamageMethod(Damage.IDamagable target, WeaponHit.Data hit);
 
-        public abstract float SampleDamageValue(Damage.IDamagable target);
+        public abstract float SampleDamageValue(Damage.IDamagable target, WeaponHit.Data hit);
 
-        public virtual Damage.Result Do(Damage.IDamagable target)
+        public virtual Damage.Result Do(Damage.IDamagable target, WeaponHit.Data hit)
         {
-            var value = SampleDamageValue(target);
-            var method = SampleDamageMethod(target);
+            var value = SampleDamageValue(target, hit);
+            var method = SampleDamageMethod(target, hit);
 
             var request = new Damage.Request(value, method);
 

@@ -26,12 +26,7 @@ namespace Game
 		public virtual void Process(Data data)
         {
             var damagable = data.GameObject.GetComponent<Damage.IDamagable>();
-            if(damagable != null)
-            {
-                Weapon.Damage.Do(damagable);
-            }
-
-            Debug.DrawRay(data.Contact.Point, data.Contact.Normal, Color.red, 5f);
+            if(damagable != null) Weapon.Damage.Do(damagable, data);
 
             OnProcess?.Invoke(data);
         }
