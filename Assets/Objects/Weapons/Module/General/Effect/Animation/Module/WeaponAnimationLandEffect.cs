@@ -22,8 +22,43 @@ namespace Game
 	public class WeaponAnimationLandEffect : WeaponAnimationEffects.Module
     {
         [SerializeField]
-        protected AnimationCurve weight;
-        public AnimationCurve Weight { get { return weight; } }
+        protected WeightData weight = WeightData.Create(9f);
+        public WeightData Weight { get { return weight; } }
+        [Serializable]
+        public struct WeightData
+        {
+            [SerializeField]
+            float scale;
+            public float Scale { get { return scale; } }
+
+            [SerializeField]
+            AnimationCurve curve;
+            public AnimationCurve Curve { get { return curve; } }
+
+            public float Evaluate(Vector3 velocity) => curve.Evaluate(-velocity.y / scale);
+
+            public WeightData(float scale, AnimationCurve curve)
+            {
+                this.scale = scale;
+                this.curve = curve;
+            }
+
+            public static WeightData Create(float scale)
+            {
+                var curve = new AnimationCurve()
+                {
+                    keys = new Keyframe[]
+                    {
+                        new Keyframe(0f, 0f),
+                        new Keyframe(1f, 1f),
+                    },
+                };
+
+                return new WeightData(scale, curve);
+            }
+        }
+
+        public const string Trigger = "Land";
 
         public override void Init()
         {
@@ -47,9 +82,7 @@ namespace Game
 
         void LandCallback(Vector3 relativeVelocity)
         {
-            Animator.SetTrigger("Land");
-
-            Effects.Weight.Target = weight.Evaluate(relativeVelocity.y);
+            Effects.Play(Trigger, weight.Evaluate(relativeVelocity));
         }
     }
 }

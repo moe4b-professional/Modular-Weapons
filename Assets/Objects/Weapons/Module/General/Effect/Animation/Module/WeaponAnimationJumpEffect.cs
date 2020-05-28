@@ -37,6 +37,8 @@ namespace Game
             float recurring;
             public float Recurring { get { return recurring; } }
 
+            public float Evaluate(int count) => count > 1 ? recurring : initial;
+
             public WeightData(float initial, float recurring)
             {
                 this.initial = initial;
@@ -45,18 +47,20 @@ namespace Game
             public WeightData(float value) : this(value, value / 2f) { }
         }
 
+        public const string Trigger = "Jump";
+
         public override void Init()
         {
             base.Init();
 
             if (Effects.HasProcessor)
             {
-                Weapon.Activation.OnEnable += EnableCallbac;
+                Weapon.Activation.OnEnable += EnableCallback;
                 Weapon.Activation.OnDisable += DisableCallback;
             }
         }
 
-        void EnableCallbac()
+        void EnableCallback()
         {
             Processor.OnJump += JumpCallback;
         }
@@ -67,9 +71,7 @@ namespace Game
 
         void JumpCallback(int count)
         {
-            Animator.SetTrigger("Jump");
-
-            Effects.Weight.Target = count == 1 ? weight.Initial : weight.Recurring;
+            Effects.Play(Trigger, weight.Evaluate(count));
         }
     }
 }

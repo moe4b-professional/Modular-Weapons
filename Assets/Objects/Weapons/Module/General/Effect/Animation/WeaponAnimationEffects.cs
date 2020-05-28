@@ -60,15 +60,22 @@ namespace Game
             References.Init(this);
         }
 
+        public virtual void Play(string trigger, float weight)
+        {
+            Animator.SetTrigger(trigger);
+
+            Weight.Target = weight;
+        }
+
         public interface IProcessor
         {
             event JumpDelegate OnJump;
-
+            event LeaveGroundDelegate OnLeaveGround;
             event LandDelegate OnLand;
         }
 
         public delegate void JumpDelegate(int count);
-
+        public delegate void LeaveGroundDelegate();
         public delegate void LandDelegate(Vector3 relativeVelocity);
     }
 }

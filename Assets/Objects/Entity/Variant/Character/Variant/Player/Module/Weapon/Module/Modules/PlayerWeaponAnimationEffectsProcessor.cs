@@ -25,6 +25,8 @@ namespace Game
 
         public event WeaponAnimationEffects.JumpDelegate OnJump;
 
+        public event WeaponAnimationEffects.LeaveGroundDelegate OnLeaveGround;
+
         public event WeaponAnimationEffects.LandDelegate OnLand;
 
         public override void Init()
@@ -33,10 +35,14 @@ namespace Game
 
             Controller.Jump.OnDo += JumpCallback;
 
+            Controller.Ground.Change.OnLeave += LeaveGroundCallback;
+
             Controller.Ground.Change.OnLand += LandCallback;
         }
 
         void JumpCallback() => OnJump?.Invoke(Controller.Jump.Count);
+
+        void LeaveGroundCallback() => OnLeaveGround?.Invoke();
 
         void LandCallback(ControllerAirTravel.Data travel) => OnLand?.Invoke(Controller.Velocity.Relative);
     }
