@@ -46,9 +46,14 @@ namespace Game
         {
             base.Init();
 
-            LayerIndex = Animator.GetLayerIndex(LayerName);
+            Weapon.Activation.OnEnable += EnableCallback;
 
             Weapon.OnProcess += Process;
+        }
+
+        void EnableCallback()
+        {
+            LayerIndex = Animator.GetLayerIndex(LayerName);
         }
 
         void Process()
