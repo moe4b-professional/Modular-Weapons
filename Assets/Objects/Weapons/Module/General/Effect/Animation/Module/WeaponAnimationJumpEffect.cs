@@ -50,7 +50,19 @@ namespace Game
             base.Init();
 
             if (Effects.HasProcessor)
-                Processor.OnJump += JumpCallback;
+            {
+                Weapon.Activation.OnEnable += EnableCallbac;
+                Weapon.Activation.OnDisable += DisableCallback;
+            }
+        }
+
+        void EnableCallbac()
+        {
+            Processor.OnJump += JumpCallback;
+        }
+        void DisableCallback()
+        {
+            Processor.OnJump -= JumpCallback;
         }
 
         void JumpCallback(int count)

@@ -21,6 +21,8 @@ namespace Game
 {
 	public class WeaponActivation : Weapon.Module
 	{
+        public bool Active => Weapon.gameObject.activeInHierarchy;
+
         public event Action OnEnable;
 		public virtual void Enable()
         {

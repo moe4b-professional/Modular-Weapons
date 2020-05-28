@@ -29,8 +29,20 @@ namespace Game
         {
             base.Init();
 
-            if (HasProcessor)
-                Effects.Processor.OnLand += LandCallback;
+            if (Effects.HasProcessor)
+            {
+                Weapon.Activation.OnEnable += EnableCallback;
+                Weapon.Activation.OnDisable += DisableCallback;
+            }
+        }
+
+        void EnableCallback()
+        {
+            Effects.Processor.OnLand += LandCallback;
+        }
+        void DisableCallback()
+        {
+            Effects.Processor.OnLand -= LandCallback;
         }
 
         void LandCallback(Vector3 relativeVelocity)
