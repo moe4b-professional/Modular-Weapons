@@ -19,10 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimationEffects : Weapon.Module<WeaponAnimationEffects.IProcessor>, Weapon.IEffect
+	public class WeaponAnimationEffects : Weapon.Module<WeaponAnimationEffects.IProcessor>, WeaponEffects.IInterface
 	{
         [SerializeField]
-        protected float scale;
+        protected float scale = 1f;
         public float Scale
         {
             get => scale;

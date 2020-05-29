@@ -61,6 +61,8 @@ namespace Game
 
         public ControllerCharacterLook Character { get; protected set; }
 
+        public ControllerLookLean Lean { get; protected set; }
+
         public class Module : FirstPersonController.Module
         {
             public ControllerLook Look => Controller.Look;
@@ -73,6 +75,8 @@ namespace Game
             Camera = Dependancy.Get<ControllerCameraLook>(Controller.gameObject);
 
             Character = Dependancy.Get<ControllerCharacterLook>(Controller.gameObject);
+
+            Lean = Dependancy.Get<ControllerLookLean>(Controller.gameObject);
         }
 
         public override void Init()

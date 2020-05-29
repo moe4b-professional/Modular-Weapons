@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponBob : Weapon.Module<WeaponBob.IProcessor>, Weapon.IEffect
+	public class WeaponBob : Weapon.Module<WeaponBob.IProcessor>, WeaponEffects.IInterface
     {
         [SerializeField]
         protected Transform context;

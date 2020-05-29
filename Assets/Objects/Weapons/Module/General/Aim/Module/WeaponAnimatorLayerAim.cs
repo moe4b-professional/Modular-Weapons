@@ -23,9 +23,7 @@ namespace Game
     {
         public Animator Animator => Weapon.Mesh.Animator;
 
-        [SerializeField]
-        protected string layerName = "Aim";
-        public string LayerName { get { return layerName; } }
+        public const string ID = "Aim";
 
         public int LayerIndex { get; protected set; }
 
@@ -46,7 +44,7 @@ namespace Game
 
         void EnableCallback()
         {
-            LayerIndex = Animator.GetLayerIndex(layerName);
+            LayerIndex = Animator.GetLayerIndex(ID);
 
             UpdateState();
         }

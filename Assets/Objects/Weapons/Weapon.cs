@@ -33,6 +33,8 @@ namespace Game
 
         public WeaponActivation Activation { get; protected set; }
 
+        public WeaponEffects Effects { get; protected set; }
+
         public WeaponMesh Mesh { get; protected set; }
 
         public abstract class BaseModule<TReference, TProcessor> : MonoBehaviour, IReference<TReference>
@@ -117,6 +119,7 @@ namespace Game
             Hit = this.GetDependancy<WeaponHit>();
             Operation = this.GetDependancy<WeaponOperation>();
             Activation = this.GetDependancy<WeaponActivation>();
+            Effects = this.GetDependancy<WeaponEffects>();
             Mesh = this.GetDependancy<WeaponMesh>();
 
             References.Configure(this);
@@ -159,13 +162,6 @@ namespace Game
             bool Input { get; }
 
             T GetDependancy<T>() where T : class;
-        }
-
-        public interface IEffect
-        {
-            bool enabled { get; set; }
-
-            float Scale { get; set; }
         }
     }
 
