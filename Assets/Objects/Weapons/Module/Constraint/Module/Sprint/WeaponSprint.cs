@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSprint : Weapon.Module<WeaponSprint.IProcess>, WeaponOperation.IInterface, WeaponConstraint.IInterface
+	public class WeaponSprint : Weapon.Module<WeaponSprint.IProcessor>, WeaponOperation.IInterface, WeaponConstraint.IInterface
 	{
         [SerializeField]
         protected float minWeight = 0.5f;
@@ -63,9 +63,9 @@ namespace Game
         {
             if (HasProcessor) Process(Processor);
         }
-        void Process(IProcess data)
+        void Process(IProcessor processor)
         {
-            if (data.Weight > minWeight && data.Axis > minWeight)
+            if (processor.Active && processor.Axis > minWeight)
             {
                 if(Active == false)
                     Begin();
@@ -93,8 +93,10 @@ namespace Game
             OnStop?.Invoke();
         }
 
-        public interface IProcess
+        public interface IProcessor
         {
+            bool Active { get; }
+
             float Weight { get; }
 
             float Axis { get; }

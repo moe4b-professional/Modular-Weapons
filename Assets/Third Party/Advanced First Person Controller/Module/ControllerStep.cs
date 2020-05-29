@@ -50,9 +50,9 @@ namespace Game
 
             if (velocity.magnitude < 0.01f || Ground.IsGrounded == false)
             {
-                if (Rate > 0.5f) Rate = Mathf.InverseLerp(1f, 0f, Rate);
+                var target = Rate > 0.5f ? 1f : 0f;
 
-                Rate = Mathf.MoveTowards(Rate, 0f, resetSpeed * Time.deltaTime);
+                Rate = Mathf.MoveTowards(Rate, target, resetSpeed * Time.deltaTime);
             }
             else
             {

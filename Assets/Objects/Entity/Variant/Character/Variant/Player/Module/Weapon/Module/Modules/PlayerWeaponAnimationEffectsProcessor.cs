@@ -36,21 +36,10 @@ namespace Game
             Controller.Jump.OnDo += JumpCallback;
             Controller.Ground.Change.OnLeave += LeaveGroundCallback;
             Controller.Ground.Change.OnLand += LandCallback;
-
-            Controller.State.Transition.OnSet += TransitionSetCallback;
-        }
-
-        void TransitionSetCallback(BaseControllerStateElement target)
-        {
-            if (target.Height > Controller.Height) JumpCallback();
-
-            if (target.Height < Controller.Height) OnLand?.Invoke(Vector3.down * 3f);
         }
 
         void JumpCallback() => OnJump?.Invoke(Controller.Jump.Count);
-
         void LeaveGroundCallback() => OnLeaveGround?.Invoke();
-
         void LandCallback(ControllerAirTravel.Data travel) => OnLand?.Invoke(Controller.Velocity.Relative);
     }
 }

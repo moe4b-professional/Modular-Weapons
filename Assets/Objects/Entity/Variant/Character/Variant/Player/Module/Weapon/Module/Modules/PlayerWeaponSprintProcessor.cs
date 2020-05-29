@@ -19,10 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponSprintProcessor : PlayerWeaponProcessor.Module, WeaponSprint.IProcess
+	public class PlayerWeaponSprintProcessor : PlayerWeaponProcessor.Module, WeaponSprint.IProcessor
     {
-        public float Weight => Player.Controller.State.Sets.Sprint.Weight;
+        public ControllerSprintStateElement State => Player.Controller.State.Sets.Sprint;
 
-        public float Axis => Player.Controller.State.Sets.Sprint.Axis;
+        public bool Active => State.Active;
+
+        public float Weight => State.Weight;
+
+        public float Axis => State.Axis;
     }
 }
