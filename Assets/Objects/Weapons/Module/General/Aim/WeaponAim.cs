@@ -41,6 +41,7 @@ namespace Game
                 OnRateChange?.Invoke(Rate);
             }
         }
+        public float InverseRate => Mathf.Lerp(1f, 0f, Rate);
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
 

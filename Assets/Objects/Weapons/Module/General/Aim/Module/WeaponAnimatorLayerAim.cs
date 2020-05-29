@@ -23,19 +23,41 @@ namespace Game
     {
         public Animator Animator => Weapon.Mesh.Animator;
 
-        public const string ID = "Aim";
-
-        public int LayerIndex { get; protected set; }
-
-        public float LayerWeight
+        public LayerController HipLayer { get; protected set; }
+        public LayerController AimLayer { get; protected set; }
+        public class LayerController
         {
-            get => Animator.GetLayerWeight(LayerIndex);
-            set => Animator.SetLayerWeight(LayerIndex, value);
-        }
+            public string Name { get; protected set; }
 
+            public int Index { get; protected set; }
+
+            public Animator Animator { get; protected set; }
+
+            public float Weight
+            {
+                get => Animator.GetLayerWeight(Index);
+                set => Animator.SetLayerWeight(Index, value);
+            }
+
+            public virtual void CalculateIndex()
+            {
+                Index = Animator.GetLayerIndex(Name);
+            }
+
+            public LayerController(Animator animator, string name)
+            {
+                this.Animator = animator;
+                this.Name = name;
+            }
+        }
+        
         public override void Init()
         {
             base.Init();
+
+            HipLayer = new LayerController(Animator, "Hip");
+
+            AimLayer = new LayerController(Animator, "Aim");
 
             Aim.OnRateChange += RateChangeCallback;
 
@@ -44,7 +66,9 @@ namespace Game
 
         void EnableCallback()
         {
-            LayerIndex = Animator.GetLayerIndex(ID);
+            HipLayer.CalculateIndex();
+
+            AimLayer.CalculateIndex();
 
             UpdateState();
         }
@@ -53,7 +77,8 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            LayerWeight = Aim.Rate;
+            HipLayer.Weight = Aim.InverseRate;
+            AimLayer.Weight = Aim.Rate;
         }
     }
 

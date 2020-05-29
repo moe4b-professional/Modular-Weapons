@@ -21,9 +21,13 @@ namespace Game
 {
 	public class WeaponSprintAnimation : WeaponSprint.Module
 	{
+        public Animator Animator => Weapon.Mesh.Animator;
+
         public const string ID = "Sprint";
 
-        public Animator Animator => Weapon.Mesh.Animator;
+        public const string Toggle = ID + " Toggle";
+
+        public const string Trigger = ID + " Trigger";
 
         public override void Init()
         {
@@ -35,12 +39,13 @@ namespace Game
 
         void BeginCallback()
         {
-            Animator.SetBool(ID, true);
+            Animator.SetBool(Toggle, true);
+            Animator.SetTrigger(Trigger);
         }
 
         void StopCallback()
         {
-            Animator.SetBool(ID, false);
+            Animator.SetBool(Toggle, false);
         }
     }
 }
