@@ -19,31 +19,26 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponDefaultReload : WeaponReload.Module
+	public class WeaponPivot : Weapon.Module
 	{
-        [SerializeField]
-        protected float delay = 1f;
-        public float Delay { get { return delay; } }
+        public Coordinates Initial { get; protected set; }
 
         public override void Init()
         {
             base.Init();
 
-            Reload.OnPerform += PerformCallback;
+            Initial = new Coordinates(transform);
+
+            Weapon.OnProcess += Process;
         }
 
-        void PerformCallback()
+        public event Action OnProcess;
+        void Process()
         {
-            StartCoroutine(Procedure());
-        }
+            transform.localPosition = Initial.Position;
+            transform.localRotation = Initial.Rotation;
 
-        IEnumerator Procedure()
-        {
-            yield return new WaitForSeconds(delay);
-
-            Reload.Refill();
-
-            Reload.Complete();
+            OnProcess?.Invoke();
         }
     }
 }

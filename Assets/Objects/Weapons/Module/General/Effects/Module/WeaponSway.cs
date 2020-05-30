@@ -22,10 +22,6 @@ namespace Game
 	public class WeaponSway : Weapon.Module<WeaponSway.IProcessor>, WeaponEffects.IInterface
     {
         [SerializeField]
-        protected Transform context;
-        public Transform Context { get { return context; } }
-
-        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -160,23 +156,20 @@ namespace Game
         public Vector3 Position { get; protected set; } = Vector3.zero;
         public Vector3 Rotation { get; protected set; } = Vector3.zero;
 
+        public Transform Context => Pivot.transform;
+
+        public WeaponPivot Pivot => Weapon.Pivot;
+
         public override void Init()
         {
             base.Init();
 
-            Weapon.OnLateProcess += LateProcess;
+            Pivot.OnProcess += Apply;
         }
 
-        void LateProcess()
+        void Apply()
         {
-            if (HasProcessor) LateProcess(Processor);
-        }
-        void LateProcess(IProcessor data)
-        {
-            context.localPosition -= Position;
-            context.localEulerAngles -= Rotation;
-
-            CalculateTarget(data);
+            CalculateTarget();
 
             Value = Vector2.Lerp(Value, Target, speed.Set * Time.deltaTime);
             Target = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
@@ -184,15 +177,15 @@ namespace Game
             Position = effect.Position.Sample(Value) * scale;
             Rotation = effect.Rotation.Sample(Value) * scale;
 
-            context.localPosition += Position;
-            context.localEulerAngles += Rotation;
+            Context.localPosition += Position;
+            Context.localEulerAngles += Rotation;
         }
 
-        protected virtual void CalculateTarget(IProcessor data)
+        protected virtual void CalculateTarget()
         {
-            if(enabled)
+            if(enabled && HasProcessor)
             {
-                Target = (-data.Look * multiplier.Look) + (-Vector2.right * (data.RelativeVelocity.x * multiplier.Move));
+                Target = (-Processor.Look * multiplier.Look) + (-Vector2.right * (Processor.RelativeVelocity.x * multiplier.Move));
             }
             else
             {

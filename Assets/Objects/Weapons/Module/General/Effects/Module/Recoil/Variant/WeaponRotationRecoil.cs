@@ -30,7 +30,7 @@ namespace Game
             speed = new SpeedData(5, 10);
         }
 
-        protected override void Apply(Vector3 value) => context.localEulerAngles += value;
+        protected override void Apply(Vector3 value) => Context.localEulerAngles += value;
 
         protected override Vector3 CalculateTarget()
         {

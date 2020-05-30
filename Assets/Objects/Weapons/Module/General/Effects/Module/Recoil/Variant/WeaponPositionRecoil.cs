@@ -30,7 +30,7 @@ namespace Game
             speed = new SpeedData(10, 20);
         }
 
-        protected override void Apply(Vector3 value) => context.localPosition += value;
+        protected override void Apply(Vector3 value) => Context.localPosition += value;
 
         protected override Vector3 CalculateTarget()
         {

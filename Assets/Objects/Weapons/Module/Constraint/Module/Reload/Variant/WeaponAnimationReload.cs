@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimationReload : WeaponReload
+	public class WeaponAnimationReload : WeaponReload.Module
 	{
-        public const string ID = "Reload";
+        [SerializeField]
+        protected string _ID = "Reload";
+        public string ID { get { return _ID; } }
 
         public WeaponMesh Mesh => Weapon.Mesh;
 
@@ -30,6 +32,13 @@ namespace Game
             base.Init();
 
             Mesh.TriggerRewind.OnTrigger += AnimationEventCallback;
+
+            Reload.OnPerform += PerformCallback;
+        }
+
+        void PerformCallback()
+        {
+            Mesh.Animator.SetTrigger(ID);
         }
 
         void AnimationEventCallback(string trigger)
@@ -39,21 +48,8 @@ namespace Game
             if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
-        public override void Perform()
-        {
-            base.Perform();
+        protected virtual void Fill() => Reload.Refill();
 
-            Mesh.Animator.SetTrigger(ID);
-        }
-
-        protected virtual void Fill()
-        {
-            Ammo.Refill();
-        }
-
-        protected virtual void End()
-        {
-            if (IsProcessing) Complete();
-        }
+        protected virtual void End() => Reload.Complete();
     }
 }

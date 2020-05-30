@@ -34,6 +34,8 @@ namespace Game
         public event Action OnDisable;
         public virtual void Disable()
         {
+            Weapon.Mesh.Animator.WriteDefaultValues();
+
             Weapon.gameObject.SetActive(false);
 
             OnDisable?.Invoke();

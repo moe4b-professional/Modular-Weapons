@@ -10,7 +10,9 @@ public class AnimationLabeler : EditorWindow
 {
     public static AnimationLabeler Instance { get; protected set; }
 
-    [MenuItem("Tools/Animation Labeler")]
+    public const string Name = "Animation Labeler";
+
+    [MenuItem("Tools/" + Name)]
     static void Open()
     {
         foreach (var item in Selection.objects)
@@ -26,6 +28,8 @@ public class AnimationLabeler : EditorWindow
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
 
         var importer = AssetImporter.GetAtPath(path) as ModelImporter;
+
+        if (importer == null) return;
 
         RenameAndImport(importer, target.name);
     }

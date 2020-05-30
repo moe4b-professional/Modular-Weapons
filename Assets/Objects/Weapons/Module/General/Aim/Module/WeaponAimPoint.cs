@@ -19,26 +19,23 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimPoint : WeaponAimContext.Module
+	public class WeaponAimPoint : WeaponAim.Module
 	{
         public Coordinates Target { get; protected set; }
 
         public float Rate { get; protected set; } = 0f;
 
-        protected virtual void Reset()
-        {
-            
-        }
+        public Transform Context => Pivot.transform;
 
+        public WeaponPivot Pivot => Weapon.Pivot;
+        
         public override void Init()
         {
             base.Init();
 
-            Weapon.OnProcess += Process;
+            Pivot.OnProcess += Process;
 
-            Context.OnApply += ApplyCallback;
-
-            Target = CalculateTarget(Weapon.transform, Context.transform, transform);
+            Target = CalculateTarget(Weapon.transform, Context, transform);
         }
 
         void Process()
@@ -46,23 +43,19 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
 
             Rate = Mathf.MoveTowards(Rate, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
-        }
 
-        void ApplyCallback()
-        {
-            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Context.Idle, Aim.Rate * Rate);
+            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.Initial, Aim.Rate * Rate);
 
             Add(Offset);
         }
 
         void Add(Coordinates coordinates)
         {
-            Context.transform.localPosition += coordinates.Position;
-
-            Context.transform.localRotation *= coordinates.Rotation;
+            Context.localPosition += coordinates.Position;
+            Context.localRotation *= coordinates.Rotation;
         }
 
-        public static Coordinates CalculateTarget(Transform anchor, Transform context, Transform point)
+        public static Coordinates CalculateTarget(Transform anchor, Transform pivot, Transform point)
         {
             Transform Clone(Transform source, Transform parent)
             {
@@ -78,12 +71,12 @@ namespace Game
 
             var iPoint = Clone(point, anchor);
 
-            var iContext = Clone(context, iPoint);
+            var iContext = Clone(pivot, iPoint);
 
             iPoint.localPosition = Vector3.zero;
             iPoint.localRotation = Quaternion.identity;
 
-            iContext.SetParent(context.parent);
+            iContext.SetParent(pivot.parent);
 
             var result = new Coordinates(iContext);
 

@@ -33,6 +33,8 @@ namespace Game
 
         public WeaponActivation Activation { get; protected set; }
 
+        public WeaponPivot Pivot { get; protected set; }
+
         public WeaponEffects Effects { get; protected set; }
 
         public WeaponMesh Mesh { get; protected set; }
@@ -119,6 +121,7 @@ namespace Game
             Hit = this.GetDependancy<WeaponHit>();
             Operation = this.GetDependancy<WeaponOperation>();
             Activation = this.GetDependancy<WeaponActivation>();
+            Pivot = this.GetDependancy<WeaponPivot>();
             Effects = this.GetDependancy<WeaponEffects>();
             Mesh = this.GetDependancy<WeaponMesh>();
 

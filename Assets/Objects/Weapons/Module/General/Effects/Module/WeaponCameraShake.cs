@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponCameraShake : Weapon.Module<WeaponCameraShake.IProcessor>
+	public class WeaponCameraShake : Weapon.Module<WeaponCameraShake.IProcessor>, WeaponEffects.IInterface
 	{
         [SerializeField]
         protected float scale = 1f;

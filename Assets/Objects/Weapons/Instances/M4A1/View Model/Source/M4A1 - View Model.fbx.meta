@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -135952331956449747
-    second: M4A3 - View Model - Pose
+    second: M4A1 - View Model - Pose
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: M4A3 - View Model - Pose
+      name: M4A1 - View Model - Pose
       takeName: Main
       internalID: -135952331956449747
       firstFrame: 0

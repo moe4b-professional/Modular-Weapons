@@ -22,14 +22,6 @@ namespace Game
     public abstract class WeaponRecoil : Weapon.Module, WeaponEffects.IInterface
     {
         [SerializeField]
-        protected Transform context;
-        public Transform Context
-        {
-            get => context;
-            set => context = value;
-        }
-
-        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -88,10 +80,14 @@ namespace Game
         public Vector3 Target { get; protected set; }
 
         public Vector3 Value { get; protected set; }
-                        
+
+        public Transform Context => Pivot.transform;
+
+        public WeaponPivot Pivot => Weapon.Pivot;
+
         protected virtual void Reset()
         {
-            context = transform;
+
         }
 
         public override void Init()
@@ -100,23 +96,22 @@ namespace Game
 
             Weapon.Action.OnPerform += Action;
 
-            Weapon.OnLateProcess += LateProcess;
+            Pivot.OnProcess += Process;
         }
 
         void Action()
         {
-            if(enabled) Target = CalculateTarget() * scale;
+            if(enabled)
+                Target = CalculateTarget() * scale;
         }
 
         protected abstract Vector3 CalculateTarget();
 
-        void LateProcess()
+        void Process()
         {
-            Apply(-Value);
-            {
-                Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
-                Target = Vector3.Lerp(Target, Vector3.zero, speed.Reset * Time.deltaTime);
-            }
+            Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
+            Target = Vector3.Lerp(Target, Vector3.zero, speed.Reset * Time.deltaTime);
+
             Apply(Value);
         }
 

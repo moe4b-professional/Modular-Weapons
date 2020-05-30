@@ -34,5 +34,10 @@ namespace Game
 
             TriggerRewind = Animator.GetComponent<AnimationTriggerRewind>();
         }
+
+        public override void Init()
+        {
+            base.Init();
+        }
     }
 }

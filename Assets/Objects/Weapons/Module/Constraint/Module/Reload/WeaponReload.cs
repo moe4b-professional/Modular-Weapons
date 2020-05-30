@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class WeaponReload : Weapon.Module<WeaponReload.IProcessor>, WeaponConstraint.IInterface, WeaponOperation.IInterface
+	public class WeaponReload : Weapon.Module<WeaponReload.IProcessor>, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation.Is(this);
         bool WeaponConstraint.IInterface.Constraint => IsProcessing;
@@ -93,19 +93,30 @@ namespace Game
             }
         }
 
+        public event Action OnPerform;
         public virtual void Perform()
         {
             Weapon.Operation.Set(this);
+
+            OnPerform?.Invoke();
+        }
+
+        public event Action OnRefill;
+        public virtual void Refill()
+        {
+            Ammo.Refill();
+
+            OnRefill?.Invoke();
         }
 
         public event Action OnComplete;
-        protected virtual void Complete()
+        public virtual void Complete()
         {
             Stop();
 
             OnComplete?.Invoke();
         }
-
+        
         public virtual void Stop()
         {
             //TODO provide functionality to stop reload

@@ -34,6 +34,8 @@ namespace Game
 
         public WeaponAnimationEffectsWeight Weight { get; protected set; }
 
+        public WeaponPivot Pivot => Weapon.Pivot;
+
         public class Module : Weapon.BaseModule<WeaponAnimationEffects, IProcessor>
         {
             public WeaponAnimationEffects Effects => Reference;

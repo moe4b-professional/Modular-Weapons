@@ -22,10 +22,6 @@ namespace Game
 	public class WeaponBob : Weapon.Module<WeaponBob.IProcessor>, WeaponEffects.IInterface
     {
         [SerializeField]
-        protected Transform context;
-        public Transform Context { get { return context; } }
-
-        [SerializeField]
         protected float scale = 1f;
         public float Scale
         {
@@ -43,24 +39,30 @@ namespace Game
 
         public Vector3 Offset { get; protected set; }
 
+        public Transform Context => Pivot.transform;
+
+        public WeaponPivot Pivot => Weapon.Pivot;
+
         public override void Init()
         {
             base.Init();
 
-            Weapon.OnLateProcess += LateProcess;
+            Pivot.OnProcess += Apply;
         }
 
-        void LateProcess()
+        void Apply()
         {
-            if (HasProcessor) LateProcess(Processor);
+            CalculateOffset();
+
+            Context.localPosition += Offset;
         }
-        protected virtual void LateProcess(IProcessor data)
+
+        protected virtual void CalculateOffset()
         {
-            context.localPosition -= Offset;
-
-            Offset = Vector3.down * curve.Evaluate(data.Step) * range * scale;
-
-            context.localPosition += Offset;
+            if (enabled && HasProcessor)
+                Offset = Vector3.down * curve.Evaluate(Processor.Step) * range * scale;
+            else
+                Offset = Vector3.zero;
         }
 
         public interface IProcessor
