@@ -42,8 +42,6 @@ public class AnimationLabeler : EditorWindow
 
         foreach (var item in animations)
         {
-            Debug.Log(item.name);
-
             if (item.name == name) continue;
 
             item.name = name;

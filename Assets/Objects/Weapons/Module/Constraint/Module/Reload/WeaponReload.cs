@@ -55,7 +55,7 @@ namespace Game
 
             Ammo = Dependancy.Get<WeaponAmmo>(Weapon.gameObject);
 
-            References.Configure(this);
+            References.Configure(this, Weapon.gameObject);
         }
 
         public override void Init()
@@ -72,7 +72,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            References.Init(this);
+            References.Init(this, Weapon.gameObject);
         }
 
         void DisableCallback()

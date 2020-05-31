@@ -78,6 +78,8 @@ namespace Game
         protected int consumption = 1;
         public int Consumption { get { return consumption; } }
 
+        public int Uses => magazine.Value / consumption;
+
         public class Module : Weapon.BaseModule<WeaponAmmo>
         {
             public WeaponAmmo Ammo => Reference;

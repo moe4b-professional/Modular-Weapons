@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rifle
+  m_Name: SCAR Animator
   m_Controller: {fileID: 9100000, guid: 0223aeaaa06f6004e95e48d2e844cd32, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 8c81051fcd1580641afd479269c7e472, type: 2}
@@ -31,3 +31,7 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 5f7882a523c10cc4a916f1e7b101a59b, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 8551f21ea9a48ca41ab610a4fe641693, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 68e52a63b566e5c41ac33e6aac064658, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 92811e92f031ce140b8320f10fe11879, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 96c596a1642feed42ac3b8ff51a088da, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 90d44e231985fdd409f68cb5ec714c62, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1e9a8c265fefad846a6e94456a60fbda, type: 2}

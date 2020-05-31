@@ -38,7 +38,8 @@ namespace Game
 
         void PerformCallback()
         {
-            Mesh.Animator.SetTrigger(ID);
+            if(enabled)
+                Mesh.Animator.SetTrigger(ID);
         }
 
         void AnimationEventCallback(string trigger)
