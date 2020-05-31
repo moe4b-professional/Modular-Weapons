@@ -726,7 +726,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0
-      lastFrame: 270
+      lastFrame: 202
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -753,28 +753,28 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.36674818
+      - time: 0.44101873
         functionName: PlaySFX
         data: Insert Mag
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.42542785
+      - time: 0.5288761
         functionName: Trigger
         data: Reload Fill
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.47677264
+      - time: 0.63327134
         functionName: PlaySFX
         data: Release Bolt
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.591687
+      - time: 0.8091936
         functionName: Trigger
         data: Reload End
         objectReferenceParameter: {instanceID: 0}

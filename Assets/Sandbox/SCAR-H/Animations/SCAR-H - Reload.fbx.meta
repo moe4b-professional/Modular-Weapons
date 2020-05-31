@@ -725,7 +725,7 @@ ModelImporter:
       name: Rifle - Reload
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 10
+      firstFrame: 0
       lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
@@ -746,28 +746,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.0132626025
+      - time: 0.021220159
         functionName: PlaySFX
         data: Remove Mag
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5256724
+      - time: 0.5203673
         functionName: PlaySFX
         data: Insert Mag
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6227131
+      - time: 0.6386282
         functionName: Trigger
         data: Reload Fill
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7775061
+      - time: 0.77750605
         functionName: Trigger
         data: Reload End
         objectReferenceParameter: {instanceID: 0}
