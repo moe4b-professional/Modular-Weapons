@@ -36,9 +36,9 @@ namespace Game
         {
             return new Vector3()
             {
-                x = Random.Range(-sway.Horizontal, sway.Horizontal),
-                y = Random.Range(-sway.Vertical, sway.Vertical),
-                z = kick.Random
+                x = noise.Lerp(5, sway.Horizontal),
+                y = noise.Lerp(3, sway.Vertical),
+                z = noise.Lerp(1, kick),
             };
         }
     }

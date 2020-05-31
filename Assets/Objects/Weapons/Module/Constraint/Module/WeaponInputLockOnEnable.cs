@@ -19,47 +19,40 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponNoAmmoProcess : Weapon.Module, WeaponConstraint.IInterface
+	public class WeaponInputLockOnEnable : Weapon.Module, WeaponConstraint.IInterface
 	{
-		[SerializeField]
-        protected AudioClip _SFX;
-        public AudioClip SFX { get { return _SFX; } }
-
         public bool Active { get; protected set; }
 
         bool WeaponConstraint.IInterface.Constraint => Active;
-
-        [SerializeField]
-        protected float duration = 0.2f;
-        public float Duration { get { return duration; } }
-
-        float timer;
 
         protected virtual void OnEnable()
         {
             Begin();
         }
-        protected virtual void OnDisable()
+
+        public override void Init()
         {
-            if (Active) Stop();
+            base.Init();
+
+            Weapon.OnProcess += Process;
         }
 
         protected virtual void Begin()
         {
             Active = true;
-
-            timer = duration;
-
-            Weapon.AudioSource.PlayOneShot(SFX);
-
-            Weapon.OnProcess += Process;
         }
 
         protected virtual void Process()
         {
-            timer = Mathf.MoveTowards(timer, 0f, Time.deltaTime);
-
-            if (timer == 0f && Processor.Input == false) End();
+            if(Active)
+            {
+                if (enabled)
+                {
+                    if (Processor.Input == false) Stop();
+                }
+                else
+                    Stop();
+            }
         }
 
         protected virtual void End()
@@ -70,8 +63,6 @@ namespace Game
         public virtual void Stop()
         {
             Active = false;
-
-            Weapon.OnProcess -= Process;
         }
     }
 }

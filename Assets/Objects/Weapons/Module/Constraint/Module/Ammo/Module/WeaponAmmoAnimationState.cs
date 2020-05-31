@@ -37,7 +37,7 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            Animator.SetInteger("Remaining Uses", Ammo.Uses);
+            Animator.SetInteger("Remaining Uses", Ammo.RemainingUses);
         }
 
         void RefillCallback() => UpdateState();

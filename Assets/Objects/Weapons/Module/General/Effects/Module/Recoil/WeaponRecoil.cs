@@ -77,6 +77,42 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected NoiseData noise;
+        public NoiseData Noise { get { return noise; } }
+        [Serializable]
+        public class NoiseData
+        {
+            [SerializeField]
+            protected NoiseMode mode = NoiseMode.Random;
+            public NoiseMode Mode { get { return mode; } }
+
+            public virtual float Calculate(int seed)
+            {
+                switch (mode)
+                {
+                    case NoiseMode.Perlin:
+                        return Mathf.PerlinNoise(Time.time + seed * 456, Time.time + seed + 1 * 456);
+                    case NoiseMode.Random:
+                        return Random.Range(0f, 1f);
+                }
+
+                throw new NotImplementedException();
+            }
+
+            public virtual float Lerp(int seed, float min, float max)
+            {
+                return Mathf.Lerp(min, max, Calculate(seed));
+            }
+            public virtual float Lerp(int seed, ValueRange range) => Lerp(seed, range.Min, range.Max);
+            public virtual float Lerp(int seed, float range) => Lerp(seed, -range, range);
+        }
+
+        public enum NoiseMode
+        {
+            Perlin, Random
+        }
+
         public Vector3 Target { get; protected set; }
 
         public Vector3 Value { get; protected set; }
