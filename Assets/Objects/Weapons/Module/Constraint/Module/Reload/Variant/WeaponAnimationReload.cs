@@ -27,6 +27,10 @@ namespace Game
 
         public WeaponMesh Mesh => Weapon.Mesh;
 
+        public Animator Animator => Mesh.Animator;
+
+        public string FillTrigger => AnimationTrigger.Combine(ID, nameof(Fill));
+
         public override void Init()
         {
             base.Init();
@@ -38,19 +42,28 @@ namespace Game
 
         void PerformCallback()
         {
-            if(enabled)
-                Mesh.Animator.SetTrigger(ID);
+            Animator.SetTrigger(ID);
         }
 
         void AnimationEventCallback(string trigger)
         {
-            if (AnimationTrigger.Is(trigger, ID, "Fill")) Fill();
+            if (trigger == FillTrigger) Fill();
 
             if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
-        protected virtual void Fill() => Reload.Refill();
+        protected virtual void Fill()
+        {
+            Animator.SetTrigger(FillTrigger);
 
-        protected virtual void End() => Reload.Complete();
+            Reload.Refill();
+        }
+
+        protected virtual void End()
+        {
+            Animator.ResetTrigger(FillTrigger);
+
+            Reload.Complete();
+        }
     }
 }
