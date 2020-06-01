@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class References
+    public static class References
     {
         public static void Configure<TReference>(TReference reference)
             where TReference : Component
@@ -64,13 +64,78 @@ namespace Game
         {
             target.Init();
         }
+
+        public abstract class BaseCollection<TType>
+            where TType : class
+        {
+            public List<TType> List { get; protected set; }
+
+            public virtual void ForAll<TConstraint>(Action<TConstraint> action)
+                where TConstraint : class
+            {
+                for (int i = 0; i < List.Count; i++)
+                    if (List[i] is TConstraint)
+                        action(List[i] as TConstraint);
+            }
+
+            public virtual void Add(TType instance)
+            {
+                List.Add(instance);
+            }
+
+            public virtual T Find<T>()
+                where T : class
+            {
+                for (int i = 0; i < List.Count; i++)
+                    if (List[i] is T)
+                        return List[i] as T;
+
+                return null;
+            }
+            public virtual void Find<T>(out T target)
+                where T : class
+            {
+                target = Find<T>();
+            }
+
+            public BaseCollection(GameObject root)
+            {
+                List = Dependancy.GetAll<TType>(root);
+            }
+        }
+
+        public class Collection : BaseCollection<IReference>
+        {
+            public virtual void Configure<TReference>(TReference reference)
+                where TReference : class
+            {
+                ForAll<IReference<TReference>>(Process);
+
+                void Process(IReference<TReference> instance) => References.Configure(reference, instance);
+            }
+
+            public virtual void Init<TReference>(TReference reference)
+                where TReference : class
+            {
+                ForAll<IReference<TReference>>(Process);
+
+                void Process(IReference<TReference> instance) => References.Init(reference, instance);
+            }
+
+            public Collection(GameObject root) : base(root)
+            {
+
+            }
+        }
     }
 
-    public interface IReference<T>
+    public interface IReference
+    {
+        void Init();
+    }
+    public interface IReference<T> : IReference
     {
         void Configure(T reference);
-
-        void Init();
     }
 
     public class ReferenceBehaviour<TReference> : MonoBehaviour, IReference<TReference>

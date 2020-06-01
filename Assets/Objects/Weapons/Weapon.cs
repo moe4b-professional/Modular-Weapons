@@ -19,25 +19,20 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour
     {
         public WeaponConstraint Constraint { get; protected set; }
-
         public WeaponAction Action { get; protected set; }
-
         public WeaponHit Hit { get; protected set; }
-
         public WeaponDamage Damage { get; protected set; }
-
         public WeaponOperation Operation { get; protected set; }
-
         public WeaponActivation Activation { get; protected set; }
-
         public WeaponPivot Pivot { get; protected set; }
-
         public WeaponEffects Effects { get; protected set; }
-
         public WeaponMesh Mesh { get; protected set; }
+
+        public References.Collection Modules { get; protected set; }
 
         public abstract class BaseModule<TReference, TProcessor> : MonoBehaviour, IReference<TReference>
             where TProcessor : class
@@ -54,6 +49,8 @@ namespace Game
             public TReference Reference { get; protected set; }
 
             public abstract Weapon Weapon { get; }
+
+            public References.Collection Modules => Weapon.Modules;
 
             public IOwner Owner => Weapon.Owner;
 
@@ -84,12 +81,12 @@ namespace Game
         }
         public abstract class BaseModule<TReference> : BaseModule<TReference, IProcessor> { }
 
-        public class Module<TProcessor> : BaseModule<Weapon, TProcessor>
+        public abstract class Module<TProcessor> : BaseModule<Weapon, TProcessor>
             where TProcessor : class
         {
             public override Weapon Weapon => Reference;
         }
-        public class Module : Module<IProcessor> { }
+        public abstract class Module : Module<IProcessor> { }
 
         public AudioSource AudioSource { get; protected set; }
         
@@ -113,24 +110,37 @@ namespace Game
 
         protected virtual void Configure()
         {
-            AudioSource = this.GetDependancy<AudioSource>();
+            AudioSource = GetComponent<AudioSource>();
 
-            Constraint = this.GetDependancy<WeaponConstraint>();
-            Action = this.GetDependancy<WeaponAction>();
-            Damage = this.GetDependancy<WeaponDamage>();
-            Hit = this.GetDependancy<WeaponHit>();
-            Operation = this.GetDependancy<WeaponOperation>();
-            Activation = this.GetDependancy<WeaponActivation>();
-            Pivot = this.GetDependancy<WeaponPivot>();
-            Effects = this.GetDependancy<WeaponEffects>();
-            Mesh = this.GetDependancy<WeaponMesh>();
+            Modules = new References.Collection(gameObject);
 
-            References.Configure(this);
+            Constraint = FindModule<WeaponConstraint>();
+            Action = FindModule<WeaponAction>();
+            Damage = FindModule<WeaponDamage>();
+            Hit = FindModule<WeaponHit>();
+            Operation = FindModule<WeaponOperation>();
+            Activation = FindModule<WeaponActivation>();
+            Pivot = FindModule<WeaponPivot>();
+            Effects = FindModule<WeaponEffects>();
+            Mesh = FindModule<WeaponMesh>();
+
+            TModule FindModule<TModule>()
+                where TModule : class
+            {
+                var instance = Modules.Find<TModule>();
+
+                if (instance == null)
+                    throw new Exception("Weapon " + name + " Requires a " + typeof(TModule).Name + " Component");
+
+                return instance;
+            }
+
+            Modules.Configure(this);
         }
 
         protected virtual void Init()
         {
-            References.Init(this);
+            Modules.Init(this);
         }
 
         public delegate void ProcessDelegate();

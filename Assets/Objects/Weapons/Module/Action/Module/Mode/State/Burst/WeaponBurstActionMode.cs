@@ -31,7 +31,7 @@ namespace Game
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 
-        public class Module : Weapon.BaseModule<WeaponBurstActionMode>
+        public abstract class Module : Weapon.BaseModule<WeaponBurstActionMode>
         {
             public WeaponBurstActionMode Burst => Reference;
 
@@ -42,7 +42,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -53,7 +53,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         void DisableCallback()

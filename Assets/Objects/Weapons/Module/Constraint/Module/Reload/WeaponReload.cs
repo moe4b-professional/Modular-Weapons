@@ -42,7 +42,7 @@ namespace Game
             }
         }
 
-        public class Module : Weapon.BaseModule<WeaponReload>
+        public abstract class Module : Weapon.BaseModule<WeaponReload, IProcessor>
         {
             public WeaponReload Reload => Reference;
 
@@ -53,9 +53,9 @@ namespace Game
         {
             base.Configure(reference);
 
-            Ammo = Dependancy.Get<WeaponAmmo>(Weapon.gameObject);
+            Ammo = Modules.Find<WeaponAmmo>();
 
-            References.Configure(this, Weapon.gameObject);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -72,7 +72,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            References.Init(this, Weapon.gameObject);
+            Modules.Init(this);
         }
 
         void DisableCallback()

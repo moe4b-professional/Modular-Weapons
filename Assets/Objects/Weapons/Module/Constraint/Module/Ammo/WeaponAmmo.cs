@@ -80,7 +80,7 @@ namespace Game
 
         public int RemainingUses => consumption == 0 ? int.MaxValue : magazine.Value / consumption;
 
-        public class Module : Weapon.BaseModule<WeaponAmmo>
+        public abstract class Module : Weapon.BaseModule<WeaponAmmo>
         {
             public WeaponAmmo Ammo => Reference;
 
@@ -91,14 +91,14 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
         {
             base.Init();
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         public event Action OnConsumption;

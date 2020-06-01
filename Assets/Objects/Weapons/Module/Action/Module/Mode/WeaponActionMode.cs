@@ -35,7 +35,7 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponActionMode>
+        public abstract class Module : Weapon.BaseModule<WeaponActionMode, IProcessor>
         {
             public WeaponActionMode Mode => Reference;
 
@@ -48,7 +48,7 @@ namespace Game
 
             List = Dependancy.GetAll<IState>(gameObject);
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -70,7 +70,7 @@ namespace Game
 
             if(List.Count > 0) Set(Index);
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         void Process()

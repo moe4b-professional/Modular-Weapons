@@ -36,7 +36,7 @@ namespace Game
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
-        public class Module : Weapon.BaseModule<WeaponAnimationEffects, IProcessor>
+        public abstract class Module : Weapon.BaseModule<WeaponAnimationEffects, IProcessor>
         {
             public WeaponAnimationEffects Effects => Reference;
 
@@ -50,16 +50,16 @@ namespace Game
         {
             base.Configure(reference);
 
-            Weight = Dependancy.Get<WeaponAnimationEffectsWeight>(gameObject);
+            Weight = Modules.Find<WeaponAnimationEffectsWeight>();
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
         {
             base.Init();
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         public virtual void Play(string trigger, float weight)

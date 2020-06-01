@@ -45,7 +45,7 @@ namespace Game
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
 
-        public class Module : Weapon.BaseModule<WeaponAim>
+        public abstract class Module : Weapon.BaseModule<WeaponAim, IProcessor>
         {
             public WeaponAim Aim => Reference;
 
@@ -56,7 +56,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this, Weapon.gameObject);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -67,7 +67,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            References.Init(this, Weapon.gameObject);
+            Modules.Init(this);
         }
 
         void DisableCallback()

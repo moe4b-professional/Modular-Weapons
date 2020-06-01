@@ -119,20 +119,19 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this, defaults);
+            Modules.Add(defaults);
 
             for (int i = 0; i < contexts.Length; i++)
-                References.Configure(this, contexts[i]);
+                Modules.Add(contexts[i]);
+
+            Modules.Configure(this);
         }
 
         public override void Init()
         {
             base.Init();
 
-            References.Init(this, defaults);
-
-            for (int i = 0; i < contexts.Length; i++)
-                References.Init(this, contexts[i]);
+            Modules.Init(this);
 
             Aim.OnRateChange += RateChangeCallback;
 

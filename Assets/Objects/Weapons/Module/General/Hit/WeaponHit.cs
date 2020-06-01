@@ -94,7 +94,7 @@ namespace Game
             }
         }
 
-        public class Module : Weapon.BaseModule<WeaponHit>
+        public abstract class Module : Weapon.BaseModule<WeaponHit>
         {
             public WeaponHit Hit => Reference;
 
@@ -105,14 +105,14 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
         {
             base.Init();
 
-            References.Init(this);
+            Modules.Init(this);
         }
     }
 }

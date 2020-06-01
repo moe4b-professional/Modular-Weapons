@@ -29,7 +29,7 @@ namespace Game
 
         bool WeaponConstraint.IInterface.Constraint => Active;
 
-        public class Module : Weapon.BaseModule<WeaponSprint>
+        public abstract class Module : Weapon.BaseModule<WeaponSprint, IProcessor>
         {
             public WeaponSprint Sprint => Reference;
 
@@ -40,7 +40,7 @@ namespace Game
         {
             base.Configure(reference);
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -51,7 +51,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         void DisableCallback()

@@ -25,7 +25,7 @@ namespace Game
 
         public WeaponActionOverride Override { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponAction>
+        public abstract class Module : Weapon.BaseModule<WeaponAction>
         {
             public WeaponAction Action => Reference;
 
@@ -36,9 +36,9 @@ namespace Game
         {
             base.Configure(reference);
 
-            Override = Dependancy.Get<WeaponActionOverride>(gameObject);
+            Override = Modules.Find<WeaponActionOverride>();
 
-            References.Configure(this);
+            Modules.Configure(this);
         }
 
         public override void Init()
@@ -49,7 +49,7 @@ namespace Game
 
             Weapon.OnLateProcess += LateProcess;
 
-            References.Init(this);
+            Modules.Init(this);
         }
 
         void Process()
