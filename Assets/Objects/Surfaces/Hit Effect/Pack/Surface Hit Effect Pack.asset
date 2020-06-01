@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Surface Hit Effect Pack
   m_EditorClassIdentifier: 
   _default:
-    prefab: {fileID: 7677185236093266409, guid: f1ca2efc871fa1f409d5206bed74a243,
-      type: 3}
+    prefab: {fileID: 100008, guid: 3a46e13d0a80774488ee04bd42f08c14, type: 3}
     flip: 0
     offset:
       depth: 0
-      angle: {x: 0, y: 0, z: 0}
+      angle: {x: -90, y: 0, z: 0}
   list:
   - materials:
     - {fileID: 11400000, guid: ec5ab4bbf12b0b54faf6fd016837f82c, type: 2}

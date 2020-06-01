@@ -56,7 +56,14 @@ namespace Game
         {
             if (clip == null) return;
 
+            Stop();
+
             Source.PlayOneShot(clip);
+        }
+
+        protected virtual void Stop()
+        {
+            Source.Stop();
         }
 
         void JumpCallback()
