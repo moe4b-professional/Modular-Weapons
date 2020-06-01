@@ -98,18 +98,11 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Action.OnLatePerform += Action;
-
             References.Init(this);
         }
 
-        void Action()
-        {
-            if (CanConsume) Consume();
-        }
-
         public event Action OnConsumption;
-        protected virtual void Consume()
+        public virtual void Consume()
         {
             magazine.Value -= consumption;
 
