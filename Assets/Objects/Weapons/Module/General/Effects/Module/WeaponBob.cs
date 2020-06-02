@@ -30,7 +30,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected float range = 0.02f;
+        protected float range = 0.0035f;
         public float Range { get { return range; } }
 
         public Vector3 Offset { get; protected set; }

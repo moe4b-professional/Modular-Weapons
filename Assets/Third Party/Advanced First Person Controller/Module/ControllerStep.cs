@@ -25,6 +25,24 @@ namespace Game
         protected float scale;
         public float Scale { get { return scale; } }
 
+        [SerializeField]
+        protected WeightData weight;
+        public WeightData Weight { get { return weight; } }
+        [Serializable]
+        public class WeightData
+        {
+            [SerializeField]
+            protected float acceleration = 5f;
+            public float Acceleration { get { return acceleration; } }
+
+            public float Value { get; protected set; }
+
+            public virtual void Process(float target)
+            {
+                Value = Mathf.MoveTowards(Value, target, acceleration * Time.deltaTime);
+            }
+        }
+
         public float Rate { get; protected set; }
 
         public float Delta { get; protected set; }
@@ -32,6 +50,10 @@ namespace Game
         public int Count { get; protected set; }
 
         public ControllerVelocity Velocity => Controller.Velocity;
+
+        public ControllerMovement Movement => Controller.Movement;
+
+        public ControllerMovementSpeed Speed => Movement.Speed;
 
         public override void Init()
         {
@@ -42,18 +64,23 @@ namespace Game
 
         void Process()
         {
-            var magnitde = Velocity.Planar.magnitude;
-
-            if (magnitde < 0.01f || Controller.IsGrounded == false)
+            if (Speed.Current > 0.01f && Controller.IsGrounded)
             {
-                Delta = 0f;
+                Delta = Speed.Current * scale * Time.deltaTime;
+
+                Rate += Delta;
+
+                Weight.Process(1f);
+
+                if (Rate >= 1f) Complete();
             }
             else
             {
-                Delta = magnitde * scale * Time.deltaTime;
-                Rate += Delta;
+                Delta = 0f;
 
-                if (Rate >= 1f) Complete();
+                Weight.Process(0f);
+
+                if (weight.Value == 0f) Rate = 0f;
             }
         }
 

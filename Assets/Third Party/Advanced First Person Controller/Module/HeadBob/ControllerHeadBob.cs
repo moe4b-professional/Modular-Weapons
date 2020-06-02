@@ -22,11 +22,7 @@ namespace Game
 	public class ControllerHeadBob : FirstPersonController.Module
 	{
         [SerializeField]
-        protected float magnitude = 1.5f;
-        public float Magnitude { get { return magnitude; } }
-
-        [SerializeField]
-        protected float range = 0.033f;
+        protected float range = 0.0035f;
         public float Range { get { return range; } }
 
         [SerializeField]
@@ -49,8 +45,6 @@ namespace Game
             }
         }
 
-        public float Rate { get; protected set; }
-
         public Vector3 Delta { get; protected set; }
 
         public Vector3 Offset { get; protected set; }
@@ -71,9 +65,9 @@ namespace Game
 
         void Process()
         {
-            Rate = Step.Rate;
+            Delta = curves.Evaluate(Step.Rate);
 
-            Delta = curves.Evaluate(Rate);
+            Delta *= Step.Weight.Value;
 
             Offset = Delta * range;
         }

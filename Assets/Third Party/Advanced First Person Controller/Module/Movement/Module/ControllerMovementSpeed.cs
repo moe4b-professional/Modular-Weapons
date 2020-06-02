@@ -44,7 +44,7 @@ namespace Game
         {
             Max = Base * multiplier;
 
-            Current = Movement.Velocity.Absolute.magnitude;
+            Current = Movement.Velocity.Planar.magnitude;
         }
     }
 }
