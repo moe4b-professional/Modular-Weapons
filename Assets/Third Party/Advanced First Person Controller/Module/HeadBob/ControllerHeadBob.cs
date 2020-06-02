@@ -22,18 +22,36 @@ namespace Game
 	public class ControllerHeadBob : FirstPersonController.Module
 	{
         [SerializeField]
-        protected float scale = 1f;
-        public float Scale { get { return scale; } }
+        protected float magnitude = 1.5f;
+        public float Magnitude { get { return magnitude; } }
 
         [SerializeField]
-        protected AnimationCurve curve;
-        public AnimationCurve Curve { get { return curve; } }
-
-        [SerializeField]
-        protected float range = 0.2f;
+        protected float range = 0.033f;
         public float Range { get { return range; } }
 
-        public ControllerStep Step => Controller.Step;
+        [SerializeField]
+        protected CurvesData curves;
+        public CurvesData Curves { get { return curves; } }
+        [Serializable]
+        public class CurvesData
+        {
+            [SerializeField]
+            protected AnimationCurve vertical;
+            public AnimationCurve Vertical { get { return vertical; } }
+
+            [SerializeField]
+            protected AnimationCurve horizontal;
+            public AnimationCurve Horizontal { get { return horizontal; } }
+
+            public virtual Vector3 Evaluate(float time)
+            {
+                return Vector3.up * vertical.Evaluate(time) + Vector3.right * horizontal.Evaluate(time);
+            }
+        }
+
+        public float Rate { get; protected set; }
+
+        public Vector3 Delta { get; protected set; }
 
         public Vector3 Offset { get; protected set; }
 
@@ -41,6 +59,8 @@ namespace Game
         {
             public ControllerHeadBob HeadBob => Controller.HeadBob;
         }
+
+        public ControllerStep Step => Controller.Step;
 
         public override void Init()
         {
@@ -51,7 +71,11 @@ namespace Game
 
         void Process()
         {
-            Offset = Vector3.up * curve.Evaluate(Step.Rate) * range * scale;
+            Rate = Step.Rate;
+
+            Delta = curves.Evaluate(Rate);
+
+            Offset = Delta * range;
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Game
 
         protected virtual Vector3 CalculateTarget()
         {
-            var result = Vector3.ClampMagnitude(Input.Absolute * Speed.Value, Speed.Value);
+            var result = Vector3.ClampMagnitude(Input.Absolute * Speed.Max, Speed.Max);
 
             if (Ground.IsGrounded)
                 result = Vector3.ProjectOnPlane(result, Ground.Data.Normal);

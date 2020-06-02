@@ -25,11 +25,26 @@ namespace Game
         protected float _base = 4f;
         public float Base { get { return _base; } }
 
-        public float Value { get; protected set; }
+        public float Current { get; protected set; }
+
+        public float Max { get; protected set; }
+
+        public float Rate => Max == 0f ? 0f : Current / Max;
+
+        public override void Configure(FirstPersonController reference)
+        {
+            base.Configure(reference);
+
+            Current = 0f;
+
+            Max = Base;
+        }
 
         public virtual void Calculate(float multiplier)
         {
-            Value = Base * multiplier;
+            Max = Base * multiplier;
+
+            Current = Movement.Velocity.Absolute.magnitude;
         }
     }
 }

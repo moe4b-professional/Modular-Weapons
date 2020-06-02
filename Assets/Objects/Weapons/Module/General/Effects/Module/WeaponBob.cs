@@ -30,10 +30,6 @@ namespace Game
         }
 
         [SerializeField]
-        protected AnimationCurve curve;
-        public AnimationCurve Curve { get { return curve; } }
-
-        [SerializeField]
         protected float range = 0.02f;
         public float Range { get { return range; } }
 
@@ -47,10 +43,10 @@ namespace Game
         {
             base.Init();
 
-            Pivot.OnProcess += Apply;
+            Pivot.OnProcess += Process;
         }
 
-        void Apply()
+        void Process()
         {
             CalculateOffset();
 
@@ -60,14 +56,14 @@ namespace Game
         protected virtual void CalculateOffset()
         {
             if (enabled && HasProcessor)
-                Offset = Vector3.down * curve.Evaluate(Processor.Step) * range * scale;
+                Offset = -Processor.Delta * range * scale;
             else
                 Offset = Vector3.zero;
         }
 
         public interface IProcessor
         {
-            float Step { get; }
+            Vector3 Delta { get; }
         }
 	}
 }

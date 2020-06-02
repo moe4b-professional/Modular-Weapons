@@ -39,9 +39,9 @@ namespace Game
             origin += Direction.Up * Offset;
             origin += Direction.Up * Controller.Radius / iteration;
 
-            if (Controller.Movement.Speed.Value > 0f)
+            if (Controller.Movement.Speed.Max > 0f)
             {
-                var direction = Vector3.ClampMagnitude(Controller.Velocity.Planar / Controller.Movement.Speed.Value, 1f);
+                var direction = Vector3.ClampMagnitude(Controller.Velocity.Planar / Controller.Movement.Speed.Max, 1f);
                 origin += direction * (Controller.Radius / 2f / iteration);
             }
 

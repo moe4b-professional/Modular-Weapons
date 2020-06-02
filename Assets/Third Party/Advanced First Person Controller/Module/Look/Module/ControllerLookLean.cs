@@ -103,6 +103,8 @@ namespace Game
         {
             if (Target == value)
                 Target = 0f;
+            else if (Target == -value)
+                Target = 0f;
             else
                 Target = value;
         }

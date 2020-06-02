@@ -25,17 +25,13 @@ namespace Game
         protected float scale;
         public float Scale { get { return scale; } }
 
-        [SerializeField]
-        protected float resetSpeed;
-        public float ResetSpeed { get { return resetSpeed; } }
-
         public float Rate { get; protected set; }
 
-        public ControllerMovement Movement => Controller.Movement;
+        public float Delta { get; protected set; }
+
+        public int Count { get; protected set; }
+
         public ControllerVelocity Velocity => Controller.Velocity;
-        public ControllerState State => Controller.State;
-        public ControllerGround Ground => Controller.Ground;
-        public ControllerGravity Gravity => Controller.Gravity;
 
         public override void Init()
         {
@@ -46,27 +42,29 @@ namespace Game
 
         void Process()
         {
-            var velocity = Velocity.Absolute;
+            var magnitde = Velocity.Planar.magnitude;
 
-            if (velocity.magnitude < 0.01f || Ground.IsGrounded == false)
+            if (magnitde < 0.01f || Controller.IsGrounded == false)
             {
-                var target = Rate > 0.5f ? 1f : 0f;
-
-                Rate = Mathf.MoveTowards(Rate, target, resetSpeed * Time.deltaTime);
+                Delta = 0f;
             }
             else
             {
-                Rate += velocity.magnitude * scale * Time.deltaTime;
+                Delta = magnitde * scale * Time.deltaTime;
+                Rate += Delta;
 
-                if (Rate >= 1f)
-                    Complete();
+                if (Rate >= 1f) Complete();
             }
         }
 
         public event Action OnComplete;
         protected virtual void Complete()
         {
-            Rate = 0f;
+            while(Rate > 1f)
+            {
+                Count++;
+                Rate -= 1f;
+            }
 
             OnComplete?.Invoke();
         }

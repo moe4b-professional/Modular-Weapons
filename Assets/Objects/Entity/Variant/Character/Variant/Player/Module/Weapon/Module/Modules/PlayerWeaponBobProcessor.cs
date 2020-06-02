@@ -21,6 +21,8 @@ namespace Game
 {
 	public class PlayerWeaponBobProcessor : PlayerWeaponProcessor.Module, WeaponBob.IProcessor
     {
-        public float Step => Player.Controller.Step.Rate;
+        public ControllerHeadBob HeadBob => Player.Controller.HeadBob;
+
+        public Vector3 Delta => HeadBob.Delta;
     }
 }
