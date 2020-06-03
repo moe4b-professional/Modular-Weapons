@@ -37,27 +37,23 @@ namespace Game
         public float Angle { get; protected set; }
 
         public Quaternion Offset { get; protected set; }
-
-        public Transform Context => Controller.Rig.camera.Component.transform;
-
+        
         public override void Init()
         {
             base.Init();
 
             CalculateOffset();
 
-            Controller.OnProcess += Process;
+            Controller.MotionEffects.OnProcess += Process;
         }
 
         void Process()
         {
-            QuatTool.Subtract(Context, Offset);
-
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 
             CalculateOffset();
 
-            QuatTool.Add(Context, Offset);
+            Rig.camera.Self.Transform.LocalRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

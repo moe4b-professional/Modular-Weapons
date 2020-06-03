@@ -38,18 +38,22 @@ namespace Game
             public Entity Entity => Reference;
         }
 
+        public References.Collection<Entity> Modules { get; protected set; }
+
         protected virtual void Awake()
         {
-            Health = this.GetDependancy<EntityHealth>();
+            Modules = new References.Collection<Entity>(this);
 
-            Damage = this.GetDependancy<EntityDamage>();
+            Health = Modules.Find<EntityHealth>();
 
-            References.Configure(this);
+            Damage = Modules.Find<EntityDamage>();
+
+            Modules.Configure();
         }
         
         protected virtual void Start()
         {
-            References.Init(this);
+            Modules.Init();
         }
 
         public delegate void DeathDelegate(Damage.IDamager cause);

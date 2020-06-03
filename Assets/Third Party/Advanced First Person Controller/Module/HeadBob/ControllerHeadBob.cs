@@ -49,18 +49,33 @@ namespace Game
 
         public Vector3 Offset { get; protected set; }
 
-        public class Module : FirstPersonController.Module
+        public class Module : FirstPersonController.BaseModule<ControllerHeadBob>
         {
-            public ControllerHeadBob HeadBob => Controller.HeadBob;
+            public ControllerHeadBob HeadBob => Reference;
+
+            public override FirstPersonController Controller => HeadBob.Controller;
         }
 
+        public References.Collection<ControllerHeadBob> Modules { get; protected set; }
+
         public ControllerStep Step => Controller.Step;
+
+        public override void Configure(FirstPersonController reference)
+        {
+            base.Configure(reference);
+
+            Modules = new References.Collection<ControllerHeadBob>(this, Controller.gameObject);
+
+            Modules.Configure();
+        }
 
         public override void Init()
         {
             base.Init();
 
             Controller.OnProcess += Process;
+
+            Modules.Init();
         }
 
         void Process()

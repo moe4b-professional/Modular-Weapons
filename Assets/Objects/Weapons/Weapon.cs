@@ -32,10 +32,9 @@ namespace Game
         public WeaponEffects Effects { get; protected set; }
         public WeaponMesh Mesh { get; protected set; }
 
-        public References.Collection Modules { get; protected set; }
+        public References.Collection<Weapon> Modules { get; protected set; }
 
-        public abstract class BaseModule<TReference, TProcessor> : MonoBehaviour, IReference<TReference>
-            where TProcessor : class
+        public abstract class BaseModule<TReference> : MonoBehaviour, IReference<TReference>
         {
             new public bool enabled
             {
@@ -50,18 +49,11 @@ namespace Game
 
             public abstract Weapon Weapon { get; }
 
-            public References.Collection Modules => Weapon.Modules;
-
             public IOwner Owner => Weapon.Owner;
-
-            public TProcessor Processor { get; protected set; }
-            public bool HasProcessor => Processor != null;
 
             public virtual void Configure(TReference reference)
             {
                 this.Reference = reference;
-
-                Processor = Owner.Processor.GetDependancy<TProcessor>();
             }
 
             public virtual void Init()
@@ -69,24 +61,36 @@ namespace Game
                 
             }
 
-            public string FormatDependancyError<TDependancy>()
+            public virtual TProcessor GetProcessor<TProcessor>()
+                where TProcessor : class
             {
-                return "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";
+                var instance = Weapon.Processor.GetDependancy<TProcessor>();
+
+                if (instance == null)
+                    ExecuteProcessorError<TProcessor>();
+
+                return instance;
             }
+
             public void ExecuteDependancyError<TDependancy>()
             {
-                Debug.LogError(FormatDependancyError<TDependancy>(), gameObject);
+                var message = "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";
+
+                Debug.LogError(message, gameObject);
+                enabled = false;
+            }
+            public void ExecuteProcessorError<TProcessor>()
+            {
+                var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TProcessor).FullName + " To function";
+
+                Debug.LogError(message, gameObject);
                 enabled = false;
             }
         }
-        public abstract class BaseModule<TReference> : BaseModule<TReference, IProcessor> { }
-
-        public abstract class Module<TProcessor> : BaseModule<Weapon, TProcessor>
-            where TProcessor : class
+        public abstract class Module : BaseModule<Weapon>
         {
             public override Weapon Weapon => Reference;
         }
-        public abstract class Module : Module<IProcessor> { }
 
         public AudioSource AudioSource { get; protected set; }
         
@@ -108,11 +112,19 @@ namespace Game
             IProcessor Processor { get; }
         }
 
+        public IProcessor Processor => Owner.Processor;
+        public interface IProcessor
+        {
+            bool Input { get; }
+
+            T GetDependancy<T>() where T : class;
+        }
+
         protected virtual void Configure()
         {
             AudioSource = GetComponent<AudioSource>();
 
-            Modules = new References.Collection(gameObject);
+            Modules = new References.Collection<Weapon>(this);
 
             Constraint = FindModule<WeaponConstraint>();
             Action = FindModule<WeaponAction>();
@@ -135,12 +147,12 @@ namespace Game
                 return instance;
             }
 
-            Modules.Configure(this);
+            Modules.Configure();
         }
 
         protected virtual void Init()
         {
-            Modules.Init(this);
+            Modules.Init();
         }
 
         public delegate void ProcessDelegate();
@@ -169,13 +181,6 @@ namespace Game
         
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
-
-        public interface IProcessor
-        {
-            bool Input { get; }
-
-            T GetDependancy<T>() where T : class;
-        }
     }
 
     [Serializable]

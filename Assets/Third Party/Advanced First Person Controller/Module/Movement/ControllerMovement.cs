@@ -29,25 +29,31 @@ namespace Game
 
         public ControllerMovementInput Input { get; protected set; }
         public ControllerMovementSpeed Speed { get; protected set; }
-        public ControllerDirection Direction { get; protected set; }
 
         public ControllerGround Ground => Controller.Ground;
         public ControllerGravity Gravity => Controller.Gravity;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
 
-        public class Module : FirstPersonController.Module
+        public class Module : FirstPersonController.BaseModule<ControllerMovement>
         {
-            public ControllerMovement Movement => Controller.Movement;
+            public ControllerMovement Movement => Reference;
+
+            public override FirstPersonController Controller => Movement.Controller;
         }
+
+        public References.Collection<ControllerMovement> Modules { get; protected set; }
 
         public override void Configure(FirstPersonController reference)
         {
             base.Configure(reference);
 
-            Input = Dependancy.Get<ControllerMovementInput>(Controller.gameObject);
-            Speed = Dependancy.Get<ControllerMovementSpeed>(Controller.gameObject);
-            Direction = Dependancy.Get<ControllerDirection>(Controller.gameObject);
+            Modules = new References.Collection<ControllerMovement>(this);
+
+            Input = Modules.Find<ControllerMovementInput>();
+            Speed = Modules.Find<ControllerMovementSpeed>();
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -56,6 +62,8 @@ namespace Game
 
             Controller.OnProcess += Process;
             Controller.OnFixedProcess += FixedProcess;
+
+            Modules.Init();
         }
 
         void Process()

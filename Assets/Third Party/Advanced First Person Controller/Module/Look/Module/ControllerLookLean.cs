@@ -50,40 +50,32 @@ namespace Game
 
         public Vector3 Axis => Vector3.forward;
 
-        public ControllerRig.CameraData Rig => Controller.Rig.camera;
+        public ControllerRig.CameraData CameraRig => Rig.camera;
 
         public Quaternion Offset { get; protected set; }
         public Quaternion AlignmentOffset { get; protected set; }
 
         public ControllerInput.LeanInput Input => Controller.Input.Lean;
 
-        public override void Configure(FirstPersonController reference)
-        {
-            base.Configure(reference);
-
-            CalculateOffset();
-        }
-
         public override void Init()
         {
             base.Init();
 
-            Controller.OnProcess += Process;
+            CalculateOffset();
+
+            Controller.MotionEffects.OnProcess += Process;
         }
 
         void Process()
         {
-            QuatTool.Subtract(Rig.Pivot, Offset);
-            QuatTool.Subtract(Rig.Anchor, AlignmentOffset);
-
             CalculateTarget();
 
             Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
 
             CalculateOffset();
 
-            QuatTool.Add(Rig.Pivot, Offset);
-            QuatTool.Add(Rig.Anchor, AlignmentOffset);
+            CameraRig.Pivot.LocalRotation *= Offset;
+            CameraRig.Anchor.LocalRotation *= AlignmentOffset;
         }
 
         protected virtual void CalculateTarget()

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponReload : Weapon.Module<WeaponReload.IProcessor>, WeaponConstraint.IInterface, WeaponOperation.IInterface
+	public class WeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation.Is(this);
         bool WeaponConstraint.IInterface.Constraint => IsProcessing;
@@ -42,20 +42,32 @@ namespace Game
             }
         }
 
-        public abstract class Module : Weapon.BaseModule<WeaponReload, IProcessor>
+        public abstract class Module : Weapon.BaseModule<WeaponReload>
         {
             public WeaponReload Reload => Reference;
 
             public override Weapon Weapon => Reload.Weapon;
         }
 
+        public References.Collection<WeaponReload> Modules { get; protected set; }
+
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            bool Input { get; }
+        }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
-            Ammo = Modules.Find<WeaponAmmo>();
+            Processor = GetProcessor<IProcessor>();
 
-            Modules.Configure(this);
+            Modules = new References.Collection<WeaponReload>(this, Weapon.gameObject);
+
+            Ammo = Weapon.Modules.Find<WeaponAmmo>();
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -72,7 +84,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         void DisableCallback()
@@ -82,11 +94,7 @@ namespace Game
 
         void Process()
         {
-            if (HasProcessor) Process(Processor);
-        }
-        void Process(IProcessor data)
-        {
-            if (data.Input)
+            if (Processor.Input)
             {
                 if (CanPerform)
                     Perform();
@@ -122,11 +130,6 @@ namespace Game
             //TODO provide functionality to stop reload
 
             Weapon.Operation.Clear();
-        }
-
-        public interface IProcessor
-        {
-            bool Input { get; }
         }
     }
 }

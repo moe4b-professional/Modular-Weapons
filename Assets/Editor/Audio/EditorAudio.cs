@@ -29,6 +29,8 @@ namespace Game
             get => volume;
             set
             {
+                if(volume != value) EditorUtility.SetDirty(this);
+
                 volume = value;
 
                 if (Application.isPlaying) UpdateState();

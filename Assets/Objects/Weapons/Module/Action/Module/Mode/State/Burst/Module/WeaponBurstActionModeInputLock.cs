@@ -36,7 +36,7 @@ namespace Game
 
         void Process()
         {
-            if (Processor.Input == false || enabled == false) Active = false;
+            if (Weapon.Action.Input == false || enabled == false) Active = false;
         }
 
         void EndCallback()

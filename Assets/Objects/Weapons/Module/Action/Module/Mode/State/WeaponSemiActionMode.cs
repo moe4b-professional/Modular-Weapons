@@ -38,7 +38,7 @@ namespace Game
         {
             if(enabled)
             {
-                if (Processor.Input == false)
+                if (Weapon.Action.Input == false)
                     InputLock = false;
             }
             else

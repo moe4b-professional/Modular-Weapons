@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponBob : Weapon.Module<WeaponBob.IProcessor>, WeaponEffects.IInterface
+	public class WeaponBob : Weapon.Module, WeaponEffects.IInterface
     {
         [SerializeField]
         protected float scale = 1f;
@@ -39,6 +39,19 @@ namespace Game
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            Vector3 Delta { get; }
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Processor = GetProcessor<IProcessor>();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -55,15 +68,10 @@ namespace Game
 
         protected virtual void CalculateOffset()
         {
-            if (enabled && HasProcessor)
-                Offset = -Processor.Delta * range * scale;
-            else
-                Offset = Vector3.zero;
-        }
+            Offset = Vector3.zero;
 
-        public interface IProcessor
-        {
-            Vector3 Delta { get; }
+            if (enabled)
+                Offset -= Processor.Delta * range * scale;
         }
 	}
 }

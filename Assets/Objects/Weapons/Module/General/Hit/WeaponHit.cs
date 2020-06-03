@@ -30,6 +30,31 @@ namespace Game
 
             OnProcess?.Invoke(data);
         }
+        
+        public References.Collection<WeaponHit> Modules { get; protected set; }
+
+        public abstract class Module : Weapon.BaseModule<WeaponHit>
+        {
+            public WeaponHit Hit => Reference;
+
+            public override Weapon Weapon => Hit.Weapon;
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Modules = new References.Collection<WeaponHit>(this, Weapon.gameObject);
+
+            Modules.Configure();
+        }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init();
+        }
 
         public struct Data
         {
@@ -92,27 +117,6 @@ namespace Game
             {
 
             }
-        }
-
-        public abstract class Module : Weapon.BaseModule<WeaponHit>
-        {
-            public WeaponHit Hit => Reference;
-
-            public override Weapon Weapon => Hit.Weapon;
-        }
-
-        public override void Configure(Weapon reference)
-        {
-            base.Configure(reference);
-
-            Modules.Configure(this);
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init(this);
         }
     }
 }

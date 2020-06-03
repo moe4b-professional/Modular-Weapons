@@ -58,25 +58,31 @@ namespace Game
         public Vector2 Delta { get; protected set; }
 
         public ControllerCameraLook Camera { get; protected set; }
-
         public ControllerCharacterLook Character { get; protected set; }
-
         public ControllerLookLean Lean { get; protected set; }
 
-        public class Module : FirstPersonController.Module
+        public class Module : FirstPersonController.BaseModule<ControllerLook>
         {
-            public ControllerLook Look => Controller.Look;
+            public ControllerLook Look => Reference;
+
+            public ControllerRig Rig => Controller.Rig;
+
+            public override FirstPersonController Controller => Look.Controller;
         }
+
+        public References.Collection<ControllerLook> Modules { get; protected set; }
 
         public override void Configure(FirstPersonController reference)
         {
             base.Configure(reference);
 
-            Camera = Dependancy.Get<ControllerCameraLook>(Controller.gameObject);
+            Modules = new References.Collection<ControllerLook>(this);
 
-            Character = Dependancy.Get<ControllerCharacterLook>(Controller.gameObject);
+            Camera = Modules.Find<ControllerCameraLook>();
+            Character = Modules.Find<ControllerCharacterLook>();
+            Lean = Modules.Find<ControllerLookLean>();
 
-            Lean = Dependancy.Get<ControllerLookLean>(Controller.gameObject);
+            Modules.Configure();
         }
 
         public override void Init()
@@ -84,6 +90,8 @@ namespace Game
             base.Init();
 
             Controller.OnProcess += Process;
+
+            Modules.Init();
         }
 
         void Process()

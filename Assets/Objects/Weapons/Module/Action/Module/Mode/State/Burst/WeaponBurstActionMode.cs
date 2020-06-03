@@ -38,11 +38,15 @@ namespace Game
             public override Weapon Weapon => Burst.Weapon;
         }
 
+        public References.Collection<WeaponBurstActionMode> Modules { get; protected set; }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
-            Modules.Configure(this);
+            Modules = new References.Collection<WeaponBurstActionMode>(this, Weapon.gameObject);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -53,7 +57,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         void DisableCallback()

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSway : Weapon.Module<WeaponSway.IProcessor>, WeaponEffects.IInterface
+	public class WeaponSway : Weapon.Module, WeaponEffects.IInterface
     {
         [SerializeField]
         protected float scale = 1f;
@@ -165,6 +165,21 @@ namespace Game
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            Vector3 LookDelta { get; }
+
+            Vector3 RelativeVelocity { get; }
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Processor = GetProcessor<IProcessor>();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -190,7 +205,7 @@ namespace Game
         {
             Target = Vector3.zero;
 
-            if(enabled && HasProcessor)
+            if(enabled)
             {
                 Target -= Processor.LookDelta * multiplier.Look;
 
@@ -198,13 +213,6 @@ namespace Game
 
                 Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.z) * multiplier.Move;
             }
-        }
-
-        public interface IProcessor
-        {
-            Vector3 LookDelta { get; }
-
-            Vector3 RelativeVelocity { get; }
         }
     }
 }

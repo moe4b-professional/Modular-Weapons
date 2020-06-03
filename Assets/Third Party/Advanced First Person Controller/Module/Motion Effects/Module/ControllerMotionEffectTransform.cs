@@ -20,11 +20,29 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(AnchoredTransform))]
-	public class WeaponPivot : Weapon.Module
+	public class ControllerMotionEffectTransform : ControllerMotionEffects.Module
 	{
+        public Vector3 LocalPosition
+        {
+            get => transform.localPosition;
+            set => transform.localPosition = value;
+        }
+
+        public Vector3 LocalAngles
+        {
+            get => transform.localEulerAngles;
+            set => transform.localEulerAngles = value;
+        }
+
+        public Quaternion LocalRotation
+        {
+            get => transform.localRotation;
+            set => transform.localRotation = value;
+        }
+
         public AnchoredTransform AnchoredTransform { get; protected set; }
 
-        public override void Configure(Weapon reference)
+        public override void Configure(ControllerMotionEffects reference)
         {
             base.Configure(reference);
 
@@ -36,15 +54,12 @@ namespace Game
         {
             base.Init();
 
-            Weapon.OnProcess += Process;
+            MotionEffects.OnEarlyProcess += Process;
         }
 
-        public event Action OnProcess;
         void Process()
         {
             AnchoredTransform.WriteDefaults();
-
-            OnProcess?.Invoke();
         }
     }
 }

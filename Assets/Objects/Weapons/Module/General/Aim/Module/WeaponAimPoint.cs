@@ -44,7 +44,7 @@ namespace Game
 
             Rate = Mathf.MoveTowards(Rate, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
 
-            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.Initial, Aim.Rate * Rate);
+            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Rate);
 
             Add(Offset);
         }

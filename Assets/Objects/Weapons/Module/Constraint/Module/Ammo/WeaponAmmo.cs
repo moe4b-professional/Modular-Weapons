@@ -87,18 +87,22 @@ namespace Game
             public override Weapon Weapon => Ammo.Weapon;
         }
 
+        public References.Collection<WeaponAmmo> Modules { get; protected set; }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
-            Modules.Configure(this);
+            Modules = new References.Collection<WeaponAmmo>(this, Weapon.gameObject);
+
+            Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         public event Action OnConsumption;

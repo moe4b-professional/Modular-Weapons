@@ -115,23 +115,27 @@ namespace Game
             }
         }
 
+        public References.Collection<WeaponAimEffectScaleModifier> Modules { get; protected set; }
+
         public override void Configure(WeaponAim reference)
         {
             base.Configure(reference);
+
+            Modules = new References.Collection<WeaponAimEffectScaleModifier>(this, Weapon.gameObject);
 
             Modules.Add(defaults);
 
             for (int i = 0; i < contexts.Length; i++)
                 Modules.Add(contexts[i]);
 
-            Modules.Configure(this);
+            Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
 
-            Modules.Init(this);
+            Modules.Init();
 
             Aim.OnRateChange += RateChangeCallback;
 

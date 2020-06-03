@@ -29,18 +29,27 @@ namespace Game
         public class CameraData
         {
             [SerializeField]
-            protected Transform pivot;
-            public Transform Pivot { get { return pivot; } }
+            protected ControllerMotionEffectTransform pivot;
+            public ControllerMotionEffectTransform Pivot { get { return pivot; } }
 
             [SerializeField]
-            protected Transform anchor;
-            public Transform Anchor { get { return anchor; } }
+            protected ControllerMotionEffectTransform anchor;
+            public ControllerMotionEffectTransform Anchor { get { return anchor; } }
 
             [SerializeField]
-            protected Camera component;
-            public Camera Component { get { return component; } }
+            protected SelfData self;
+            public SelfData Self { get { return self; } }
+            [Serializable]
+            public class SelfData
+            {
+                [SerializeField]
+                protected Camera component;
+                public Camera Component { get { return component; } }
 
-            public Transform transform => component.transform;
+                [SerializeField]
+                protected ControllerMotionEffectTransform transform;
+                public ControllerMotionEffectTransform Transform { get { return transform; } }
+            }
         }
     }
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword

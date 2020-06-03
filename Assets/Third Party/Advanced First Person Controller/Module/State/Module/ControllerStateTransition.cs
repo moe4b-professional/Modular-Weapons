@@ -29,7 +29,7 @@ namespace Game
 
         public IReadOnlyList<BaseControllerStateElement> Elements => State.Elements;
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure(ControllerState reference)
         {
             base.Configure(reference);
 

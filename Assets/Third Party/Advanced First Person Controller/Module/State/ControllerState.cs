@@ -33,20 +33,20 @@ namespace Game
         }
         public float Multiplier { get; protected set; }
 
-        public Data Current => new Data(Height, Radius, Multiplier);
-
         public ControllerStateTransition Transition { get; protected set; }
-
         public ControllerStateSets Sets { get; protected set; }
-
         public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
-        public class Module : FirstPersonController.Module
+        public List<BaseControllerStateElement> Elements { get; protected set; }
+
+        public class Module : FirstPersonController.BaseModule<ControllerState>
         {
-            public ControllerState State => Controller.State;
+            public ControllerState State => Reference;
+
+            public override FirstPersonController Controller => State.Controller;
         }
 
-        public List<BaseControllerStateElement> Elements { get; protected set; }
+        public References.Collection<ControllerState> Modules { get; protected set; }
 
         [Serializable]
         public struct Data : IData
@@ -119,13 +119,21 @@ namespace Game
         {
             base.Configure(reference);
 
-            Transition = Dependancy.Get<ControllerStateTransition>(gameObject);
+            Modules = new References.Collection<ControllerState>(this);
 
-            Sets = Dependancy.Get<ControllerStateSets>(gameObject);
+            Transition = Modules.Find<ControllerStateTransition>();
+            Sets = Modules.Find<ControllerStateSets>();
+            HeightAdjustment = Modules.Find<ControllerStateElevationAdjustment>();
+            Elements = Modules.FindAll<BaseControllerStateElement>();
 
-            HeightAdjustment = Dependancy.Get<ControllerStateElevationAdjustment>(gameObject);
+            Modules.Configure();
+        }
 
-            Elements = Dependancy.GetAll<BaseControllerStateElement>(Controller.gameObject);
+        public override void Init()
+        {
+            base.Init();
+
+            Modules.Init();
         }
 
         public virtual void Set(IData data)

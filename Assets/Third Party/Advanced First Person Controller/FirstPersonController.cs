@@ -31,9 +31,8 @@ namespace Game
         public float Radius => collider.radius;
 
         public ControllerInput Input { get; protected set; }
-
         public ControllerRig Rig { get; protected set; }
-
+        public ControllerMotionEffects MotionEffects { get; protected set; }
         public ControllerDirection Direction { get; protected set; }
         public ControllerGround Ground { get; protected set; }
         public ControllerAirTravel AirTravel { get; protected set; }
@@ -43,16 +42,32 @@ namespace Game
         public ControllerHeadBob HeadBob { get; protected set; }
         public ControllerSound Sound { get; protected set; }
         public ControllerJump Jump { get; protected set; }
-
         public ControllerState State { get; protected set; }
-
         public ControllerMovement Movement { get; protected set; }
         public ControllerLook Look { get; protected set; }
 
-		public class Module : ReferenceBehaviour<FirstPersonController>
+        public abstract class BaseModule<TReference> : MonoBehaviour, IReference<TReference>
         {
-            public FirstPersonController Controller => Reference;
+            public TReference Reference { get; protected set; }
+
+            public abstract FirstPersonController Controller { get; }
+
+            public virtual void Configure(TReference reference)
+            {
+                this.Reference = reference;
+            }
+
+            public virtual void Init()
+            {
+                
+            }
         }
+        public abstract class Module : BaseModule<FirstPersonController>
+        {
+            public override FirstPersonController Controller => Reference;
+        }
+
+        public References.Collection<FirstPersonController> Modules { get; protected set; }
 
         public Vector3 Position => transform.position;
 
@@ -63,38 +78,34 @@ namespace Game
         protected virtual void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
-
             PhysicsCallbacks = GetComponent<PhysicsRewind>();
-
             collider = GetComponent<CapsuleCollider>();
 
-            Input = Dependancy.Get<ControllerInput>(gameObject);
+            Modules = new References.Collection<FirstPersonController>(this);
 
-            Rig = Dependancy.Get<ControllerRig>(gameObject);
+            Input = Modules.Find<ControllerInput>();
+            Rig = Modules.Find<ControllerRig>();
+            MotionEffects = Modules.Find<ControllerMotionEffects>();
+            Direction = Modules.Find<ControllerDirection>();
+            Ground = Modules.Find<ControllerGround>();
+            AirTravel = Modules.Find<ControllerAirTravel>();
+            Collisions = Modules.Find<ControllerCollisions>();
+            Gravity = Modules.Find<ControllerGravity>();
+            Step = Modules.Find<ControllerStep>();
+            HeadBob = Modules.Find<ControllerHeadBob>();
+            Sound = Modules.Find<ControllerSound>();
+            Jump = Modules.Find<ControllerJump>();
+            Velocity = Modules.Find<ControllerVelocity>();
+            State = Modules.Find<ControllerState>();
+            Movement = Modules.Find<ControllerMovement>();
+            Look = Modules.Find<ControllerLook>();
 
-            Direction = Dependancy.Get<ControllerDirection>(gameObject);
-            Ground = Dependancy.Get<ControllerGround>(gameObject);
-            AirTravel = Dependancy.Get<ControllerAirTravel>(gameObject);
-            Collisions = Dependancy.Get<ControllerCollisions>(gameObject);
-            Gravity = Dependancy.Get<ControllerGravity>(gameObject);
-            Step = Dependancy.Get<ControllerStep>(gameObject);
-            HeadBob = Dependancy.Get<ControllerHeadBob>(gameObject);
-            Sound = Dependancy.Get<ControllerSound>(gameObject);
-            Jump = Dependancy.Get<ControllerJump>(gameObject);
-
-            Velocity = Dependancy.Get<ControllerVelocity>(gameObject);
-
-            State = Dependancy.Get<ControllerState>(gameObject);
-
-            Movement = Dependancy.Get<ControllerMovement>(gameObject);
-            Look = Dependancy.Get<ControllerLook>(gameObject);
-
-            References.Configure(this);
+            Modules.Configure();
         }
 
         protected virtual void Start()
         {
-            References.Init(this);
+            Modules.Init();
         }
 
         protected virtual void Update()

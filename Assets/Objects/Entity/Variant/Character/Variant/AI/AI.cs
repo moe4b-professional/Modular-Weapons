@@ -36,19 +36,23 @@ namespace Game
             public Rigidbody rigidbody => Character.rigidbody;
         }
 
+        public References.Collection<AI> Modules { get; protected set; }
+
         public Character Character { get; protected set; }
         public virtual void Configure(Character reference)
         {
             Character = reference;
 
-            Controller = this.GetDependancy<AIController>();
+            Controller = Dependancy.Get<AIController>(gameObject);
 
-            References.Configure(this);
+            Modules = new References.Collection<AI>(this);
+
+            Modules.Configure();
         }
 
         public virtual void Init()
         {
-            References.Init(this);
+            Modules.Init();
         }
 
         protected virtual void Update()

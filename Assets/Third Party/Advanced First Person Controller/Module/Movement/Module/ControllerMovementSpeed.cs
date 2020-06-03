@@ -31,7 +31,7 @@ namespace Game
 
         public float Rate => Max == 0f ? 0f : Current / Max;
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure(ControllerMovement reference)
         {
             base.Configure(reference);
 

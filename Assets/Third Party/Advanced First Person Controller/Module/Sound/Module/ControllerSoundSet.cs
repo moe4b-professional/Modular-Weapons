@@ -44,7 +44,7 @@ namespace Game
             public ControllerSoundSetTemplate Template { get { return template; } }
         }
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure(ControllerSound reference)
         {
             base.Configure(reference);
 

@@ -22,22 +22,30 @@ namespace Game
     [RequireComponent(typeof(AudioSource))]
 	public class ControllerSound : FirstPersonController.Module
 	{
+        public AudioSource Source { get; protected set; }
+
         public ControllerSoundSet Set { get; protected set; }
 
-        public class Module : FirstPersonController.Module
+        public class Module : FirstPersonController.BaseModule<ControllerSound>
         {
+            public ControllerSound Sound => Reference;
 
+            public override FirstPersonController Controller => Sound.Controller;
         }
 
-        public AudioSource Source { get; protected set; }
+        public References.Collection<ControllerSound> Modules { get; protected set; }
 
         public override void Configure(FirstPersonController reference)
         {
             base.Configure(reference);
 
-            Set = Dependancy.Get<ControllerSoundSet>(Controller.gameObject);
-
             Source = GetComponent<AudioSource>();
+
+            Modules = new References.Collection<ControllerSound>(this);
+
+            Set = Modules.Find<ControllerSoundSet>();
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -49,6 +57,8 @@ namespace Game
             Controller.Step.OnComplete += StepCallback;
 
             Controller.Ground.Change.OnLand += LandOnGroundCallback;
+
+            Modules.Init();
         }
 
         protected virtual void PlayOneShot(IList<AudioClip> list) => PlayOneShot(Random(list));

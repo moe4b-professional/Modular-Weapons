@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeapons : Player.Module, Character.IWeapons
+	public class PlayerWeapons : Player.Module, CharacterWeapons.IInterface
 	{
         public List<Weapon> List { get; protected set; }
 
@@ -28,26 +28,30 @@ namespace Game
         public Weapon Current => List[Index];
 
         public PlayerWeaponProcessor Processor { get; protected set; }
-        Weapon.IProcessor Character.IWeapons.Process => Processor;
+        Weapon.IProcessor CharacterWeapons.IInterface.Processor => Processor;
 
-        public class Module : Player.Module<PlayerWeapons>
+        public class Module : Player.BaseModule<PlayerWeapons>
         {
             public PlayerWeapons Weapons => Reference;
 
-            public Player Player => Weapons.Player;
+            public override Player Player => Reference.Player;
         }
+
+        public References.Collection<PlayerWeapons> Modules { get; protected set; }
 
         public override void Configure(Player reference)
         {
             base.Configure(reference);
 
-            List = this.GetAllDependancies<Weapon>();
+            List = Dependancy.GetAll<Weapon>(gameObject);
 
-            Processor = this.GetDependancy<PlayerWeaponProcessor>();
+            Modules = new References.Collection<PlayerWeapons>(this);
 
-            Character.Set(this);
+            Processor = Modules.Find<PlayerWeaponProcessor>();
 
-            References.Configure(this);
+            Character.Weapons.Set(this);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -57,9 +61,7 @@ namespace Game
             Player.OnProcess += Process;
 
             for (int i = 0; i < List.Count; i++)
-            {
-                List[i].Setup(Player.Character);
-            }
+                List[i].Setup(Character.Weapons);
 
             Index = List.FindIndex((Weapon instance) => instance.gameObject.activeSelf);
 
@@ -67,7 +69,7 @@ namespace Game
 
             List[Index].Equip();
 
-            References.Init(this);
+            Modules.Init();
         }
 
         protected virtual void Equip(int target)

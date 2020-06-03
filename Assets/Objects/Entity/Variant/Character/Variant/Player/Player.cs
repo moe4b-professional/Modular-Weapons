@@ -28,16 +28,19 @@ namespace Game
 
         public PlayerInput Input { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
-        public abstract class Module<T> : ReferenceBehaviour<T>
-        {
 
-        }
-        public abstract class Module : Module<Player>
+        public abstract class BaseModule<T> : ReferenceBehaviour<T>
         {
-            public Player Player => Reference;
+            public abstract Player Player { get; }
             public Character Character => Player.Character;
             public Entity Entity => Character.Entity;
         }
+        public abstract class Module : BaseModule<Player>
+        {
+            public override Player Player => Reference;
+        }
+
+        public References.Collection<Player> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
         public virtual void Configure(Character reference)
@@ -46,16 +49,17 @@ namespace Game
 
             Controller = GetComponent<FirstPersonController>();
 
-            Input = Dependancy.Get<PlayerInput>(gameObject);
+            Modules = new References.Collection<Player>(this);
 
-            Weapons = Dependancy.Get< PlayerWeapons>(gameObject);
+            Input = Modules.Find<PlayerInput>();
+            Weapons = Modules.Find< PlayerWeapons>();
 
-            References.Configure(this);
+            Modules.Configure();
         }
 
         public virtual void Init()
         {
-            References.Init(this);
+            Modules.Init();
         }
 
         protected virtual void Update()

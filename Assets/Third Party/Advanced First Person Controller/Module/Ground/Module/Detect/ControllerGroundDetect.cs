@@ -65,7 +65,7 @@ namespace Game
 
         public ControllerDirection Direction => Controller.Direction;
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure(ControllerGround reference)
         {
             base.Configure(reference);
 

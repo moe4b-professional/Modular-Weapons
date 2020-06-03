@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponActionMode : Weapon.Module<WeaponActionMode.IProcessor>
+    public class WeaponActionMode : Weapon.Module
     {
         public IList<IState> List { get; protected set; }
         public interface IState
@@ -35,20 +35,32 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponActionMode, IProcessor>
+        public abstract class Module : Weapon.BaseModule<WeaponActionMode>
         {
             public WeaponActionMode Mode => Reference;
 
             public override Weapon Weapon => Mode.Weapon;
         }
 
+        public References.Collection<WeaponActionMode> Modules { get; protected set; }
+
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            bool Input { get; }
+        }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
+            Processor = GetProcessor<IProcessor>();
+
+            Modules = new References.Collection<WeaponActionMode>(this, Weapon.gameObject);
+
             List = Dependancy.GetAll<IState>(gameObject);
 
-            Modules.Configure(this);
+            Modules.Configure();
         }
 
         public override void Init()
@@ -70,16 +82,12 @@ namespace Game
 
             if(List.Count > 0) Set(Index);
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         void Process()
         {
-            if (HasProcessor) Process(Processor);
-        }
-        void Process(IProcessor data)
-        {
-            if(data.Input)
+            if (Processor.Input)
             {
                 if (CanChange)
                     Change();
@@ -111,11 +119,6 @@ namespace Game
             Set(Index);
 
             OnChange?.Invoke(Index, List[Index]);
-        }
-
-        public interface IProcessor
-        {
-            bool Input { get; }
         }
     }
 }

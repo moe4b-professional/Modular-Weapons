@@ -64,11 +64,8 @@ namespace Game
         {
             base.Init();
 
-            if (Effects.HasProcessor)
-            {
-                Weapon.Activation.OnEnable += EnableCallback;
-                Weapon.Activation.OnDisable += DisableCallback;
-            }
+            Weapon.Activation.OnEnable += EnableCallback;
+            Weapon.Activation.OnDisable += DisableCallback;
         }
 
         void EnableCallback()

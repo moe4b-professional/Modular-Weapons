@@ -25,11 +25,13 @@ namespace Game
 
         public Vector3 Absolute { get; protected set; }
 
+        public ControllerDirection Direction => Controller.Direction;
+
         public virtual void Calcaulate()
         {
             Relative = new Vector3(Controller.Input.Move.x, 0f, Controller.Input.Move.y);
 
-            Absolute = (Movement.Direction.Forward * Relative.z) + (Movement.Direction.Right * Relative.x);
+            Absolute = (Direction.Forward * Relative.z) + (Direction.Right * Relative.x);
         }
 	}
 }

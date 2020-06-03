@@ -2906,9 +2906,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera:
-    pivot: {fileID: 1785253021}
-    anchor: {fileID: 270660343}
-    component: {fileID: 1500312856}
+    pivot: {fileID: 0}
+    anchor: {fileID: 0}
+    self:
+      component: {fileID: 0}
+      transform: {fileID: 0}
 --- !u!1 &595495020
 GameObject:
   m_ObjectHideFlags: 0

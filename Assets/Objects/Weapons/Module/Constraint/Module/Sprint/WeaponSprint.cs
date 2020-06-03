@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSprint : Weapon.Module<WeaponSprint.IProcessor>, WeaponOperation.IInterface, WeaponConstraint.IInterface
+	public class WeaponSprint : Weapon.Module, WeaponOperation.IInterface, WeaponConstraint.IInterface
 	{
         [SerializeField]
         protected float minWeight = 0.5f;
@@ -29,18 +29,34 @@ namespace Game
 
         bool WeaponConstraint.IInterface.Constraint => Active;
 
-        public abstract class Module : Weapon.BaseModule<WeaponSprint, IProcessor>
+        public abstract class Module : Weapon.BaseModule<WeaponSprint>
         {
             public WeaponSprint Sprint => Reference;
 
             public override Weapon Weapon => Sprint.Weapon;
         }
 
+        public References.Collection<WeaponSprint> Modules { get; protected set; }
+
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            bool Active { get; }
+
+            float Weight { get; }
+
+            float Axis { get; }
+        }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
-            Modules.Configure(this);
+            Processor = GetProcessor<IProcessor>();
+
+            Modules = new References.Collection<WeaponSprint>(this, Weapon.gameObject);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -51,7 +67,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         void DisableCallback()
@@ -61,18 +77,14 @@ namespace Game
 
         void Process()
         {
-            if (HasProcessor) Process(Processor);
-        }
-        void Process(IProcessor processor)
-        {
-            if (processor.Active && processor.Axis > minWeight)
+            if (Processor.Active && Processor.Axis > minWeight)
             {
-                if(Active == false)
+                if (Active == false)
                     Begin();
             }
             else
             {
-                if(Active)
+                if (Active)
                     Stop();
             }
         }
@@ -91,15 +103,6 @@ namespace Game
             Weapon.Operation.Clear(this);
 
             OnStop?.Invoke();
-        }
-
-        public interface IProcessor
-        {
-            bool Active { get; }
-
-            float Weight { get; }
-
-            float Axis { get; }
         }
 	}
 }

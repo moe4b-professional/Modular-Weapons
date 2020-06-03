@@ -23,25 +23,29 @@ namespace Game
     {
         public bool Input => Player.Input.Primary.Held;
 
-        public class Module : Player.Module<PlayerWeaponProcessor>
+        public class Module : Player.BaseModule<PlayerWeaponProcessor>
         {
             public PlayerWeaponProcessor Processor => Reference;
 
-            public Player Player => Reference.Player;
+            public override Player Player => Reference.Player;
         }
+
+        public References.Collection<PlayerWeaponProcessor> Modules { get; protected set; }
 
         public override void Configure(PlayerWeapons reference)
         {
             base.Configure(reference);
 
-            References.Configure(this);
+            Modules = new References.Collection<PlayerWeaponProcessor>(this);
+
+            Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
 
-            References.Init(this);
+            Modules.Init();
         }
 
         public T GetDependancy<T>() where T : class => Dependancy.Get<T>(gameObject);

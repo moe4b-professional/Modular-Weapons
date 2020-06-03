@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponCameraShake : Weapon.Module<WeaponCameraShake.IProcessor>, WeaponEffects.IInterface
+	public class WeaponCameraShake : Weapon.Module, WeaponEffects.IInterface
 	{
         [SerializeField]
         protected float scale = 1f;
@@ -37,6 +37,21 @@ namespace Game
         protected float max;
         public float Max { get { return max; } }
 
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            float Value { get; }
+
+            void Add(float target);
+        }
+
+        public override void Configure(Weapon reference)
+        {
+            base.Configure(reference);
+
+            Processor = GetProcessor<IProcessor>();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -46,19 +61,9 @@ namespace Game
 
         void Action()
         {
-            if (HasProcessor)
-            {
-                var delta = Mathf.MoveTowards(0f, max - Processor.Value, increment);
+            var delta = Mathf.MoveTowards(0f, max - Processor.Value, increment);
 
-                Processor.Add(delta * scale);
-            }
-        }
-
-        public interface IProcessor
-        {
-            float Value { get; }
-
-            void Add(float target);
+            Processor.Add(delta * scale);
         }
 	}
 }

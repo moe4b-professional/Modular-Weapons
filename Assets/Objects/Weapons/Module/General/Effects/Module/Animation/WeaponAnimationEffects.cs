@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimationEffects : Weapon.Module<WeaponAnimationEffects.IProcessor>, WeaponEffects.IInterface
+	public class WeaponAnimationEffects : Weapon.Module, WeaponEffects.IInterface
 	{
         [SerializeField]
         protected float scale = 1f;
@@ -34,9 +34,7 @@ namespace Game
 
         public WeaponAnimationEffectsWeight Weight { get; protected set; }
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-
-        public abstract class Module : Weapon.BaseModule<WeaponAnimationEffects, IProcessor>
+        public abstract class Module : Weapon.BaseModule<WeaponAnimationEffects>
         {
             public WeaponAnimationEffects Effects => Reference;
 
@@ -46,20 +44,36 @@ namespace Game
             public Animator Animator => Mesh.Animator;
         }
 
+        public References.Collection<WeaponAnimationEffects> Modules { get; protected set; }
+
+        public WeaponPivot Pivot => Weapon.Pivot;
+
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor
+        {
+            event JumpDelegate OnJump;
+            event LeaveGroundDelegate OnLeaveGround;
+            event LandDelegate OnLand;
+        }
+
         public override void Configure(Weapon reference)
         {
             base.Configure(reference);
 
+            Processor = GetProcessor<IProcessor>();
+
+            Modules = new References.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
+
             Weight = Modules.Find<WeaponAnimationEffectsWeight>();
 
-            Modules.Configure(this);
+            Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
 
-            Modules.Init(this);
+            Modules.Init();
         }
 
         public virtual void Play(string trigger, float weight)
@@ -68,14 +82,7 @@ namespace Game
 
             Weight.Target = weight;
         }
-
-        public interface IProcessor
-        {
-            event JumpDelegate OnJump;
-            event LeaveGroundDelegate OnLeaveGround;
-            event LandDelegate OnLand;
-        }
-
+        
         public delegate void JumpDelegate(int count);
         public delegate void LeaveGroundDelegate();
         public delegate void LandDelegate(Vector3 relativeVelocity);

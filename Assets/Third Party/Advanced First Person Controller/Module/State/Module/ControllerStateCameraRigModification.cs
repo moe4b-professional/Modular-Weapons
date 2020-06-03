@@ -25,26 +25,23 @@ namespace Game
 
         public Vector3 Anchor { get; protected set; }
 
-        public ControllerRig Rig => Controller.Rig;
+        public ControllerRig.CameraData Rig => Controller.Rig.camera;
 
         public override void Init()
         {
             base.Init();
 
-            Controller.OnProcess += Process;
+            Controller.MotionEffects.OnProcess += Process;
 
             Anchor = CalculateOffset(State.Height);
         }
 
         void Process()
         {
-            Rig.camera.transform.localPosition -= Offset / 2;
-            Rig.camera.Pivot.localPosition -= Offset / 2;
-
             Offset = CalculateOffset(State.Height) - Anchor;
 
-            Rig.camera.transform.localPosition += Offset / 2;
-            Rig.camera.Pivot.localPosition += Offset / 2;
+            Rig.Self.Transform.LocalPosition += Offset / 2;
+            Rig.Pivot.LocalPosition += Offset / 2;
         }
 
         protected virtual Vector3 CalculateOffset(float height)
