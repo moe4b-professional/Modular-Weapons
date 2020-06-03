@@ -109,9 +109,9 @@ namespace Game
             }
         }
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             List = new List<Collision>();
         }

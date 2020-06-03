@@ -44,9 +44,9 @@ namespace Game
             public ControllerSoundSetTemplate Template { get { return template; } }
         }
 
-        public override void Configure(ControllerSound reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Value = Default;
         }

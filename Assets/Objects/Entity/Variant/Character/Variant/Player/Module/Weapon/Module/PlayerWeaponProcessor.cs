@@ -32,9 +32,9 @@ namespace Game
 
         public References.Collection<PlayerWeaponProcessor> Modules { get; protected set; }
 
-        public override void Configure(PlayerWeapons reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<PlayerWeaponProcessor>(this);
 

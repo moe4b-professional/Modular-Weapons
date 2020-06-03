@@ -40,9 +40,9 @@ namespace Game
             public override Weapon Weapon => Hit.Weapon;
         }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<WeaponHit>(this, Weapon.gameObject);
 

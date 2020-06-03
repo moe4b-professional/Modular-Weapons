@@ -21,21 +21,16 @@ namespace Game
 {
     public static class References
     {
-        public static void Configure<TReference>(TReference reference, IList<IReference<TReference>> targets)
+        public static void Set<TReference>(TReference reference, IReference<TReference> target)
         {
-            for (int i = 0; i < targets.Count; i++)
-                Configure(reference, targets[i]);
-        }
-        public static void Configure<TReference>(TReference reference, IReference<TReference> target)
-        {
-            target.Configure(reference);
+            target.Set(reference);
         }
 
-        public static void Init<TReference>(TReference reference, IList<IReference<TReference>> targets)
+        public static void Configure<TReference>(TReference reference, IReference<TReference> target)
         {
-            for (int i = 0; i < targets.Count; i++)
-                Init(reference, targets[i]);
+            target.Configure();
         }
+
         public static void Init<TReference>(TReference reference, IReference<TReference> target)
         {
             target.Init();
@@ -49,8 +44,17 @@ namespace Game
 
             public TReference Reference { get; protected set; }
 
+            public virtual void Set()
+            {
+                ForAll(Process);
+
+                void Process(TModule instance) => References.Set(Reference, instance);
+            }
+
             public virtual void Configure()
             {
+                Set();
+
                 ForAll(Process);
 
                 void Process(TModule instance) => References.Configure(Reference, instance);
@@ -122,18 +126,24 @@ namespace Game
 
     public interface IReference<T>
     {
-        void Init();
+        void Set(T reference);
 
-        void Configure(T reference);
+        void Configure();
+
+        void Init();
     }
 
     public class ReferenceBehaviour<TReference> : MonoBehaviour, IReference<TReference>
     {
         public TReference Reference { get; protected set; }
-
-        public virtual void Configure(TReference reference)
+        public virtual void Set(TReference reference)
         {
             this.Reference = reference;
+        }
+
+        public virtual void Configure()
+        {
+
         }
 
         public virtual void Init()

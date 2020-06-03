@@ -31,9 +31,9 @@ namespace Game
 
         public float Rate => Max == 0f ? 0f : Current / Max;
 
-        public override void Configure(ControllerMovement reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Current = 0f;
 

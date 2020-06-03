@@ -49,12 +49,16 @@ namespace Game
         public abstract class BaseModule<TReference> : MonoBehaviour, IReference<TReference>
         {
             public TReference Reference { get; protected set; }
+            public virtual void Set(TReference reference)
+            {
+                this.Reference = reference;
+            }
 
             public abstract FirstPersonController Controller { get; }
 
-            public virtual void Configure(TReference reference)
+            public virtual void Configure()
             {
-                this.Reference = reference;
+                
             }
 
             public virtual void Init()

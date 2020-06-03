@@ -19,9 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerProneStateElement : ControllerStateElement, ControllerJump.IState
+	public class ControllerProneStateElement : ControllerStateElement, ControllerJump.IConstraint
 	{
-        bool ControllerJump.IState.CanDo => Mathf.Approximately(Weight, 0f);
+        bool ControllerJump.IConstraint.CanDo => Mathf.Approximately(Weight, 0f);
 
         protected override void Process()
         {

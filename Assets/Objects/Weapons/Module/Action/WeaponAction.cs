@@ -43,9 +43,9 @@ namespace Game
             return data.Input;
         }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<WeaponAction>(this, Weapon.gameObject);
 

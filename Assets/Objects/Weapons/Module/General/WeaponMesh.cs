@@ -26,9 +26,9 @@ namespace Game
 
         public AnimationTriggerRewind TriggerRewind { get; protected set; }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Animator = GetComponent<Animator>();
 

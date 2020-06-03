@@ -39,10 +39,13 @@ namespace Game
         public References.Collection<AI> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
-        public virtual void Configure(Character reference)
+        public virtual void Set(Character reference)
         {
             Character = reference;
+        }
 
+        public virtual void Configure()
+        {
             Controller = Dependancy.Get<AIController>(gameObject);
 
             Modules = new References.Collection<AI>(this);

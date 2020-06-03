@@ -39,9 +39,9 @@ namespace Game
 
         public References.Collection<PlayerWeapons> Modules { get; protected set; }
 
-        public override void Configure(Player reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             List = Dependancy.GetAll<Weapon>(gameObject);
 

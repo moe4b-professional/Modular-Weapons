@@ -30,9 +30,9 @@ namespace Game
 
         public References.Collection<ControllerMotionEffects> Modules { get; protected set; }
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<ControllerMotionEffects>(this, Controller.gameObject);
 

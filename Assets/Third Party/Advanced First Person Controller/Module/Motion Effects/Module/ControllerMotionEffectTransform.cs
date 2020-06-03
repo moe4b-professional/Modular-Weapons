@@ -42,9 +42,9 @@ namespace Game
 
         public AnchoredTransform AnchoredTransform { get; protected set; }
 
-        public override void Configure(ControllerMotionEffects reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             AnchoredTransform = GetComponent<AnchoredTransform>();
             AnchoredTransform.Configure();

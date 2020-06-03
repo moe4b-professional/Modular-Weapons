@@ -38,9 +38,9 @@ namespace Game
 
         public ControllerAirTravel AirTravel => Controller.AirTravel;
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<ControllerGround>(this);
 

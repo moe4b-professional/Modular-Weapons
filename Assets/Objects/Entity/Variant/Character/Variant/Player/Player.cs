@@ -43,10 +43,13 @@ namespace Game
         public References.Collection<Player> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
-        public virtual void Configure(Character reference)
+        public virtual void Set(Character reference)
         {
             Character = reference;
+        }
 
+        public virtual void Configure()
+        {
             Controller = GetComponent<FirstPersonController>();
 
             Modules = new References.Collection<Player>(this);

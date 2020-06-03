@@ -45,9 +45,9 @@ namespace Game
             void Add(float target);
         }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Processor = GetProcessor<IProcessor>();
         }

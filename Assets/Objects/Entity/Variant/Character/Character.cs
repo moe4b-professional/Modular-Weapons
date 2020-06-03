@@ -40,11 +40,13 @@ namespace Game
         public References.Collection<Character> Modules { get; protected set; }
 
         public Entity Entity { get; protected set; }
-
-        public virtual void Configure(Entity reference)
+        public virtual void Set(Entity reference)
         {
             Entity = reference;
+        }
 
+        public virtual void Configure()
+        {
             rigidbody = GetComponent<Rigidbody>();
 
             collider = GetComponent<Collider>();

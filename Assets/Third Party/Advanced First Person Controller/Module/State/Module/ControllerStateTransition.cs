@@ -29,9 +29,9 @@ namespace Game
 
         public IReadOnlyList<BaseControllerStateElement> Elements => State.Elements;
 
-        public override void Configure(ControllerState reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             if (target == null)
             {

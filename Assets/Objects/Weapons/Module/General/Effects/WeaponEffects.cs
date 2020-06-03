@@ -23,9 +23,9 @@ namespace Game
 	{
         public IList<IInterface> List { get; protected set; }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             List = Dependancy.GetAll<IInterface>(Weapon.gameObject);
         }

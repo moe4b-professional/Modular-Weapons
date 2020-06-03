@@ -66,9 +66,9 @@ namespace Game
                 return list;
             }
 
-            public override void Configure(WeaponAimEffectScaleModifier reference)
+            public override void Configure()
             {
-                base.Configure(reference);
+                base.Configure();
 
                 targets = GetTargets();
             }
@@ -98,9 +98,14 @@ namespace Game
             public WeaponAim Aim => Modifier.Aim;
             public Weapon Weapon => Aim.Weapon;
 
-            public virtual void Configure(WeaponAimEffectScaleModifier reference)
+            public virtual void Set(WeaponAimEffectScaleModifier reference)
             {
                 Modifier = reference;
+            }
+
+            public virtual void Configure()
+            {
+
             }
 
             public virtual void Init()
@@ -117,9 +122,9 @@ namespace Game
 
         public References.Collection<WeaponAimEffectScaleModifier> Modules { get; protected set; }
 
-        public override void Configure(WeaponAim reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<WeaponAimEffectScaleModifier>(this, Weapon.gameObject);
 

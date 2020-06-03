@@ -115,9 +115,9 @@ namespace Game
             float Multiplier { get; }
         }
         
-        public override void Configure(FirstPersonController reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<ControllerState>(this);
 

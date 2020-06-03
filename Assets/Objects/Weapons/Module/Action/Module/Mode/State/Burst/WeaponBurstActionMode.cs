@@ -40,9 +40,9 @@ namespace Game
 
         public References.Collection<WeaponBurstActionMode> Modules { get; protected set; }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<WeaponBurstActionMode>(this, Weapon.gameObject);
 

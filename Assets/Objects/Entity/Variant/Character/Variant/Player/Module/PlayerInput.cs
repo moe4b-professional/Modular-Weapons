@@ -29,9 +29,9 @@ namespace Game
 
         public ButtonInput SwitchActionMode { get; protected set; }
 
-        public override void Configure(Player reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Primary = new ButtonInput();
 

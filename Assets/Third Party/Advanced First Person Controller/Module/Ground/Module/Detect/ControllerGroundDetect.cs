@@ -65,9 +65,9 @@ namespace Game
 
         public ControllerDirection Direction => Controller.Direction;
 
-        public override void Configure(ControllerGround reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Slope = Dependancy.Get<ControllerGroundSlopeDetect>(Controller.gameObject);
 

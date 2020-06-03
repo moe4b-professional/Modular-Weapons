@@ -46,14 +46,18 @@ namespace Game
             protected virtual void Start() { }
 
             public TReference Reference { get; protected set; }
+            public virtual void Set(TReference reference)
+            {
+                this.Reference = reference;
+            }
 
             public abstract Weapon Weapon { get; }
 
             public IOwner Owner => Weapon.Owner;
 
-            public virtual void Configure(TReference reference)
+            public virtual void Configure()
             {
-                this.Reference = reference;
+                
             }
 
             public virtual void Init()

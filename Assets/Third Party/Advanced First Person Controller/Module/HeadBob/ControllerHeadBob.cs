@@ -60,9 +60,9 @@ namespace Game
 
         public ControllerStep Step => Controller.Step;
 
-        public override void Configure(FirstPersonController reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modules = new References.Collection<ControllerHeadBob>(this, Controller.gameObject);
 

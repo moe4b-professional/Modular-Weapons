@@ -62,9 +62,9 @@ namespace Game
             }
         }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             Modifiers = Weapon.GetAllDependancies<IModifier>();
         }

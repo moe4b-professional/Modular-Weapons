@@ -47,9 +47,9 @@ namespace Game
             bool Constraint { get; }
         }
 
-        public override void Configure(Weapon reference)
+        public override void Configure()
         {
-            base.Configure(reference);
+            base.Configure();
 
             List = Weapon.GetAllDependancies<IInterface>();
         }
