@@ -73,7 +73,7 @@ namespace Game
             if (Ground.IsGrounded)
                 Multiplier = State.Multiplier;
 
-            Speed.Calculate(Multiplier);
+            Speed.Process(Multiplier);
 
             Target = CalculateTarget();
 

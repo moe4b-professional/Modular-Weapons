@@ -21,7 +21,7 @@ namespace Game
 {
 	public class PlayerWeaponSwayProcessor : PlayerWeaponProcessor.Module, WeaponSway.IProcessor
     {
-        public Vector2 Look => Player.Controller.Look.Delta;
+        public Vector3 LookDelta => Player.Controller.Look.Delta;
         public Vector3 RelativeVelocity => Player.Controller.Velocity.Relative;
     }
 }

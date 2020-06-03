@@ -74,7 +74,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected EffectData effect = new EffectData(0.02f, 5f);
+        protected EffectData effect = new EffectData(0.01f, 5f);
         public EffectData Effect { get { return effect; } }
         [Serializable]
         public struct EffectData
@@ -93,17 +93,22 @@ namespace Game
                 float horizontal;
                 public float Horizontal { get { return horizontal; } }
 
-                public Vector3 Sample(Vector2 value)
+                [SerializeField]
+                float fordical;
+                public float Fordical { get { return fordical; } }
+
+                public Vector3 Sample(Vector3 value)
                 {
-                    return new Vector3(value.x * horizontal, value.y * vertical);
+                    return new Vector3(value.x * horizontal, value.y * vertical, value.z * fordical);
                 }
 
-                public PositionData(float vertical, float horizontal)
+                public PositionData(float vertical, float horizontal, float fordical)
                 {
                     this.vertical = vertical;
                     this.horizontal = horizontal;
+                    this.fordical = fordical;
                 }
-                public PositionData(float value) : this(value / 2f, value)
+                public PositionData(float value) : this(value, value * 2, value * 3)
                 {
 
                 }
@@ -123,7 +128,7 @@ namespace Game
                 float tilt;
                 public float Tilt { get { return tilt; } }
 
-                public Vector3 Sample(Vector2 value)
+                public Vector3 Sample(Vector3 value)
                 {
                     return new Vector3(value.y * tilt, 0f, value.x * roll);
                 }
@@ -150,8 +155,8 @@ namespace Game
             }
         }
 
-        public Vector2 Target { get; protected set; }
-        public Vector2 Value { get; protected set; }
+        public Vector3 Target { get; protected set; }
+        public Vector3 Value { get; protected set; }
 
         public Vector3 Position { get; protected set; } = Vector3.zero;
         public Vector3 Rotation { get; protected set; } = Vector3.zero;
@@ -164,15 +169,15 @@ namespace Game
         {
             base.Init();
 
-            Pivot.OnProcess += Apply;
+            Pivot.OnProcess += Process;
         }
 
-        void Apply()
+        void Process()
         {
             CalculateTarget();
 
-            Value = Vector2.Lerp(Value, Target, speed.Set * Time.deltaTime);
-            Target = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
+            Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
+            Target = Vector3.Lerp(Value, Vector3.zero, speed.Reset * Time.deltaTime);
 
             Position = effect.Position.Sample(Value) * scale;
             Rotation = effect.Rotation.Sample(Value) * scale;
@@ -183,19 +188,21 @@ namespace Game
 
         protected virtual void CalculateTarget()
         {
+            Target = Vector3.zero;
+
             if(enabled && HasProcessor)
             {
-                Target = (-Processor.Look * multiplier.Look) + (-Vector2.right * (Processor.RelativeVelocity.x * multiplier.Move));
-            }
-            else
-            {
-                Target = Vector2.zero;
+                Target -= Processor.LookDelta * multiplier.Look;
+
+                Target += Vector3.left * Processor.RelativeVelocity.x * multiplier.Move;
+
+                Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.z) * multiplier.Move;
             }
         }
 
         public interface IProcessor
         {
-            Vector2 Look { get; }
+            Vector3 LookDelta { get; }
 
             Vector3 RelativeVelocity { get; }
         }

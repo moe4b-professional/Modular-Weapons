@@ -40,11 +40,13 @@ namespace Game
             Max = Base;
         }
 
-        public virtual void Calculate(float multiplier)
+        public virtual void Process(float multiplier)
         {
-            Max = Base * multiplier;
+            Max = Evaluate(multiplier);
 
             Current = Movement.Velocity.Planar.magnitude;
         }
+
+        public virtual float Evaluate(float multiplier) => Base * multiplier;
     }
 }
