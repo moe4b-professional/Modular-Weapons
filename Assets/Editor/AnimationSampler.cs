@@ -103,13 +103,18 @@ public class AnimationSampler : EditorWindow
     {
         var queue = new Queue<CoordinatesData>();
 
-        void Write(Transform transform) => queue.Enqueue(new CoordinatesData(transform));
-        IterateTransform(animator.transform, Write);
+        IterateTransform(animator.transform, Read);
+        void Read(Transform transform) => queue.Enqueue(new CoordinatesData(transform));
 
         Animate = false;
 
-        void Read(Transform transform) => queue.Dequeue().Apply(transform);
-        IterateTransform(animator.transform, Read);
+        IterateTransform(animator.transform, Write);
+        void Write(Transform transform)
+        {
+            EditorUtility.SetDirty(transform);
+
+            queue.Dequeue().Apply(transform);
+        }
     }
 
     static void Sample(Animator animator, AnimationClip clip, float time)
