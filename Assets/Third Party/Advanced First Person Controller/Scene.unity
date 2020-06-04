@@ -240,8 +240,6 @@ MonoBehaviour:
   force: 7
   mode: 2
   maxCount: 2
-  _lock:
-    duration: 0.25
 --- !u!1 &38993457
 GameObject:
   m_ObjectHideFlags: 0

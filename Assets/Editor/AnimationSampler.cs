@@ -41,29 +41,43 @@ public class AnimationSampler : EditorWindow
         EditorGUILayout.Space();
 
         animator = EditorGUILayout.ObjectField("Animator", animator, typeof(Animator), true) as Animator;
-
+        
         clip = EditorGUILayout.ObjectField("Clip", clip, typeof(AnimationClip), true) as AnimationClip;
 
-        if(animator && clip)
-        {
-            EditorGUI.BeginChangeCheck();
-            {
-                GUILayout.Toggle(Animate, "Animate", EditorStyles.toolbarButton);
-            }
-            if (EditorGUI.EndChangeCheck())
-                Animate = !Animate;
-            
-            if(Animate)
-                time = EditorGUILayout.Slider("Time", time, 0f, 1f);
+        if (animator == null || clip == null) GUI.enabled = false;
 
-            if (GUILayout.Button("Freeze"))
-                Freeze(ref animator);
+        EditorGUI.BeginChangeCheck();
+        {
+            GUILayout.Toggle(Animate, "Animate", EditorStyles.toolbarButton);
         }
+        if (EditorGUI.EndChangeCheck())
+            Animate = !Animate;
+
+        if (Animate)
+            time = EditorGUILayout.Slider("Time", time, 0f, 1f);
+
+        if (GUILayout.Button("Freeze"))
+            Freeze(ref animator);
+
+        GUI.enabled = true;
     }
 
     void Update()
     {
         if (animator && clip && Animate) Sample(animator, clip, time);
+    }
+
+    void Freeze(ref Animator animator)
+    {
+        var queue = new Queue<CoordinatesData>();
+
+        void Write(Transform transform) => queue.Enqueue(new CoordinatesData(transform));
+        IterateTransform(animator.transform, Write);
+
+        Animate = false;
+
+        void Read(Transform transform) => queue.Dequeue().Apply(transform);
+        IterateTransform(animator.transform, Read);
     }
 
     static void Sample(Animator animator, AnimationClip clip, float time)
@@ -79,19 +93,6 @@ public class AnimationSampler : EditorWindow
         AnimationMode.EndSampling();
 
         SceneView.RepaintAll();
-    }
-
-    void Freeze(ref Animator animator)
-    {
-        var queue = new Queue<CoordinatesData>();
-
-        void Write(Transform transform) => queue.Enqueue(new CoordinatesData(transform));
-        IterateTransform(animator.transform, Write);
-
-        Animate = false;
-
-        void Read(Transform transform) => queue.Dequeue().Apply(transform);
-        IterateTransform(animator.transform, Read);
     }
 
     public static void IterateTransform(Transform root, Action<Transform> action)
