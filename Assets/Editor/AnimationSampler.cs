@@ -40,10 +40,29 @@ public class AnimationSampler : EditorWindow
     {
         EditorGUILayout.Space();
 
-        animator = EditorGUILayout.ObjectField("Animator", animator, typeof(Animator), true) as Animator;
-        
-        clip = EditorGUILayout.ObjectField("Clip", clip, typeof(AnimationClip), true) as AnimationClip;
+        DrawAnimator();
 
+        DrawClip();
+
+        DrawAnimate();
+
+        DrawTime();
+
+        DrawFreeze();
+    }
+
+    void DrawAnimator()
+    {
+        animator = EditorGUILayout.ObjectField("Animator", animator, typeof(Animator), true) as Animator;
+    }
+
+    void DrawClip()
+    {
+        clip = EditorGUILayout.ObjectField("Clip", clip, typeof(AnimationClip), true) as AnimationClip;
+    }
+
+    void DrawAnimate()
+    {
         if (animator == null || clip == null) GUI.enabled = false;
 
         EditorGUI.BeginChangeCheck();
@@ -53,8 +72,21 @@ public class AnimationSampler : EditorWindow
         if (EditorGUI.EndChangeCheck())
             Animate = !Animate;
 
-        if (Animate)
-            time = EditorGUILayout.Slider("Time", time, 0f, 1f);
+        GUI.enabled = true;
+    }
+
+    void DrawTime()
+    {
+        if (animator == null || clip == null || Animate == false) GUI.enabled = false;
+
+        time = EditorGUILayout.Slider("Time", time, 0f, 1f);
+
+        GUI.enabled = true;
+    }
+
+    void DrawFreeze()
+    {
+        if (animator == null || clip == null || Animate == false) GUI.enabled = false;
 
         if (GUILayout.Button("Freeze"))
             Freeze(ref animator);

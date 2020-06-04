@@ -722,7 +722,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle - Reload
+      name: SCAR-H - Reload
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0

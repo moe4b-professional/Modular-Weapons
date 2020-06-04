@@ -722,7 +722,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle - Jump
+      name: SCAR-H - Jump
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0
@@ -800,7 +800,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.001
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
