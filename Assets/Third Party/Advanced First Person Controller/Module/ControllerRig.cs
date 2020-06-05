@@ -36,20 +36,20 @@ namespace Game
             protected ControllerMotionEffectTransform anchor;
             public ControllerMotionEffectTransform Anchor { get { return anchor; } }
 
-            [SerializeField]
-            protected SelfData self;
-            public SelfData Self { get { return self; } }
-            [Serializable]
-            public class SelfData
-            {
-                [SerializeField]
-                protected Camera component;
-                public Camera Component { get { return component; } }
+            public ControllerCamera Module => Rig.Controller.camera;
 
-                [SerializeField]
-                protected ControllerMotionEffectTransform transform;
-                public ControllerMotionEffectTransform Transform { get { return transform; } }
+            public ControllerRig Rig { get; protected set; }
+            public virtual void Configure(ControllerRig reference)
+            {
+                Rig = reference;
             }
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            camera.Configure(this);
         }
     }
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword

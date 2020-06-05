@@ -53,7 +53,7 @@ namespace Game
 
             CalculateOffset();
 
-            Rig.camera.Self.Transform.LocalRotation *= Offset;
+            Rig.camera.Module.MotionEffectTransform.LocalRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

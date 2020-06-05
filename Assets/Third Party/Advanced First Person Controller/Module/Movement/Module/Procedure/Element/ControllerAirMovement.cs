@@ -22,6 +22,10 @@ namespace Game
 	public class ControllerAirMovement : ControllerMovementProcedure.Element
     {
         [SerializeField]
+        protected bool control = true;
+        public bool Control { get { return control; } }
+
+        [SerializeField]
         protected float acceleration = 15f;
         public float Acceleration { get { return acceleration; } }
 
@@ -45,9 +49,12 @@ namespace Game
             {
                 Gravity.Apply();
 
-                CalculateTarget();
+                if(control)
+                {
+                    CalculateTarget();
 
-                Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * Time.deltaTime);
+                    Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * Time.deltaTime);
+                }
 
                 Debug.DrawRay(Controller.transform.position, Target, Color.yellow);
                 Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);

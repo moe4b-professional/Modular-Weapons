@@ -32,6 +32,7 @@ namespace Game
 
         public ControllerInput Input { get; protected set; }
         public ControllerRig Rig { get; protected set; }
+        public ControllerCamera camera { get; protected set; }
         public ControllerMotionEffects MotionEffects { get; protected set; }
         public ControllerDirection Direction { get; protected set; }
         public ControllerGround Ground { get; protected set; }
@@ -90,6 +91,7 @@ namespace Game
             Input = Modules.Find<ControllerInput>();
             Rig = Modules.Find<ControllerRig>();
             MotionEffects = Modules.Find<ControllerMotionEffects>();
+            camera = Modules.Find<ControllerCamera>();
             Direction = Modules.Find<ControllerDirection>();
             Ground = Modules.Find<ControllerGround>();
             AirTravel = Modules.Find<ControllerAirTravel>();

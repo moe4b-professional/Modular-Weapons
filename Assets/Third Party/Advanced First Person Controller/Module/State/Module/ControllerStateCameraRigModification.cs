@@ -40,7 +40,7 @@ namespace Game
         {
             Offset = CalculateOffset(State.Height) - Anchor;
 
-            Rig.Self.Transform.LocalPosition += Offset / 2;
+            Rig.Module.MotionEffectTransform.LocalPosition += Offset / 2;
             Rig.Pivot.LocalPosition += Offset / 2;
         }
 

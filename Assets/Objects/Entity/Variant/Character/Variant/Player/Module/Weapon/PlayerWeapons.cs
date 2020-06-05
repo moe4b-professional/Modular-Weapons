@@ -19,7 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeapons : Player.Module, CharacterWeapons.IInterface
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+    public class PlayerWeapons : Player.Module, CharacterWeapons.IInterface
 	{
         public List<Weapon> List { get; protected set; }
 
@@ -29,6 +30,8 @@ namespace Game
 
         public PlayerWeaponProcessor Processor { get; protected set; }
         Weapon.IProcessor CharacterWeapons.IInterface.Processor => Processor;
+
+        public PlayerWeaponsCamera camera { get; protected set; }
 
         public class Module : Player.BaseModule<PlayerWeapons>
         {
@@ -48,6 +51,8 @@ namespace Game
             Modules = new Modules.Collection<PlayerWeapons>(this);
 
             Processor = Modules.Find<PlayerWeaponProcessor>();
+
+            camera = Modules.Find<PlayerWeaponsCamera>();
 
             Character.Weapons.Set(this);
 
@@ -96,4 +101,5 @@ namespace Game
             Equip(target);
         }
     }
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 }
