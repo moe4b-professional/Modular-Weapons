@@ -35,8 +35,13 @@ namespace Game
         }
 
         public Vector3 Forward => Calculate(Controller.transform.forward);
+        public Vector3 Backward => -Forward;
+
         public Vector3 Right => Calculate(Controller.transform.right);
+        public Vector3 Left => -Right;
+
         public Vector3 Up => Calculate(Controller.transform.up);
+        public Vector3 Down => -Up;
 
         public Vector3 Planar => Forward + Right;
 

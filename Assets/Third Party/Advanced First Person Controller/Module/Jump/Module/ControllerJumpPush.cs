@@ -22,8 +22,8 @@ namespace Game
 	public class ControllerJumpPush : ControllerJump.Module
 	{
         [SerializeField]
-        protected float scale = 1f;
-        public float Scale { get { return scale; } }
+        protected ForceData force = new ForceData(100f, ForceMode.Impulse);
+        public ForceData Force { get { return force; } }
 
         public ControllerGround Ground => Controller.Ground;
 
@@ -46,9 +46,20 @@ namespace Game
         {
             if (hit.Rigidbody == null) return;
 
-            var force = -Velocity.Absolute.normalized * Jump.Force.Value * scale;
+            var direction = CalculateDirection();
 
-            hit.Rigidbody.AddForceAtPosition(force, hit.Point, Jump.Force.Mode);
+            hit.Rigidbody.AddForceAtPosition(direction * force.Value, hit.Point, force.Mode);
+        }
+
+        protected virtual Vector3 CalculateDirection()
+        {
+            var result = (Velocity.Right + Velocity.Forward).normalized;
+
+            result += Jump.Direction;
+
+            result = -result.normalized;
+
+            return result;
         }
     }
 }

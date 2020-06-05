@@ -22,19 +22,8 @@ namespace Game
     public class ControllerJump : FirstPersonController.Module
     {
         [SerializeField]
-        protected ForceData force;
+        protected ForceData force = new ForceData(7f, ForceMode.VelocityChange);
         public ForceData Force { get { return force; } }
-        [Serializable]
-        public class ForceData
-        {
-            [SerializeField]
-            protected float value = 7f;
-            public float Value { get { return value; } }
-
-            [SerializeField]
-            protected ForceMode mode = ForceMode.VelocityChange;
-            public ForceMode Mode { get { return mode; } }
-        }
 
         public Vector3 Direction => Controller.transform.up;
 
@@ -134,6 +123,25 @@ namespace Game
         void LandOnGroundCallback(ControllerAirTravel.Data travel)
         {
             Count = 0;
+        }
+    }
+
+    [Serializable]
+    public class ForceData
+    {
+        [SerializeField]
+        protected float value;
+        public float Value { get { return value; } }
+
+        [SerializeField]
+        protected ForceMode mode;
+        public ForceMode Mode { get { return mode; } }
+
+        public ForceData(float value, ForceMode mode)
+        {
+            this.value = value;
+
+            this.mode = mode;
         }
     }
 }

@@ -50,9 +50,9 @@ namespace Game
         protected virtual void CalculateDirection()
         {
             if (Ground.IsDetected)
-                Direction = Vector3.Project(-Controller.transform.up, -Ground.Data.Normal);
+                Direction = Vector3.Project(Controller.Direction.Down, -Ground.Data.Normal);
             else
-                Direction = -Controller.transform.up;
+                Direction = Controller.Direction.Down;
         }
     }
 }
