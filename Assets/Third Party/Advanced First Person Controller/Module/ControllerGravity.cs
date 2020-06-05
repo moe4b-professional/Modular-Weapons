@@ -49,7 +49,7 @@ namespace Game
 
         protected virtual void CalculateDirection()
         {
-            if (Ground.IsGrounded)
+            if (Ground.IsDetected)
                 Direction = Vector3.Project(-Controller.transform.up, -Ground.Data.Normal);
             else
                 Direction = -Controller.transform.up;

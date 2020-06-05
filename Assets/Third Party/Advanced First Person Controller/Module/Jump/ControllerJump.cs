@@ -22,12 +22,19 @@ namespace Game
     public class ControllerJump : FirstPersonController.Module
     {
         [SerializeField]
-        protected float force = 5f;
-        public float Force { get { return force; } }
+        protected ForceData force;
+        public ForceData Force { get { return force; } }
+        [Serializable]
+        public class ForceData
+        {
+            [SerializeField]
+            protected float value = 7f;
+            public float Value { get { return value; } }
 
-        [SerializeField]
-        protected ForceMode mode = ForceMode.VelocityChange;
-        public ForceMode Mode { get { return mode; } }
+            [SerializeField]
+            protected ForceMode mode = ForceMode.VelocityChange;
+            public ForceMode Mode { get { return mode; } }
+        }
 
         public Vector3 Direction => Controller.transform.up;
 
@@ -51,7 +58,7 @@ namespace Game
 
                 if (Lock.IsOn) return false;
 
-                if (Count == 0 && Ground.IsGrounded == false) return false;
+                if (Count == 0 && Ground.IsDetected == false) return false;
 
                 for (int i = 0; i < Constraints.Count; i++)
                     if (Constraints[i].CanDo == false) return false;
@@ -103,7 +110,7 @@ namespace Game
 
         void Process()
         {
-            if (Lock.IsOn == false && Ground.IsGrounded && Count > 0) Count = 0;
+            if (Lock.IsOn == false && Ground.IsDetected && Count > 0) Count = 0;
 
             if (Controller.Input.Jump.Press)
             {
@@ -119,7 +126,7 @@ namespace Game
             var dot = Controller.Velocity.Dot(Direction);
             if (dot < 0f) Velocity.Absolute -= Direction * dot;
 
-            Controller.rigidbody.AddForce(Direction * force, mode);
+            Controller.rigidbody.AddForce(Direction * force.Value, force.Mode);
 
             OnDo?.Invoke();
         }

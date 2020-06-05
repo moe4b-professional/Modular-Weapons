@@ -34,7 +34,7 @@ namespace Game
         public Modules.Collection<ControllerGround> Modules { get; protected set; }
 
         public ControllerGroundData Data => Detect.Data;
-        public bool IsGrounded => Data != null;
+        public bool IsDetected => Data != null;
 
         public ControllerAirTravel AirTravel => Controller.AirTravel;
 
@@ -72,6 +72,8 @@ namespace Game
     public class ControllerGroundData
     {
         public Collider Collider { get; protected set; }
+
+        public Rigidbody Rigidbody => Collider.attachedRigidbody;
 
         public Vector3 Point { get; protected set; }
 

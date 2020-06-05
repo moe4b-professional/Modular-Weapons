@@ -75,7 +75,7 @@ namespace Game
 
         public Vector3 Position => transform.position;
 
-        public bool IsGrounded => Ground.IsGrounded;
+        public bool IsGrounded => Ground.IsDetected;
 
         public ControllerVelocity Velocity { get; protected set; }
 
