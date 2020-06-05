@@ -42,39 +42,47 @@ namespace Game
         public class ContextData
         {
             [SerializeField]
-            protected Transform transform;
-            public Transform Transform { get { return transform; } }
+            protected AnchoredTransform target;
+            public AnchoredTransform Target { get { return target; } }
+
+            public Transform Context => target.transform;
 
             [SerializeField]
             protected bool invert;
             public bool Invert { get { return invert; } }
 
-            public virtual void Add(Quaternion rotation)
-            {
-                if (invert) rotation = Quaternion.Inverse(rotation);
+            public Quaternion Offset { get; protected set; }
 
-                QuatTool.Add(transform, rotation);
+            public TransformShake Shake { get; protected set; }
+            public void Configure(TransformShake reference)
+            {
+                Shake = reference;
+
+                target.AfterWriteDefaults += AfterWriteDefaultsCallback;
             }
 
-            public virtual void Subtract(Quaternion rotation)
+            void AfterWriteDefaultsCallback()
             {
-                if (invert) rotation = Quaternion.Inverse(rotation);
+                if (invert)
+                    Offset = Quaternion.Inverse(Shake.Offset);
+                else
+                    Offset = Shake.Offset;
 
-                QuatTool.Subtract(transform, rotation);
+                Context.localRotation *= Offset;
             }
         }
 
-        protected virtual void Update()
+        protected virtual void Awake()
         {
             for (int i = 0; i < contexts.Length; i++)
-                contexts[i].Subtract(Offset);
+                contexts[i].Configure(this);
+        }
 
+        public virtual void Calculate()
+        {
             Value = Mathf.MoveTowards(Value, 0f, reset * Time.deltaTime);
 
             Offset = Quaternion.Euler(Impact * GetNoise(1), Impact * GetNoise(2), 0f);
-
-            for (int i = 0; i < contexts.Length; i++)
-                contexts[i].Add(Offset);
         }
 
         public virtual void Add(float target) => Value += target;

@@ -22,7 +22,7 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Rigidbody))]
-	public class Character : MonoBehaviour, IReference<Entity>
+	public class Character : MonoBehaviour, IModule<Entity>
     {
         public Rigidbody rigidbody { get; protected set; }
 
@@ -30,17 +30,17 @@ namespace Game
 
         public CharacterWeapons Weapons { get; protected set; }
 
-        public class Module : ReferenceBehaviour<Character>
+        public class Module : ReferenceModule<Character>
         {
             public Character Character => Reference;
 
             public Entity Entity => Character.Entity;
         }
 
-        public References.Collection<Character> Modules { get; protected set; }
+        public Modules.Collection<Character> Modules { get; protected set; }
 
         public Entity Entity { get; protected set; }
-        public virtual void Set(Entity reference)
+        public virtual void Setup(Entity reference)
         {
             Entity = reference;
         }
@@ -51,7 +51,7 @@ namespace Game
 
             collider = GetComponent<Collider>();
 
-            Modules = new References.Collection<Character>(this);
+            Modules = new Modules.Collection<Character>(this);
 
             Weapons = Modules.Find<CharacterWeapons>();
 

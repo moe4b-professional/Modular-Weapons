@@ -31,7 +31,7 @@ namespace Game
             public override FirstPersonController Controller => Ground.Controller;
         }
 
-        public References.Collection<ControllerGround> Modules { get; protected set; }
+        public Modules.Collection<ControllerGround> Modules { get; protected set; }
 
         public ControllerGroundData Data => Detect.Data;
         public bool IsGrounded => Data != null;
@@ -42,7 +42,7 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerGround>(this);
+            Modules = new Modules.Collection<ControllerGround>(this);
 
             Detect = Modules.Find<ControllerGroundDetect>();
             Change = Modules.Find<ControllerGroundChange>();

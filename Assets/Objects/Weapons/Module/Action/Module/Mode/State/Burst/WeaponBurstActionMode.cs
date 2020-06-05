@@ -38,13 +38,13 @@ namespace Game
             public override Weapon Weapon => Burst.Weapon;
         }
 
-        public References.Collection<WeaponBurstActionMode> Modules { get; protected set; }
+        public Modules.Collection<WeaponBurstActionMode> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<WeaponBurstActionMode>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponBurstActionMode>(this, Weapon.gameObject);
 
             Modules.Configure();
         }

@@ -46,7 +46,7 @@ namespace Game
             public override FirstPersonController Controller => State.Controller;
         }
 
-        public References.Collection<ControllerState> Modules { get; protected set; }
+        public Modules.Collection<ControllerState> Modules { get; protected set; }
 
         [Serializable]
         public struct Data : IData
@@ -119,7 +119,7 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerState>(this);
+            Modules = new Modules.Collection<ControllerState>(this);
 
             Transition = Modules.Find<ControllerStateTransition>();
             Sets = Modules.Find<ControllerStateSets>();

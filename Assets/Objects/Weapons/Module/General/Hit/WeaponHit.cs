@@ -31,7 +31,7 @@ namespace Game
             OnProcess?.Invoke(data);
         }
         
-        public References.Collection<WeaponHit> Modules { get; protected set; }
+        public Modules.Collection<WeaponHit> Modules { get; protected set; }
 
         public abstract class Module : Weapon.BaseModule<WeaponHit>
         {
@@ -44,7 +44,7 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new References.Collection<WeaponHit>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponHit>(this, Weapon.gameObject);
 
             Modules.Configure();
         }

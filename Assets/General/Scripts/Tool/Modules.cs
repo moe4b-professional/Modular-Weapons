@@ -19,52 +19,52 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public static class References
+    public static class Modules
     {
-        public static void Set<TReference>(TReference reference, IReference<TReference> target)
+        public static void Set<TReference>(TReference reference, IModule<TReference> target)
         {
-            target.Set(reference);
+            target.Setup(reference);
         }
 
-        public static void Configure<TReference>(TReference reference, IReference<TReference> target)
+        public static void Configure<TReference>(TReference reference, IModule<TReference> target)
         {
             target.Configure();
         }
 
-        public static void Init<TReference>(TReference reference, IReference<TReference> target)
+        public static void Init<TReference>(TReference reference, IModule<TReference> target)
         {
             target.Init();
         }
 
         public class Collection<TReference, TModule>
             where TReference : Component
-            where TModule : class, IReference<TReference>
+            where TModule : class, IModule<TReference>
         {
             public List<TModule> List { get; protected set; }
 
             public TReference Reference { get; protected set; }
 
-            public virtual void Set()
+            public virtual void Setup()
             {
                 ForAll(Process);
 
-                void Process(TModule instance) => References.Set(Reference, instance);
+                void Process(TModule instance) => Modules.Set(Reference, instance);
             }
 
             public virtual void Configure()
             {
-                Set();
+                Setup();
 
                 ForAll(Process);
 
-                void Process(TModule instance) => References.Configure(Reference, instance);
+                void Process(TModule instance) => Modules.Configure(Reference, instance);
             }
 
             public virtual void Init()
             {
                 ForAll(Process);
 
-                void Process(TModule instance) => References.Init(Reference, instance);
+                void Process(TModule instance) => Modules.Init(Reference, instance);
             }
 
             public virtual void ForAll(Action<TModule> action)
@@ -116,7 +116,7 @@ namespace Game
             public Collection(TReference reference) : this(reference, reference.gameObject) { }
         }
 
-        public class Collection<TReference> : Collection<TReference, IReference<TReference>>
+        public class Collection<TReference> : Collection<TReference, IModule<TReference>>
             where TReference : Component
         {
             public Collection(TReference reference, GameObject root) : base(reference, root) { }
@@ -124,19 +124,19 @@ namespace Game
         }
     }
 
-    public interface IReference<T>
+    public interface IModule<T>
     {
-        void Set(T reference);
+        void Setup(T reference);
 
         void Configure();
 
         void Init();
     }
 
-    public class ReferenceBehaviour<TReference> : MonoBehaviour, IReference<TReference>
+    public class ReferenceModule<TReference> : MonoBehaviour, IModule<TReference>
     {
         public TReference Reference { get; protected set; }
-        public virtual void Set(TReference reference)
+        public virtual void Setup(TReference reference)
         {
             this.Reference = reference;
         }

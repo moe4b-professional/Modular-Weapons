@@ -37,7 +37,7 @@ namespace Game
             public override Player Player => Reference.Player;
         }
 
-        public References.Collection<PlayerWeapons> Modules { get; protected set; }
+        public Modules.Collection<PlayerWeapons> Modules { get; protected set; }
 
         public override void Configure()
         {
@@ -45,7 +45,7 @@ namespace Game
 
             List = Dependancy.GetAll<Weapon>(gameObject);
 
-            Modules = new References.Collection<PlayerWeapons>(this);
+            Modules = new Modules.Collection<PlayerWeapons>(this);
 
             Processor = Modules.Find<PlayerWeaponProcessor>();
 

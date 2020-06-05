@@ -28,13 +28,13 @@ namespace Game
             public override FirstPersonController Controller => Reference.Controller;
         }
 
-        public References.Collection<ControllerMotionEffects> Modules { get; protected set; }
+        public Modules.Collection<ControllerMotionEffects> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerMotionEffects>(this, Controller.gameObject);
+            Modules = new Modules.Collection<ControllerMotionEffects>(this, Controller.gameObject);
 
             Modules.Configure();
         }

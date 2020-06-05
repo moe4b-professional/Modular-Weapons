@@ -86,7 +86,7 @@ namespace Game
         }
 
         [Serializable]
-        public abstract class Context : IReference<WeaponAimEffectScaleModifier>
+        public abstract class Context : IModule<WeaponAimEffectScaleModifier>
         {
             [SerializeField]
             protected ValueRange range = new ValueRange(0.3f, 1f);
@@ -98,7 +98,7 @@ namespace Game
             public WeaponAim Aim => Modifier.Aim;
             public Weapon Weapon => Aim.Weapon;
 
-            public virtual void Set(WeaponAimEffectScaleModifier reference)
+            public virtual void Setup(WeaponAimEffectScaleModifier reference)
             {
                 Modifier = reference;
             }
@@ -120,13 +120,13 @@ namespace Game
             }
         }
 
-        public References.Collection<WeaponAimEffectScaleModifier> Modules { get; protected set; }
+        public Modules.Collection<WeaponAimEffectScaleModifier> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<WeaponAimEffectScaleModifier>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAimEffectScaleModifier>(this, Weapon.gameObject);
 
             Modules.Add(defaults);
 

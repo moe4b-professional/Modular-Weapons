@@ -36,7 +36,7 @@ namespace Game
             public override Weapon Weapon => Sprint.Weapon;
         }
 
-        public References.Collection<WeaponSprint> Modules { get; protected set; }
+        public Modules.Collection<WeaponSprint> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -54,7 +54,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new References.Collection<WeaponSprint>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponSprint>(this, Weapon.gameObject);
 
             Modules.Configure();
         }

@@ -28,5 +28,17 @@ namespace Game
         public float Value => shake.Value;
 
         public virtual void Add(float target) => shake.Add(target);
+
+        public override void Init()
+        {
+            base.Init();
+
+            Player.Controller.MotionEffects.OnProcess += Process;
+        }
+
+        void Process()
+        {
+            shake.Calculate();
+        }
     }
 }

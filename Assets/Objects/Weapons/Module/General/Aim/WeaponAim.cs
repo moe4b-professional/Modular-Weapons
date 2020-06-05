@@ -52,7 +52,7 @@ namespace Game
             public override Weapon Weapon => Aim.Weapon;
         }
 
-        public References.Collection<WeaponAim> Modules { get; protected set; }
+        public Modules.Collection<WeaponAim> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -66,7 +66,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new References.Collection<WeaponAim>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAim>(this, Weapon.gameObject);
 
             Modules.Configure();
         }

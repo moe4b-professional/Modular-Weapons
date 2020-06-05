@@ -21,19 +21,11 @@ namespace Game
 {
 	public class ControllerMovement : FirstPersonController.Module
     {
-        [SerializeField]
-        protected float acceleration = 15f;
-        public float Acceleration { get { return acceleration; } }
-
-        public Vector3 Target { get; protected set; }
-
         public ControllerMovementInput Input { get; protected set; }
+
         public ControllerMovementSpeed Speed { get; protected set; }
 
-        public ControllerGround Ground => Controller.Ground;
-        public ControllerGravity Gravity => Controller.Gravity;
-        public ControllerVelocity Velocity => Controller.Velocity;
-        public ControllerState State => Controller.State;
+        public ControllerMovementProcedure Procedure { get; protected set; }
 
         public class Module : FirstPersonController.BaseModule<ControllerMovement>
         {
@@ -42,13 +34,13 @@ namespace Game
             public override FirstPersonController Controller => Movement.Controller;
         }
 
-        public References.Collection<ControllerMovement> Modules { get; protected set; }
+        public Modules.Collection<ControllerMovement> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerMovement>(this);
+            Modules = new Modules.Collection<ControllerMovement>(this);
 
             Input = Modules.Find<ControllerMovementInput>();
             Speed = Modules.Find<ControllerMovementSpeed>();
@@ -60,47 +52,7 @@ namespace Game
         {
             base.Init();
 
-            Controller.OnProcess += Process;
-            Controller.OnFixedProcess += FixedProcess;
-
             Modules.Init();
-        }
-
-        void Process()
-        {
-            Input.Calcaulate();
-        }
-
-        public float Multiplier { get; protected set; }
-
-        void FixedProcess()
-        {
-            Gravity.Apply();
-            Ground.Check();
-
-            if (Ground.IsGrounded)
-                Multiplier = State.Multiplier;
-
-            Speed.Process(Multiplier);
-
-            Target = CalculateTarget();
-
-            Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * State.Multiplier * Time.deltaTime);
-
-            Debug.DrawRay(Controller.transform.position, Target, Color.yellow);
-            Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);
-        }
-
-        protected virtual Vector3 CalculateTarget()
-        {
-            var result = Vector3.ClampMagnitude(Input.Absolute * Speed.Max, Speed.Max);
-
-            if (Ground.IsGrounded)
-                result = Vector3.ProjectOnPlane(result, Ground.Data.Normal);
-
-            result += Controller.Velocity.Calculate(Gravity.Direction);
-
-            return result;
         }
     }
 }

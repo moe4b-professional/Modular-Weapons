@@ -87,13 +87,13 @@ namespace Game
             public override Weapon Weapon => Ammo.Weapon;
         }
 
-        public References.Collection<WeaponAmmo> Modules { get; protected set; }
+        public Modules.Collection<WeaponAmmo> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<WeaponAmmo>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAmmo>(this, Weapon.gameObject);
 
             Modules.Configure();
         }

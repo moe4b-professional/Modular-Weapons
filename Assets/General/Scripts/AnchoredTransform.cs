@@ -28,10 +28,13 @@ namespace Game
             Defaults = new Coordinates(transform);
         }
 
+        public event Action AfterWriteDefaults;
         public virtual void WriteDefaults()
         {
             transform.localPosition = Defaults.Position;
             transform.localRotation = Defaults.Rotation;
+
+            AfterWriteDefaults?.Invoke();
         }
     }
 }

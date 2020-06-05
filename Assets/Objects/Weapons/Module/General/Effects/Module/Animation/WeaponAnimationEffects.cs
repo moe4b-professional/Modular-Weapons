@@ -44,7 +44,7 @@ namespace Game
             public Animator Animator => Mesh.Animator;
         }
 
-        public References.Collection<WeaponAnimationEffects> Modules { get; protected set; }
+        public Modules.Collection<WeaponAnimationEffects> Modules { get; protected set; }
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
@@ -62,7 +62,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new References.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
 
             Weight = Modules.Find<WeaponAnimationEffectsWeight>();
 

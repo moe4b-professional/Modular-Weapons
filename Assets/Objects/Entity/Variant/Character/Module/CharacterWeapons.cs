@@ -23,12 +23,12 @@ namespace Game
     {
         public Damage.IDamager Damager => Entity;
 
-        public Weapon.IProcessor Processor => Int.Processor;
+        public Weapon.IProcessor Processor => Interface.Processor;
 
-        public IInterface Int { get; protected set; }
+        public IInterface Interface { get; protected set; }
         public virtual void Set(IInterface reference)
         {
-            Int = reference;
+            Interface = reference;
         }
 
         public interface IInterface

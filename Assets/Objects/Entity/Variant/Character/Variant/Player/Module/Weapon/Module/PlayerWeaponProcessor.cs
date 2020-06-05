@@ -30,13 +30,13 @@ namespace Game
             public override Player Player => Reference.Player;
         }
 
-        public References.Collection<PlayerWeaponProcessor> Modules { get; protected set; }
+        public Modules.Collection<PlayerWeaponProcessor> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<PlayerWeaponProcessor>(this);
+            Modules = new Modules.Collection<PlayerWeaponProcessor>(this);
 
             Modules.Configure();
         }

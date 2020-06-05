@@ -70,13 +70,13 @@ namespace Game
             public override FirstPersonController Controller => Look.Controller;
         }
 
-        public References.Collection<ControllerLook> Modules { get; protected set; }
+        public Modules.Collection<ControllerLook> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerLook>(this);
+            Modules = new Modules.Collection<ControllerLook>(this);
 
             Camera = Modules.Find<ControllerCameraLook>();
             Character = Modules.Find<ControllerCharacterLook>();

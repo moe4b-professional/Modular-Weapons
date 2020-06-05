@@ -33,16 +33,16 @@ namespace Game
 
         public EntityDamage Damage { get; protected set; }
 
-        public class Module : ReferenceBehaviour<Entity>
+        public class Module : ReferenceModule<Entity>
         {
             public Entity Entity => Reference;
         }
 
-        public References.Collection<Entity> Modules { get; protected set; }
+        public Modules.Collection<Entity> Modules { get; protected set; }
 
         protected virtual void Awake()
         {
-            Modules = new References.Collection<Entity>(this);
+            Modules = new Modules.Collection<Entity>(this);
 
             Health = Modules.Find<EntityHealth>();
 

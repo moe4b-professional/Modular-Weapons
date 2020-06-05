@@ -32,7 +32,7 @@ namespace Game
             public override Weapon Weapon => Action.Weapon;
         }
 
-        public References.Collection<WeaponAction> Modules { get; protected set; }
+        public Modules.Collection<WeaponAction> Modules { get; protected set; }
 
         public bool Input { get; protected set; }
         protected virtual bool CalculateInput(Weapon.IProcessor data)
@@ -47,7 +47,7 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new References.Collection<WeaponAction>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAction>(this, Weapon.gameObject);
 
             Override = Modules.Find<WeaponActionOverride>();
 

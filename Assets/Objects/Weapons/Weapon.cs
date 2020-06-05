@@ -32,9 +32,9 @@ namespace Game
         public WeaponEffects Effects { get; protected set; }
         public WeaponMesh Mesh { get; protected set; }
 
-        public References.Collection<Weapon> Modules { get; protected set; }
+        public Modules.Collection<Weapon> Modules { get; protected set; }
 
-        public abstract class BaseModule<TReference> : MonoBehaviour, IReference<TReference>
+        public abstract class BaseModule<TReference> : MonoBehaviour, IModule<TReference>
         {
             new public bool enabled
             {
@@ -46,7 +46,7 @@ namespace Game
             protected virtual void Start() { }
 
             public TReference Reference { get; protected set; }
-            public virtual void Set(TReference reference)
+            public virtual void Setup(TReference reference)
             {
                 this.Reference = reference;
             }
@@ -128,7 +128,7 @@ namespace Game
         {
             AudioSource = GetComponent<AudioSource>();
 
-            Modules = new References.Collection<Weapon>(this);
+            Modules = new Modules.Collection<Weapon>(this);
 
             Constraint = FindModule<WeaponConstraint>();
             Action = FindModule<WeaponAction>();

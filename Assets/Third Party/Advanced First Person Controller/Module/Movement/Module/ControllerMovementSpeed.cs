@@ -31,6 +31,8 @@ namespace Game
 
         public float Rate => Max == 0f ? 0f : Current / Max;
 
+        public ControllerVelocity Velocity => Controller.Velocity;
+
         public override void Configure()
         {
             base.Configure();
@@ -40,11 +42,11 @@ namespace Game
             Max = Base;
         }
 
-        public virtual void Process(float multiplier)
+        public virtual void Calculate(float multiplier)
         {
             Max = Evaluate(multiplier);
 
-            Current = Movement.Velocity.Planar.magnitude;
+            Current = Velocity.Planar.magnitude;
         }
 
         public virtual float Evaluate(float multiplier) => Base * multiplier;

@@ -56,7 +56,7 @@ namespace Game
             public override FirstPersonController Controller => HeadBob.Controller;
         }
 
-        public References.Collection<ControllerHeadBob> Modules { get; protected set; }
+        public Modules.Collection<ControllerHeadBob> Modules { get; protected set; }
 
         public ControllerStep Step => Controller.Step;
 
@@ -64,7 +64,7 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new References.Collection<ControllerHeadBob>(this, Controller.gameObject);
+            Modules = new Modules.Collection<ControllerHeadBob>(this, Controller.gameObject);
 
             Modules.Configure();
         }

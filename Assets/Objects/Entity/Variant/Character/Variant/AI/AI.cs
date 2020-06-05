@@ -21,13 +21,13 @@ namespace Game
 {
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-    public class AI : MonoBehaviour, IReference<Character>
+    public class AI : MonoBehaviour, IModule<Character>
     {
         public Rigidbody rigidbody => Character.rigidbody;
 
         public AIController Controller { get; protected set; }
 
-        public class Module : ReferenceBehaviour<AI>
+        public class Module : ReferenceModule<AI>
         {
             public AI AI => Reference;
             public Character Character => AI.Character;
@@ -36,10 +36,10 @@ namespace Game
             public Rigidbody rigidbody => Character.rigidbody;
         }
 
-        public References.Collection<AI> Modules { get; protected set; }
+        public Modules.Collection<AI> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
-        public virtual void Set(Character reference)
+        public virtual void Setup(Character reference)
         {
             Character = reference;
         }
@@ -48,7 +48,7 @@ namespace Game
         {
             Controller = Dependancy.Get<AIController>(gameObject);
 
-            Modules = new References.Collection<AI>(this);
+            Modules = new Modules.Collection<AI>(this);
 
             Modules.Configure();
         }

@@ -69,7 +69,7 @@ namespace Game
             public override FirstPersonController Controller => Reference.Controller;
         }
 
-        public References.Collection<ControllerJump> Modules { get; protected set; }
+        public Modules.Collection<ControllerJump> Modules { get; protected set; }
 
         public ControllerGround Ground => Controller.Ground;
         public ControllerVelocity Velocity => Controller.Velocity;
@@ -83,7 +83,7 @@ namespace Game
 
             Constraints = Dependancy.GetAll<IConstraint>(Controller.gameObject);
 
-            Modules = new References.Collection<ControllerJump>(this);
+            Modules = new Modules.Collection<ControllerJump>(this);
 
             Lock = Modules.Find<ControllerJumpLock>();
 

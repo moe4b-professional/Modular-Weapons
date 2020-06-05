@@ -61,9 +61,12 @@ namespace Game
 
         void Action()
         {
-            var delta = Mathf.MoveTowards(0f, max - Processor.Value, increment);
+            if(enabled)
+            {
+                var delta = Mathf.MoveTowards(0f, max - Processor.Value, increment);
 
-            Processor.Add(delta * scale);
+                Processor.Add(delta * scale);
+            }
         }
 	}
 }

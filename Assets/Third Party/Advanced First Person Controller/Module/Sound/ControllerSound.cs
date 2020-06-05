@@ -33,7 +33,7 @@ namespace Game
             public override FirstPersonController Controller => Sound.Controller;
         }
 
-        public References.Collection<ControllerSound> Modules { get; protected set; }
+        public Modules.Collection<ControllerSound> Modules { get; protected set; }
 
         public override void Configure()
         {
@@ -41,7 +41,7 @@ namespace Game
 
             Source = GetComponent<AudioSource>();
 
-            Modules = new References.Collection<ControllerSound>(this);
+            Modules = new Modules.Collection<ControllerSound>(this);
 
             Set = Modules.Find<ControllerSoundSet>();
 

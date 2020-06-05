@@ -22,14 +22,14 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(FirstPersonController))]
-    public class Player : MonoBehaviour, IReference<Character>
+    public class Player : MonoBehaviour, IModule<Character>
     {
         public FirstPersonController Controller { get; protected set; }
 
         public PlayerInput Input { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
 
-        public abstract class BaseModule<T> : ReferenceBehaviour<T>
+        public abstract class BaseModule<T> : ReferenceModule<T>
         {
             public abstract Player Player { get; }
             public Character Character => Player.Character;
@@ -40,10 +40,10 @@ namespace Game
             public override Player Player => Reference;
         }
 
-        public References.Collection<Player> Modules { get; protected set; }
+        public Modules.Collection<Player> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
-        public virtual void Set(Character reference)
+        public virtual void Setup(Character reference)
         {
             Character = reference;
         }
@@ -52,7 +52,7 @@ namespace Game
         {
             Controller = GetComponent<FirstPersonController>();
 
-            Modules = new References.Collection<Player>(this);
+            Modules = new Modules.Collection<Player>(this);
 
             Input = Modules.Find<PlayerInput>();
             Weapons = Modules.Find< PlayerWeapons>();

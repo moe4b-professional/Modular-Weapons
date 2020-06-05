@@ -49,7 +49,7 @@ namespace Game
             public override Weapon Weapon => Reload.Weapon;
         }
 
-        public References.Collection<WeaponReload> Modules { get; protected set; }
+        public Modules.Collection<WeaponReload> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -63,7 +63,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new References.Collection<WeaponReload>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponReload>(this, Weapon.gameObject);
 
             Ammo = Weapon.Modules.Find<WeaponAmmo>();
 
