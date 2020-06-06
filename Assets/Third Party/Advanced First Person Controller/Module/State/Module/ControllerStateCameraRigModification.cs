@@ -31,12 +31,12 @@ namespace Game
         {
             base.Init();
 
-            Controller.Anchors.OnProcess += Process;
+            Controller.Anchors.OnLateProcess += LateProcess;
 
             Anchor = CalculateOffset(State.Height);
         }
 
-        void Process()
+        void LateProcess()
         {
             Offset = CalculateOffset(State.Height) - Anchor;
 

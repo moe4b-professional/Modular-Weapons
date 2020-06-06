@@ -102,12 +102,12 @@ namespace Game
 
             CalculateOffset();
 
-            Controller.Anchors.OnProcess += Process;
+            Controller.Anchors.OnLateProcess += LateProcess;
 
             Modules.Init();
         }
 
-        void Process()
+        void LateProcess()
         {
             CalculateTarget();
 

@@ -44,10 +44,10 @@ namespace Game
 
             CalculateOffset();
 
-            Controller.Anchors.OnProcess += Process;
+            Controller.Anchors.OnLateProcess += LateProcess;
         }
 
-        void Process()
+        void LateProcess()
         {
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 

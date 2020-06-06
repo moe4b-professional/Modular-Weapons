@@ -56,17 +56,17 @@ namespace Game
         {
             base.Init();
 
-            Controller.OnProcess += Process;
+            Controller.OnLateProcess += LateProcess;
 
             Modules.Init();
         }
 
-        public event Action OnProcess;
-        void Process()
+        public event Action OnLateProcess;
+        void LateProcess()
         {
             WriteDefaults();
 
-            OnProcess?.Invoke();
+            OnLateProcess?.Invoke();
         }
 
         protected virtual void WriteDefaults()

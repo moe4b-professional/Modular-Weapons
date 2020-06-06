@@ -83,10 +83,10 @@ namespace Game
         {
             base.Init();
 
-            Controller.Anchors.OnProcess += Process;
+            Controller.Anchors.OnLateProcess += LateProcess;
         }
 
-        void Process()
+        void LateProcess()
         {
             Delta = curves.Evaluate(Step.Rate);
 
