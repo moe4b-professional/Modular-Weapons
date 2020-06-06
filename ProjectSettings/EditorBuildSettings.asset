@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Third Party/Advanced First Person Controller/Scene.unity
+    path: Assets/Scene.unity
     guid: cd29a0e4e450dc348acb700fed9fa6c4
   m_configObjects: {}
