@@ -121,9 +121,9 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerState>(this);
 
-            Transition = Modules.Find<ControllerStateTransition>();
-            Sets = Modules.Find<ControllerStateSets>();
-            HeightAdjustment = Modules.Find<ControllerStateElevationAdjustment>();
+            Transition = Modules.Depend<ControllerStateTransition>();
+            Sets = Modules.Depend<ControllerStateSets>();
+            HeightAdjustment = Modules.Depend<ControllerStateElevationAdjustment>();
             Elements = Modules.FindAll<BaseControllerStateElement>();
 
             Modules.Configure();

@@ -43,7 +43,7 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerSound>(this);
 
-            Set = Modules.Find<ControllerSoundSet>();
+            Set = Modules.Depend<ControllerSoundSet>();
 
             Modules.Configure();
         }

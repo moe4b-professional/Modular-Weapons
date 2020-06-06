@@ -42,8 +42,8 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerMovement>(this);
 
-            Input = Modules.Find<ControllerMovementInput>();
-            Speed = Modules.Find<ControllerMovementSpeed>();
+            Input = Modules.Depend<ControllerMovementInput>();
+            Speed = Modules.Depend<ControllerMovementSpeed>();
 
             Modules.Configure();
         }

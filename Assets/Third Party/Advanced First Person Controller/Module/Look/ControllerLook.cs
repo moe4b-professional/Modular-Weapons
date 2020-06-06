@@ -78,9 +78,9 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerLook>(this);
 
-            Camera = Modules.Find<ControllerCameraLook>();
-            Character = Modules.Find<ControllerCharacterLook>();
-            Lean = Modules.Find<ControllerLookLean>();
+            Camera = Modules.Depend<ControllerCameraLook>();
+            Character = Modules.Depend<ControllerCharacterLook>();
+            Lean = Modules.Depend<ControllerLookLean>();
 
             Modules.Configure();
         }

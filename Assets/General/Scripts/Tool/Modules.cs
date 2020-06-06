@@ -80,7 +80,7 @@ namespace Game
                         action(List[i] as TType);
             }
 
-            public virtual void Add(TModule instance)
+            public virtual void Register(TModule instance)
             {
                 List.Add(instance);
             }
@@ -94,7 +94,6 @@ namespace Game
 
                 return null;
             }
-
             public virtual List<TType> FindAll<TType>()
                 where TType : class
             {
@@ -105,6 +104,17 @@ namespace Game
                         result.Add(List[i] as TType);
 
                 return result;
+            }
+
+            public virtual TType Depend<TType>()
+                where TType : class
+            {
+                var target = Find<TType>();
+
+                if (target == null)
+                    throw new Exception(Reference.name + " Requires Module of Type " + typeof(TType).Name);
+
+                return target;
             }
             
             public Collection(TReference reference, GameObject root)

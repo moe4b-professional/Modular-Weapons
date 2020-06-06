@@ -44,9 +44,9 @@ namespace Game
         {
             Modules = new Modules.Collection<Entity>(this);
 
-            Health = Modules.Find<EntityHealth>();
+            Health = Modules.Depend<EntityHealth>();
 
-            Damage = Modules.Find<EntityDamage>();
+            Damage = Modules.Depend<EntityDamage>();
 
             Modules.Configure();
         }

@@ -54,8 +54,8 @@ namespace Game
 
             Modules = new Modules.Collection<Player>(this);
 
-            Input = Modules.Find<PlayerInput>();
-            Weapons = Modules.Find< PlayerWeapons>();
+            Input = Modules.Depend<PlayerInput>();
+            Weapons = Modules.Depend< PlayerWeapons>();
 
             Modules.Configure();
         }

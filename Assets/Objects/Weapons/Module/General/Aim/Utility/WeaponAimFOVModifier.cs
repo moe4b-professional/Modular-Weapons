@@ -29,18 +29,20 @@ namespace Game
 
         public WeaponFOVModifier Modifier { get; protected set; }
 
-        public override void Init()
+        public override void Configure()
         {
-            base.Init();
+            base.Configure();
 
             Modifier = Weapon.Modules.Find<WeaponFOVModifier>();
 
-            if(Modifier == null)
-            {
+            if (Modifier == null)
                 ExecuteDependancyError<WeaponFOVModifier>();
-                return;
-            }
+        }
 
+        public override void Init()
+        {
+            base.Init();
+            
             Modifier.Scale.Register(this);
         }
     }

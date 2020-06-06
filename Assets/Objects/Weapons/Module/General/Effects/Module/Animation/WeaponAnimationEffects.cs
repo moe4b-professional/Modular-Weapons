@@ -64,7 +64,7 @@ namespace Game
 
             Modules = new Modules.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
 
-            Weight = Modules.Find<WeaponAnimationEffectsWeight>();
+            Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
 
             Modules.Configure();
         }

@@ -99,8 +99,8 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerMovementProcedure>(this);
 
-            Ground = Modules.Find<ControllerGroundMovement>();
-            Air = Modules.Find<ControllerAirMovement>();
+            Ground = Modules.Depend<ControllerGroundMovement>();
+            Air = Modules.Depend<ControllerAirMovement>();
 
             Modules.Configure();
         }

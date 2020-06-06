@@ -73,8 +73,8 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerJump>(this);
 
-            Constraint = Modules.Find<ControllerJumpConstraint>();
-            Lock = Modules.Find<ControllerJumpLock>();
+            Constraint = Modules.Depend<ControllerJumpConstraint>();
+            Lock = Modules.Depend<ControllerJumpLock>();
 
             Modules.Configure();
         }

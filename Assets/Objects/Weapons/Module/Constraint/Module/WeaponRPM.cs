@@ -47,26 +47,17 @@ namespace Game
 
         public bool Constraint { get { return timer > 0f; } }
 
-        public IList<IModifier> Modifiers { get; protected set; }
-
-        public float Scale
+        public ScaleModifier Scale { get; protected set; }
+        public class ScaleModifier : Modifier.Scale<WeaponRPM>
         {
-            get
-            {
-                var value = 1f;
 
-                for (int i = 0; i < Modifiers.Count; i++)
-                    value *= Modifiers[i].Multiplier;
-
-                return value;
-            }
         }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modifiers = Weapon.GetAllDependancies<IModifier>();
+            Scale = new ScaleModifier();
         }
 
         public override void Init()
@@ -79,17 +70,12 @@ namespace Game
 
         void Process()
         {
-            timer = Mathf.MoveTowards(timer, 0f, Scale * Time.deltaTime);
+            timer = Mathf.MoveTowards(timer, 0f,Time.deltaTime * Scale.Value);
         }
 
         void Action()
         {
             timer = Delay;
-        }
-
-        public interface IModifier
-        {
-            float Multiplier { get; }
         }
     }
 }

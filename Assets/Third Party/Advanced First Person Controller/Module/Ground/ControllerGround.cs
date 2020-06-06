@@ -44,8 +44,8 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerGround>(this);
 
-            Detect = Modules.Find<ControllerGroundDetect>();
-            Change = Modules.Find<ControllerGroundChange>();
+            Detect = Modules.Depend<ControllerGroundDetect>();
+            Change = Modules.Depend<ControllerGroundChange>();
 
             Modules.Configure();
         }

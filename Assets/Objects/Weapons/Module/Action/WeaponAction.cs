@@ -49,7 +49,7 @@ namespace Game
 
             Modules = new Modules.Collection<WeaponAction>(this, Weapon.gameObject);
 
-            Override = Modules.Find<WeaponActionOverride>();
+            Override = Modules.Depend<WeaponActionOverride>();
 
             Modules.Configure();
         }

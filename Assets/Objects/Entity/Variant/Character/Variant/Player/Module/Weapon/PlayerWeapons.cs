@@ -50,9 +50,9 @@ namespace Game
 
             Modules = new Modules.Collection<PlayerWeapons>(this);
 
-            Processor = Modules.Find<PlayerWeaponProcessor>();
+            Processor = Modules.Depend<PlayerWeaponProcessor>();
 
-            camera = Modules.Find<PlayerWeaponsCamera>();
+            camera = Modules.Depend<PlayerWeaponsCamera>();
 
             Character.Weapons.Set(this);
 

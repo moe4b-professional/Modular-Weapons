@@ -67,19 +67,16 @@ namespace Game
 
             Ammo = Weapon.Modules.Find<WeaponAmmo>();
 
+            if (Ammo == null)
+                ExecuteDependancyError<WeaponAmmo>();
+
             Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
-
-            if(Ammo == null)
-            {
-                ExecuteDependancyError<WeaponAmmo>();
-                return;
-            }
-
+            
             Weapon.OnProcess += Process;
 
             Weapon.Activation.OnDisable += DisableCallback;

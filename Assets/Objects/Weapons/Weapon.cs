@@ -130,26 +130,15 @@ namespace Game
 
             Modules = new Modules.Collection<Weapon>(this);
 
-            Constraint = FindModule<WeaponConstraint>();
-            Action = FindModule<WeaponAction>();
-            Damage = FindModule<WeaponDamage>();
-            Hit = FindModule<WeaponHit>();
-            Operation = FindModule<WeaponOperation>();
-            Activation = FindModule<WeaponActivation>();
-            Pivot = FindModule<WeaponPivot>();
-            Effects = FindModule<WeaponEffects>();
-            Mesh = FindModule<WeaponMesh>();
-
-            TModule FindModule<TModule>()
-                where TModule : class
-            {
-                var instance = Modules.Find<TModule>();
-
-                if (instance == null)
-                    throw new Exception("Weapon " + name + " Requires a " + typeof(TModule).Name + " Component");
-
-                return instance;
-            }
+            Constraint = Modules.Depend<WeaponConstraint>();
+            Action = Modules.Depend<WeaponAction>();
+            Damage = Modules.Depend<WeaponDamage>();
+            Hit = Modules.Depend<WeaponHit>();
+            Operation = Modules.Depend<WeaponOperation>();
+            Activation = Modules.Depend<WeaponActivation>();
+            Pivot = Modules.Depend<WeaponPivot>();
+            Effects = Modules.Depend<WeaponEffects>();
+            Mesh = Modules.Depend<WeaponMesh>();
 
             Modules.Configure();
         }

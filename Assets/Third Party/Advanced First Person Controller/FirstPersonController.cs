@@ -89,24 +89,24 @@ namespace Game
 
             Modules = new Modules.Collection<FirstPersonController>(this);
 
-            GenericData = Modules.Find<ControllerGenericData>();
-            Input = Modules.Find<ControllerInput>();
-            Rig = Modules.Find<ControllerRig>();
-            Anchors = Modules.Find<ControllerAnchors>();
-            camera = Modules.Find<ControllerCamera>();
-            Direction = Modules.Find<ControllerDirection>();
-            Ground = Modules.Find<ControllerGround>();
-            AirTravel = Modules.Find<ControllerAirTravel>();
-            Collisions = Modules.Find<ControllerCollisions>();
-            Gravity = Modules.Find<ControllerGravity>();
-            Step = Modules.Find<ControllerStep>();
-            HeadBob = Modules.Find<ControllerHeadBob>();
-            Sound = Modules.Find<ControllerSound>();
-            Jump = Modules.Find<ControllerJump>();
-            Velocity = Modules.Find<ControllerVelocity>();
-            State = Modules.Find<ControllerState>();
-            Movement = Modules.Find<ControllerMovement>();
-            Look = Modules.Find<ControllerLook>();
+            GenericData = Modules.Depend<ControllerGenericData>();
+            Input = Modules.Depend<ControllerInput>();
+            Rig = Modules.Depend<ControllerRig>();
+            Anchors = Modules.Depend<ControllerAnchors>();
+            camera = Modules.Depend<ControllerCamera>();
+            Direction = Modules.Depend<ControllerDirection>();
+            Ground = Modules.Depend<ControllerGround>();
+            AirTravel = Modules.Depend<ControllerAirTravel>();
+            Collisions = Modules.Depend<ControllerCollisions>();
+            Gravity = Modules.Depend<ControllerGravity>();
+            Step = Modules.Depend<ControllerStep>();
+            HeadBob = Modules.Depend<ControllerHeadBob>();
+            Sound = Modules.Depend<ControllerSound>();
+            Jump = Modules.Depend<ControllerJump>();
+            Velocity = Modules.Depend<ControllerVelocity>();
+            State = Modules.Depend<ControllerState>();
+            Movement = Modules.Depend<ControllerMovement>();
+            Look = Modules.Depend<ControllerLook>();
 
             Modules.Configure();
         }

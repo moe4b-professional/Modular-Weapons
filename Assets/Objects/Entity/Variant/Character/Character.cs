@@ -53,7 +53,7 @@ namespace Game
 
             Modules = new Modules.Collection<Character>(this);
 
-            Weapons = Modules.Find<CharacterWeapons>();
+            Weapons = Modules.Depend<CharacterWeapons>();
 
             Modules.Configure();
         }

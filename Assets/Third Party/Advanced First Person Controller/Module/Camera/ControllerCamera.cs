@@ -50,7 +50,7 @@ namespace Game
             
             Modules = new Modules.Collection<ControllerCamera>(this);
 
-            FOV = Modules.Find<ControllerCameraFOV>();
+            FOV = Modules.Depend<ControllerCameraFOV>();
 
             Modules.Configure();
         }

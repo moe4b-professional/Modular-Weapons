@@ -128,10 +128,10 @@ namespace Game
 
             Modules = new Modules.Collection<WeaponAimEffectScaleModifier>(this, Weapon.gameObject);
 
-            Modules.Add(defaults);
+            Modules.Register(defaults);
 
             for (int i = 0; i < contexts.Length; i++)
-                Modules.Add(contexts[i]);
+                Modules.Register(contexts[i]);
 
             Modules.Configure();
         }

@@ -127,29 +127,4 @@ namespace Game
             return false;
         }
     }
-
-    public static class DependancyExtensions
-    {
-        public static TComponent GetDependancy<TComponent>(this Component target)
-            where TComponent : class
-        {
-            return Dependancy.Get<TComponent>(target.gameObject);
-        }
-        public static TComponent GetDependancy<TComponent>(this Component target, Dependancy.Scope scope)
-            where TComponent : class
-        {
-            return Dependancy.Get<TComponent>(target.gameObject, scope);
-        }
-
-        public static List<TComponent> GetAllDependancies<TComponent>(this Component target)
-            where TComponent : class
-        {
-            return Dependancy.GetAll<TComponent>(target.gameObject);
-        }
-        public static List<TComponent> GetAllDependancies<TComponent>(this Component target, Dependancy.Scope scope)
-            where TComponent : class
-        {
-            return Dependancy.GetAll<TComponent>(target.gameObject, scope);
-        }
-    }
 }

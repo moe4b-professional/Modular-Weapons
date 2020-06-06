@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponRotatingBarrel : Weapon.Module, WeaponConstraint.IInterface, WeaponRPM.IModifier
+	public class WeaponRotatingBarrel : Weapon.Module
 	{
 		[SerializeField]
         protected Transform context;
@@ -56,14 +56,23 @@ namespace Game
 
         public float Rate { get; protected set; }
 
-        [SerializeField]
-        [Range(0f, 1f)]
-        protected float activationRate = 0.6f;
-        public float ActivationRate { get { return activationRate; } }
+        public class Module : Weapon.BaseModule<WeaponRotatingBarrel>
+        {
+            public WeaponRotatingBarrel RotatingBarrel => Reference;
 
-        float WeaponRPM.IModifier.Multiplier => Rate;
+            public override Weapon Weapon => Reference.Weapon;
+        }
 
-        bool WeaponConstraint.IInterface.Constraint => Rate < activationRate;
+        public Modules.Collection<WeaponRotatingBarrel> Modules { get; protected set; }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Modules = new Modules.Collection<WeaponRotatingBarrel>(this);
+
+            Modules.Configure();
+        }
 
         public override void Init()
         {
@@ -72,6 +81,8 @@ namespace Game
             Weapon.OnProcess += Porcess;
 
             Weapon.Activation.OnDisable += DisableCallback;
+
+            Modules.Init();
         }
 
         void DisableCallback()
