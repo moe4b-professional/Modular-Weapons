@@ -33,12 +33,6 @@ namespace Game
 
         public int Count { get; protected set; }
 
-        public IList<IConstraint> Constraints { get; protected set; }
-        public interface IConstraint
-        {
-            bool CanDo { get; }
-        }
-
         public virtual bool CanDo
         {
             get
@@ -49,13 +43,13 @@ namespace Game
 
                 if (Count == 0 && Ground.IsDetected == false) return false;
 
-                for (int i = 0; i < Constraints.Count; i++)
-                    if (Constraints[i].CanDo == false) return false;
+                if (Constraint.Active) return false;
 
                 return true;
             }
         }
 
+        public ControllerJumpConstraint Constraint { get; protected set; }
         public ControllerJumpLock Lock { get; protected set; }
 
         public class Module : FirstPersonController.BaseModule<ControllerJump>
@@ -77,10 +71,9 @@ namespace Game
 
             Count = 0;
 
-            Constraints = Dependancy.GetAll<IConstraint>(Controller.gameObject);
-
             Modules = new Modules.Collection<ControllerJump>(this);
 
+            Constraint = Modules.Find<ControllerJumpConstraint>();
             Lock = Modules.Find<ControllerJumpLock>();
 
             Modules.Configure();

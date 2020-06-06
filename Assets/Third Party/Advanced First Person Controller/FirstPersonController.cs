@@ -30,10 +30,11 @@ namespace Game
         public float Height => collider.height;
         public float Radius => collider.radius;
 
+        public ControllerGenericData GenericData { get; protected set; }
         public ControllerInput Input { get; protected set; }
         public ControllerRig Rig { get; protected set; }
         public ControllerCamera camera { get; protected set; }
-        public ControllerMotionEffects MotionEffects { get; protected set; }
+        public ControllerAnchors Anchors { get; protected set; }
         public ControllerDirection Direction { get; protected set; }
         public ControllerGround Ground { get; protected set; }
         public ControllerAirTravel AirTravel { get; protected set; }
@@ -88,9 +89,10 @@ namespace Game
 
             Modules = new Modules.Collection<FirstPersonController>(this);
 
+            GenericData = Modules.Find<ControllerGenericData>();
             Input = Modules.Find<ControllerInput>();
             Rig = Modules.Find<ControllerRig>();
-            MotionEffects = Modules.Find<ControllerMotionEffects>();
+            Anchors = Modules.Find<ControllerAnchors>();
             camera = Modules.Find<ControllerCamera>();
             Direction = Modules.Find<ControllerDirection>();
             Ground = Modules.Find<ControllerGround>();

@@ -53,6 +53,8 @@ namespace Game
             base.Init();
 
             Pivot.OnProcess += LateProcess;
+
+            Weapon.Effects.Register(this);
         }
 
         void LateProcess()

@@ -20,12 +20,12 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(Camera))]
-    [RequireComponent(typeof(ControllerMotionEffectTransform))]
+    [RequireComponent(typeof(ControllerTransformAnchor))]
 	public class ControllerCamera : FirstPersonController.Module
 	{
 		public Camera Component { get; protected set; }
 
-        public ControllerMotionEffectTransform MotionEffectTransform { get; protected set; }
+        public ControllerTransformAnchor Anchor { get; protected set; }
 
         public ControllerCameraFOV FOV { get; protected set; }
 
@@ -46,7 +46,7 @@ namespace Game
 
             Component = GetComponent<Camera>();
 
-            MotionEffectTransform = GetComponent<ControllerMotionEffectTransform>();
+            Anchor = GetComponent<ControllerTransformAnchor>();
             
             Modules = new Modules.Collection<ControllerCamera>(this);
 

@@ -22,7 +22,7 @@ namespace Game
 	public class ControllerHeadBob : FirstPersonController.Module
 	{
         [SerializeField]
-        protected float range = 0.0035f;
+        protected float range = 0.028f;
         public float Range { get { return range; } }
 
         [SerializeField]
@@ -45,37 +45,45 @@ namespace Game
             }
         }
 
+        [SerializeField]
+        protected ContextData[] contexts;
+        public ContextData[] Contexts { get { return contexts; } }
+        [Serializable]
+        public class ContextData
+        {
+            [SerializeField]
+            protected ControllerTransformAnchor anchor;
+            public ControllerTransformAnchor Anchor { get { return anchor; } }
+
+            [SerializeField]
+            protected bool invert = false;
+            public bool Invert { get { return invert; } }
+
+            [SerializeField]
+            protected float scale = 1f;
+            public float Scale { get { return scale; } }
+
+            public virtual void Apply(Vector3 value)
+            {
+                if (invert) value = -value;
+
+                value *= scale;
+
+                anchor.LocalPosition += value;
+            }
+        }
+
         public Vector3 Delta { get; protected set; }
 
         public Vector3 Offset { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerHeadBob>
-        {
-            public ControllerHeadBob HeadBob => Reference;
-
-            public override FirstPersonController Controller => HeadBob.Controller;
-        }
-
-        public Modules.Collection<ControllerHeadBob> Modules { get; protected set; }
-
         public ControllerStep Step => Controller.Step;
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Modules = new Modules.Collection<ControllerHeadBob>(this, Controller.gameObject);
-
-            Modules.Configure();
-        }
 
         public override void Init()
         {
             base.Init();
 
-            Controller.OnProcess += Process;
-
-            Modules.Init();
+            Controller.Anchors.OnProcess += Process;
         }
 
         void Process()
@@ -85,6 +93,9 @@ namespace Game
             Delta *= Step.Weight.Value;
 
             Offset = Delta * range;
+
+            for (int i = 0; i < contexts.Length; i++)
+                contexts[i].Apply(Offset);
         }
     }
 }

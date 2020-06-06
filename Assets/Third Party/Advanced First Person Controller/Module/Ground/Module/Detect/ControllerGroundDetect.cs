@@ -21,9 +21,7 @@ namespace Game
 {
     public class ControllerGroundDetect : ControllerGround.Module
     {
-        [SerializeField]
-        protected LayerMask mask = Physics.DefaultRaycastLayers;
-        public LayerMask Mask { get { return mask; } }
+        public LayerMask Mask => Controller.GenericData.LayerMask;
 
         [SerializeField]
         protected float range = 0.2f;
@@ -100,7 +98,7 @@ namespace Game
         {
             var origin = CalculateOrigin(iteration);
 
-            if (Physics.SphereCast(origin, Controller.Radius / iteration, Direction.Down, out hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+            if (Physics.SphereCast(origin, Controller.Radius / iteration, Direction.Down, out hit, MaxDistance, Mask, QueryTriggerInteraction.Ignore))
                 return true;
             else
                 return false;

@@ -19,19 +19,24 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponEffects : Weapon.Module
+	public class ControllerJumpConstraint : ControllerJump.Module
 	{
         public List<IInterface> List { get; protected set; }
         public interface IInterface
         {
-            bool enabled { get; set; }
-
-            float Scale { get; set; }
+            bool Active { get; }
         }
 
-        public virtual void Register(IInterface element)
+        public virtual bool Active
         {
-            List.Add(element);
+            get
+            {
+                for (int i = 0; i < List.Count; i++)
+                    if (List[i].Active)
+                        return true;
+
+                return false;
+            }
         }
 
         public override void Configure()
@@ -39,6 +44,11 @@ namespace Game
             base.Configure();
 
             List = new List<IInterface>();
+        }
+
+        public virtual void Register(IInterface element)
+        {
+            List.Add(element);
         }
     }
 }

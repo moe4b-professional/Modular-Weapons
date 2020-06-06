@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class AnchoredTransform : MonoBehaviour
+	public class TransformAnchor : MonoBehaviour
 	{
         public Coordinates Defaults { get; protected set; }
 

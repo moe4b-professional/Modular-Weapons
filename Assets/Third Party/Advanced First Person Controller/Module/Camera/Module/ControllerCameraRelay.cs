@@ -44,7 +44,7 @@ namespace Game
 
         void Process()
         {
-            Component.fieldOfView = InitialFOV * camera.FOV.Rate;
+            Component.fieldOfView = InitialFOV * camera.FOV.Scale.Value;
         }
     }
 }

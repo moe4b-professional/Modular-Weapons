@@ -19,22 +19,35 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerMotionEffects : FirstPersonController.Module
+	public class ControllerAnchors : FirstPersonController.Module
 	{
-		public class Module : FirstPersonController.BaseModule<ControllerMotionEffects>
+		public class Module : FirstPersonController.BaseModule<ControllerAnchors>
         {
-            public ControllerMotionEffects MotionEffects => Reference;
+            public ControllerAnchors Anchors => Reference;
 
             public override FirstPersonController Controller => Reference.Controller;
         }
 
-        public Modules.Collection<ControllerMotionEffects> Modules { get; protected set; }
+        public List<IInterface> List { get; protected set; }
+        public interface IInterface
+        {
+            void WriteDefaults();
+        }
+
+        public virtual void Register(IInterface element)
+        {
+            List.Add(element);
+        }
+
+        public Modules.Collection<ControllerAnchors> Modules { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new Modules.Collection<ControllerMotionEffects>(this, Controller.gameObject);
+            List = new List<IInterface>();
+
+            Modules = new Modules.Collection<ControllerAnchors>(this, Controller.gameObject);
 
             Modules.Configure();
         }
@@ -48,12 +61,18 @@ namespace Game
             Modules.Init();
         }
 
-        public event Action OnEarlyProcess;
         public event Action OnProcess;
         void Process()
         {
-            OnEarlyProcess?.Invoke();
+            WriteDefaults();
+
             OnProcess?.Invoke();
+        }
+
+        protected virtual void WriteDefaults()
+        {
+            for (int i = 0; i < List.Count; i++)
+                List[i].WriteDefaults();
         }
     }
 }

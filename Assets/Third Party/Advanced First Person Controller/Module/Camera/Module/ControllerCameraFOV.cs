@@ -29,8 +29,6 @@ namespace Game
             set => camera.Component.fieldOfView = value;
         }
 
-        public float Rate => Value / Initial;
-
         public ScaleModifier Scale { get; protected set; }
         public class ScaleModifier : Modifier.Scale<ControllerCameraFOV> { }
 

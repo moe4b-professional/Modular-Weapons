@@ -56,6 +56,8 @@ namespace Game
         {
             base.Init();
 
+            Weapon.Effects.Register(this);
+
             Pivot.OnProcess += Process;
         }
 

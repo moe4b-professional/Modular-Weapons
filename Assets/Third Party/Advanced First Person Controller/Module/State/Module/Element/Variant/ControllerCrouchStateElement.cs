@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerCrouchStateElement : ControllerStateElement, ControllerJump.IConstraint
+    public class ControllerCrouchStateElement : ControllerStateElement, ControllerJumpConstraint.IInterface
     {
         [SerializeField]
         protected JumpInputAction jumpAction = JumpInputAction.StandUp;
@@ -29,7 +29,14 @@ namespace Game
             Jump, StandUp
         }
 
-        bool ControllerJump.IConstraint.CanDo => jumpAction == JumpInputAction.Jump || Mathf.Approximately(Weight, 0f);
+        bool ControllerJumpConstraint.IInterface.Active => jumpAction == JumpInputAction.StandUp && Weight > 0f;
+
+        public override void Init()
+        {
+            base.Init();
+
+            Controller.Jump.Constraint.Register(this);
+        }
 
         protected override void Process()
         {

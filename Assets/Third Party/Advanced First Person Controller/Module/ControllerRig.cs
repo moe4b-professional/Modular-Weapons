@@ -23,34 +23,15 @@ namespace Game
     public class ControllerRig : FirstPersonController.Module
 	{
         [SerializeField]
-        protected CameraData _camera;
-        public CameraData camera { get { return _camera; } }
-        [Serializable]
-        public class CameraData
-        {
-            [SerializeField]
-            protected ControllerMotionEffectTransform pivot;
-            public ControllerMotionEffectTransform Pivot { get { return pivot; } }
+        protected ControllerTransformAnchor pivot;
+        public ControllerTransformAnchor Pivot { get { return pivot; } }
 
-            [SerializeField]
-            protected ControllerMotionEffectTransform anchor;
-            public ControllerMotionEffectTransform Anchor { get { return anchor; } }
+        [SerializeField]
+        protected ControllerTransformAnchor anchor;
+        public ControllerTransformAnchor Anchor { get { return anchor; } }
 
-            public ControllerCamera Module => Rig.Controller.camera;
-
-            public ControllerRig Rig { get; protected set; }
-            public virtual void Configure(ControllerRig reference)
-            {
-                Rig = reference;
-            }
-        }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            camera.Configure(this);
-        }
+        public ControllerCamera camera => Controller.camera;
+        public ControllerCamera Camera => camera; //Don't judge me, I want to maintain my PascalCase naming while still maintaining a propert override to camera
     }
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 }

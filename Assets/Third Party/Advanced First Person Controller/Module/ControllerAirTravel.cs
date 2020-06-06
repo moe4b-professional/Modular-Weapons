@@ -51,9 +51,13 @@ namespace Game
             {
                 public Vector3 Position { get; private set; }
 
+                public float Time { get; private set; }
+
                 public StartData(Vector3 position)
                 {
                     this.Position = position;
+
+                    Time = UnityEngine.Time.time;
                 }
             }
 
@@ -63,13 +67,19 @@ namespace Game
             {
                 public Vector3 Position { get; private set; }
 
+                public float Time { get; private set; }
+
                 public EndData(Vector3 position)
                 {
                     this.Position = position;
+
+                    Time = UnityEngine.Time.time;
                 }
             }
 
             public float Distance { get; private set; }
+
+            public float Time { get; private set; }
 
             public Data(StartData start, EndData end)
             {
@@ -77,6 +87,8 @@ namespace Game
                 this.End = end;
 
                 Distance = Vector3.Distance(start.Position, end.Position);
+
+                Time = End.Time - Start.Time;
             }
 
             [Serializable]

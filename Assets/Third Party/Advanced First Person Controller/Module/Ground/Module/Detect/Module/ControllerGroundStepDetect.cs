@@ -25,7 +25,7 @@ namespace Game
         protected float maxHeight = 0.3f;
         public float MaxHeight { get { return maxHeight; } }
 
-        public LayerMask Mask => Detect.Mask;
+        public LayerMask Mask => Controller.GenericData.LayerMask;
 
         public float Offset => 0.1f;
 

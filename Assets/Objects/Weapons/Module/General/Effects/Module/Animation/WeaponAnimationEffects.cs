@@ -73,6 +73,8 @@ namespace Game
         {
             base.Init();
 
+            Weapon.Effects.Register(this);
+
             Modules.Init();
         }
 

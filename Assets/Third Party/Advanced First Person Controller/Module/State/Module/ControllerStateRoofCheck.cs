@@ -21,9 +21,7 @@ namespace Game
 {
 	public class ControllerStateRoofCheck : ControllerState.Module
 	{
-        [SerializeField]
-        protected LayerMask mask = Physics.DefaultRaycastLayers;
-        public LayerMask Mask { get { return mask; } }
+        public LayerMask Mask => Controller.GenericData.LayerMask;
 
         [SerializeField]
         protected float range = 0.2f;
@@ -109,7 +107,7 @@ namespace Game
         {
             var origin = CalculateOrigin();
 
-            if(Physics.SphereCast(origin, Radius, Direction.Up, out var hit, MaxDistance, mask, QueryTriggerInteraction.Ignore))
+            if(Physics.SphereCast(origin, Radius, Direction.Up, out var hit, MaxDistance, Mask, QueryTriggerInteraction.Ignore))
             {
                 return true;
             }

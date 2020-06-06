@@ -44,7 +44,7 @@ namespace Game
 
             CalculateOffset();
 
-            Controller.MotionEffects.OnProcess += Process;
+            Controller.Anchors.OnProcess += Process;
         }
 
         void Process()
@@ -53,7 +53,7 @@ namespace Game
 
             CalculateOffset();
 
-            Rig.camera.Module.MotionEffectTransform.LocalRotation *= Offset;
+            Rig.Camera.Anchor.LocalRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

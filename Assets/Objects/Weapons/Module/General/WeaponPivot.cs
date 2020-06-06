@@ -19,16 +19,16 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(AnchoredTransform))]
+    [RequireComponent(typeof(TransformAnchor))]
 	public class WeaponPivot : Weapon.Module
 	{
-        public AnchoredTransform AnchoredTransform { get; protected set; }
+        public TransformAnchor AnchoredTransform { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            AnchoredTransform = GetComponent<AnchoredTransform>();
+            AnchoredTransform = GetComponent<TransformAnchor>();
             AnchoredTransform.Configure();
         }
 

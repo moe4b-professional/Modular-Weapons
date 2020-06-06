@@ -185,6 +185,8 @@ namespace Game
             base.Init();
 
             Pivot.OnProcess += Process;
+
+            Weapon.Effects.Register(this);
         }
 
         void Process()

@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(AnchoredTransform))]
-	public class ControllerMotionEffectTransform : ControllerMotionEffects.Module
+    [RequireComponent(typeof(TransformAnchor))]
+	public class ControllerTransformAnchor : ControllerAnchors.Module, ControllerAnchors.IInterface
 	{
         public Vector3 LocalPosition
         {
@@ -40,26 +40,28 @@ namespace Game
             set => transform.localRotation = value;
         }
 
-        public AnchoredTransform AnchoredTransform { get; protected set; }
+        public TransformAnchor Component { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            AnchoredTransform = GetComponent<AnchoredTransform>();
-            AnchoredTransform.Configure();
+            Component = GetComponent<TransformAnchor>();
+            Component.Configure();
         }
 
         public override void Init()
         {
             base.Init();
 
-            MotionEffects.OnEarlyProcess += Process;
+            Anchors.Register(this);
         }
 
         void Process()
         {
-            AnchoredTransform.WriteDefaults();
+            Component.WriteDefaults();
         }
+
+        public virtual void WriteDefaults() => Component.WriteDefaults();
     }
 }

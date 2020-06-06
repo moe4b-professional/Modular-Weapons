@@ -130,6 +130,8 @@ namespace Game
         {
             base.Init();
 
+            Weapon.Effects.Register(this);
+
             Weapon.Action.OnPerform += Action;
 
             Pivot.OnProcess += Process;

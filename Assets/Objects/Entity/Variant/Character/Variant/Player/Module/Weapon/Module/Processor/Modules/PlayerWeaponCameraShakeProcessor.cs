@@ -33,7 +33,7 @@ namespace Game
         {
             base.Init();
 
-            Player.Controller.MotionEffects.OnProcess += Process;
+            Player.Controller.Anchors.OnProcess += Process;
         }
 
         void Process()

@@ -42,8 +42,8 @@ namespace Game
         public class ContextData
         {
             [SerializeField]
-            protected AnchoredTransform target;
-            public AnchoredTransform Target { get { return target; } }
+            protected TransformAnchor target;
+            public TransformAnchor Target { get { return target; } }
 
             public Transform Context => target.transform;
 
