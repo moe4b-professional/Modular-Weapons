@@ -126,23 +126,4 @@ namespace Game
             Count = 0;
         }
     }
-
-    [Serializable]
-    public class ForceData
-    {
-        [SerializeField]
-        protected float value;
-        public float Value { get { return value; } }
-
-        [SerializeField]
-        protected ForceMode mode;
-        public ForceMode Mode { get { return mode; } }
-
-        public ForceData(float value, ForceMode mode)
-        {
-            this.value = value;
-
-            this.mode = mode;
-        }
-    }
 }

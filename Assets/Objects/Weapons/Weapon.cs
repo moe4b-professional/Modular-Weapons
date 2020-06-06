@@ -175,28 +175,4 @@ namespace Game
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
     }
-
-    [Serializable]
-    public struct ValueRange
-    {
-        [SerializeField]
-        float min;
-        public float Min { get { return min; } }
-
-        [SerializeField]
-        float max;
-        public float Max { get { return max; } }
-
-        public float Random => UnityEngine.Random.Range(min, max);
-
-        public float Lerp(float t) => Mathf.Lerp(min, max, t);
-
-        public float Clamp(float value) => Mathf.Clamp(value, min, max);
-
-        public ValueRange(float min, float max)
-        {
-            this.min = min;
-            this.max = max;
-        }
-    }
 }
