@@ -19,34 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerCrouchStateElement : ControllerStateElement, ControllerJumpConstraint.IInterface
+    public class ControllerCrouchStateElement : DefaultControllerStateElement
     {
-        [SerializeField]
-        protected JumpInputAction jumpAction = JumpInputAction.StandUp;
-        public JumpInputAction JumpAction { get { return jumpAction; } }
-        public enum JumpInputAction
-        {
-            Jump, StandUp
-        }
-
-        bool ControllerJumpConstraint.IInterface.Active => jumpAction == JumpInputAction.StandUp && Weight > 0f;
-
-        public override void Init()
-        {
-            base.Init();
-
-            Controller.Jump.Constraint.Register(this);
-        }
-
         protected override void Process()
         {
             base.Process();
 
             if (Input.Crouch.Press)
                 Toggle(Sets.Normal);
-
-            if (jumpAction == JumpInputAction.StandUp && Input.Jump.Press && Active)
-                State.Transition.Set(Sets.Normal);
         }
     }
 }

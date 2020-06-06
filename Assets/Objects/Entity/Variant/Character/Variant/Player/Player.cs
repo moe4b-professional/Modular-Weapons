@@ -29,7 +29,7 @@ namespace Game
         public PlayerInput Input { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
 
-        public abstract class BaseModule<T> : ReferenceModule<T>
+        public abstract class BaseModule<T> : MonoBehaviourModule<T>
         {
             public abstract Player Player { get; }
             public Character Character => Player.Character;

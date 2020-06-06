@@ -24,10 +24,10 @@ namespace Game
         public float Speed { get; protected set; }
 
         [SerializeField]
-        protected BaseControllerStateElement target;
-        public BaseControllerStateElement Target { get { return target; } }
+        protected ControllerStateElement target;
+        public ControllerStateElement Target { get { return target; } }
 
-        public IReadOnlyList<BaseControllerStateElement> Elements => State.Elements;
+        public IReadOnlyList<ControllerStateElement> Elements => State.Elements;
 
         public override void Configure()
         {
@@ -81,9 +81,9 @@ namespace Game
             State.Set(data);
         }
 
-        public delegate void SetDelegate(BaseControllerStateElement target);
+        public delegate void SetDelegate(ControllerStateElement target);
         public event SetDelegate OnSet;
-        public virtual void Set(BaseControllerStateElement value)
+        public virtual void Set(ControllerStateElement value)
         {
             target = value;
 

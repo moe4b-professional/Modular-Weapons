@@ -49,7 +49,12 @@ namespace Game
             }
         }
 
-        public ControllerJumpConstraint Constraint { get; protected set; }
+        public ConstraintController Constraint { get; protected set; }
+        public class ConstraintController : Constraint<ControllerJump>
+        {
+
+        }
+
         public ControllerJumpLock Lock { get; protected set; }
 
         public class Module : FirstPersonController.BaseModule<ControllerJump>
@@ -64,16 +69,19 @@ namespace Game
         public ControllerGround Ground => Controller.Ground;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
-        
+
+        public ButtonInput Input => Controller.Input.Jump;
+
         public override void Configure()
         {
             base.Configure();
 
             Count = 0;
 
+            Constraint = new ConstraintController();
+
             Modules = new Modules.Collection<ControllerJump>(this);
 
-            Constraint = Modules.Depend<ControllerJumpConstraint>();
             Lock = Modules.Depend<ControllerJumpLock>();
 
             Modules.Configure();
@@ -94,7 +102,7 @@ namespace Game
         {
             if (Lock.IsOn == false && Ground.IsDetected && Count > 0) Count = 0;
 
-            if (Controller.Input.Jump.Press)
+            if (Input.Press)
             {
                 if (CanDo) Do();
             }

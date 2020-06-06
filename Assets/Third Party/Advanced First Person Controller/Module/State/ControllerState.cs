@@ -37,7 +37,7 @@ namespace Game
         public ControllerStateSets Sets { get; protected set; }
         public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
-        public List<BaseControllerStateElement> Elements { get; protected set; }
+        public List<ControllerStateElement> Elements { get; protected set; }
 
         public class Module : FirstPersonController.BaseModule<ControllerState>
         {
@@ -124,7 +124,7 @@ namespace Game
             Transition = Modules.Depend<ControllerStateTransition>();
             Sets = Modules.Depend<ControllerStateSets>();
             HeightAdjustment = Modules.Depend<ControllerStateElevationAdjustment>();
-            Elements = Modules.FindAll<BaseControllerStateElement>();
+            Elements = Modules.FindAll<ControllerStateElement>();
 
             Modules.Configure();
         }

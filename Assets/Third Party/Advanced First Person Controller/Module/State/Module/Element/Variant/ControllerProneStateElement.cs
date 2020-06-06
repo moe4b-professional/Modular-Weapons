@@ -19,26 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerProneStateElement : ControllerStateElement, ControllerJumpConstraint.IInterface
+	public class ControllerProneStateElement : DefaultControllerStateElement
     {
-        bool ControllerJumpConstraint.IInterface.Active => Weight > 0f;
-
-        public override void Init()
-        {
-            base.Init();
-
-            Controller.Jump.Constraint.Register(this);
-        }
-
         protected override void Process()
         {
             base.Process();
 
             if (Input.Prone.Press)
                 Toggle(Sets.Normal);
-
-            if (Input.Jump.Press && Active)
-                State.Transition.Set(Sets.Normal);
         }
     }
 }

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerNormalStateElement : ControllerStateElement
+    public class ControllerNormalStateElement : DefaultControllerStateElement
     {
 
     }

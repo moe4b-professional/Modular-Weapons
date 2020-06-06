@@ -48,10 +48,7 @@ namespace Game
         public bool Constraint { get { return timer > 0f; } }
 
         public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale<WeaponRPM>
-        {
-
-        }
+        public class ScaleModifier : Modifier.Scale { }
 
         public override void Configure()
         {

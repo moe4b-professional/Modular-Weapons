@@ -27,7 +27,7 @@ namespace Game
 
         public AIController Controller { get; protected set; }
 
-        public class Module : ReferenceModule<AI>
+        public class Module : MonoBehaviourModule<AI>
         {
             public AI AI => Reference;
             public Character Character => AI.Character;

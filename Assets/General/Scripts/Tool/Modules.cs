@@ -36,6 +36,13 @@ namespace Game
             target.Init();
         }
 
+        public static void Process<TReference>(TReference reference, IModule<TReference> target)
+        {
+            Set(reference, target);
+            Configure(reference, target);
+            Init(reference, target);
+        }
+
         public class Collection<TReference, TModule>
             where TReference : Component
             where TModule : class, IModule<TReference>
@@ -143,7 +150,26 @@ namespace Game
         void Init();
     }
 
-    public class ReferenceModule<TReference> : MonoBehaviour, IModule<TReference>
+    public class MonoBehaviourModule<TReference> : MonoBehaviour, IModule<TReference>
+    {
+        public TReference Reference { get; protected set; }
+        public virtual void Setup(TReference reference)
+        {
+            this.Reference = reference;
+        }
+
+        public virtual void Configure()
+        {
+
+        }
+
+        public virtual void Init()
+        {
+
+        }
+    }
+
+    public class PropertyModule<TReference> : IModule<TReference>
     {
         public TReference Reference { get; protected set; }
         public virtual void Setup(TReference reference)

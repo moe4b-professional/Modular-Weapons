@@ -28,7 +28,7 @@ namespace Game
         }
 
         public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale<WeaponFOVModifier> { }
+        public class ScaleModifier : Modifier.Scale { }
 
         public override void Configure()
         {

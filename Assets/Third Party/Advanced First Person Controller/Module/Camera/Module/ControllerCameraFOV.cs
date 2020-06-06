@@ -30,7 +30,7 @@ namespace Game
         }
 
         public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale<ControllerCameraFOV> { }
+        public class ScaleModifier : Modifier.Scale { }
 
         public override void Configure()
         {
@@ -51,7 +51,7 @@ namespace Game
 
     public class Modifier
     {
-        public class Additive<TTarget> : Base<Additive<TTarget>.IInterface>
+        public class Additive : Base<Additive.IInterface>
         {
             public interface IInterface
             {
@@ -74,7 +74,7 @@ namespace Game
             }
         }
 
-        public class Scale<TTarget> : Base<Scale<TTarget>.IInterface>
+        public class Scale : Base<Scale.IInterface>
         {
             public interface IInterface
             {
@@ -117,6 +117,40 @@ namespace Game
             {
                 List = new List<TInterface>();
             }
+        }
+    }
+
+    public class Constraint
+    {
+        public interface IInterface
+        {
+            bool Active { get; }
+        }
+    }
+    public class Constraint<TTTarget> : Constraint
+    {
+        public List<IInterface> List { get; protected set; }
+
+        public virtual bool Active
+        {
+            get
+            {
+                for (int i = 0; i < List.Count; i++)
+                    if (List[i].Active)
+                        return true;
+
+                return false;
+            }
+        }
+
+        public virtual void Register(IInterface element)
+        {
+            List.Add(element);
+        }
+
+        public Constraint()
+        {
+            List = new List<IInterface>();
         }
     }
 }

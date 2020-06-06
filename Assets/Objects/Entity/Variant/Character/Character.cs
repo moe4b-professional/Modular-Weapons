@@ -30,7 +30,7 @@ namespace Game
 
         public CharacterWeapons Weapons { get; protected set; }
 
-        public class Module : ReferenceModule<Character>
+        public class Module : MonoBehaviourModule<Character>
         {
             public Character Character => Reference;
 

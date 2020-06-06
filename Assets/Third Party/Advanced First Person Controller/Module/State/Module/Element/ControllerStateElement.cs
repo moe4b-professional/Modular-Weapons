@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class BaseControllerStateElement : ControllerState.Module, ControllerState.IData
+    public abstract class ControllerStateElement : ControllerState.Module, ControllerState.IData
     {
         public float Weight { get; protected set; }
 
@@ -35,9 +35,27 @@ namespace Game
         protected float transitionSpeed = 4;
         public float TransitionSpeed { get { return transitionSpeed; } }
 
+        public class Module : FirstPersonController.BaseModule<ControllerStateElement>
+        {
+            public ControllerStateElement Element => Reference;
+
+            public override FirstPersonController Controller => Reference.Controller;
+        }
+
+        public Modules.Collection<ControllerStateElement> Modules { get; protected set; }
+
         public ControllerInput Input => Controller.Input;
         public ControllerStateTransition Transition => State.Transition;
         public ControllerStateSets Sets => State.Sets;
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Modules = new Modules.Collection<ControllerStateElement>(this);
+
+            Modules.Configure();
+        }
 
         public override void Init()
         {
@@ -46,6 +64,8 @@ namespace Game
             Weight = Target;
 
             Controller.OnProcess += Process;
+
+            Modules.Init();
         }
 
         protected virtual void Process()
@@ -53,7 +73,7 @@ namespace Game
             Weight = Mathf.MoveTowards(Weight, Target, State.Transition.Speed * Time.deltaTime);
         }
 
-        protected virtual void Toggle(BaseControllerStateElement normal)
+        protected virtual void Toggle(ControllerStateElement normal)
         {
             if (Active)
                 Transition.Set(normal);
@@ -62,7 +82,7 @@ namespace Game
         }
     }
 
-    public class ControllerStateElement : BaseControllerStateElement
+    public class DefaultControllerStateElement : ControllerStateElement
     {
         [SerializeField]
         protected float height;

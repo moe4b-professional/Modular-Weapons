@@ -65,7 +65,7 @@ namespace Game
 
         public ControllerStateTransition Transition => State.Transition;
 
-        public IList<BaseControllerStateElement> Elements => State.Elements;
+        public IList<ControllerStateElement> Elements => State.Elements;
 
         public override void Init()
         {
@@ -94,7 +94,7 @@ namespace Game
             }
         }
 
-        protected virtual BaseControllerStateElement FindElement(float height)
+        protected virtual ControllerStateElement FindElement(float height)
         {
             for (int i = 0; i < Elements.Count; i++)
                 if (Elements[i].Height < height)

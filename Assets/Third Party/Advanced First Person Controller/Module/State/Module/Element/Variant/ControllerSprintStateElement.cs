@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerSprintStateElement : BaseControllerStateElement
+    public class ControllerSprintStateElement : ControllerStateElement
     {
         [SerializeField]
         protected ControllerStateElement source;

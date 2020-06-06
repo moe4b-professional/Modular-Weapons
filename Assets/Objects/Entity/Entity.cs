@@ -33,7 +33,7 @@ namespace Game
 
         public EntityDamage Damage { get; protected set; }
 
-        public class Module : ReferenceModule<Entity>
+        public class Module : MonoBehaviourModule<Entity>
         {
             public Entity Entity => Reference;
         }
