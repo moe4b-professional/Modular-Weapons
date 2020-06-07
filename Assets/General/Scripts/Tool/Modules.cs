@@ -119,7 +119,11 @@ namespace Game
                 var target = Find<TType>();
 
                 if (target == null)
-                    throw new Exception(Reference.name + " Requires Module of Type " + typeof(TType).Name);
+                {
+                    var exception = Dependancy.CreateException<TType>(Reference);
+
+                    throw exception;
+                }
 
                 return target;
             }
@@ -151,25 +155,6 @@ namespace Game
     }
 
     public class MonoBehaviourModule<TReference> : MonoBehaviour, IModule<TReference>
-    {
-        public TReference Reference { get; protected set; }
-        public virtual void Setup(TReference reference)
-        {
-            this.Reference = reference;
-        }
-
-        public virtual void Configure()
-        {
-
-        }
-
-        public virtual void Init()
-        {
-
-        }
-    }
-
-    public class PropertyModule<TReference> : IModule<TReference>
     {
         public TReference Reference { get; protected set; }
         public virtual void Setup(TReference reference)

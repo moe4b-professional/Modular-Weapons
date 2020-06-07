@@ -95,25 +95,20 @@ namespace Game
             Local, Childern, CurrentToChildern, CurrentToParents, Parents
         }
 
-        public static NullReferenceException FormatException(string dependancy, object dependant)
+        public static Exception CreateException<TDependancy>(object dependant)
         {
-            var text = "No " + dependancy + " found for " + dependant.GetType().Name;
+            var text = FormatException<TDependancy>(dependant);
 
-            var componentDependant = dependant as Component;
-
-            if (componentDependant != null)
-                text += " On gameObject: " + componentDependant.gameObject;
-
-            return new NullReferenceException(text);
+            return new Exception(text);
         }
-        public static string FormatExceptionText(string dependancy, object dependant)
+        public static string FormatException<TDependancy>(object dependant)
         {
-            var text = "No " + dependancy + " specified for " + dependant.GetType().Name;
+            var component = dependant as Component;
 
-            var componentDependant = dependant as Component;
+            var text = dependant.GetType().Name + " Requires a dependancy of type " + typeof(TDependancy).Name;
 
-            if (componentDependant != null)
-                text += " On gameObject: " + componentDependant.gameObject;
+            if (component != null)
+                text += " on gameObject " + component.gameObject.name;
 
             return text;
         }

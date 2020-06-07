@@ -75,20 +75,20 @@ namespace Game
 
                 return instance;
             }
-
-            public void ExecuteDependancyError<TDependancy>()
-            {
-                var message = "Module: " + GetType().Name + " Requires a module of type: " + typeof(TDependancy).Name + " To function";
-
-                Debug.LogError(message, gameObject);
-                enabled = false;
-            }
             public void ExecuteProcessorError<TProcessor>()
             {
                 var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TProcessor).FullName + " To function";
 
-                Debug.LogError(message, gameObject);
-                enabled = false;
+                var exception = new InvalidOperationException(message);
+
+                throw exception;
+            }
+
+            public void ExecuteDependancyError<TDependancy>()
+            {
+                var exception = Dependancy.CreateException<TDependancy>(this);
+
+                throw exception;
             }
         }
         public abstract class Module : BaseModule<Weapon>

@@ -22,7 +22,7 @@ namespace Game
 
             InitComponents(animator);
 
-            if (Rewind != null) Rewind.Trigger(FormatID("Start"));
+            if (Rewind != null) Rewind.Trigger(AnimationTrigger.Start.Format(ID));
         }
         public override void OnStateMachineExit(Animator animator, int stateMachinePathHash)
         {
@@ -30,7 +30,7 @@ namespace Game
 
             InitComponents(animator);
 
-            if (Rewind != null) Rewind.Trigger(FormatID("End"));
+            if (Rewind != null) Rewind.Trigger(AnimationTrigger.End.Format(ID));
         }
     }
 }
