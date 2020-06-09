@@ -40,8 +40,6 @@ namespace Game
 
         void Process()
         {
-            if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
-
             Rate = Mathf.MoveTowards(Rate, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
 
             var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Rate);

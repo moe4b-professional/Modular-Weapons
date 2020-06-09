@@ -29,6 +29,8 @@ namespace Game
 
         public ButtonInput SwitchActionMode { get; protected set; }
 
+        public ButtonInput SwitchSight { get; protected set; }
+
         public override void Configure()
         {
             base.Configure();
@@ -40,6 +42,8 @@ namespace Game
             Reload = new ButtonInput();
 
             SwitchActionMode = new ButtonInput();
+
+            SwitchSight = new ButtonInput();
         }
 
         public override void Init()
@@ -58,6 +62,8 @@ namespace Game
             Reload.Process(Input.GetKey(KeyCode.R));
 
             SwitchActionMode.Process(Input.GetKey(KeyCode.B));
+
+            SwitchSight.Process(Input.GetKey(KeyCode.Mouse2));
         }
     }
 }
