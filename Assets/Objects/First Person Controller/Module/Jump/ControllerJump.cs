@@ -104,12 +104,12 @@ namespace Game
 
             if (Input.Press)
             {
-                if (CanDo) Do();
+                if (CanDo) Perform();
             }
         }
 
-        public event Action OnDo;
-        protected virtual void Do()
+        public event Action OnPerform;
+        protected virtual void Perform()
         {
             Count++;
 
@@ -118,7 +118,7 @@ namespace Game
 
             Controller.rigidbody.AddForce(Direction * force.Value, force.Mode);
 
-            OnDo?.Invoke();
+            OnPerform?.Invoke();
         }
 
         void LandOnGroundCallback(ControllerAirTravel.Data travel)

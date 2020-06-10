@@ -85,7 +85,7 @@ namespace Game
 
         public Modules.Collection<ControllerLookLean> Modules { get; protected set; }
 
-        public ControllerInput.LeanInput Input => Controller.Input.Lean;
+        public AxisInput Input => Controller.Input.Lean;
 
         public override void Configure()
         {
@@ -121,9 +121,9 @@ namespace Game
 
         protected virtual void CalculateTarget()
         {
-            ProcessButton(Input.Right, 1f);
+            ProcessButton(Input.Positive, 1f);
 
-            ProcessButton(Input.Left, -1f);
+            ProcessButton(Input.Negative, -1f);
         }
 
         protected virtual void ProcessButton(ButtonInput button, float value)

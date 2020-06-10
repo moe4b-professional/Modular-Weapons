@@ -44,13 +44,13 @@ namespace Game
             return result;
         }
 
-        public delegate void DoDelegate(Damage.Result result);
-        public event DoDelegate OnDo;
-        public virtual Damage.Result Do(Damage.IDamagable target, Damage.Request request)
+        public delegate void PerformDelegate(Damage.Result result);
+        public event PerformDelegate OnPerform;
+        public virtual Damage.Result Perform(Damage.IDamagable target, Damage.Request request)
         {
             var result = Damage.Invoke(Entity, target, request);
 
-            OnDo?.Invoke(result);
+            OnPerform?.Invoke(result);
 
             return result;
         }

@@ -54,33 +54,7 @@ namespace Game
 
         public ButtonInput Prone { get; protected set; }
 
-        public LeanInput Lean { get; protected set; }
-        [Serializable]
-        public class LeanInput
-        {
-            public float Axis { get; protected set; }
-
-            public float DeadZone => 0.1f;
-
-            public ButtonInput Right { get; protected set; }
-
-            public ButtonInput Left { get; protected set; }
-
-            public virtual void Process(float value)
-            {
-                Axis = value;
-
-                Right.Process(Axis > DeadZone);
-                Left.Process(Axis < -DeadZone);
-            }
-
-            public LeanInput()
-            {
-                Right = new ButtonInput();
-
-                Left = new ButtonInput();
-            }
-        }
+        public AxisInput Lean { get; protected set; }
 
         public override void Configure()
         {
@@ -94,7 +68,7 @@ namespace Game
 
             Prone = new ButtonInput();
 
-            Lean = new LeanInput();
+            Lean = new AxisInput();
         }
 
         public override void Init()

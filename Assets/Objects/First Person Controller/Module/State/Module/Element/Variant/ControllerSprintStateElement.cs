@@ -25,19 +25,30 @@ namespace Game
         protected ControllerStateElement source;
         public ControllerStateElement Source { get { return source; } }
 
-        [SerializeField]
-        protected FloatToggleValue height;
-        public override float Height => height.Evaluate(source.Height);
+        public override float Height => source.Height;
+
+        public override float Radius => source.Radius;
 
         [SerializeField]
-        protected FloatToggleValue radius;
-        public override float Radius => radius.Evaluate(source.Radius);
+        protected float multiplier = 2f;
+        public override float Multiplier => Mathf.Lerp(source.Multiplier, multiplier, Axis);
 
-        [SerializeField]
-        protected FloatToggleValue multiplier;
-        public override float Multiplier => Mathf.Lerp(source.Multiplier, multiplier.Evaluate(source.Multiplier), Axis);
+        public float Axis
+        {
+            get
+            {
+                switch (mode)
+                {
+                    case InputMode.Toggle:
+                        return 1f;
 
-        public float Axis => Input.Sprint.Axis;
+                    case InputMode.Hold:
+                        return Input.Sprint.Axis;
+                }
+
+                throw new NotImplementedException();
+            }
+        }
 
         [SerializeField]
         protected InputMode mode = InputMode.Toggle;
@@ -47,7 +58,7 @@ namespace Game
             Toggle, Hold
         }
 
-        public virtual bool CanDo
+        public virtual bool CanPerform
         {
             get
             {
@@ -63,7 +74,7 @@ namespace Game
 
             if(mode == InputMode.Hold)
             {
-                if (Input.Sprint.Button.Press && CanDo)
+                if (Active == false && Input.Sprint.Button.Press && CanPerform)
                     Begin();
 
                 if (Active && Input.Sprint.Button.Held == false)
@@ -76,12 +87,12 @@ namespace Game
                 {
                     if (Active)
                         End();
-                    else if (CanDo)
+                    else if (CanPerform)
                         Begin();
                 }
             }
 
-            if (Active && CanDo == false)
+            if (Active && CanPerform == false)
                 End();
         }
 

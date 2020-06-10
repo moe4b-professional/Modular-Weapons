@@ -29,6 +29,9 @@ namespace Game
 
         public float Max { get; protected set; }
 
+        public ScaleModifer Scale { get; protected set; }
+        public class ScaleModifer : Modifier.Scale { }
+
         public float Rate => Max == 0f ? 0f : Current / Max;
 
         public ControllerVelocity Velocity => Controller.Velocity;
@@ -37,9 +40,9 @@ namespace Game
         {
             base.Configure();
 
-            Current = 0f;
+            Calculate(1f);
 
-            Max = Base;
+            Scale = new ScaleModifer();
         }
 
         public virtual void Calculate(float multiplier)
@@ -49,6 +52,6 @@ namespace Game
             Current = Velocity.Planar.magnitude;
         }
 
-        public virtual float Evaluate(float multiplier) => Base * multiplier;
+        public virtual float Evaluate(float multiplier) => Base * multiplier * Scale.Value;
     }
 }

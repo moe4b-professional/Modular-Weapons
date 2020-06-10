@@ -28,17 +28,17 @@ namespace Game
 
         public interface IDamagable : IInterface
         {
-            Result TakeDamage(IDamager source, Request request);
+            Result Take(IDamager source, Request request);
         }
 
         public interface IDamager : IInterface
         {
-            Result DoDamage(IDamagable target, Request request);
+            Result Perform(IDamagable target, Request request);
         }
 
         public static Result Invoke(IDamager source, IDamagable target, Request request)
         {
-            return target.TakeDamage(source, request);
+            return target.Take(source, request);
         }
 
         public struct Request

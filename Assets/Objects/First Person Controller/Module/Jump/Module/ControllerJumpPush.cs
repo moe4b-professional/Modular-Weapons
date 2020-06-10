@@ -33,16 +33,16 @@ namespace Game
         {
             base.Init();
 
-            Jump.OnDo += JumpCallback;
+            Jump.OnPerform += JumpCallback;
         }
 
         void JumpCallback()
         {
             if (Ground.IsDetected)
-                Do(Ground.Data);
+                Perform(Ground.Data);
         }
 
-        protected virtual void Do(ControllerGroundData hit)
+        protected virtual void Perform(ControllerGroundData hit)
         {
             if (hit.Rigidbody == null) return;
 

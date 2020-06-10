@@ -63,7 +63,7 @@ namespace Game
             OnDeath?.Invoke(cause);
         }
 
-        Damage.Result Damage.IDamagable.TakeDamage(Damage.IDamager source, Damage.Request request) => Damage.Take(source, request);
-        Damage.Result Damage.IDamager.DoDamage(Damage.IDamagable target, Damage.Request request) => Damage.Do(target, request);
+        Damage.Result Damage.IDamagable.Take(Damage.IDamager source, Damage.Request request) => Damage.Take(source, request);
+        Damage.Result Damage.IDamager.Perform(Damage.IDamagable target, Damage.Request request) => Damage.Perform(target, request);
     }
 }

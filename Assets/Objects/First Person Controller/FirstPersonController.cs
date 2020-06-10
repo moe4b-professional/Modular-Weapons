@@ -46,6 +46,7 @@ namespace Game
         public ControllerJump Jump { get; protected set; }
         public ControllerState State { get; protected set; }
         public ControllerMovement Movement { get; protected set; }
+        public ControllerSprint Sprint { get; protected set; }
         public ControllerLook Look { get; protected set; }
 
         public abstract class BaseModule<TReference> : MonoBehaviour, IModule<TReference>
@@ -106,6 +107,7 @@ namespace Game
             Velocity = Modules.Depend<ControllerVelocity>();
             State = Modules.Depend<ControllerState>();
             Movement = Modules.Depend<ControllerMovement>();
+            Sprint = Modules.Depend<ControllerSprint>();
             Look = Modules.Depend<ControllerLook>();
 
             Modules.Configure();

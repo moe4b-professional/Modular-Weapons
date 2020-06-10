@@ -52,7 +52,7 @@ namespace Game
         {
             base.Init();
 
-            Controller.Jump.OnDo += JumpCallback;
+            Controller.Jump.OnPerform += JumpCallback;
 
             Controller.Step.OnComplete += StepCallback;
 

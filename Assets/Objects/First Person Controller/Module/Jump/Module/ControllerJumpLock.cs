@@ -31,7 +31,7 @@ namespace Game
         {
             base.Init();
 
-            Jump.OnDo += JumpCallback;
+            Jump.OnPerform += JumpCallback;
 
             Controller.Ground.Change.OnLand += LandOnGroundCallback;
             Controller.Ground.Change.OnLeave += LeaveGroundCallback;

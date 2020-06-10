@@ -25,14 +25,14 @@ namespace Game
 
         public abstract float SampleDamageValue(Damage.IDamagable target, WeaponHit.Data hit);
 
-        public virtual Damage.Result Do(Damage.IDamagable target, WeaponHit.Data hit)
+        public virtual Damage.Result Perform(Damage.IDamagable target, WeaponHit.Data hit)
         {
             var value = SampleDamageValue(target, hit);
             var method = SampleDamageMethod(target, hit);
 
             var request = new Damage.Request(value, method);
 
-            var result = Owner.Damager.DoDamage(target, request);
+            var result = Owner.Damager.Perform(target, request);
 
             return result;
         }

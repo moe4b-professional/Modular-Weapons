@@ -29,7 +29,7 @@ namespace Game
 
             var request = new Damage.Request(20, Damage.Method.Contact);
 
-            var result = Entity.Damage.Do(target, request);
+            var result = Entity.Damage.Perform(target, request);
         }
     }
 }
