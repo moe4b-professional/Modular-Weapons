@@ -136,6 +136,12 @@ namespace Game
             Modules.Init();
         }
 
+        public event Action OnOperate;
+        public virtual void Operate()
+        {
+            OnOperate?.Invoke();
+        }
+
         public virtual void Set(IData data)
         {
             HeightAdjustment.Process(data);

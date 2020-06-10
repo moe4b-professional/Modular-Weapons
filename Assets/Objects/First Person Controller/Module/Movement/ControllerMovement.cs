@@ -22,8 +22,8 @@ namespace Game
 	public class ControllerMovement : FirstPersonController.Module
     {
         public ControllerMovementInput Input { get; protected set; }
-
         public ControllerMovementSpeed Speed { get; protected set; }
+        public ControllerMovementAcceleration Acceleration { get; protected set; }
 
         public ControllerMovementProcedure Procedure { get; protected set; }
 
@@ -44,6 +44,7 @@ namespace Game
 
             Input = Modules.Depend<ControllerMovementInput>();
             Speed = Modules.Depend<ControllerMovementSpeed>();
+            Acceleration = Modules.Depend<ControllerMovementAcceleration>();
 
             Modules.Configure();
         }

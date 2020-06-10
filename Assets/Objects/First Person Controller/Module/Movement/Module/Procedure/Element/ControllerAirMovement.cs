@@ -25,10 +25,6 @@ namespace Game
         protected bool control = true;
         public bool Control { get { return control; } }
 
-        [SerializeField]
-        protected float acceleration = 15f;
-        public float Acceleration { get { return acceleration; } }
-
         public Vector3 Target { get; protected set; }
 
         protected override void Process()
@@ -38,6 +34,10 @@ namespace Game
             if (Active)
             {
                 Input.Calcaulate();
+
+                Jump.Operate();
+
+                State.Operate();
             }
         }
 
@@ -53,7 +53,7 @@ namespace Game
                 {
                     CalculateTarget();
 
-                    Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * Time.deltaTime);
+                    Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, Acceleration.Value * Time.deltaTime);
                 }
 
                 Debug.DrawRay(Controller.transform.position, Target, Color.yellow);

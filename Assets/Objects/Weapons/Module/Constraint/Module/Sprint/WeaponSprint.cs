@@ -41,11 +41,9 @@ namespace Game
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {
-            bool Active { get; }
-
             float Weight { get; }
 
-            float Axis { get; }
+            bool Active { get; }
         }
 
         public override void Configure()
@@ -77,7 +75,7 @@ namespace Game
 
         void Process()
         {
-            if (Processor.Active && Processor.Axis > minWeight)
+            if (Processor.Active && Processor.Weight > minWeight)
             {
                 if (Active == false)
                     Begin();

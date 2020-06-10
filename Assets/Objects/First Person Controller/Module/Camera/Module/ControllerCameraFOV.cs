@@ -29,8 +29,7 @@ namespace Game
             set => camera.Component.fieldOfView = value;
         }
 
-        public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale { }
+        public Modifier.Scale Scale { get; protected set; }
 
         public override void Configure()
         {
@@ -38,7 +37,7 @@ namespace Game
 
             Initial = Value;
 
-            Scale = new ScaleModifier();
+            Scale = new Modifier.Scale();
 
             Controller.OnProcess += Process;
         }

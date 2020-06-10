@@ -27,8 +27,7 @@ namespace Game
             float Scale { get; set; }
         }
 
-        public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale { }
+        public Modifier.Scale Scale { get; protected set; }
 
         public override void Configure()
         {
@@ -36,7 +35,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Scale = new ScaleModifier();
+            Scale = new Modifier.Scale();
         }
 
         public override void Init()

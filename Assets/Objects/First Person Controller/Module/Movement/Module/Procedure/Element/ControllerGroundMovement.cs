@@ -21,10 +21,6 @@ namespace Game
 {
 	public class ControllerGroundMovement : ControllerMovementProcedure.Element
     {
-        [SerializeField]
-        protected float acceleration = 15f;
-        public float Acceleration { get { return acceleration; } }
-
         public Vector3 Target { get; protected set; }
 
         protected override void Process()
@@ -34,6 +30,12 @@ namespace Game
             if(Active)
             {
                 Input.Calcaulate();
+
+                Jump.Operate();
+
+                Sprint.Operate();
+
+                State.Operate();
             }
         }
 
@@ -46,10 +48,11 @@ namespace Game
                 Gravity.Apply();
 
                 Speed.Calculate(State.Multiplier);
+                Acceleration.Calculate(State.Multiplier);
 
                 CalculateTarget();
 
-                Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, acceleration * State.Multiplier * Time.deltaTime);
+                Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, Acceleration.Value * Time.deltaTime);
 
                 Debug.DrawRay(Controller.transform.position, Target, Color.yellow);
                 Debug.DrawRay(Controller.transform.position, Velocity.Absolute, Color.red);

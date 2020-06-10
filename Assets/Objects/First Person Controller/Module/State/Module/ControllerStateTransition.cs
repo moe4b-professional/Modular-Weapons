@@ -51,7 +51,7 @@ namespace Game
         {
             CalculateSpeed();
 
-            ProcessData();
+            ProcessElements();
         }
 
         protected virtual void CalculateSpeed()
@@ -62,7 +62,7 @@ namespace Game
                 Speed += Elements[i].TransitionSpeed * Elements[i].Weight;
         }
 
-        protected virtual void ProcessData()
+        protected virtual void ProcessElements()
         {
             var data = ControllerState.Data.Zero;
 
@@ -71,11 +71,6 @@ namespace Game
                 var instance = new ControllerState.Data(Elements[i]);
 
                 data += instance * Elements[i].Weight;
-
-                if(Elements[i] is ControllerSprintStateElement)
-                {
-
-                }
             }
 
             State.Set(data);

@@ -19,19 +19,19 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateElementJump : ControllerStateElement.Module, Modifier.Constraint.IInterface
+	public class ControllerStateElementSprint : ControllerStateElement.Module, Modifier.Constraint.IInterface
     {
         [SerializeField]
         protected InputAction action = InputAction.StandUp;
         public InputAction Action { get { return action; } }
         public enum InputAction
         {
-            Jump, StandUp
+            Sprint, StandUp
         }
 
         bool Modifier.Constraint.IInterface.Active => action == InputAction.StandUp && Element.Weight > 0f;
 
-        public ControllerJump Jump => Controller.Jump;
+        public ControllerSprint Sprint => Controller.Sprint;
 
         public ControllerState State => Controller.State;
 
@@ -39,7 +39,7 @@ namespace Game
         {
             base.Init();
 
-            Jump.Constraint.Register(this);
+            Sprint.Constraint.Register(this);
 
             Controller.OnProcess += Process;
         }
@@ -48,7 +48,7 @@ namespace Game
         {
             if(Element.Active && action == InputAction.StandUp)
             {
-                if(Jump.Input.Press)
+                if(Sprint.Input.Button.Press)
                     State.Transition.Set(State.Sets.Normal);
             }
         }

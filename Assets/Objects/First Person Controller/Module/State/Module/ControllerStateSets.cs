@@ -26,10 +26,6 @@ namespace Game
         public ControllerNormalStateElement Normal { get { return normal; } }
 
         [SerializeField]
-        protected ControllerSprintStateElement sprint;
-        public ControllerSprintStateElement Sprint { get { return sprint; } }
-
-        [SerializeField]
         protected ControllerCrouchStateElement crouch;
         public ControllerCrouchStateElement Crouch { get { return crouch; } }
 

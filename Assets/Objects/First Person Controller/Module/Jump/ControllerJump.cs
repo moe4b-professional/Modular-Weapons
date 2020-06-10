@@ -49,11 +49,7 @@ namespace Game
             }
         }
 
-        public ConstraintController Constraint { get; protected set; }
-        public class ConstraintController : Constraint<ControllerJump>
-        {
-
-        }
+        public Modifier.Constraint Constraint { get; protected set; }
 
         public ControllerJumpLock Lock { get; protected set; }
 
@@ -78,7 +74,7 @@ namespace Game
 
             Count = 0;
 
-            Constraint = new ConstraintController();
+            Constraint = new Modifier.Constraint();
 
             Modules = new Modules.Collection<ControllerJump>(this);
 
@@ -101,7 +97,10 @@ namespace Game
         void Process()
         {
             if (Lock.IsOn == false && Ground.IsDetected && Count > 0) Count = 0;
+        }
 
+        public virtual void Operate()
+        {
             if (Input.Press)
             {
                 if (CanDo) Perform();

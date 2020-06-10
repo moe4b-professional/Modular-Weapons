@@ -21,12 +21,10 @@ namespace Game
 {
 	public class PlayerWeaponSprintProcessor : PlayerWeaponProcessor.Module, WeaponSprint.IProcessor
     {
-        public ControllerSprintStateElement State => Player.Controller.State.Sets.Sprint;
+        public ControllerSprint Sprint => Player.Controller.Sprint;
 
-        public bool Active => State.Active;
+        public bool Active => Sprint.Active;
 
-        public float Weight => State.Weight;
-
-        public float Axis => State.Axis;
+        public float Weight => Sprint.Weight;
     }
 }

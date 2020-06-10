@@ -21,9 +21,9 @@ namespace Game
 {
     public class ControllerCrouchStateElement : DefaultControllerStateElement
     {
-        protected override void Process()
+        protected override void Operate()
         {
-            base.Process();
+            base.Operate();
 
             if (Input.Crouch.Press)
                 Toggle(Sets.Normal);

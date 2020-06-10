@@ -19,19 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerMovementSpeed : ControllerMovement.Module
+	public class ControllerMovementAcceleration : ControllerMovement.Module
 	{
-		[SerializeField]
-        protected float _base = 4f;
+        [SerializeField]
+        protected float _base = 15f;
         public float Base { get { return _base; } }
 
-        public float Current { get; protected set; }
-
-        public float Max { get; protected set; }
+        public float Value { get; protected set; }
 
         public Modifier.Scale Scale { get; protected set; }
-
-        public float Rate => Max == 0f ? 0f : Current / Max;
 
         public ControllerVelocity Velocity => Controller.Velocity;
 
@@ -46,9 +42,7 @@ namespace Game
 
         public virtual void Calculate(float multiplier)
         {
-            Max = Evaluate(multiplier);
-
-            Current = Velocity.Planar.magnitude;
+            Value = Evaluate(multiplier);
         }
 
         public virtual float Evaluate(float multiplier) => Base * multiplier * Scale.Value;

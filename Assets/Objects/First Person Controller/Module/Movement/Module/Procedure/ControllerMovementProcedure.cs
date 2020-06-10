@@ -54,12 +54,15 @@ namespace Game
         {
             public ControllerMovementInput Input => Movement.Input;
             public ControllerMovementSpeed Speed => Movement.Speed;
+            public ControllerMovementAcceleration Acceleration => Movement.Acceleration;
 
             public ControllerGround Ground => Controller.Ground;
             public ControllerGravity Gravity => Controller.Gravity;
             public ControllerVelocity Velocity => Controller.Velocity;
             public ControllerState State => Controller.State;
             public ControllerDirection Direction => Controller.Direction;
+            public ControllerJump Jump => Controller.Jump;
+            public ControllerSprint Sprint => Controller.Sprint;
 
             public bool Active => Procedure.Current == this;
 

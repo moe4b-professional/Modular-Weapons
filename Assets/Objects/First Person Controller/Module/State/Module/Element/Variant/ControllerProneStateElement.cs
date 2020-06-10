@@ -21,9 +21,9 @@ namespace Game
 {
 	public class ControllerProneStateElement : DefaultControllerStateElement
     {
-        protected override void Process()
+        protected override void Operate()
         {
-            base.Process();
+            base.Operate();
 
             if (Input.Prone.Press)
                 Toggle(Sets.Normal);

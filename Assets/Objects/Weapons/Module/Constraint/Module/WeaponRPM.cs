@@ -47,14 +47,13 @@ namespace Game
 
         public bool Constraint { get { return timer > 0f; } }
 
-        public ScaleModifier Scale { get; protected set; }
-        public class ScaleModifier : Modifier.Scale { }
+        public Modifier.Scale Scale { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Scale = new ScaleModifier();
+            Scale = new Modifier.Scale();
         }
 
         public override void Init()

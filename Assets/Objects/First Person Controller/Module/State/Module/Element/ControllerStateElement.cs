@@ -65,12 +65,19 @@ namespace Game
 
             Controller.OnProcess += Process;
 
+            State.OnOperate += Operate;
+
             Modules.Init();
         }
 
         protected virtual void Process()
         {
             Weight = Mathf.MoveTowards(Weight, Target, State.Transition.Speed * Time.deltaTime);
+        }
+
+        protected virtual void Operate()
+        {
+
         }
 
         protected virtual void Toggle(ControllerStateElement normal)
