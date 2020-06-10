@@ -294,7 +294,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Move X - PC
+    m_Name: Move X - Keyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: a
@@ -326,7 +326,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Move Y - PC
+    m_Name: Move Y - Keyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: s
@@ -358,7 +358,7 @@ InputManager:
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Look X - PC
+    m_Name: Look X - Mouse
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -367,7 +367,7 @@ InputManager:
     altPositiveButton: 
     gravity: 0
     dead: 0
-    sensitivity: 0.1
+    sensitivity: 1
     snap: 0
     invert: 0
     type: 1
@@ -390,7 +390,7 @@ InputManager:
     axis: 3
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Look Y - PC
+    m_Name: Look Y - Mouse
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -399,7 +399,7 @@ InputManager:
     altPositiveButton: 
     gravity: 0
     dead: 0
-    sensitivity: 0.1
+    sensitivity: 1
     snap: 0
     invert: 0
     type: 1
@@ -422,7 +422,7 @@ InputManager:
     axis: 4
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Sprint - PC
+    m_Name: Sprint - Keyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -470,7 +470,7 @@ InputManager:
     axis: 9
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Lean - PC
+    m_Name: Lean - Keyboard
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: q

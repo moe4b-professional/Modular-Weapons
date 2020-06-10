@@ -29,7 +29,7 @@ namespace Game
 
         public virtual void Calcaulate()
         {
-            Relative = new Vector3(Controller.Input.Move.x, 0f, Controller.Input.Move.y);
+            Relative = new Vector3(Controller.Input.Move.X.Value, 0f, Controller.Input.Move.Y.Value);
 
             Absolute = (Direction.Forward * Relative.z) + (Direction.Right * Relative.x);
         }

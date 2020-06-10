@@ -72,6 +72,8 @@ namespace Game
 
         public Modules.Collection<ControllerLook> Modules { get; protected set; }
 
+        public ControllerInput.LookInput Input => Controller.Input.Look;
+
         public override void Configure()
         {
             base.Configure();
@@ -97,9 +99,9 @@ namespace Game
         void Process()
         {
             if (smooth.Enabled)
-                Delta = Vector2.Lerp(Delta, Controller.Input.Look * sensitivty, smooth.Value * Time.deltaTime);
+                Delta = Vector2.Lerp(Delta, Input.Value * sensitivty, smooth.Value * Time.deltaTime);
             else
-                Delta = Controller.Input.Look * sensitivty;
+                Delta = Input.Value * sensitivty;
         }
     }
 }

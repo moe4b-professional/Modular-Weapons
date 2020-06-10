@@ -22,7 +22,7 @@ namespace Game
     [Serializable]
 	public class AxisInput
 	{
-        public float DeadZone => 0.1f;
+        public float DeadZone => 0f;
 
         public float Value { get; protected set; }
 
@@ -44,6 +44,29 @@ namespace Game
             Positive = new ButtonInput();
 
             Negative = new ButtonInput();
+        }
+    }
+
+    [Serializable]
+    public class AxesInput
+    {
+        public AxisInput X { get; protected set; }
+
+        public AxisInput Y { get; protected set; }
+
+        public virtual void Process(Vector2 input) => Process(input.x, input.y);
+        public virtual void Process(float xInput, float yInput)
+        {
+            X.Process(xInput);
+
+            Y.Process(yInput);
+        }
+
+        public AxesInput()
+        {
+            X = new AxisInput();
+
+            Y = new AxisInput();
         }
     }
 }
