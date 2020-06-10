@@ -33,7 +33,7 @@ namespace Game
 
         public int Count { get; protected set; }
 
-        public virtual bool CanDo
+        public virtual bool CanPerform
         {
             get
             {
@@ -103,7 +103,7 @@ namespace Game
         {
             if (Input.Press)
             {
-                if (CanDo) Perform();
+                if (CanPerform) Perform();
             }
         }
 
