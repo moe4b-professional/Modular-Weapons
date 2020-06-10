@@ -25,9 +25,6 @@ namespace Game
         public event ProcessDelegate OnProcess;
 		public virtual void Process(Data data)
         {
-            var damagable = data.GameObject.GetComponent<Damage.IDamagable>();
-            if(damagable != null) Weapon.Damage.Perform(damagable, data);
-
             OnProcess?.Invoke(data);
         }
         

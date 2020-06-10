@@ -21,16 +21,26 @@ namespace Game
 {
     public abstract class WeaponDamage : Weapon.Module
     {
-        public abstract Damage.Method SampleDamageMethod(Damage.IDamagable target, WeaponHit.Data hit);
+        public abstract Damage.Request SampleRequest(Damage.IDamagable target, WeaponHit.Data hit);
 
-        public abstract float SampleDamageValue(Damage.IDamagable target, WeaponHit.Data hit);
+        public override void Init()
+        {
+            base.Init();
+
+            Weapon.Hit.OnProcess += HitCallback;
+        }
+
+        void HitCallback(WeaponHit.Data data)
+        {
+            var damagable = data.GameObject.GetComponent<Damage.IDamagable>();
+
+            if (damagable != null)
+                Perform(damagable, data);
+        }
 
         public virtual Damage.Result Perform(Damage.IDamagable target, WeaponHit.Data hit)
         {
-            var value = SampleDamageValue(target, hit);
-            var method = SampleDamageMethod(target, hit);
-
-            var request = new Damage.Request(value, method);
+            var request = SampleRequest(target, hit);
 
             var result = Owner.Damager.Perform(target, request);
 
