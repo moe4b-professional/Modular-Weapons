@@ -42,14 +42,7 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Activation.OnDisable += DisableCallback;
-
             Weapon.OnProcess += Process;
-        }
-
-        void DisableCallback()
-        {
-            Processor.Scale = 1f;
         }
 
         void Process()
