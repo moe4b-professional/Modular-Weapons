@@ -21,17 +21,15 @@ namespace Game
 {
     public static class Modules
     {
-        public static void Set<TReference>(TReference reference, IModule<TReference> target)
+        public static void Set<TReference>(TReference reference, IReference<TReference> target)
         {
             target.Setup(reference);
         }
-
-        public static void Configure<TReference>(TReference reference, IModule<TReference> target)
+        public static void Configure<TReference>(TReference reference, IInitialization<TReference> target)
         {
             target.Configure();
         }
-
-        public static void Init<TReference>(TReference reference, IModule<TReference> target)
+        public static void Init<TReference>(TReference reference, IInitialization<TReference> target)
         {
             target.Init();
         }
@@ -45,33 +43,31 @@ namespace Game
 
         public class Collection<TReference, TModule>
             where TReference : Component
-            where TModule : class, IModule<TReference>
+            where TModule : class, IReference<TReference>
         {
             public List<TModule> List { get; protected set; }
 
             public TReference Reference { get; protected set; }
 
-            public virtual void Setup()
+            public virtual void Set()
             {
                 ForAll(Process);
 
                 void Process(TModule instance) => Modules.Set(Reference, instance);
             }
-
             public virtual void Configure()
             {
-                Setup();
+                Set();
 
-                ForAll(Process);
+                ForAll<IInitialization<TReference>>(Process);
 
-                void Process(TModule instance) => Modules.Configure(Reference, instance);
+                void Process(IInitialization<TReference> instance) => Modules.Configure(Reference, instance);
             }
-
             public virtual void Init()
             {
-                ForAll(Process);
+                ForAll<IInitialization<TReference>>(Process);
 
-                void Process(TModule instance) => Modules.Init(Reference, instance);
+                void Process(IInitialization<TReference> instance) => Modules.Init(Reference, instance);
             }
 
             public virtual void ForAll(Action<TModule> action)
@@ -137,7 +133,7 @@ namespace Game
             public Collection(TReference reference) : this(reference, reference.gameObject) { }
         }
 
-        public class Collection<TReference> : Collection<TReference, IModule<TReference>>
+        public class Collection<TReference> : Collection<TReference, IReference<TReference>>
             where TReference : Component
         {
             public Collection(TReference reference, GameObject root) : base(reference, root) { }
@@ -145,13 +141,21 @@ namespace Game
         }
     }
 
-    public interface IModule<T>
+    public interface IReference<T>
     {
         void Setup(T reference);
+    }
 
+    public interface IInitialization<T>
+    {
         void Configure();
 
         void Init();
+    }
+
+    public interface IModule<T> : IReference<T>, IInitialization<T>
+    {
+
     }
 
     public class MonoBehaviourModule<TReference> : MonoBehaviour, IModule<TReference>

@@ -19,30 +19,36 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimRendererAlpha : WeaponAim.Module
-	{
+	public class WeaponAimRendererAlphaModifier : WeaponAimPropertyModifier
+    {
 		[SerializeField]
         protected Renderer target;
         public Renderer Target { get { return target; } }
 
         [SerializeField]
-        protected ValueRange scale = new ValueRange(0.2f, 1f);
-        public ValueRange Scale { get { return scale; } }
-
-        [SerializeField]
         protected AnimationCurve curve;
         public AnimationCurve Curve { get { return curve; } }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            scale = new ValueRange(0.2f, 1f);
+        }
 
         public override void Init()
         {
             base.Init();
 
-            Aim.OnRateChange += RateChaneCallback;
+            Weapon.OnProcess += Process;
 
             UpdateState();
         }
 
-        void RateChaneCallback(float rate) => UpdateState();
+        void Process()
+        {
+            UpdateState();
+        }
 
         protected virtual void UpdateState()
         {
@@ -59,9 +65,9 @@ namespace Game
         {
             var color = target.material.color;
 
-            var eval = curve.Evaluate(Aim.InverseRate);
+            var eval = curve.Evaluate(Rate);
 
-            color.a = scale.Lerp(eval);
+            color.a = Mathf.Lerp(scale.Max, scale.Min, eval);
 
             return color;
         }

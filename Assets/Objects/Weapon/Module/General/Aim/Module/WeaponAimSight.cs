@@ -19,38 +19,62 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimPoint : WeaponAim.Module
+	public class WeaponAimSight : WeaponAim.Module
 	{
+        [SerializeField]
+        protected Transform point;
+        public Transform Point { get { return point; } }
+
         public Coordinates Target { get; protected set; }
 
-        public float Rate { get; protected set; } = 0f;
+        public float Weight { get; protected set; } = 0f;
 
-        public Transform Context => Pivot.transform;
+        [Serializable]
+        public class Module : Weapon.BaseModule<WeaponAimSight>
+        {
+            public WeaponAimSight Sight => Reference;
+
+            public override Weapon Weapon => Reference.Weapon;
+        }
+
+        public Modules.Collection<WeaponAimSight> Modules { get; protected set; }
 
         public WeaponPivot Pivot => Weapon.Pivot;
-        
+        public Transform Context => Pivot.transform;
+
+        protected virtual void Reset()
+        {
+            point = transform;
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Modules = new Modules.Collection<WeaponAimSight>(this);
+
+            Modules.Configure();
+        }
+
         public override void Init()
         {
             base.Init();
 
             Pivot.OnProcess += Process;
 
-            Target = CalculateTarget(Weapon.transform, Context, transform);
+            Target = CalculateTarget(Weapon.transform, Context, point);
+
+            Modules.Init();
         }
 
         void Process()
         {
-            Rate = Mathf.MoveTowards(Rate, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
+            Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
 
-            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Rate);
+            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Weight);
 
-            Add(Offset);
-        }
-
-        void Add(Coordinates coordinates)
-        {
-            Context.localPosition += coordinates.Position;
-            Context.localRotation *= coordinates.Rotation;
+            Context.localPosition += Offset.Position;
+            Context.localRotation *= Offset.Rotation;
         }
 
         public static Coordinates CalculateTarget(Transform anchor, Transform pivot, Transform point)

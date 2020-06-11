@@ -19,9 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimPointSwitch : WeaponAim.Module
+	public class WeaponAimSightSwitch : WeaponAim.Module
 	{
-		public List<WeaponAimPoint> List { get; protected set; }
+		public List<WeaponAimSight> List { get; protected set; }
 
         public int Index { get; protected set; }
 
@@ -37,7 +37,7 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            List = Aim.Modules.FindAll<WeaponAimPoint>();
+            List = Aim.Modules.FindAll<WeaponAimSight>();
         }
 
         public override void Init()

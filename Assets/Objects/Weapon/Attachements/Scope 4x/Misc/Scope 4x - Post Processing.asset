@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Scope 4x Post Processing
+  m_Name: Scope 4x - Post Processing
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 2722046040626130981}

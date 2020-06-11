@@ -19,23 +19,24 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimSensitivtyModifier : WeaponAim.Module, Modifier.Scale.IInterface
+	public class WeaponAimSensitivtyModifier : WeaponAimPropertyModifier
 	{
-        [SerializeField]
-        protected ValueRange scale = new ValueRange(0.6f, 1f);
-        public ValueRange Scale { get { return scale; } }
+        public WeaponSensitivty Sensitivty { get; protected set; }
 
-        public float Value => enabled ? scale.Lerp(Aim.InverseRate) : 1f;
+        protected override void Reset()
+        {
+            base.Reset();
 
-        public WeaponSensitivty Sensitivity { get; protected set; }
+            scale = new ValueRange(0.6f, 1f);
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            Sensitivity = Weapon.Modules.Find<WeaponSensitivty>();
+            Sensitivty = Weapon.Modules.Find<WeaponSensitivty>();
 
-            if (Sensitivity == null)
+            if (Sensitivty == null)
                 ExecuteDependancyError<WeaponSensitivty>();
         }
 
@@ -43,7 +44,7 @@ namespace Game
         {
             base.Init();
 
-            Sensitivity.Scale.Register(this);
+            Sensitivty.Scale.Register(this);
         }
     }
 }

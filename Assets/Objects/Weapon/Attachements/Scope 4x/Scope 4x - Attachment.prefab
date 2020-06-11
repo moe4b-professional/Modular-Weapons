@@ -245,7 +245,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5054792321581580575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -297,10 +297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7549d182982464fb43faa7e8be7726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8846345707114353241}
   scale:
     min: 0.2
     max: 1
+  target: {fileID: 8846345707114353241}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -334,6 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5054792321850223448}
+  - component: {fileID: 1435084469874733371}
   m_Layer: 9
   m_Name: Scope 4x - Attachment
   m_TagString: Untagged
@@ -350,7 +351,7 @@ Transform:
   m_GameObject: {fileID: 5054792321850223455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.11339996, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 704378947415228470}
   - {fileID: 5054792320691145540}
@@ -358,6 +359,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1435084469874733371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054792321850223455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e566c6238e3c24b84f831b5e0459c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: {fileID: 5054792322282386789}
 --- !u!1 &5054792321991817228
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,9 +427,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5054792322282386789}
-  - component: {fileID: 5054792322282386790}
   m_Layer: 9
-  m_Name: Aim Point
+  m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,18 +448,6 @@ Transform:
   m_Father: {fileID: 5054792320691145540}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5054792322282386790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054792322282386788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e566c6238e3c24b84f831b5e0459c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5054792320545815418
 PrefabInstance:
   m_ObjectHideFlags: 0
