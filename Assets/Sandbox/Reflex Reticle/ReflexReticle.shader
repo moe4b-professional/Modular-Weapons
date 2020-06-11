@@ -1,10 +1,10 @@
-﻿Shader "Custom/ReflexSight"
+﻿Shader "Custom/ReflexReticle"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _TexScale("Texture Scale", Range(0.01, 10)) = 0.1
-		_Offset("Offset", float) = 0
+		_Elevation("Elevation", float) = 0
     }
     SubShader
     {
@@ -35,7 +35,7 @@
 
             sampler2D _MainTex;
             float _TexScale;
-			float _Offset;
+			float _Elevation;
 
             v2f vert(appdata v) {
                 v2f o;
@@ -62,7 +62,7 @@
                 offset = mul(mat, offset);  //transform offset into tangent space
 
                 float2 uv = offset.xy / _TexScale;              //sample and scale
-				float y = 0.5 + _Offset;
+				float y = 0.5 + _Elevation;
                 return tex2D(_MainTex, uv + float2(0.5, y));  //shift sample to center of texture
             }
             ENDCG

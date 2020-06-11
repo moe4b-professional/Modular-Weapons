@@ -1970,7 +1970,7 @@ GameObject:
   - component: {fileID: 6686307746875943791}
   - component: {fileID: 5624092686441628788}
   m_Layer: 9
-  m_Name: Aim Point Switch
+  m_Name: Aim Sight Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4093,6 +4093,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269433901495267522, guid: fb197a07c72de2845bffdbc7cafae8ab,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08101067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269433901495267522, guid: fb197a07c72de2845bffdbc7cafae8ab,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.071777575
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb197a07c72de2845bffdbc7cafae8ab, type: 3}
