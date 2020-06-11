@@ -29,7 +29,7 @@ namespace Game
             Sprint, StandUp
         }
 
-        bool Modifier.Constraint.IInterface.Active => action == InputAction.StandUp && Element.Weight > 0f;
+        bool Modifier.Constraint.IInterface.Active => action == InputAction.StandUp && Element.Active;
 
         public ControllerSprint Sprint => Controller.Sprint;
 

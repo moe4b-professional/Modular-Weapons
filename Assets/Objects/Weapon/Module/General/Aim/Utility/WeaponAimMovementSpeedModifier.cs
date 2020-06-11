@@ -19,31 +19,31 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimFOVModifier : WeaponAim.Module, Modifier.Scale.IInterface
-    {
+	public class WeaponAimMovementSpeedModifier : WeaponAim.Module, Modifier.Scale.IInterface
+	{
         [SerializeField]
-        protected ValueRange scale = new ValueRange(0.8f, 1f);
+        protected ValueRange scale = new ValueRange(0.6f, 1f);
         public ValueRange Scale { get { return scale; } }
 
-        float Modifier.Scale.IInterface.Value => scale.Lerp(Aim.InverseRate);
+        public float Value => scale.Lerp(Aim.InverseRate);
 
-        public WeaponFOV Modifier { get; protected set; }
+        public WeaponMovementSpeed MovementSpeed { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modifier = Weapon.Modules.Find<WeaponFOV>();
+            MovementSpeed = Weapon.Modules.Find<WeaponMovementSpeed>();
 
-            if (Modifier == null)
-                ExecuteDependancyError<WeaponFOV>();
+            if (MovementSpeed == null)
+                ExecuteDependancyError<WeaponMovementSpeed>();
         }
 
         public override void Init()
         {
             base.Init();
-            
-            Modifier.Scale.Register(this);
+
+            MovementSpeed.Scale.Register(this);
         }
     }
 }

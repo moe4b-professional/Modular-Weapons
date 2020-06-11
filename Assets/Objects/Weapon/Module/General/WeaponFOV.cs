@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponFOVModifier : Weapon.Module
+	public class WeaponFOV : Weapon.Module
 	{
         public IProcessor Processor { get; protected set; }
         public interface IProcessor

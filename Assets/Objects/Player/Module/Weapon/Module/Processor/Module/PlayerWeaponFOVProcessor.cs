@@ -19,14 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponSprintProcessor : PlayerWeaponProcessor.Module, WeaponSprint.IProcessor
+	public class PlayerWeaponFOVProcessor : PlayerWeaponProcessor.Module, WeaponFOV.IProcessor, Modifier.Scale.IInterface
     {
-        public ControllerSprint Sprint => Player.Controller.Sprint;
+        public float Scale { get; set; } = 1f;
 
-        public float Weight => Sprint.Weight;
+        float Modifier.Scale.IInterface.Value => Scale;
 
-        public bool Active => Sprint.Active;
+        public override void Init()
+        {
+            base.Init();
 
-        public float Target => Sprint.Target;
+            Player.Controller.camera.FOV.Scale.Register(this);
+        }
     }
 }

@@ -44,6 +44,8 @@ namespace Game
             float Weight { get; }
 
             bool Active { get; }
+
+            float Target { get; }
         }
 
         public override void Configure()
@@ -75,7 +77,7 @@ namespace Game
 
         void Process()
         {
-            if (Processor.Active && Processor.Weight > minWeight)
+            if (Processor.Active && Processor.Target > minWeight)
             {
                 if (Active == false)
                     Begin();
