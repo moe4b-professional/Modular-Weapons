@@ -25,17 +25,17 @@ namespace Game
         protected ValueRange scale = new ValueRange(0.8f, 1f);
         public ValueRange Scale { get { return scale; } }
 
-        float Modifier.Scale.IInterface.Value => scale.Lerp(Aim.InverseRate);
+        public float Value => enabled ? scale.Lerp(Aim.InverseRate) : 1f;
 
-        public WeaponFOV Modifier { get; protected set; }
+        public WeaponFOV FOV { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            Modifier = Weapon.Modules.Find<WeaponFOV>();
+            FOV = Weapon.Modules.Find<WeaponFOV>();
 
-            if (Modifier == null)
+            if (FOV == null)
                 ExecuteDependancyError<WeaponFOV>();
         }
 
@@ -43,7 +43,7 @@ namespace Game
         {
             base.Init();
             
-            Modifier.Scale.Register(this);
+            FOV.Scale.Register(this);
         }
     }
 }

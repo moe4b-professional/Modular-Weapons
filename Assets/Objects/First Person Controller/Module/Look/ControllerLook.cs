@@ -22,10 +22,6 @@ namespace Game
     public class ControllerLook : FirstPersonController.Module
     {
         [SerializeField]
-        protected float sensitivty = 5f;
-        public float Sensitivity { get { return sensitivty; } }
-
-        [SerializeField]
         protected SmoothData smooth = new SmoothData(false, 40f);
         public SmoothData Smooth { get { return smooth; } }
         [Serializable]
@@ -57,6 +53,7 @@ namespace Game
 
         public Vector2 Delta { get; protected set; }
 
+        public ControllerLookSensitivty Sensitivity { get; protected set; }
         public ControllerCameraLook Camera { get; protected set; }
         public ControllerCharacterLook Character { get; protected set; }
         public ControllerLookLean Lean { get; protected set; }
@@ -80,6 +77,7 @@ namespace Game
 
             Modules = new Modules.Collection<ControllerLook>(this);
 
+            Sensitivity = Modules.Find<ControllerLookSensitivty>();
             Camera = Modules.Depend<ControllerCameraLook>();
             Character = Modules.Depend<ControllerCharacterLook>();
             Lean = Modules.Depend<ControllerLookLean>();
@@ -99,9 +97,9 @@ namespace Game
         void Process()
         {
             if (smooth.Enabled)
-                Delta = Vector2.Lerp(Delta, Input.Value * sensitivty, smooth.Value * Time.deltaTime);
+                Delta = Vector2.Lerp(Delta, Input.Value * Sensitivity.Value, smooth.Value * Time.deltaTime);
             else
-                Delta = Input.Value * sensitivty;
+                Delta = Input.Value * Sensitivity.Value;
         }
     }
 }

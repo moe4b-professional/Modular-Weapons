@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scope x4 Magnification
+  m_Name: Magnification
   m_Shader: {fileID: 4800000, guid: c93ab54c2fd6ea54eac7287a279b6036, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
