@@ -34,8 +34,6 @@ namespace Game
         
         public Coordinates Offset { get; protected set; }
 
-        public float ActivationScale { get; protected set; } = 0f;
-
         protected virtual void Reset()
         {
             context = transform;
@@ -59,11 +57,7 @@ namespace Game
         {
             Apply(-Offset);
 
-            if (Input.GetKeyDown(KeyCode.G)) gameObject.SetActive(!gameObject.activeSelf);
-
-            ActivationScale = Mathf.MoveTowards(ActivationScale, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
-
-            Offset = Coordinates.Lerp(Coordinates.Zero, target - Idle, Aim.Rate * ActivationScale);
+            Offset = Coordinates.Lerp(Coordinates.Zero, target - Idle, Aim.Rate);
 
             Apply(Offset);
         }

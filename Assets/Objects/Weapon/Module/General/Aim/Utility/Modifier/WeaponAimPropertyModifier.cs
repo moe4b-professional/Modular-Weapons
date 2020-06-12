@@ -30,11 +30,13 @@ namespace Game
             get
             {
                 if (Point == null)
-                    return Aim.Rate;
+                    return Multiplier;
 
-                return Aim.Rate * Point.Weight;
+                return Point.Weight * Multiplier;
             }
         }
+
+        public virtual float Multiplier => Aim.Rate;
 
         public float Value => Mathf.Lerp(scale.Max, scale.Min, Rate);
 

@@ -21,10 +21,6 @@ namespace Game
 {
 	public class WeaponAim : Weapon.Module, WeaponOperation.IInterface
 	{
-        [SerializeField]
-        protected float speed = 5f;
-        public float Speed { get { return speed; } }
-
         public bool IsOn { get; protected set; }
         public float Target => IsOn ? 1f : 0f;
 
@@ -44,6 +40,8 @@ namespace Game
         public float InverseRate => Mathf.Lerp(1f, 0f, Rate);
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
+
+        public WeaponAimSpeed Speed { get; protected set; }
 
         public abstract class Module : Weapon.BaseModule<WeaponAim>
         {
@@ -67,6 +65,8 @@ namespace Game
             Processor = GetProcessor<IProcessor>();
 
             Modules = new Modules.Collection<WeaponAim>(this, Weapon.gameObject);
+
+            Speed = Modules.Depend<WeaponAimSpeed>();
 
             Modules.Configure();
         }
@@ -105,7 +105,7 @@ namespace Game
             }
 
             if (Rate != Target)
-                Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
+                Rate = Mathf.MoveTowards(Rate, Target, Speed.Value * Time.deltaTime);
         }
 
         protected virtual void Begin()

@@ -69,7 +69,7 @@ namespace Game
 
         void Process()
         {
-            Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed * Time.deltaTime);
+            Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed.Value * Time.deltaTime);
 
             var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Weight);
 
