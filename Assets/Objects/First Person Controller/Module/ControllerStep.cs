@@ -39,15 +39,18 @@ namespace Game
 
             public virtual void Process(float target)
             {
-                Value = Mathf.MoveTowards(Value, target, acceleration * Time.deltaTime);
+                Value = Mathf.MoveTowards(Value, target, acceleration * UnityEngine.Time.deltaTime);
             }
         }
 
         public float Rate { get; protected set; }
 
+        public int Count { get; protected set; }
+
+        public float Time => Count + Rate;
+
         public float Delta { get; protected set; }
 
-        public int Count { get; protected set; }
 
         public ControllerVelocity Velocity => Controller.Velocity;
 
@@ -66,7 +69,7 @@ namespace Game
         {
             if (Speed.Current > 0.01f && Controller.IsGrounded)
             {
-                Delta = Speed.Current * scale * Time.deltaTime;
+                Delta = Speed.Current * scale * UnityEngine.Time.deltaTime;
 
                 Rate += Delta;
 

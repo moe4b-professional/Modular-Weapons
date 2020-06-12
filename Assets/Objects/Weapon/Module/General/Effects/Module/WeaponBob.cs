@@ -33,9 +33,9 @@ namespace Game
         protected float range = 0.0035f;
         public float Range { get { return range; } }
 
-        public Vector3 Offset { get; protected set; }
-
         public Transform Context => Pivot.transform;
+
+        public Vector3 Offset { get; protected set; }
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
@@ -63,17 +63,9 @@ namespace Game
 
         void Process()
         {
-            CalculateOffset();
+            Offset = Processor.Delta * range * scale;
 
             Context.localPosition += Offset;
-        }
-
-        protected virtual void CalculateOffset()
-        {
-            Offset = Vector3.zero;
-
-            if (enabled)
-                Offset -= Processor.Delta * range * scale;
         }
 	}
 }

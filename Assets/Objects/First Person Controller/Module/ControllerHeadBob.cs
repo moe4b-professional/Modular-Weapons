@@ -22,28 +22,27 @@ namespace Game
 	public class ControllerHeadBob : FirstPersonController.Module
 	{
         [SerializeField]
-        protected float range = 0.028f;
+        protected float range = 0.05f;
         public float Range { get { return range; } }
 
         [SerializeField]
-        protected CurvesData curves;
-        public CurvesData Curves { get { return curves; } }
+        protected ScaleData scale;
+        public ScaleData Scale { get { return scale; } }
         [Serializable]
-        public class CurvesData
+        public class ScaleData
         {
             [SerializeField]
-            protected AnimationCurve vertical;
-            public AnimationCurve Vertical { get { return vertical; } }
+            protected float vertical = 0.5f;
+            public float Vertical { get { return vertical; } }
 
             [SerializeField]
-            protected AnimationCurve horizontal;
-            public AnimationCurve Horizontal { get { return horizontal; } }
-
-            public virtual Vector3 Evaluate(float time)
-            {
-                return Vector3.up * vertical.Evaluate(time) + Vector3.right * horizontal.Evaluate(time);
-            }
+            protected float horizontal = 1f;
+            public float Horizontal { get { return horizontal; } }
         }
+
+        [SerializeField]
+        protected float speed = 4f;
+        public float Speed { get { return speed; } }
 
         [SerializeField]
         protected ContextData[] contexts;
@@ -88,14 +87,23 @@ namespace Game
 
         void LateProcess()
         {
-            Delta = curves.Evaluate(Step.Rate);
+            Calculate();
+
+            for (int i = 0; i < contexts.Length; i++)
+                contexts[i].Apply(Offset);
+        }
+
+        protected virtual void Calculate()
+        {
+            Delta = new Vector3()
+            {
+                x = scale.Horizontal * Mathf.Sin(speed * Step.Time),
+                y = scale.Vertical * Mathf.Sin(speed * 2 * Step.Time)
+            };
 
             Delta *= Step.Weight.Value;
 
             Offset = Delta * range;
-
-            for (int i = 0; i < contexts.Length; i++)
-                contexts[i].Apply(Offset);
         }
     }
 }

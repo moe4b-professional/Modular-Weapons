@@ -19,8 +19,16 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSandbox : Weapon.Module
-	{
-        
+    public class PlayerWeaponStepProcessor : PlayerWeaponProcessor, WeaponStep.IProcessor
+    {
+        public ControllerStep Step => Player.Controller.Step;
+
+        public float Rate => Step.Rate;
+
+        public float Time => Step.Time;
+
+        public int Count => Step.Count;
+
+        public float Weight => Step.Weight.Value;
     }
 }
