@@ -16,6 +16,52 @@ MonoBehaviour:
   target: {fileID: 1910993097707447161}
   width: 512
   height: 512
+--- !u!1 &2906256901024886092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8903237849081629163}
+  - component: {fileID: 1345434723084322781}
+  m_Layer: 9
+  m_Name: Camera Blur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8903237849081629163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906256901024886092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5054792321581580568}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1345434723084322781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906256901024886092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb380e9a579db0a44a5aad2a558dd759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale:
+    min: 0.6
+    max: 0
 --- !u!1 &5054792320691145547
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +297,7 @@ Transform:
   m_Children:
   - {fileID: 5054792321991817229}
   - {fileID: 9155140907210359855}
+  - {fileID: 8903237849081629163}
   m_Father: {fileID: 5054792321850223448}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

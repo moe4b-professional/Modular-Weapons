@@ -41,6 +41,29 @@ namespace Game
             }
         }
 
+        public class Average : Base<Average.IInterface>
+        {
+            public interface IInterface
+            {
+                float Value { get; }
+            }
+
+            public float Value
+            {
+                get
+                {
+                    if (List.Count == 0) return 0f;
+
+                    var result = 0f;
+
+                    for (int i = 0; i < List.Count; i++)
+                        result += List[i].Value;
+
+                    return result / List.Count;
+                }
+            }
+        }
+
         public class Additive : Base<Additive.IInterface>
         {
             public interface IInterface

@@ -19,8 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>, Modifier.Scale.IInterface
-	{
+	public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>,
+        Modifier.Scale.IInterface, Modifier.Average.IInterface
+    {
         [SerializeField]
         protected ValueRange scale = new ValueRange(0.5f, 1f);
         public ValueRange Scale { get { return scale; } }

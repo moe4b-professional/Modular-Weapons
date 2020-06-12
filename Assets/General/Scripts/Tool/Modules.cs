@@ -25,11 +25,11 @@ namespace Game
         {
             target.Setup(reference);
         }
-        public static void Configure<TReference>(TReference reference, IInitialization<TReference> target)
+        public static void Configure<TReference>(TReference reference, IModule<TReference> target)
         {
             target.Configure();
         }
-        public static void Init<TReference>(TReference reference, IInitialization<TReference> target)
+        public static void Init<TReference>(TReference reference, IModule<TReference> target)
         {
             target.Init();
         }
@@ -59,15 +59,15 @@ namespace Game
             {
                 Set();
 
-                ForAll<IInitialization<TReference>>(Process);
+                ForAll<IModule<TReference>>(Process);
 
-                void Process(IInitialization<TReference> instance) => Modules.Configure(Reference, instance);
+                void Process(IModule<TReference> instance) => Modules.Configure(Reference, instance);
             }
             public virtual void Init()
             {
-                ForAll<IInitialization<TReference>>(Process);
+                ForAll<IModule<TReference>>(Process);
 
-                void Process(IInitialization<TReference> instance) => Modules.Init(Reference, instance);
+                void Process(IModule<TReference> instance) => Modules.Init(Reference, instance);
             }
 
             public virtual void ForAll(Action<TModule> action)
@@ -145,17 +145,12 @@ namespace Game
     {
         void Setup(T reference);
     }
-
-    public interface IInitialization<T>
+    
+    public interface IModule<T> : IReference<T>
     {
         void Configure();
 
         void Init();
-    }
-
-    public interface IModule<T> : IReference<T>, IInitialization<T>
-    {
-
     }
 
     public class MonoBehaviourModule<TReference> : MonoBehaviour, IModule<TReference>

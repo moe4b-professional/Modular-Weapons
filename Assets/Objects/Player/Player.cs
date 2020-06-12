@@ -27,6 +27,7 @@ namespace Game
         public FirstPersonController Controller { get; protected set; }
 
         public PlayerInput Input { get; protected set; }
+        public PlayerCameraEffects CameraEffects { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
 
         public abstract class BaseModule<T> : MonoBehaviourModule<T>
@@ -55,6 +56,7 @@ namespace Game
             Modules = new Modules.Collection<Player>(this);
 
             Input = Modules.Depend<PlayerInput>();
+            CameraEffects = Modules.Depend<PlayerCameraEffects>();
             Weapons = Modules.Depend< PlayerWeapons>();
 
             Modules.Configure();
