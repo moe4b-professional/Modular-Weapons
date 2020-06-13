@@ -19,16 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimSpeedModifier : WeaponAimPropertyModifier
+	public class WeaponAimSpeedModifier : WeaponAimPropertyModifier, Modifier.Scale.IInterface
 	{
+        [SerializeField]
+        protected float scale = 0.75f;
+        public float Scale { get { return scale; } }
+
+        public override EffectMode Effect => EffectMode.Constant;
+
+        public override float Value => Mathf.Lerp(1f, scale, Rate);
+
         public WeaponAimSpeed Speed => Aim.Speed;
-
-        protected override void Reset()
-        {
-            base.Reset();
-
-            range = new ValueRange(0.75f, 1f);
-        }
 
         public override void Init()
         {

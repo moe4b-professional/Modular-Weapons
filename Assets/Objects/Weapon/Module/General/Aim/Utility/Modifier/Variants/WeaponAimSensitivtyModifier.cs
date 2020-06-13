@@ -19,16 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimSensitivtyModifier : WeaponAimPropertyModifier
+	public class WeaponAimSensitivtyModifier : WeaponAimPropertyModifier, Modifier.Scale.IInterface
 	{
+        [SerializeField]
+        protected float scale = 0.6f;
+        public float Scale { get { return scale; } }
+
+        public override float Value => Mathf.Lerp(1f, scale, Rate);
+
         public WeaponSensitivty Sensitivty { get; protected set; }
-
-        protected override void Reset()
-        {
-            base.Reset();
-
-            range = new ValueRange(0.6f, 1f);
-        }
 
         public override void Configure()
         {

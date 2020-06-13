@@ -21,13 +21,29 @@ namespace Game
 {
 	public class WeaponAimRendererAlphaModifier : WeaponAimPropertyModifier
     {
-		[SerializeField]
+        [SerializeField]
         protected Renderer target;
         public Renderer Target { get { return target; } }
 
         [SerializeField]
-        protected AnimationCurve curve;
-        public AnimationCurve Curve { get { return curve; } }
+        protected ValueRange range;
+        public ValueRange Range { get { return range; } }
+
+        public override float Value
+        {
+            get
+            {
+                var lerp = Mathf.Lerp(range.Max, range.Min, Rate);
+
+                var eval = curve.Evaluate(lerp);
+
+                return eval;
+            }
+        }
+
+        [SerializeField]
+        protected AnimationCurveToggleValue curve;
+        public AnimationCurveToggleValue Curve { get { return curve; } }
 
         protected override void Reset()
         {
@@ -65,9 +81,7 @@ namespace Game
         {
             var color = target.material.color;
 
-            var eval = curve.Evaluate(Rate);
-
-            color.a = Mathf.Lerp(range.Max, range.Min, eval);
+            color.a = Value;
 
             return color;
         }

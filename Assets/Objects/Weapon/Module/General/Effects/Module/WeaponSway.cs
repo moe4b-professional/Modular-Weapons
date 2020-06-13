@@ -168,6 +168,8 @@ namespace Game
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {
+            Transform Anchor { get; }
+
             Vector3 LookDelta { get; }
 
             Vector3 RelativeVelocity { get; }
@@ -199,6 +201,8 @@ namespace Game
             Position = effect.Position.Sample(Value) * scale;
             Rotation = effect.Rotation.Sample(Value) * scale;
 
+            AdjustSpace();
+
             Context.localPosition += Position;
             Context.localEulerAngles += Rotation;
         }
@@ -216,6 +220,15 @@ namespace Game
                 Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.z) * multiplier.Move;
                 Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.x) * multiplier.Move;
             }
+        }
+
+        protected virtual void AdjustSpace()
+        {
+            var localUp = Weapon.transform.InverseTransformDirection(Processor.Anchor.up);
+
+            Position = Vector3.ProjectOnPlane(Position, localUp);
+
+            Rotation = Vector3.ProjectOnPlane(Rotation, localUp);
         }
     }
 }

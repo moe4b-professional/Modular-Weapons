@@ -19,33 +19,37 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>,
-        Modifier.Scale.IInterface, Modifier.Average.IInterface
+    public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>
     {
-        [UnityEngine.Serialization.FormerlySerializedAs("scale")]
-        [SerializeField]
-        protected ValueRange range = new ValueRange(0.5f, 1f);
-        public ValueRange Range { get { return range; } }
-
         public virtual float Rate
         {
             get
             {
-                if (Point == null)
-                    return Multiplier;
+                switch (Effect)
+                {
+                    case EffectMode.Scaled:
+                        return Aim.Rate * (Sight == null ? 1f : Sight.Weight);
 
-                return Point.Weight * Multiplier;
+                    case EffectMode.Constant:
+                        return Sight == null ? 1 : Sight.Weight;
+                }
+
+                throw new NotImplementedException();
             }
         }
 
-        public virtual float Multiplier => Aim.Rate;
+        public abstract float Value { get; }
 
-        public float Value => Mathf.Lerp(range.Max, range.Min, Rate);
+        public virtual EffectMode Effect => EffectMode.Scaled;
+        public enum EffectMode
+        {
+            Scaled, Constant
+        }
 
-        public WeaponAimSight Point { get; protected set; }
+        public WeaponAimSight Sight { get; protected set; }
         public virtual void Setup(WeaponAimSight reference)
         {
-            Point = reference;
+            Sight = reference;
         }
 
         protected virtual void Reset()

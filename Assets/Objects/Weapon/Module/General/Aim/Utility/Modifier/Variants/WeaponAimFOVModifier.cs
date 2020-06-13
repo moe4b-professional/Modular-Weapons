@@ -19,16 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimFOVModifier : WeaponAimPropertyModifier
+	public class WeaponAimFOVModifier : WeaponAimPropertyModifier, Modifier.Scale.IInterface
     {
+        [SerializeField]
+        protected float scale = 0.8f;
+        public float Scale { get { return scale; } }
+
+        public override float Value => Mathf.Lerp(1f, scale, Rate);
+
         public WeaponFOV FOV { get; protected set; }
-
-        protected override void Reset()
-        {
-            base.Reset();
-
-            range = new ValueRange(0.8f, 1f);
-        }
 
         public override void Configure()
         {

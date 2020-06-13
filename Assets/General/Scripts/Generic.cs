@@ -100,12 +100,12 @@ namespace Game
                 {
                     if (List.Count == 0) return 1f;
 
-                    var result = 0f;
+                    var result = 1f;
 
                     for (int i = 0; i < List.Count; i++)
-                        result += List[i].Value;
+                        result *= List[i].Value;
 
-                    return result - (List.Count - 1);
+                    return result;
                 }
             }
         }

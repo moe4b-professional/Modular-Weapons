@@ -19,16 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimCameraBlurModifier : WeaponAimPropertyModifier
+	public class WeaponAimCameraBlurModifier : WeaponAimPropertyModifier, Modifier.Average.IInterface
 	{
+        [SerializeField]
+        protected float target = 0.6f;
+        public float Target { get { return target; } }
+
+        public override float Value => Mathf.Lerp(0f, target, Rate);
+
         public WeaponCameraBlur CameraBlur { get; protected set; }
-
-        protected override void Reset()
-        {
-            base.Reset();
-
-            range = new ValueRange(1f, 0f);
-        }
 
         public override void Configure()
         {
