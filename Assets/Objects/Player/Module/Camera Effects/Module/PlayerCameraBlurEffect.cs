@@ -24,18 +24,8 @@ namespace Game
 	public class PlayerCameraBlurEffect : PlayerCameraEffects.Module
 	{
         [SerializeField]
-        protected ValueRange range;
-        public ValueRange Range { get { return range; } }
-
-        public float Scale
-        {
-            set
-            {
-                Settings.focalLength.value = value;
-            }
-        }
-
-        public DepthOfField Settings { get; protected set; }
+        protected CameraBlur component;
+        public CameraBlur Component { get { return component; } }
 
         public Modifier.Average Average { get; protected set; }
 
@@ -49,18 +39,13 @@ namespace Game
         public override void Init()
         {
             base.Init();
-
-            Settings = CameraEffects.Profile.GetSetting<DepthOfField>();
-
-            if (Settings == null)
-                throw new Exception("Dependancy Missing");
-
+            
             Player.OnProcess += Process;
         }
 
         void Process()
         {
-            Scale = range.Lerp(Average.Value);
+            component.Scale = Average.Value;
         }
     }
 }

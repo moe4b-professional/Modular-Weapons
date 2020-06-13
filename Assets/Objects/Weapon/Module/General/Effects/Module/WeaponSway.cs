@@ -209,11 +209,12 @@ namespace Game
 
             if(enabled)
             {
-                Target -= Processor.LookDelta * multiplier.Look;
+                Target -= Processor.LookDelta / Time.deltaTime * multiplier.Look / 100f;
 
                 Target += Vector3.left * Processor.RelativeVelocity.x * multiplier.Move;
 
                 Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.z) * multiplier.Move;
+                Target += Vector3.back * Mathf.Abs(Processor.RelativeVelocity.x) * multiplier.Move;
             }
         }
     }
