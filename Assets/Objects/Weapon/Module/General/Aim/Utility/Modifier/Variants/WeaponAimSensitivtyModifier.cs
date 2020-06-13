@@ -27,7 +27,7 @@ namespace Game
         {
             base.Reset();
 
-            scale = new ValueRange(0.6f, 1f);
+            range = new ValueRange(0.6f, 1f);
         }
 
         public override void Configure()

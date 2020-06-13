@@ -23,13 +23,11 @@ namespace Game
 	{
         public WeaponAimSpeed Speed => Aim.Speed;
 
-        public override float Multiplier => 1f;
-
         protected override void Reset()
         {
             base.Reset();
 
-            scale = new ValueRange(0.75f, 1f);
+            range = new ValueRange(0.75f, 1f);
         }
 
         public override void Init()

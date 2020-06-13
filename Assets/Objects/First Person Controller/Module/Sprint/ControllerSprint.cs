@@ -49,6 +49,8 @@ namespace Game
 
                 if (Constraint.Active) return false;
 
+                if (Active == false && Controller.IsGrounded == false) return false;
+
                 return true;
             }
         }

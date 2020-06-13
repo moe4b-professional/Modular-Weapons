@@ -469,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale:
     min: 0.75
-    max: 1
+    max: 0.75
 --- !u!1001 &5054792320545815418
 PrefabInstance:
   m_ObjectHideFlags: 0

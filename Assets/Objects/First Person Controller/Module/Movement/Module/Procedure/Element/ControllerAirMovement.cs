@@ -37,6 +37,8 @@ namespace Game
 
                 Jump.Operate();
 
+                Sprint.Operate();
+
                 State.Operate();
             }
         }

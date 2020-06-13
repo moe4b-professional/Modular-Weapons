@@ -33,7 +33,7 @@ namespace Game
         {
             base.Reset();
 
-            scale = new ValueRange(0.2f, 1f);
+            range = new ValueRange(0.2f, 1f);
         }
 
         public override void Init()
@@ -67,7 +67,7 @@ namespace Game
 
             var eval = curve.Evaluate(Rate);
 
-            color.a = Mathf.Lerp(scale.Max, scale.Min, eval);
+            color.a = Mathf.Lerp(range.Max, range.Min, eval);
 
             return color;
         }

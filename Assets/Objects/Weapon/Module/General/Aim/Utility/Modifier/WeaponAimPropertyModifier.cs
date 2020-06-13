@@ -22,9 +22,10 @@ namespace Game
 	public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>,
         Modifier.Scale.IInterface, Modifier.Average.IInterface
     {
+        [UnityEngine.Serialization.FormerlySerializedAs("scale")]
         [SerializeField]
-        protected ValueRange scale = new ValueRange(0.5f, 1f);
-        public ValueRange Scale { get { return scale; } }
+        protected ValueRange range = new ValueRange(0.5f, 1f);
+        public ValueRange Range { get { return range; } }
 
         public virtual float Rate
         {
@@ -39,7 +40,7 @@ namespace Game
 
         public virtual float Multiplier => Aim.Rate;
 
-        public float Value => Mathf.Lerp(scale.Max, scale.Min, Rate);
+        public float Value => Mathf.Lerp(range.Max, range.Min, Rate);
 
         public WeaponAimSight Point { get; protected set; }
         public virtual void Setup(WeaponAimSight reference)
