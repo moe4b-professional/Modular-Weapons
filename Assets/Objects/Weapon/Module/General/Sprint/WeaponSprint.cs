@@ -19,15 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSprint : Weapon.Module, WeaponOperation.IInterface, WeaponConstraint.IInterface
+	public class WeaponSprint : Weapon.Module, WeaponOperation.IInterface
 	{
         [SerializeField]
         protected float minWeight = 0.5f;
         public float MinWeight { get { return minWeight; } }
 
         public bool Active => Weapon.Operation.Is(this);
-
-        bool WeaponConstraint.IInterface.Constraint => Active;
 
         public abstract class Module : Weapon.BaseModule<WeaponSprint>
         {

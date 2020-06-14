@@ -45,7 +45,7 @@ namespace Game
 
         private float timer = 0f;
 
-        public bool Constraint { get { return timer > 0f; } }
+        public bool Active { get { return timer > 0f; } }
 
         public Modifier.Scale Scale { get; protected set; }
 

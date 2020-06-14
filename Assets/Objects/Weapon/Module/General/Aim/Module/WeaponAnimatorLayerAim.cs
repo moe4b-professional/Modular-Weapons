@@ -77,8 +77,8 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            HipLayer.Weight = Aim.InverseRate;
             AimLayer.Weight = Aim.Rate;
+            HipLayer.Weight = Mathf.Lerp(1f, 0f, Aim.Rate);
         }
     }
 

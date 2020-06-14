@@ -19,9 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAim : Weapon.Module, WeaponOperation.IInterface
+	public class WeaponAim : Weapon.Module
 	{
         public bool IsOn { get; protected set; }
+
         public float Target => IsOn ? 1f : 0f;
 
         private float _rate;
@@ -34,12 +35,25 @@ namespace Game
 
                 _rate = value;
 
+                Processor.Rate = Rate;
+
                 OnRateChange?.Invoke(Rate);
             }
         }
-        public float InverseRate => Mathf.Lerp(1f, 0f, Rate);
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
+
+        public Modifier.Constraint Constraint { get; protected set; }
+
+        public bool CanPerform
+        {
+            get
+            {
+                if (Constraint.Active) return false;
+
+                return true;
+            }
+        }
 
         public WeaponAimSpeed Speed { get; protected set; }
 
@@ -56,6 +70,10 @@ namespace Game
         public interface IProcessor
         {
             bool Input { get; }
+
+            float Rate { set; }
+
+            void ClearInput();
         }
 
         public override void Configure()
@@ -63,6 +81,8 @@ namespace Game
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
+
+            Constraint = new Modifier.Constraint();
 
             Modules = new Modules.Collection<WeaponAim>(this, Weapon.gameObject);
 
@@ -89,15 +109,12 @@ namespace Game
 
         void Process()
         {
-            IsOn = Processor.Input;
-
-            if (Weapon.Operation.Is(null))
+            if(Processor.Input)
             {
-                if (IsOn) Begin();
-            }
-            else if (Weapon.Operation.Is(this))
-            {
-                if (IsOn == false) End();
+                if (CanPerform)
+                    IsOn = Processor.Input;
+                else
+                    IsOn = false;
             }
             else
             {
@@ -108,19 +125,6 @@ namespace Game
                 Rate = Mathf.MoveTowards(Rate, Target, Speed.Value * Time.deltaTime);
         }
 
-        protected virtual void Begin()
-        {
-            Weapon.Operation.Set(this);
-        }
-
-        protected virtual void End()
-        {
-            Weapon.Operation.Clear();
-        }
-
-        public virtual void Stop()
-        {
-            End();
-        }
+        public virtual void ClearInput() => Processor.ClearInput();
     }
 }

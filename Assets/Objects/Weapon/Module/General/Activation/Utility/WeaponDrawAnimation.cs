@@ -27,7 +27,7 @@ namespace Game
 
         public bool IsProcessing => Weapon.Operation.Is(this);
 
-        bool WeaponConstraint.IInterface.Constraint => IsProcessing;
+        bool WeaponConstraint.IInterface.Active => IsProcessing;
 
         public override void Init()
         {

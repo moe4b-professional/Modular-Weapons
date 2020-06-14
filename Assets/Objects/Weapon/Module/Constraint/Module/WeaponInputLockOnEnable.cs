@@ -23,7 +23,7 @@ namespace Game
 	{
         public bool Active { get; protected set; }
 
-        bool WeaponConstraint.IInterface.Constraint => Active;
+        bool WeaponConstraint.IInterface.Active => Active;
 
         protected virtual void OnEnable()
         {

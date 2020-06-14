@@ -64,22 +64,13 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Activation.OnEnable += EnableCallback;
-            Weapon.Activation.OnDisable += DisableCallback;
-        }
-
-        void EnableCallback()
-        {
             Effects.Processor.OnLand += LandCallback;
-        }
-        void DisableCallback()
-        {
-            Effects.Processor.OnLand -= LandCallback;
         }
 
         void LandCallback(Vector3 relativeVelocity)
         {
-            Effects.Play(Trigger, weight.Evaluate(relativeVelocity));
+            if(enabled)
+                Effects.Play(Trigger, weight.Evaluate(relativeVelocity));
         }
     }
 }

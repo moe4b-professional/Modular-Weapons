@@ -53,22 +53,13 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Activation.OnEnable += EnableCallback;
-            Weapon.Activation.OnDisable += DisableCallback;
-        }
-
-        void EnableCallback()
-        {
             Effects.Processor.OnJump += JumpCallback;
-        }
-        void DisableCallback()
-        {
-            Effects.Processor.OnJump -= JumpCallback;
         }
 
         void JumpCallback(int count)
         {
-            Effects.Play(Trigger, weight.Evaluate(count));
+            if(enabled)
+                Effects.Play(Trigger, weight.Evaluate(count));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Game
 	public class WeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation.Is(this);
-        bool WeaponConstraint.IInterface.Constraint => IsProcessing;
+        bool WeaponConstraint.IInterface.Active => IsProcessing;
 
         public WeaponAmmo Ammo { get; protected set; }
 

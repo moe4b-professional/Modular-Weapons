@@ -36,7 +36,7 @@ namespace Game
         {
             get
             {
-                bool IsActive(IInterface element) => element.Constraint;
+                bool IsActive(IInterface element) => element.Active;
 
                 return CheckAny(IsActive);
             }
@@ -44,7 +44,7 @@ namespace Game
 
         public interface IInterface
         {
-            bool Constraint { get; }
+            bool Active { get; }
         }
 
         public override void Configure()

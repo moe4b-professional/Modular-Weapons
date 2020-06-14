@@ -27,6 +27,8 @@ namespace Game
 
         public bool Input { get; protected set; }
 
+        public float Rate { get; set; }
+
         public ButtonInput Button => Player.Input.Secondary;
 
         public override void Init()
@@ -46,6 +48,11 @@ namespace Game
             {
                 if (Button.Press) Input = !Input;
             }
+        }
+
+        public virtual void ClearInput()
+        {
+            Input = false;
         }
     }
 }
