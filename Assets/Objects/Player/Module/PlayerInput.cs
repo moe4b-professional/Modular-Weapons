@@ -63,7 +63,7 @@ namespace Game
 
             SwitchActionMode.Process(Input.GetKey(KeyCode.B));
 
-            SwitchSight.Process(Input.GetKey(KeyCode.Mouse2));
+            SwitchSight.Process(Input.GetKey(KeyCode.Mouse2) || Input.GetKey(KeyCode.T));
         }
     }
 }

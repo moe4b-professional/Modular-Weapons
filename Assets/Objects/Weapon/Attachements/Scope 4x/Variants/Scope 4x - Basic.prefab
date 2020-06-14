@@ -9,7 +9,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_Name
-      value: Scope 4x
+      value: Scope 4x - Basic
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133913965574556032, guid: 7e065c344b069c445ba35fc8f4fa1b73,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2822187330980718575, guid: 7e065c344b069c445ba35fc8f4fa1b73,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17,7 +31,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0018
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29,11 +43,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53,6 +67,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7e065c344b069c445ba35fc8f4fa1b73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565382436463193942, guid: 7e065c344b069c445ba35fc8f4fa1b73,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881997053397572411, guid: 7e065c344b069c445ba35fc8f4fa1b73,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

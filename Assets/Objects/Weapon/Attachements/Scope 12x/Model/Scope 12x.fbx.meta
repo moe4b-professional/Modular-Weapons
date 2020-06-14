@@ -2,70 +2,18 @@ fileFormatVersion: 2
 guid: 24836db6313879246b0edf20c258035c
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: //RootNode
-  - first:
-      1: 100002
-    second: Cylinder029
-  - first:
-      1: 100004
-    second: lens 1
-  - first:
-      4: 400000
-    second: //RootNode
-  - first:
-      4: 400002
-    second: Cylinder029
-  - first:
-      4: 400004
-    second: lens 1
-  - first:
-      21: 2100000
-    second: Lens 1
-  - first:
-      21: 2100002
-    second: Aim 12x
-  - first:
-      23: 2300000
-    second: Cylinder029
-  - first:
-      23: 2300002
-    second: lens 1
-  - first:
-      33: 3300000
-    second: Cylinder029
-  - first:
-      33: 3300002
-    second: lens 1
-  - first:
-      43: 4300000
-    second: lens 1
-  - first:
-      43: 4300002
-    second: Cylinder029
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Aim 12x
-    second: {fileID: 2100000, guid: f39750dcb43335d468be5547f7e35d27, type: 2}
+      name: Body
+    second: {fileID: 2100000, guid: 8e6c210336ef81a44a3e642b98a2ede6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Lens
-    second: {fileID: 2100000, guid: 12e2c36d0491834488cf5ab45630578e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Lens 1
-    second: {fileID: 2100000, guid: a95f8fcf3ffa04f4dbfef45454837e80, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Scope 12x
-    second: {fileID: 2100000, guid: f39750dcb43335d468be5547f7e35d27, type: 2}
+    second: {fileID: 2100000, guid: 14d8bca06298a3746b66eae55a05dd9b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -93,7 +41,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -130,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
@@ -149,7 +97,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

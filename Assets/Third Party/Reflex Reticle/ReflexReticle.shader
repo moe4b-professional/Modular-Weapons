@@ -3,9 +3,11 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_Color("Color", Color) = (1,1,1,1)
         _TexScale("Texture Scale", Range(0.01, 10)) = 0.1
 		_Elevation("Elevation", float) = 0
     }
+
     SubShader
     {
         Tags { "Queue"="Transparent" }
@@ -20,13 +22,15 @@
 
             #include "UnityCG.cginc"
 
-            struct appdata {
+            struct appdata
+			{
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
                 float3 tangent : TANGENT;
             };
 
-            struct v2f {
+            struct v2f
+			{
                 float4 vertex : SV_POSITION;
                 float3 pos : TEXCOORD0;
                 float3 normal : NORMAL;
@@ -34,26 +38,32 @@
             };
 
             sampler2D _MainTex;
+			fixed4 _Color;
             float _TexScale;
 			float _Elevation;
 
-            v2f vert(appdata v) {
+            v2f vert(appdata v)
+			{
                 v2f o;
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.pos = UnityObjectToViewPos(v.vertex);         //transform vertex into eye space
                 o.normal = mul(UNITY_MATRIX_IT_MV, v.normal);   //transform normal into eye space
                 o.tangent = mul(UNITY_MATRIX_IT_MV, v.tangent); //transform tangent into eye space
+
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target {
+            fixed4 frag(v2f i) : SV_Target
+			{
                 float3 normal = normalize(i.normal);    //get normal of fragment
                 float3 tangent = normalize(i.tangent);  //get tangent
                 float3 cameraDir = normalize(i.pos);    //get direction from camera to fragment, normalize(i.pos - float3(0, 0, 0))
 
                 float3 offset = cameraDir + normal;     //calculate offset from two points on unit sphere, cameraDir - -normal
 
-                float3x3 mat = float3x3(
+                float3x3 mat = float3x3
+				(
                     tangent,
                     cross(normal, tangent),
                     normal
@@ -63,7 +73,8 @@
 
                 float2 uv = offset.xy / _TexScale;              //sample and scale
 				float y = 0.5 + _Elevation;
-                return tex2D(_MainTex, uv + float2(0.5, y));  //shift sample to center of texture
+
+                return _Color * tex2D(_MainTex, uv + float2(0.5, y));  //shift sample to center of texture
             }
             ENDCG
         }

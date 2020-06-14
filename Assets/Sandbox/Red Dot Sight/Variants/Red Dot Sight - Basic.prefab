@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 1d6a47eb77e15de418a3d2256f96e795,
         type: 3}
       propertyPath: m_Name
-      value: Red Dot Sight
+      value: Red Dot Sight - Basic
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1d6a47eb77e15de418a3d2256f96e795,
         type: 3}
