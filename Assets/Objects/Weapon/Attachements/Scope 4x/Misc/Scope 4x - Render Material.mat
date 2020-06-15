@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Render Material
+  m_Name: Scope 4x - Render Material
   m_Shader: {fileID: 4800000, guid: 431f80c4122f5c14688cc4661939fb3f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
