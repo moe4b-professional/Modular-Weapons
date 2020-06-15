@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1691f867c6295234b9570ecdc35de92c
+guid: bf02f6b0a3098db44b5dc2fa2fc5a70f
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,23 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Attachments
-    second: {fileID: 2100000, guid: 3d905649bf22ab84dab19bf0028f6ad2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: 2100000, guid: 27e63b080947cc94d857558056a55d51, type: 2}
+    second: {fileID: 2100000, guid: 143fa1f9c09651b40afe0394352ac73c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Rifle 1
-    second: {fileID: 2100000, guid: 27e63b080947cc94d857558056a55d51, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Rifle 2
-    second: {fileID: 2100000, guid: 3d905649bf22ab84dab19bf0028f6ad2, type: 2}
+      name: Glass
+    second: {fileID: 2100000, guid: e3c6bfc9738e79543b253c62a2aa50f5, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
