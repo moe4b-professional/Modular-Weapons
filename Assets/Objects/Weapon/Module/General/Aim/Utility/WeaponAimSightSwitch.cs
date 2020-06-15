@@ -25,7 +25,16 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public WeaponAimSight Current => List[Index];
+        public WeaponAimSight Current
+        {
+            get
+            {
+                if (Index < 0 || Index >= List.Count)
+                    return null;
+
+                return List[Index];
+            }
+        }
 
         protected virtual bool IsValidTarget(WeaponAimSight sight)
         {
@@ -69,32 +78,24 @@ namespace Game
             {
                 var instance = List[i];
 
-                instance.EnableEvent += ()=> SightEnableCallback(instance);
-                instance.DisableEvent += () => SightDisableCallback(instance);
-
                 instance.enabled = i == Index;
             }
 
             Weapon.OnProcess += Process;
         }
 
-        protected virtual void SightEnableCallback(WeaponAimSight sight)
-        {
-            ValidateCurrent();
-        }
-        protected virtual void SightDisableCallback(WeaponAimSight sight)
-        {
-            if (sight == Current) ValidateCurrent();
-        }
-
         void Process()
         {
             if (Processor.Input)
                 Increment();
+
+            ValidateCurrent();
         }
 
         protected virtual void ValidateCurrent()
         {
+            if (Current == null) return;
+
             if (IsValidTarget(Current) == false)
                 Increment();
         }
