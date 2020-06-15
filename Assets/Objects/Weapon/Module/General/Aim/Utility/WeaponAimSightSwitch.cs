@@ -25,6 +25,15 @@ namespace Game
 
         public int Index { get; protected set; }
 
+        public WeaponAimSight Current => List[Index];
+
+        protected virtual bool IsValidTarget(WeaponAimSight sight)
+        {
+            if (sight.ActiveInHierarchy == false) return false;
+
+            return true;
+        }
+
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {
@@ -47,9 +56,35 @@ namespace Game
             Index = 0;
 
             for (int i = 0; i < List.Count; i++)
-                List[i].enabled = Index == i;
+            {
+                if (IsValidTarget(List[i]) == false) continue;
+
+                if (List[i].enabled == false) continue;
+
+                Index = i;
+                break;
+            }
+
+            for (int i = 0; i < List.Count; i++)
+            {
+                var instance = List[i];
+
+                instance.EnableEvent += ()=> SightEnableCallback(instance);
+                instance.DisableEvent += () => SightDisableCallback(instance);
+
+                instance.enabled = i == Index;
+            }
 
             Weapon.OnProcess += Process;
+        }
+
+        protected virtual void SightEnableCallback(WeaponAimSight sight)
+        {
+            ValidateCurrent();
+        }
+        protected virtual void SightDisableCallback(WeaponAimSight sight)
+        {
+            if (sight == Current) ValidateCurrent();
         }
 
         void Process()
@@ -58,22 +93,41 @@ namespace Game
                 Increment();
         }
 
-        protected virtual void Increment()
+        protected virtual void ValidateCurrent()
         {
-            var target = Index + 1;
-
-            if (target >= List.Count) target = 0;
-
-            Set(target);
+            if (IsValidTarget(Current) == false)
+                Increment();
         }
 
+        protected virtual void Increment()
+        {
+            var iterations = 0;
+            var target = Index;
+
+            while (iterations < List.Count - 1)
+            {
+                iterations += 1;
+
+                target += 1;
+
+                if (target >= List.Count) target = 0;
+
+                if (IsValidTarget(List[target]))
+                {
+                    Set(target);
+                    break;
+                }
+            }
+        }
+        
         protected virtual void Set(int target)
         {
-            List[Index].enabled = false;
+            if (Current != null)
+                Current.enabled = false;
 
             Index = target;
 
-            List[Index].enabled = true;
+            Current.enabled = true;
         }
     }
 }

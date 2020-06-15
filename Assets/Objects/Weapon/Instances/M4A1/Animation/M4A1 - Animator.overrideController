@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M4A1 - View Model
+  m_Name: M4A1 - Animator
   m_Controller: {fileID: 9100000, guid: 0223aeaaa06f6004e95e48d2e844cd32, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 8551f21ea9a48ca41ab610a4fe641693, type: 2}

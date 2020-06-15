@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3891611484810910000}
   - component: {fileID: 1265934313234177350}
+  - component: {fileID: 367763530693028401}
   m_Layer: 9
   m_Name: Red Dot Sight - Attachement
   m_TagString: Untagged
@@ -156,6 +157,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 3891611483788690250}
+--- !u!114 &367763530693028401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891611484810910007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6897587608736595405
 PrefabInstance:
   m_ObjectHideFlags: 0

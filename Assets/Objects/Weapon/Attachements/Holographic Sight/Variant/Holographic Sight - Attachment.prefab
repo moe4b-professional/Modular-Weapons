@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2860458906486920339}
   - component: {fileID: 9619294194258149}
+  - component: {fileID: -2669620961530382510}
   m_Layer: 9
   m_Name: Holographic Sight - Attachement
   m_TagString: Untagged
@@ -156,6 +157,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 2860458905336745705}
+--- !u!114 &-2669620961530382510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860458906486920340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &828976158158124536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,12 +241,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1372435774150714131, guid: f64a949fd6545c04c8a4968a22ed88a0,
+    - target: {fileID: 556510079971099415, guid: f64a949fd6545c04c8a4968a22ed88a0,
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 556510079971099415, guid: f64a949fd6545c04c8a4968a22ed88a0,
+    - target: {fileID: 1372435774150714131, guid: f64a949fd6545c04c8a4968a22ed88a0,
         type: 3}
       propertyPath: m_Layer
       value: 9

@@ -384,6 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5054792321850223448}
   - component: {fileID: 1435084469874733371}
+  - component: {fileID: 6338833855304265134}
   m_Layer: 9
   m_Name: Scope 4x - Attachment
   m_TagString: Untagged
@@ -422,6 +423,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 5054792322282386789}
+--- !u!114 &6338833855304265134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054792321850223455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5054792321991817228
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,11 +570,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 6675193149223213059, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ff7e5684619a0554aae96bfae37c7cee, type: 2}
     - target: {fileID: 8269878959837470412, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -627,6 +635,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.082
       objectReference: {fileID: 0}
+    - target: {fileID: 6675193149223213059, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff7e5684619a0554aae96bfae37c7cee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6, type: 3}
 --- !u!23 &1910993097707447161 stripped

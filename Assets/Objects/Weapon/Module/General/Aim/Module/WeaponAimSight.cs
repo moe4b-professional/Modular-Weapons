@@ -19,6 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [RequireComponent(typeof(ActivationRewind))]
 	public class WeaponAimSight : WeaponAim.Module
 	{
         [SerializeField]
@@ -28,6 +29,20 @@ namespace Game
         public Coordinates Target { get; protected set; }
 
         public float Weight { get; protected set; } = 0f;
+
+        public ActivationRewind ActivationRewind { get; protected set; }
+
+        public event ActivationRewind.Delegate EnableEvent
+        {
+            add => ActivationRewind.EnableEvent += value;
+            remove => ActivationRewind.EnableEvent -= value;
+        }
+
+        public event ActivationRewind.Delegate DisableEvent
+        {
+            add => ActivationRewind.DisableEvent += value;
+            remove => ActivationRewind.DisableEvent -= value;
+        }
 
         [Serializable]
         public class Module : Weapon.BaseModule<WeaponAimSight>
@@ -42,6 +57,8 @@ namespace Game
         public WeaponPivot Pivot => Weapon.Pivot;
         public Transform Context => Pivot.transform;
 
+        public bool ActiveInHierarchy => gameObject.activeInHierarchy;
+
         protected virtual void Reset()
         {
             point = transform;
@@ -50,6 +67,9 @@ namespace Game
         public override void Configure()
         {
             base.Configure();
+
+            ActivationRewind = GetComponent<ActivationRewind>();
+            if (ActivationRewind == null) ActivationRewind = gameObject.AddComponent<ActivationRewind>();
 
             Modules = new Modules.Collection<WeaponAimSight>(this);
 
@@ -66,7 +86,7 @@ namespace Game
 
             Modules.Init();
         }
-
+        
         void Process()
         {
             Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed.Value * Time.deltaTime);
