@@ -24,7 +24,16 @@ namespace Game
 	{
         [SerializeField]
         protected int _FPS = 60;
-        public int FPS { get { return _FPS; } }
+        public int FPS
+        {
+            get => _FPS;
+            set
+            {
+                if (value < 0) value = 0;
+
+                _FPS = value;
+            }
+        }
 
         public float FrameTime => 1f / FPS;
 
