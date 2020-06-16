@@ -96,16 +96,83 @@ namespace Game
         public float Radius { get { return radius; } }
 
         [SerializeField]
-        float multiplier;
-        public float Multiplier { get { return multiplier; } }
+        MultiplierData multiplier;
+        public MultiplierData Multiplier { get { return multiplier; } }
+        [Serializable]
+        public struct MultiplierData
+        {
+            [SerializeField]
+            float speed;
+            public float Speed { get { return speed; } }
 
-        public ControllerStateData(float height, float radius, float multiplier)
+            [SerializeField]
+            float acceleration;
+            public float Acceleration { get { return acceleration; } }
+
+            public static MultiplierData Lerp(MultiplierData a, MultiplierData b, float rate)
+            {
+                return new MultiplierData()
+                {
+                    speed = Mathf.Lerp(a.speed, b.speed, rate),
+                    acceleration = Mathf.Lerp(a.acceleration, b.acceleration, rate),
+                };
+            }
+
+            public static MultiplierData operator *(MultiplierData a, float b)
+            {
+                return new MultiplierData()
+                {
+                    speed = a.speed * b,
+                    acceleration = a.acceleration * b,
+                };
+            }
+
+            public static MultiplierData operator +(MultiplierData a, MultiplierData b)
+            {
+                return new MultiplierData()
+                {
+                    speed = a.speed + b.speed,
+                    acceleration = a.acceleration + b.acceleration,
+                };
+            }
+
+            public MultiplierData(float speed, float acceleration)
+            {
+                this.speed = speed;
+                this.acceleration = acceleration;
+            }
+            public MultiplierData(float value) : this(value, value) 
+            {
+
+            }
+
+            public static MultiplierData Zero => new MultiplierData(0f, 0f);
+        }
+
+        public ControllerStateData(float height, float radius, MultiplierData multiplier)
         {
             this.height = height;
 
             this.radius = radius;
 
             this.multiplier = multiplier;
+        }
+
+        //Static Utility
+
+        public static ControllerStateData Zero => new ControllerStateData(0f, 0f, MultiplierData.Zero);
+
+        public static ControllerStateData Default
+        {
+            get
+            {
+                return new ControllerStateData()
+                {
+                    height = 1.8f,
+                    radius = 0.4f,
+                    multiplier = new MultiplierData(1)
+                };
+            }
         }
 
         public static ControllerStateData Read(FirstPersonController controller)
@@ -119,15 +186,13 @@ namespace Game
             return data;
         }
 
-        public static ControllerStateData Zero => new ControllerStateData(0f, 0f, 0f);
-
         public static ControllerStateData Lerp(ControllerStateData a, ControllerStateData b, float rate)
         {
             return new ControllerStateData()
             {
                 height = Mathf.Lerp(a.Height, b.Height, rate),
                 radius = Mathf.Lerp(a.Radius, b.Radius, rate),
-                multiplier = Mathf.Lerp(a.Multiplier, b.Multiplier, rate),
+                multiplier = MultiplierData.Lerp(a.Multiplier, b.Multiplier, rate),
             };
         }
 

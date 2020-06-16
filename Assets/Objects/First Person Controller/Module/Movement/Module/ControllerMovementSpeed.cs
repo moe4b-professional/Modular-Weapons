@@ -44,17 +44,23 @@ namespace Game
             Scale = new Modifier.Scale();
         }
 
-        public virtual void Calculate() => Calculate(1f);
-        public virtual void Calculate(float multiplier)
+        public virtual void Calculate()
         {
-            Max = Evaluate() * multiplier;
+            Max = Base * Scale.Value;
 
+            Read();
+        }
+
+        protected virtual void Read()
+        {
             var planar = Velocity.Planar.magnitude;
 
             var vertical = Velocity.Up.magnitude;
 
             if (Controller.IsGrounded)
             {
+                vertical *= planar / Max;
+                vertical = Mathf.Clamp(vertical, 0f, Max - planar);
 
             }
             else
@@ -64,7 +70,5 @@ namespace Game
 
             Current = planar + vertical;
         }
-
-        public virtual float Evaluate() => Base * Scale.Value;
     }
 }

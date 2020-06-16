@@ -40,9 +40,7 @@ namespace Game
 
         public virtual void Calculate()
         {
-            Value = Evaluate();
+            Value = Base * Scale.Value;
         }
-
-        public virtual float Evaluate() => Base * Scale.Value;
     }
 }

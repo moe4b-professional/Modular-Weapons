@@ -21,10 +21,6 @@ namespace Game
 {
 	public class ControllerSandbox : FirstPersonController.Module
 	{
-        public float forward;
-        public float right;
-        public float up;
-
         public override void Init()
         {
             base.Init();
@@ -34,15 +30,11 @@ namespace Game
 
         void Process()
         {
-            if(Input.GetKeyDown(KeyCode.F))
+            if(Input.GetKeyDown(KeyCode.K))
             {
                 Controller.rigidbody.isKinematic ^= true;
                 Controller.collider.isTrigger = Controller.rigidbody.isKinematic;
             }
-
-            forward = Controller.Velocity.Forward.magnitude;
-            right = Controller.Velocity.Right.magnitude;
-            up = Controller.Velocity.Up.magnitude;
         }
     }
 }

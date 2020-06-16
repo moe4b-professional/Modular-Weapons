@@ -21,19 +21,19 @@ namespace Game
 {
     public abstract class ControllerStateElement : ControllerState.Module
     {
-        public float Weight { get; protected set; }
-
-        public bool Active => State.Transition.Target == this;
-
-        public float Target => Active ? 1f : 0f;
-
         [SerializeField]
         protected float transitionSpeed = 4;
         public float TransitionSpeed { get { return transitionSpeed; } }
 
         [SerializeField]
-        protected ControllerStateData data;
+        protected ControllerStateData data = ControllerStateData.Default;
         public ControllerStateData Data { get { return data; } }
+
+        public float Weight { get; protected set; }
+
+        public bool Active => State.Transition.Target == this;
+
+        public float Target => Active ? 1f : 0f;
 
         public class Module : FirstPersonController.BaseModule<ControllerStateElement>
         {

@@ -42,7 +42,7 @@ namespace Game
         void Process()
         {
             if (Controller.IsGrounded)
-                Value = State.Data.Multiplier;
+                Value = State.Data.Multiplier.Acceleration;
         }
     }
 }
