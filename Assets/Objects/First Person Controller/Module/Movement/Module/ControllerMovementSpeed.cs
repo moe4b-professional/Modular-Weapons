@@ -35,22 +35,36 @@ namespace Game
 
         public ControllerVelocity Velocity => Controller.Velocity;
 
+        public ControllerGround Ground => Controller.Ground;
+
         public override void Configure()
         {
             base.Configure();
 
             Scale = new Modifier.Scale();
-
-            Calculate(1f);
         }
 
+        public virtual void Calculate() => Calculate(1f);
         public virtual void Calculate(float multiplier)
         {
-            Max = Evaluate(multiplier);
+            Max = Evaluate() * multiplier;
 
-            Current = Velocity.Planar.magnitude;
+            var planar = Velocity.Planar.magnitude;
+
+            var vertical = Velocity.Up.magnitude;
+
+            if (Controller.IsGrounded)
+            {
+
+            }
+            else
+            {
+                vertical = 0f;
+            }
+
+            Current = planar + vertical;
         }
 
-        public virtual float Evaluate(float multiplier) => Base * multiplier * Scale.Value;
+        public virtual float Evaluate() => Base * Scale.Value;
     }
 }

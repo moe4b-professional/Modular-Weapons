@@ -21,11 +21,11 @@ namespace Game
 {
 	public class ControllerStateElevationAdjustment : ControllerState.Module
 	{
-        public virtual void Process(ControllerState.IData target)
+        public virtual void Process(ControllerStateData target)
         {
             if (Controller.IsGrounded)
             {
-                var delta = State.Height - target.Height;
+                var delta = State.Data.Height - target.Height;
 
                 Controller.transform.position -= Controller.transform.up * delta / 2f;
             }

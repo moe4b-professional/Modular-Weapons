@@ -31,14 +31,14 @@ namespace Game
         {
             base.Init();
 
-            Controller.Anchors.OnLateProcess += LateProcess;
+            Anchor = CalculateOffset(State.Data.Height);
 
-            Anchor = CalculateOffset(State.Height);
+            Controller.Anchors.OnLateProcess += LateProcess;
         }
 
         void LateProcess()
         {
-            Offset = CalculateOffset(State.Height) - Anchor;
+            Offset = CalculateOffset(State.Data.Height) - Anchor;
 
             Rig.Camera.Anchor.LocalPosition += Offset / 2;
             Rig.Pivot.LocalPosition += Offset / 2;

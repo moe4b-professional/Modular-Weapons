@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class ControllerStateElement : ControllerState.Module, ControllerState.IData
+    public abstract class ControllerStateElement : ControllerState.Module
     {
         public float Weight { get; protected set; }
 
@@ -27,13 +27,13 @@ namespace Game
 
         public float Target => Active ? 1f : 0f;
 
-        public abstract float Height { get; }
-        public abstract float Radius { get; }
-        public abstract float Multiplier { get; }
-
         [SerializeField]
         protected float transitionSpeed = 4;
         public float TransitionSpeed { get { return transitionSpeed; } }
+
+        [SerializeField]
+        protected ControllerStateData data;
+        public ControllerStateData Data { get { return data; } }
 
         public class Module : FirstPersonController.BaseModule<ControllerStateElement>
         {
@@ -87,20 +87,5 @@ namespace Game
             else
                 Transition.Set(this);
         }
-    }
-
-    public class DefaultControllerStateElement : ControllerStateElement
-    {
-        [SerializeField]
-        protected float height;
-        public override float Height => height;
-
-        [SerializeField]
-        protected float radius;
-        public override float Radius => radius;
-
-        [SerializeField]
-        protected float multiplier;
-        public override float Multiplier => multiplier;
     }
 }

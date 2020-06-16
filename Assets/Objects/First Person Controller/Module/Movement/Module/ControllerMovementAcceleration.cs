@@ -36,15 +36,13 @@ namespace Game
             base.Configure();
 
             Scale = new Modifier.Scale();
-
-            Calculate(1f);
         }
 
-        public virtual void Calculate(float multiplier)
+        public virtual void Calculate()
         {
-            Value = Evaluate(multiplier);
+            Value = Evaluate();
         }
 
-        public virtual float Evaluate(float multiplier) => Base * multiplier * Scale.Value;
+        public virtual float Evaluate() => Base * Scale.Value;
     }
 }

@@ -49,6 +49,10 @@ namespace Game
 
             if (Active)
             {
+                Speed.Calculate();
+
+                Acceleration.Calculate();
+
                 Gravity.Apply();
 
                 if(control)

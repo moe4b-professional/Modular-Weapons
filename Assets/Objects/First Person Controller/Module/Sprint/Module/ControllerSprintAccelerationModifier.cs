@@ -25,13 +25,28 @@ namespace Game
         protected ValueRange scale = new ValueRange(1f, 2f);
         public ValueRange Scale { get { return scale; } }
 
-        public float Value => scale.Lerp(Sprint.Weight);
+        public float Value { get; protected set; }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Value = 1f;
+        }
 
         public override void Init()
         {
             base.Init();
 
             Controller.Movement.Acceleration.Scale.Register(this);
+
+            Controller.OnProcess += Process;
+        }
+
+        void Process()
+        {
+            if(Controller.IsGrounded)
+                Value = scale.Lerp(Sprint.Weight);
         }
     }
 }

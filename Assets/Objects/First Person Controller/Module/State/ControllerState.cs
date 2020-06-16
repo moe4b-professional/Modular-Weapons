@@ -21,17 +21,7 @@ namespace Game
 {
     public class ControllerState : FirstPersonController.Module
     {
-        public float Height
-        {
-            get => Controller.collider.height;
-            set => Controller.collider.height = value;
-        }
-        public float Radius
-        {
-            get => Controller.collider.radius;
-            set => Controller.collider.radius = value;
-        }
-        public float Multiplier { get; protected set; }
+        public ControllerStateData Data { get; protected set; }
 
         public ControllerStateTransition Transition { get; protected set; }
         public ControllerStateSets Sets { get; protected set; }
@@ -48,76 +38,11 @@ namespace Game
 
         public Modules.Collection<ControllerState> Modules { get; protected set; }
 
-        [Serializable]
-        public struct Data : IData
-        {
-            [SerializeField]
-            float height;
-            public float Height { get { return height; } }
-
-            [SerializeField]
-            float radius;
-            public float Radius { get { return radius; } }
-
-            [SerializeField]
-            float multiplier;
-            public float Multiplier { get { return multiplier; } }
-
-            public Data(float height, float radius, float multiplier)
-            {
-                this.height = height;
-
-                this.radius = radius;
-
-                this.multiplier = multiplier;
-            }
-            public Data(IData data) : this(data.Height, data.Radius, data.Multiplier) { }
-
-            public static Data Zero => new Data(0f, 0f, 0f);
-
-            public static Data Lerp(IData a, IData b, float rate)
-            {
-                return new Data()
-                {
-                    height = Mathf.Lerp(a.Height, b.Height, rate),
-                    radius = Mathf.Lerp(a.Radius, b.Radius, rate),
-                    multiplier = Mathf.Lerp(a.Multiplier, b.Multiplier, rate),
-                };
-            }
-
-            public static Data operator *(Data a, float b)
-            {
-                return new Data()
-                {
-                    height = a.height * b,
-                    radius = a.radius * b,
-                    multiplier = a.multiplier * b,
-                };
-            }
-
-            public static Data operator + (Data a, IData b)
-            {
-                return new Data()
-                {
-                    height = a.height + b.Height,
-                    radius = a.radius + b.Radius,
-                    multiplier = a.multiplier + b.Multiplier,
-                };
-            }
-        }
-
-        public interface IData
-        {
-            float Height { get; }
-
-            float Radius { get; }
-
-            float Multiplier { get; }
-        }
-        
         public override void Configure()
         {
             base.Configure();
+
+            Data = ControllerStateData.Read(Controller);
 
             Modules = new Modules.Collection<ControllerState>(this);
 
@@ -142,13 +67,89 @@ namespace Game
             OnOperate?.Invoke();
         }
 
-        public virtual void Set(IData data)
+        public virtual void Set(ControllerStateData target)
         {
-            HeightAdjustment.Process(data);
+            HeightAdjustment.Process(target);
 
-            Height = data.Height;
-            Radius = data.Radius;
-            Multiplier = data.Multiplier;
+            Data = target;
+
+            UpdateState();
+        }
+
+        protected virtual void UpdateState()
+        {
+            Controller.Height = Data.Height;
+
+            Controller.Radius = Data.Radius;
         }
     }
+
+    [Serializable]
+    public struct ControllerStateData
+    {
+        [SerializeField]
+        float height;
+        public float Height { get { return height; } }
+
+        [SerializeField]
+        float radius;
+        public float Radius { get { return radius; } }
+
+        [SerializeField]
+        float multiplier;
+        public float Multiplier { get { return multiplier; } }
+
+        public ControllerStateData(float height, float radius, float multiplier)
+        {
+            this.height = height;
+
+            this.radius = radius;
+
+            this.multiplier = multiplier;
+        }
+
+        public static ControllerStateData Read(FirstPersonController controller)
+        {
+            var data = new ControllerStateData()
+            {
+                height = controller.Height,
+                radius = controller.Radius,
+            };
+
+            return data;
+        }
+
+        public static ControllerStateData Zero => new ControllerStateData(0f, 0f, 0f);
+
+        public static ControllerStateData Lerp(ControllerStateData a, ControllerStateData b, float rate)
+        {
+            return new ControllerStateData()
+            {
+                height = Mathf.Lerp(a.Height, b.Height, rate),
+                radius = Mathf.Lerp(a.Radius, b.Radius, rate),
+                multiplier = Mathf.Lerp(a.Multiplier, b.Multiplier, rate),
+            };
+        }
+
+        public static ControllerStateData operator *(ControllerStateData a, float b)
+        {
+            return new ControllerStateData()
+            {
+                height = a.height * b,
+                radius = a.radius * b,
+                multiplier = a.multiplier * b,
+            };
+        }
+
+        public static ControllerStateData operator +(ControllerStateData a, ControllerStateData b)
+        {
+            return new ControllerStateData()
+            {
+                height = a.height + b.Height,
+                radius = a.radius + b.Radius,
+                multiplier = a.multiplier + b.Multiplier,
+            };
+        }
+    }
+
 }

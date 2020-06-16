@@ -54,7 +54,16 @@ namespace Game
 
         public virtual float Dot(Vector3 direction)
         {
-            return Vector3.Dot(Absolute, direction);
+            return Dot(Absolute, direction);
+        }
+        public virtual float Dot(Vector3 velocity, Vector3 direction)
+        {
+            return Vector3.Dot(velocity, direction);
+        }
+
+        public virtual Vector3 RelativeTo(Rigidbody target)
+        {
+            return rigidbody.velocity - target.velocity;
         }
 	}
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword

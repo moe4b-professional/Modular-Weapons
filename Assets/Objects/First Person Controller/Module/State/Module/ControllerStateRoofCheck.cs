@@ -31,8 +31,8 @@ namespace Game
         protected float offset = 0.1f;
         public float Offset { get { return offset; } }
 
-        public float Radius => Controller.State.Radius * 0.8f;
-        public float Height => Controller.State.Height;
+        public float Radius => Controller.State.Data.Radius * 0.8f;
+        public float Height => Controller.State.Data.Height;
 
         public ControllerDirection Direction => Controller.Direction;
 
@@ -55,7 +55,7 @@ namespace Game
             {
                 if (Transition.Target.Weight == 1f) return false;
 
-                var delta = Transition.Target.Height - State.Height;
+                var delta = Transition.Target.Data.Height - State.Data.Height;
 
                 if (delta < 0.001f) return false;
 
@@ -80,7 +80,7 @@ namespace Game
             {
                 if (Detect())
                 {
-                    var target = FindElement(State.Height);
+                    var target = FindElement(State.Data.Height);
 
                     if (target == null)
                     {
@@ -97,7 +97,7 @@ namespace Game
         protected virtual ControllerStateElement FindElement(float height)
         {
             for (int i = 0; i < Elements.Count; i++)
-                if (Elements[i].Height < height)
+                if (Elements[i].Data.Height < height)
                     return Elements[i];
 
             return null;

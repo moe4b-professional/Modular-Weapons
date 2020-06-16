@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerProneStateElement : DefaultControllerStateElement
+	public class ControllerProneStateElement : ControllerStateElement
     {
         protected override void Operate()
         {

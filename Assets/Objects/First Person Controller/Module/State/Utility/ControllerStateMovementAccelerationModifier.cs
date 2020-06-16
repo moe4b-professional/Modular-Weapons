@@ -19,12 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerSprintSpeedModifier : ControllerSprint.Module, Modifier.Scale.IInterface
-    {
-        [SerializeField]
-        protected ValueRange scale = new ValueRange(1f, 2f);
-        public ValueRange Scale { get { return scale; } }
-
+	public class ControllerStateMovementAccelerationModifier : ControllerState.Module, Modifier.Scale.IInterface
+	{
         public float Value { get; protected set; }
 
         public override void Configure()
@@ -38,7 +34,7 @@ namespace Game
         {
             base.Init();
 
-            Controller.Movement.Speed.Scale.Register(this);
+            Controller.Movement.Acceleration.Scale.Register(this);
 
             Controller.OnProcess += Process;
         }
@@ -46,7 +42,7 @@ namespace Game
         void Process()
         {
             if (Controller.IsGrounded)
-                Value = scale.Lerp(Sprint.Weight);
+                Value = State.Data.Multiplier;
         }
     }
 }

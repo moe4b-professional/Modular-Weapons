@@ -97,6 +97,7 @@ namespace Game
             Weight = Mathf.MoveTowards(Weight, Target, acceleration * Time.deltaTime);
         }
 
+        public event Action OnOperate;
         public virtual void Operate()
         {
             if (mode == InputMode.Hold)
@@ -123,6 +124,8 @@ namespace Game
                         Begin();
                 }
             }
+
+            OnOperate?.Invoke();
         }
 
         public virtual void Begin()

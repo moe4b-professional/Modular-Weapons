@@ -45,11 +45,12 @@ namespace Game
 
             if(Active)
             {
+                Speed.Calculate();
+
+                Acceleration.Calculate();
+
                 Gravity.Apply();
-
-                Speed.Calculate(State.Multiplier);
-                Acceleration.Calculate(State.Multiplier);
-
+                
                 CalculateTarget();
 
                 Velocity.Absolute = Vector3.MoveTowards(Velocity.Absolute, Target, Acceleration.Value * Time.deltaTime);

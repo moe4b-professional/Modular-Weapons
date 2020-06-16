@@ -33,11 +33,8 @@ namespace Game
         {
             base.Configure();
 
-            if (target == null)
-            {
-                if (Elements.Count > 0)
-                    target = Elements[0];
-            }
+            if (target == null && Elements.Count > 0)
+                target = Elements[0];
         }
 
         public override void Init()
@@ -64,14 +61,10 @@ namespace Game
 
         protected virtual void ProcessElements()
         {
-            var data = ControllerState.Data.Zero;
+            var data = ControllerStateData.Zero;
 
             for (int i = 0; i < Elements.Count; i++)
-            {
-                var instance = new ControllerState.Data(Elements[i]);
-
-                data += instance * Elements[i].Weight;
-            }
+                data += Elements[i].Data * Elements[i].Weight;
 
             State.Set(data);
         }

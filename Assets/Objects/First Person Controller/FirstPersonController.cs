@@ -27,8 +27,16 @@ namespace Game
         public PhysicsRewind PhysicsCallbacks { get; protected set; }
 
         public CapsuleCollider collider { get; protected set; }
-        public float Height => collider.height;
-        public float Radius => collider.radius;
+        public float Height
+        {
+            get => collider.height;
+            set => collider.height = value;
+        }
+        public float Radius
+        {
+            get => collider.radius;
+            set => collider.radius = value;
+        }
 
         public ControllerGenericData GenericData { get; protected set; }
         public ControllerInput Input { get; protected set; }

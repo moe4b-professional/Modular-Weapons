@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerCrouchStateElement : DefaultControllerStateElement
+    public class ControllerCrouchStateElement : ControllerStateElement
     {
         protected override void Operate()
         {
