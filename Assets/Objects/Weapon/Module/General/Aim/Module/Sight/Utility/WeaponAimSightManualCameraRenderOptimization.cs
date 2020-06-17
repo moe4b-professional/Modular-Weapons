@@ -32,9 +32,6 @@ namespace Game
         {
             get
             {
-                if (Sight.enabled)
-                    return MaxFPS;
-
                 var value = Mathf.Lerp(MinFPS, MaxFPS, Sight.Weight);
 
                 return Mathf.RoundToInt(value);

@@ -26,11 +26,16 @@ namespace Game
 
         public ControllerSoundSet Set { get; protected set; }
 
+        public ControllerMovementSound Movement { get; protected set; }
+
         public class Module : FirstPersonController.BaseModule<ControllerSound>
         {
             public ControllerSound Sound => Reference;
-
+            
             public override FirstPersonController Controller => Sound.Controller;
+
+            public static T Random<T>(IList<T> list) where T : class
+                => ControllerSound.Random<T>(list);
         }
 
         public Modules.Collection<ControllerSound> Modules { get; protected set; }
@@ -44,6 +49,7 @@ namespace Game
             Modules = new Modules.Collection<ControllerSound>(this);
 
             Set = Modules.Depend<ControllerSoundSet>();
+            Movement = Modules.Depend<ControllerMovementSound>();
 
             Modules.Configure();
         }
@@ -51,12 +57,6 @@ namespace Game
         public override void Init()
         {
             base.Init();
-
-            Controller.Jump.OnPerform += JumpCallback;
-
-            Controller.Step.OnComplete += StepCallback;
-
-            Controller.Ground.Change.OnLand += LandOnGroundCallback;
 
             Modules.Init();
         }
@@ -71,23 +71,7 @@ namespace Game
             Source.PlayOneShot(clip);
         }
 
-        protected virtual void Stop()
-        {
-            Source.Stop();
-        }
-
-        void JumpCallback()
-        {
-            if(Controller.Jump.Count == 1) PlayOneShot(Set.Value.Jump);
-        }
-        void StepCallback()
-        {
-            PlayOneShot(Set.Value.Step);
-        }
-        void LandOnGroundCallback(ControllerAirTravel.Data travel)
-        {
-            PlayOneShot(Set.Value.Land);
-        }
+        protected virtual void Stop() => Source.Stop();
 
         public static T Random<T>(IList<T> list)
             where T : class
