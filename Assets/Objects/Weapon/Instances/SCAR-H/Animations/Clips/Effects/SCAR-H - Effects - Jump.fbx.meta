@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d8b4916bf841c04182d4af0bfff222c
+guid: 5f7882a523c10cc4a916f1e7b101a59b
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -674,7 +674,7 @@ ModelImporter:
     second: Rifle h barrel
   - first:
       74: 7400000
-    second: Rifle Hip - Idle
+    second: Rifle - Jump
   - first:
       95: 9500000
     second: //RootNode
@@ -722,7 +722,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SCAR-H Hip - Idle
+      name: SCAR-H - Effects - Jump
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0
@@ -733,7 +733,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

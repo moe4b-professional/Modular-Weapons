@@ -722,7 +722,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SCAR-H Aim - Idle
+      name: SCAR-H Idle - Aim
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0

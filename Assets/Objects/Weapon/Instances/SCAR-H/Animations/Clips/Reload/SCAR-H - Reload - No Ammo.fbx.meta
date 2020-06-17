@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8086d25860fdf9342b50746ee76fd7ad
+guid: 96c596a1642feed42ac3b8ff51a088da
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -674,7 +674,7 @@ ModelImporter:
     second: Rifle h barrel
   - first:
       74: 7400000
-    second: Rifle - Reload
+    second: RifleReloadBasicAimEmpty
   - first:
       95: 9500000
     second: //RootNode
@@ -722,11 +722,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: SCAR-H - Reload
+      name: SCAR-H - Reload - No Ammo
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0
-      lastFrame: 170
+      lastFrame: 202
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -746,28 +746,35 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.021220159
+      - time: 0.015986461
         functionName: PlaySFX
         data: Remove Mag
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5203673
+      - time: 0.44101873
         functionName: PlaySFX
         data: Insert Mag
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6386282
+      - time: 0.5288761
         functionName: Trigger
         data: Reload Fill
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.77750605
+      - time: 0.63327134
+        functionName: PlaySFX
+        data: Release Bolt
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8091936
         functionName: Trigger
         data: Reload End
         objectReferenceParameter: {instanceID: 0}

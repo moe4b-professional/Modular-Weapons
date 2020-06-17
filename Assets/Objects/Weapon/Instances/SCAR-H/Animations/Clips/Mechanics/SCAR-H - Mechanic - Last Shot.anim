@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SCAR-H - No Ammo Mechanic
+  m_Name: SCAR-H - Mechanic - Last Shot
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.00020410115, y: 0.101602934, z: -0.0008404212}
-        inSlope: {x: -0.00000006526709, y: -0, z: -0.00000015735625}
-        outSlope: {x: -0.00000006526709, y: -0, z: -0.00000015735625}
+        value: {x: -0.00000004634606, y: -0.0000008955174, z: -0.0011748978}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -84,10 +84,10 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.00020410115
-        inSlope: -0.00000006526709
-        outSlope: -0.00000006526709
-        tangentMode: 0
+        value: -0.00000004634606
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -112,10 +112,10 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.101602934
-        inSlope: -0
-        outSlope: -0
-        tangentMode: 0
+        value: -0.0000008955174
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -140,10 +140,10 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0008404212
-        inSlope: -0.00000015735625
-        outSlope: -0.00000015735625
-        tangentMode: 0
+        value: -0.0011748978
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
