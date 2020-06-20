@@ -121,18 +121,6 @@ namespace Game
             base.Init();
 
             Modules.Init();
-
-            Aim.OnRateChange += RateChangeCallback;
-
-            UpdateState();
-        }
-
-        void RateChangeCallback(float rate) => UpdateState();
-
-        public event Action OnUpdateState;
-        protected virtual void UpdateState()
-        {
-            OnUpdateState?.Invoke();
         }
     }
 }
