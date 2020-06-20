@@ -29,7 +29,7 @@ namespace Game
         protected ValueRange range;
         public ValueRange Range { get { return range; } }
 
-        public override float Value
+        public virtual float Value
         {
             get
             {

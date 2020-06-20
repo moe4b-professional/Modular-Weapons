@@ -38,8 +38,6 @@ namespace Game
             }
         }
 
-        public abstract float Value { get; }
-
         public virtual EffectMode Effect => EffectMode.Scaled;
         public enum EffectMode
         {

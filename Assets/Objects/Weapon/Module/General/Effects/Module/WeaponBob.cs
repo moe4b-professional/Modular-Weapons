@@ -21,13 +21,7 @@ namespace Game
 {
 	public class WeaponBob : Weapon.Module, WeaponEffects.IInterface
     {
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
+        public Modifier.Scale Scale { get; protected set; }
 
         [SerializeField]
         protected float range = 0.0035f;
@@ -50,20 +44,22 @@ namespace Game
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
+
+            Scale = new Modifier.Scale();
+
+            Weapon.Effects.Register(this);
         }
 
         public override void Init()
         {
             base.Init();
 
-            Weapon.Effects.Register(this);
-
             Pivot.OnProcess += Process;
         }
 
         void Process()
         {
-            Offset = Processor.Delta * range * scale;
+            Offset = Processor.Delta * range * Scale.Value;
 
             Context.localPosition += Offset;
         }

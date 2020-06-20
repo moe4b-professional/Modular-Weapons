@@ -21,13 +21,7 @@ namespace Game
 {
 	public class WeaponSway : Weapon.Module, WeaponEffects.IInterface
     {
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
+        public Modifier.Scale Scale { get; protected set; }
 
         [SerializeField]
         protected MultiplierData multiplier = new MultiplierData(1f, 1f);
@@ -180,6 +174,10 @@ namespace Game
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
+
+            Scale = new Modifier.Scale();
+
+            Weapon.Effects.Register(this);
         }
 
         public override void Init()
@@ -187,8 +185,6 @@ namespace Game
             base.Init();
 
             Pivot.OnProcess += Process;
-
-            Weapon.Effects.Register(this);
         }
 
         void Process()
@@ -198,8 +194,8 @@ namespace Game
             Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
             Target = Vector3.Lerp(Value, Vector3.zero, speed.Reset * Time.deltaTime);
 
-            Position = effect.Position.Sample(Value) * scale;
-            Rotation = effect.Rotation.Sample(Value) * scale;
+            Position = effect.Position.Sample(Value) * Scale.Value;
+            Rotation = effect.Rotation.Sample(Value) * Scale.Value;
 
             AdjustSpace();
 

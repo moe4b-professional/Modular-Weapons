@@ -27,7 +27,7 @@ namespace Game
 
         public override EffectMode Effect => EffectMode.Constant;
 
-        public override float Value => Mathf.Lerp(1f, scale, Rate);
+        public virtual float Value => Mathf.Lerp(1f, scale, Rate);
 
         public WeaponAimSpeed Speed => Aim.Speed;
 

@@ -21,13 +21,7 @@ namespace Game
 {
     public abstract class WeaponRecoil : Weapon.Module, WeaponEffects.IInterface
     {
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
+        public Modifier.Scale Scale { get; protected set; }
 
         public ValueRange kick;
 
@@ -126,11 +120,18 @@ namespace Game
 
         }
 
+        public override void Configure()
+        {
+            base.Configure();
+
+            Scale = new Modifier.Scale();
+
+            Weapon.Effects.Register(this);
+        }
+
         public override void Init()
         {
             base.Init();
-
-            Weapon.Effects.Register(this);
 
             Weapon.Action.OnPerform += Action;
 
@@ -140,7 +141,7 @@ namespace Game
         void Action()
         {
             if(enabled)
-                Target = CalculateTarget() * scale;
+                Target = CalculateTarget() * Scale.Value;
         }
 
         protected abstract Vector3 CalculateTarget();

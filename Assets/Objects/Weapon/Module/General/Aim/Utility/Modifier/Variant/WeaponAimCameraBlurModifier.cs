@@ -25,7 +25,7 @@ namespace Game
         protected float target = 0.6f;
         public float Target { get { return target; } }
 
-        public override float Value => Mathf.Lerp(0f, target, Rate);
+        public virtual float Value => Mathf.Lerp(0f, target, Rate);
 
         public WeaponCameraBlur CameraBlur { get; protected set; }
 

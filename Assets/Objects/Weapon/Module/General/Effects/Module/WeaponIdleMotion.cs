@@ -21,14 +21,8 @@ namespace Game
 {
 	public class WeaponIdleMotion : Weapon.Module, WeaponEffects.IInterface
 	{
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
-        
+        public Modifier.Scale Scale { get; protected set; }
+
         [SerializeField]
         protected float speed = 2f;
         public float Speed { get { return speed; } }
@@ -48,20 +42,27 @@ namespace Game
 
         public WeaponPivot Pivot => Weapon.Pivot;
 
+        public override void Configure()
+        {
+            base.Configure();
+
+            Scale = new Modifier.Scale();
+
+            Weapon.Effects.Register(this);
+        }
+
         public override void Init()
         {
             base.Init();
 
             Pivot.OnProcess += LateProcess;
-
-            Weapon.Effects.Register(this);
         }
 
         void LateProcess()
         {
             Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, speed * Time.deltaTime);
 
-            Offset = range * Mathf.Sin(speed * Time.time) * axis * scale * Weight;
+            Offset = Mathf.Sin(speed * Time.time) * range * axis * Scale.Value * Weight;
 
             Context.localPosition += Offset;
         }

@@ -21,13 +21,7 @@ namespace Game
 {
 	public class WeaponAnimationEffects : Weapon.Module, WeaponEffects.IInterface
 	{
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
+        public Modifier.Scale Scale { get; protected set; }
 
         public WeaponMesh Mesh => Weapon.Mesh;
         public Animator Animator => Mesh.Animator;
@@ -62,9 +56,13 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
+            Scale = new Modifier.Scale();
+
             Modules = new Modules.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
 
             Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
+
+            Weapon.Effects.Register(this);
 
             Modules.Configure();
         }
@@ -72,8 +70,6 @@ namespace Game
         public override void Init()
         {
             base.Init();
-
-            Weapon.Effects.Register(this);
 
             Modules.Init();
         }

@@ -26,7 +26,7 @@ namespace Game
         {
             bool enabled { get; set; }
 
-            float Scale { get; set; }
+            Modifier.Scale Scale { get; }
         }
 
         public virtual void Register(IInterface element)

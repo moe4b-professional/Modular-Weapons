@@ -25,7 +25,7 @@ namespace Game
         protected float scale = 0.8f;
         public float Scale { get { return scale; } }
 
-        public override float Value => Mathf.Lerp(1f, scale, Rate);
+        public virtual float Value => Mathf.Lerp(1f, scale, Rate);
 
         public WeaponFOV FOV { get; protected set; }
 

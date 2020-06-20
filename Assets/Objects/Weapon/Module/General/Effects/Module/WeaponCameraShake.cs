@@ -21,13 +21,7 @@ namespace Game
 {
 	public class WeaponCameraShake : Weapon.Module, WeaponEffects.IInterface
 	{
-        [SerializeField]
-        protected float scale = 1f;
-        public float Scale
-        {
-            get => scale;
-            set => scale = value;
-        }
+        public Modifier.Scale Scale { get; protected set; }
 
         [SerializeField]
         protected float increment;
@@ -50,13 +44,15 @@ namespace Game
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
+
+            Scale = new Modifier.Scale();
+
+            Weapon.Effects.Register(this);
         }
 
         public override void Init()
         {
             base.Init();
-
-            Weapon.Effects.Register(this);
 
             Weapon.Action.OnPerform += Action;
         }
@@ -67,7 +63,7 @@ namespace Game
             {
                 var delta = Mathf.MoveTowards(0f, max - Processor.Value, increment);
 
-                Processor.Add(delta * scale);
+                Processor.Add(delta * Scale.Value);
             }
         }
 	}

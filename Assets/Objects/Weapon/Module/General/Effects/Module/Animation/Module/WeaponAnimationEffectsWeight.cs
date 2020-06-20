@@ -58,7 +58,7 @@ namespace Game
 
         void Process()
         {
-            Value = Mathf.MoveTowards(Value, target * Effects.Scale, speed * Time.deltaTime);
+            Value = Mathf.MoveTowards(Value, target * Effects.Scale.Value, speed * Time.deltaTime);
         }
     }
 }
