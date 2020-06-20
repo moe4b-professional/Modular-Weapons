@@ -21,13 +21,59 @@ namespace Game
 {
 	public class WeaponAimEffectModifier : WeaponAimPropertyModifier
 	{
-        public abstract class Context : Module, Modifier.Scale.IInterface
+        public abstract class Context : Module
         {
             [SerializeField]
             protected ValueRange range = new ValueRange(0.3f, 1f);
             public ValueRange Range { get { return range; } }
 
+            [SerializeField]
+            protected OverridesProperty overrides;
+            public OverridesProperty Overrides { get { return overrides; } }
+            [Serializable]
+            public class OverridesProperty
+            {
+                [SerializeField]
+                protected Context[] list;
+                public Context[] List { get { return list; } }
+
+                public virtual bool Contains(WeaponEffects.IInterface target)
+                {
+                    for (int x = 0; x < list.Length; x++)
+                        for (int y = 0; y < list[x].Targets.Count; y++)
+                            if (list[x].Targets[y] == target)
+                                return true;
+
+                    return false;
+                }
+            }
+
             public abstract IList<WeaponEffects.IInterface> Targets { get; }
+
+            public List<Element> Elements { get; protected set; }
+            [Serializable]
+            public class Element : Modifier.Scale.IInterface
+            {
+                public Context Context { get; protected set; }
+
+                public WeaponEffects.IInterface Target { get; protected set; }
+
+                public bool Override => Context.Overrides.Contains(Target);
+
+                public float Value => Override ? 1f : Context.Value;
+
+                public virtual void Register()
+                {
+                    Target.Scale.Register(this);
+                }
+
+                public Element(Context context, WeaponEffects.IInterface target)
+                {
+                    this.Context = context;
+
+                    this.Target = target;
+                }
+            }
 
             public virtual float Value => Mathf.Lerp(range.Max, range.Min, Effects.Rate);
 
@@ -35,13 +81,16 @@ namespace Game
             {
                 base.Init();
 
-                Register();
-            }
+                Elements = new List<Element>();
 
-            protected virtual void Register()
-            {
                 for (int i = 0; i < Targets.Count; i++)
-                    Targets[i].Scale.Register(this);
+                {
+                    var instance = new Element(this, Targets[i]);
+
+                    Elements.Add(instance);
+
+                    Elements[i].Register();
+                }
             }
         }
 

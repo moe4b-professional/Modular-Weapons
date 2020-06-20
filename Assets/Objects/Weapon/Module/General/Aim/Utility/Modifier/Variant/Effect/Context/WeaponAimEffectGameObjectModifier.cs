@@ -22,8 +22,8 @@ namespace Game
 	public class WeaponAimEffectGameObjectModifier : WeaponAimEffectModifier.Context
     {
         [SerializeField]
-        protected GameObject[] gameObjects;
-        public GameObject[] GameObjects { get { return gameObjects; } }
+        protected GameObject[] source;
+        public GameObject[] Source { get { return source; } }
 
         protected List<WeaponEffects.IInterface> targets;
         public override IList<WeaponEffects.IInterface> Targets => targets;
@@ -34,9 +34,9 @@ namespace Game
 
             targets = new List<WeaponEffects.IInterface>();
 
-            for (int i = 0; i < gameObjects.Length; i++)
+            for (int i = 0; i < source.Length; i++)
             {
-                var instances = Dependancy.GetAll<WeaponEffects.IInterface>(gameObjects[i]);
+                var instances = Dependancy.GetAll<WeaponEffects.IInterface>(source[i]);
 
                 targets.AddRange(instances);
             }
