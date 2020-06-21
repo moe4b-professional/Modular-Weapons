@@ -38,6 +38,8 @@ namespace Game
         public override void Init()
         {
             base.Init();
+
+            Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
         }
     }
 }
