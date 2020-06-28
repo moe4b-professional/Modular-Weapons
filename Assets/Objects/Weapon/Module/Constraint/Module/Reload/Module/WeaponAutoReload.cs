@@ -23,27 +23,60 @@ namespace Game
 	{
         public WeaponAmmo Ammo => Reload.Ammo;
 
+        public bool Lock { get; protected set; }
+
+        public bool CanPerform
+        {
+            get
+            {
+                if (Lock) return false;
+
+                if (Weapon.Action.Input) return false;
+
+                if (Ammo.CanConsume) return false;
+
+                if (Reload.CanPerform == false) return false;
+
+                return true;
+            }
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Lock = false;
+        }
+
         public override void Init()
         {
             base.Init();
 
-            Ammo.OnConsumption += ConsumptionCallback;
+            Weapon.OnProcess += Process;
+
+            Ammo.OnConsumption += AmmoConsumptionCallback;
+
+            Reload.OnPerform += ReloadPerformCallback;
+        }
+        
+        void Process()
+        {
+            if(enabled)
+            {
+                if (CanPerform)
+                    Reload.Perform();
+            }
         }
 
-        void ConsumptionCallback()
+        void AmmoConsumptionCallback()
         {
-            if(enabled && Ammo.CanConsume == false)
-                Weapon.OnProcess += Process;
+            if (Ammo.CanConsume == false)
+                Lock = false;
+        }
 
-            void Process()
-            {
-                if (Reload.CanPerform && Weapon.Action.Input == false)
-                {
-                    Weapon.OnProcess -= Process;
-
-                    Reload.Perform();
-                }
-            }
+        void ReloadPerformCallback()
+        {
+            Lock = true;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Game
 
         public int Counter { get; protected set; }
 
-        bool WeaponActionOverride.IInterface.Input => Counter > 0;
+        public bool Input => Counter > 0;
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 
