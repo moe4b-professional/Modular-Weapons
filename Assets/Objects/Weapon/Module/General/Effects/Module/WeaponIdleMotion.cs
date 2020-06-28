@@ -47,13 +47,13 @@ namespace Game
             base.Configure();
 
             Scale = new Modifier.Scale();
-
-            Weapon.Effects.Register(this);
         }
 
         public override void Init()
         {
             base.Init();
+
+            Weapon.Effects.Register(this);
 
             Pivot.OnProcess += LateProcess;
         }

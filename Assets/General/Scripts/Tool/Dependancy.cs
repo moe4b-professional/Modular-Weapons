@@ -21,78 +21,76 @@ namespace Game
 {
 	public static class Dependancy
 	{
-        public static TComponent Get<TComponent>(GameObject target)
-            where TComponent : class
-        {
-            return Get<TComponent>(target, Scope.CurrentToChildern);
-        }
+        public static TComponent Get<TComponent>(GameObject target) where TComponent : class => Get<TComponent>(target, Scope.Hierarchy);
         public static TComponent Get<TComponent>(GameObject target, Scope scope)
             where TComponent : class
         {
             TComponent component;
 
             if(scope == Scope.Childern)
-            {
                 component = null;
-
-                scope = Scope.CurrentToChildern;
-            }
-            else if(scope == Scope.Parents)
-            {
-                component = null;
-
-                scope = Scope.CurrentToParents;
-            }
             else
-            {
                 component = target.GetComponent<TComponent>();
-            }
 
             if (IsNull(component))
             {
-                if (scope == Scope.CurrentToChildern)
+                for (int i = 0; i < target.transform.childCount; i++)
                 {
-                    for (int i = 0; i < target.transform.childCount; i++)
-                    {
-                        component = Get<TComponent>(target.transform.GetChild(i).gameObject, scope);
+                    var child = target.transform.GetChild(i);
 
-                        if (!IsNull(component)) break;
-                    }
+                    component = Get<TComponent>(child.gameObject, Scope.Hierarchy);
+
+                    if (!IsNull(component)) break;
                 }
-
-                if (scope == Scope.CurrentToParents && target.transform.parent != null)
-                    component = Get<TComponent>(target.transform.parent.gameObject, scope);
             }
 
             return component;
         }
         
-        public static List<TComponent> GetAll<TComponent>(GameObject target)
-            where TComponent : class
-        {
-            return GetAll<TComponent>(target, Scope.CurrentToChildern);
-        }
-		public static List<TComponent> GetAll<TComponent>(GameObject target, Scope scope)
+        public static List<TComponent> GetAll<TComponent>(GameObject target) where TComponent : class => GetAll<TComponent>(target, Scope.Hierarchy);
+        public static List<TComponent> GetAll<TComponent>(GameObject target, Scope scope)
             where TComponent : class
         {
             var list = new List<TComponent>();
 
-            list.AddRange(target.GetComponents<TComponent>());
+            if(scope == Scope.Local || scope == Scope.Hierarchy)
+            {
+                var components = target.GetComponents<TComponent>();
 
-            if (scope == Scope.CurrentToChildern)
+                list.AddRange(components);
+            }
+
+            if (scope == Scope.Childern || scope == Scope.Hierarchy)
+            {
                 for (int i = 0; i < target.transform.childCount; i++)
-                    list.AddRange(GetAll<TComponent>(target.transform.GetChild(i).gameObject, scope));
+                {
+                    var child = target.transform.GetChild(i);
 
-            if (scope == Scope.CurrentToParents)
-                if (target.transform.parent != null)
-                    list.AddRange(GetAll<TComponent>(target.transform.parent.gameObject, scope));
+                    var components = GetAll<TComponent>(child.gameObject, Scope.Hierarchy);
+
+                    list.AddRange(components);
+                }
+            }
 
             return list;
         }
 
         public enum Scope
         {
-            Local, Childern, CurrentToChildern, CurrentToParents, Parents
+            /// <summary>
+            /// Current GameObject
+            /// </summary>
+            Local,
+
+            /// <summary>
+            /// Current GameObject And it's Childern
+            /// </summary>
+            Hierarchy,
+
+            /// <summary>
+            /// Childern of Current GameObject
+            /// </summary>
+            Childern
         }
 
         public static Exception CreateException<TDependancy>(object dependant)

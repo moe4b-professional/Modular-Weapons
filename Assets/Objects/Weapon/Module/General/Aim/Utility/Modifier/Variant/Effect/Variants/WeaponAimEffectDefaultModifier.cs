@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimEffectDefaultModifier : WeaponAimEffectModifier.Context
+	public class WeaponAimEffectDefaultModifier : WeaponAimEffectModifier
     {
-        public override IList<WeaponEffects.IInterface> Targets => Weapon.Effects.List;
+        public override bool IsTarget(WeaponEffects.IInterface effect) => true;
     }
 }

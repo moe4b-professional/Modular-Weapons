@@ -176,13 +176,13 @@ namespace Game
             Processor = GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
-
-            Weapon.Effects.Register(this);
         }
 
         public override void Init()
         {
             base.Init();
+
+            Weapon.Effects.Register(this);
 
             Pivot.OnProcess += Process;
         }

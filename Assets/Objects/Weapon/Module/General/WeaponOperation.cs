@@ -23,6 +23,11 @@ namespace Game
 	{
         public IInterface Value { get; protected set; }
 
+        public interface IInterface
+        {
+            void Stop();
+        }
+
         public virtual void Set(IInterface target)
         {
             if (Value != null) Value.Stop();
@@ -42,11 +47,6 @@ namespace Game
         public virtual void Clear()
         {
             Value = null;
-        }
-
-        public interface IInterface
-        {
-            void Stop();
         }
     }
 }

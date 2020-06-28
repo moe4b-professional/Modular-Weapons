@@ -61,15 +61,15 @@ namespace Game
             Modules = new Modules.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
 
             Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
-
-            Weapon.Effects.Register(this);
-
+            
             Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
+
+            Weapon.Effects.Register(this);
 
             Modules.Init();
         }

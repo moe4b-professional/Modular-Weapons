@@ -22,6 +22,8 @@ namespace Game
 	public class WeaponEffects : Weapon.Module
 	{
         public List<IInterface> List { get; protected set; }
+        public virtual int Count => List.Count;
+        public virtual IInterface this[int index] => List[index];
         public interface IInterface
         {
             bool enabled { get; set; }
@@ -29,9 +31,13 @@ namespace Game
             Modifier.Scale Scale { get; }
         }
 
+        public delegate void RegisterDelegate(IInterface effect);
+        public event RegisterDelegate OnRegister;
         public virtual void Register(IInterface element)
         {
             List.Add(element);
+
+            OnRegister?.Invoke(element);
         }
 
         public override void Configure()

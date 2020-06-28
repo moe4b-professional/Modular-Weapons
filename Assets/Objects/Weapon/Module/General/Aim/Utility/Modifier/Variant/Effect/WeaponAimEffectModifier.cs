@@ -19,108 +19,119 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimEffectModifier : WeaponAimPropertyModifier
+	public abstract class WeaponAimEffectModifier : WeaponAimPropertyModifier
 	{
-        public abstract class Context : Module
+        [SerializeField]
+        protected ValueRange range = new ValueRange(0.3f, 1f);
+        public ValueRange Range { get { return range; } }
+
+        [SerializeField]
+        protected OverridesProperty overrides;
+        public OverridesProperty Overrides { get { return overrides; } }
+        [Serializable]
+        public class OverridesProperty
         {
             [SerializeField]
-            protected ValueRange range = new ValueRange(0.3f, 1f);
-            public ValueRange Range { get { return range; } }
+            protected List<WeaponAimEffectModifier> list;
+            public List<WeaponAimEffectModifier> List { get { return list; } }
 
-            [SerializeField]
-            protected OverridesProperty overrides;
-            public OverridesProperty Overrides { get { return overrides; } }
-            [Serializable]
-            public class OverridesProperty
+            public WeaponAimEffectModifier Modifier { get; protected set; }
+            public virtual void Configure(WeaponAimEffectModifier reference)
             {
-                [SerializeField]
-                protected Context[] list;
-                public Context[] List { get { return list; } }
+                Modifier = reference;
 
-                public virtual bool Contains(WeaponEffects.IInterface target)
+                RegisterChildern();
+            }
+
+            protected virtual void RegisterChildern()
+            {
+                var childern = Dependancy.GetAll<WeaponAimEffectModifier>(Modifier.gameObject, Dependancy.Scope.Childern);
+
+                for (int i = 0; i < childern.Count; i++)
                 {
-                    for (int x = 0; x < list.Length; x++)
-                        for (int y = 0; y < list[x].Targets.Count; y++)
-                            if (list[x].Targets[y] == target)
-                                return true;
+                    if (Contains(childern[i])) continue;
 
-                    return false;
+                    Add(childern[i]);
                 }
             }
 
-            public abstract IList<WeaponEffects.IInterface> Targets { get; }
-
-            public List<Element> Elements { get; protected set; }
-            [Serializable]
-            public class Element : Modifier.Scale.IInterface
+            public virtual void Add(WeaponAimEffectModifier element)
             {
-                public Context Context { get; protected set; }
-
-                public WeaponEffects.IInterface Target { get; protected set; }
-
-                public bool Override => Context.Overrides.Contains(Target);
-
-                public float Value => Override ? 1f : Context.Value;
-
-                public virtual void Register()
+                if (Contains(element))
                 {
-                    Target.Scale.Register(this);
+                    Debug.LogWarning("Trying to add duplicate " + typeof(WeaponAimEffectModifier).Name + ": " + element.name);
+                    return;
                 }
 
-                public Element(Context context, WeaponEffects.IInterface target)
-                {
-                    this.Context = context;
-
-                    this.Target = target;
-                }
+                list.Add(element);
             }
 
-            public virtual float Value => Mathf.Lerp(range.Max, range.Min, Effects.Rate);
+            public virtual bool Contains(WeaponAimEffectModifier target) => list.Contains(target);
 
-            public override void Init()
+            public virtual bool Detect(WeaponEffects.IInterface target)
             {
-                base.Init();
+                for (int i = 0; i < list.Count; i++)
+                    if (list[i].IsTarget(target))
+                        return true;
 
-                Elements = new List<Element>();
-
-                for (int i = 0; i < Targets.Count; i++)
-                {
-                    var instance = new Element(this, Targets[i]);
-
-                    Elements.Add(instance);
-
-                    Elements[i].Register();
-                }
+                return false;
             }
         }
 
-        public abstract class Module : Weapon.BaseModule<WeaponAimEffectModifier>
+        public List<Element> Elements { get; protected set; }
+        [Serializable]
+        public class Element : Modifier.Scale.IInterface
         {
-            public WeaponAimEffectModifier Effects => Reference;
+            public WeaponAimEffectModifier Modifier { get; protected set; }
 
-            public WeaponAim Aim => Reference.Aim;
+            public WeaponEffects.IInterface Target { get; protected set; }
 
-            public override Weapon Weapon => Reference.Weapon;
+            public bool Overriden => Modifier.Overrides.Detect(Target);
+
+            public float Value => Overriden ? 1f : Modifier.Value;
+
+            protected virtual void Register()
+            {
+                Target.Scale.Register(this);
+            }
+
+            public Element(WeaponAimEffectModifier modifier, WeaponEffects.IInterface target)
+            {
+                this.Modifier = modifier;
+
+                this.Target = target;
+
+                Register();
+            }
         }
 
-        public Modules.Collection<WeaponAimEffectModifier> Modules { get; protected set; }
+        public virtual float Value => Mathf.Lerp(range.Max, range.Min, Rate);
 
-        public virtual float Value => Rate;
+        public WeaponEffects Effects => Weapon.Effects;
 
         public override void Configure()
         {
             base.Configure();
 
-            Modules = new Modules.Collection<WeaponAimEffectModifier>(this, Weapon.gameObject);
+            overrides.Configure(this);
 
-            Modules.Configure();
+            Elements = new List<Element>();
+
+            Effects.OnRegister += EffectRegisterCallback;
         }
 
-        public override void Init()
+        protected virtual void EffectRegisterCallback(WeaponEffects.IInterface effect)
         {
-            base.Init();
-
-            Modules.Init();
+            if (IsTarget(effect)) Register(effect);
         }
+
+        protected virtual void Register(WeaponEffects.IInterface effect)
+        {
+            var element = new Element(this, effect);
+
+            Elements.Add(element);
+        }
+
+        public abstract bool IsTarget(WeaponEffects.IInterface effect);
     }
 }

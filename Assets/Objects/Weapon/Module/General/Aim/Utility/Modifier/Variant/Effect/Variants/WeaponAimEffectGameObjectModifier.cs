@@ -19,27 +19,28 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimEffectGameObjectModifier : WeaponAimEffectModifier.Context
+	public class WeaponAimEffectGameObjectModifier : WeaponAimEffectModifier
     {
         [SerializeField]
         protected GameObject[] source;
         public GameObject[] Source { get { return source; } }
 
-        protected List<WeaponEffects.IInterface> targets;
-        public override IList<WeaponEffects.IInterface> Targets => targets;
+        public List<WeaponEffects.IInterface> Targets { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            targets = new List<WeaponEffects.IInterface>();
+            Targets = new List<WeaponEffects.IInterface>();
 
             for (int i = 0; i < source.Length; i++)
             {
                 var instances = Dependancy.GetAll<WeaponEffects.IInterface>(source[i]);
 
-                targets.AddRange(instances);
+                Targets.AddRange(instances);
             }
         }
+
+        public override bool IsTarget(WeaponEffects.IInterface effect) => Targets.Contains(effect);
     }
 }
