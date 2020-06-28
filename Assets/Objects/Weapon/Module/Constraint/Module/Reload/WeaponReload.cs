@@ -49,6 +49,11 @@ namespace Game
             public override Weapon Weapon => Reload.Weapon;
         }
 
+        public abstract class Procedure : Module
+        {
+
+        }
+
         public Modules.Collection<WeaponReload> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }

@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponDefaultReload : WeaponReload.Module
-	{
+	public class WeaponDefaultReload : WeaponReload.Procedure
+    {
         [SerializeField]
         protected float delay = 1f;
         public float Delay { get { return delay; } }

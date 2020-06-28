@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimationReload : WeaponReload.Module
-	{
+	public class WeaponReloadAnimation : WeaponReload.Procedure
+    {
         [SerializeField]
         protected string _ID = "Reload";
         public string ID { get { return _ID; } }
