@@ -29,8 +29,9 @@ namespace Game
 
         [SerializeField]
         [HideInInspector]
-        string[] IDs;
+        protected string[] IDs;
 
+#if UNITY_EDITOR
         protected virtual void OnValidate()
         {
             if(types == null || types.Length == 0)
@@ -52,6 +53,7 @@ namespace Game
                 }
             }
         }
+#endif
 
         public override bool IsTarget(WeaponEffects.IInterface effect)
         {

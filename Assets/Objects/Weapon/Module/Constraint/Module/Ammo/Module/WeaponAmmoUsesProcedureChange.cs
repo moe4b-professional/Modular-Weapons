@@ -36,7 +36,7 @@ namespace Game
             public GameObject[] GameObjects { get { return gameObjects; } }
 
             [SerializeField]
-            [ConditionDrawer("Uses", true)]
+            [ConditionDrawer("Remaining Uses", true)]
             protected IntegerCondition condition;
             public IntegerCondition Condition { get { return condition; } }
 
@@ -165,7 +165,7 @@ namespace Game
 
             protected virtual void DrawPrefix(ref Rect rect)
             {
-                var text = Plural ? "are" : "is";
+                var text = Plural ? "Are" : "Is";
 
                 var content = new GUIContent(text);
 
@@ -220,11 +220,11 @@ namespace Game
                 switch (value)
                 {
                     case OperatorMode.Equal:
-                        return "to";
+                        return "To";
 
                     case OperatorMode.Less:
                     case OperatorMode.More:
-                        return "than";
+                        return "Than";
                 }
 
                 throw new NotImplementedException();
