@@ -44,7 +44,8 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new Modules.Collection<WeaponBurstActionMode>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponBurstActionMode>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Modules.Configure();
         }

@@ -77,6 +77,7 @@ namespace Game
             Constraint = new Modifier.Constraint();
 
             Modules = new Modules.Collection<ControllerJump>(this);
+            Modules.Register(Controller.Behaviours);
 
             Lock = Modules.Depend<ControllerJumpLock>();
 

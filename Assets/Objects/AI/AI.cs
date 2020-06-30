@@ -21,21 +21,41 @@ namespace Game
 {
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-    public class AI : MonoBehaviour, IModule<Character>
+    public class AI : MonoBehaviour, IBehaviour<Character>, IModule<Character>
     {
         public Rigidbody rigidbody => Character.rigidbody;
 
         public AIController Controller { get; protected set; }
 
-        public class Module : MonoBehaviourModule<AI>
+        public class Behaviour : MonoBehaviour, IBehaviour<AI>
         {
-            public AI AI => Reference;
+
+        }
+        public Behaviours.Collection<AI> Behaviours { get; protected set; }
+
+        public class Module : Behaviour, IModule<AI>
+        {
+            public AI AI { get; protected set; }
+            public virtual void Setup(AI reference)
+            {
+                AI = reference;
+            }
+            
             public Character Character => AI.Character;
             public Entity Entity => Character.Entity;
 
             public Rigidbody rigidbody => Character.rigidbody;
-        }
 
+            public virtual void Configure()
+            {
+
+            }
+
+            public virtual void Init()
+            {
+
+            }
+        }
         public Modules.Collection<AI> Modules { get; protected set; }
 
         public Character Character { get; protected set; }
@@ -48,7 +68,11 @@ namespace Game
         {
             Controller = Dependancy.Get<AIController>(gameObject);
 
+            Behaviours = new Behaviours.Collection<AI>(this);
+            Behaviours.Register(gameObject);
+
             Modules = new Modules.Collection<AI>(this);
+            Modules.Register(Behaviours);
 
             Modules.Configure();
         }

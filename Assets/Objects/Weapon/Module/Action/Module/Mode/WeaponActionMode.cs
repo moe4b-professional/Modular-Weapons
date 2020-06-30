@@ -41,7 +41,6 @@ namespace Game
 
             public override Weapon Weapon => Mode.Weapon;
         }
-
         public Modules.Collection<WeaponActionMode> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
@@ -56,7 +55,8 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new Modules.Collection<WeaponActionMode>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponActionMode>(this);
+            Modules.Register(Weapon.Behaviours);
 
             List = Dependancy.GetAll<IState>(gameObject);
 

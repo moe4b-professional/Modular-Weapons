@@ -47,6 +47,7 @@ namespace Game
             Source = GetComponent<AudioSource>();
 
             Modules = new Modules.Collection<ControllerSound>(this);
+            Modules.Register(Controller.Behaviours);
 
             Set = Modules.Depend<ControllerSoundSet>();
             Movement = Modules.Depend<ControllerMovementSound>();

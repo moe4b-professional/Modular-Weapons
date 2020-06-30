@@ -58,7 +58,8 @@ namespace Game
 
             Scale = new Modifier.Scale();
 
-            Modules = new Modules.Collection<WeaponAnimationEffects>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAnimationEffects>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
             

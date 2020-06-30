@@ -47,7 +47,8 @@ namespace Game
 
             List = new List<IInterface>();
 
-            Modules = new Modules.Collection<ControllerAnchors>(this, Controller.gameObject);
+            Modules = new Modules.Collection<ControllerAnchors>(this);
+            Modules.Register(Controller.Behaviours, ReferenceCollection.Scope.All);
 
             Modules.Configure();
         }

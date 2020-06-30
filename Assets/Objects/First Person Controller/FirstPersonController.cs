@@ -57,7 +57,13 @@ namespace Game
         public ControllerSprint Sprint { get; protected set; }
         public ControllerLook Look { get; protected set; }
 
-        public abstract class BaseModule<TReference> : MonoBehaviour, IModule<TReference>
+        public class Behaviour : MonoBehaviour, IBehaviour<FirstPersonController>
+        {
+
+        }
+        public Behaviours.Collection<FirstPersonController> Behaviours { get; protected set; }
+
+        public abstract class BaseModule<TReference> : Behaviour, IModule<TReference>
         {
             public TReference Reference { get; protected set; }
             public virtual void Setup(TReference reference)
@@ -81,7 +87,6 @@ namespace Game
         {
             public override FirstPersonController Controller => Reference;
         }
-
         public Modules.Collection<FirstPersonController> Modules { get; protected set; }
 
         public Vector3 Position => transform.position;
@@ -96,7 +101,11 @@ namespace Game
             PhysicsCallbacks = GetComponent<PhysicsRewind>();
             collider = GetComponent<CapsuleCollider>();
 
+            Behaviours = new Behaviours.Collection<FirstPersonController>(this);
+            Behaviours.Register(gameObject);
+
             Modules = new Modules.Collection<FirstPersonController>(this);
+            Modules.Register(Behaviours);
 
             GenericData = Modules.Depend<ControllerGenericData>();
             Input = Modules.Depend<ControllerInput>();

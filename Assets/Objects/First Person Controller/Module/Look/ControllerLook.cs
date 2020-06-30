@@ -76,6 +76,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerLook>(this);
+            Modules.Register(Controller.Behaviours);
 
             Sensitivity = Modules.Find<ControllerLookSensitivty>();
             Camera = Modules.Depend<ControllerCameraLook>();

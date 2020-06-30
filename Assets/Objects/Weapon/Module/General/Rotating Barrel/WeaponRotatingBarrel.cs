@@ -70,6 +70,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<WeaponRotatingBarrel>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Modules.Configure();
         }

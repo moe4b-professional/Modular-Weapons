@@ -47,7 +47,8 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new Modules.Collection<WeaponAction>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAction>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Override = Modules.Depend<WeaponActionOverride>();
 

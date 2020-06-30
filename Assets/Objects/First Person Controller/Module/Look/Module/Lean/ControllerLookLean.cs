@@ -92,6 +92,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerLookLean>(this);
+            Modules.Register(Controller.Behaviours);
 
             Modules.Configure();
         }

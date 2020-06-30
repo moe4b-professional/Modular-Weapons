@@ -52,7 +52,8 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new Modules.Collection<WeaponSprint>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponSprint>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Modules.Configure();
         }

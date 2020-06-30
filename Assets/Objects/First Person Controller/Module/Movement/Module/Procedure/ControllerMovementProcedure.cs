@@ -101,6 +101,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerMovementProcedure>(this);
+            Modules.Register(Controller.Behaviours);
 
             Ground = Modules.Depend<ControllerGroundMovement>();
             Air = Modules.Depend<ControllerAirMovement>();

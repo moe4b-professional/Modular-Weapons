@@ -93,7 +93,8 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new Modules.Collection<WeaponAmmo>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAmmo>(this);
+            Modules.Register(Weapon.Behaviours, ReferenceCollection.Scope.All);
 
             Modules.Configure();
         }

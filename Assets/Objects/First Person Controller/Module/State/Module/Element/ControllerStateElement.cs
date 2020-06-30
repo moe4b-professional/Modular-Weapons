@@ -53,6 +53,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerStateElement>(this);
+            Modules.Register(Controller.Behaviours);
 
             Modules.Configure();
         }

@@ -41,7 +41,8 @@ namespace Game
         {
             base.Configure();
 
-            Modules = new Modules.Collection<WeaponHit>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponHit>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Modules.Configure();
         }

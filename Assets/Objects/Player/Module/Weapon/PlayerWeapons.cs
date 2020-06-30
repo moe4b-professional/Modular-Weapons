@@ -39,7 +39,6 @@ namespace Game
 
             public override Player Player => Reference.Player;
         }
-
         public Modules.Collection<PlayerWeapons> Modules { get; protected set; }
 
         public override void Configure()
@@ -48,10 +47,12 @@ namespace Game
 
             List = Dependancy.GetAll<Weapon>(gameObject);
 
+            Sandbox.debug = true;
             Modules = new Modules.Collection<PlayerWeapons>(this);
+            Modules.Register(Player.Behaviours);
+            Sandbox.debug = false;
 
             Processor = Modules.Depend<PlayerWeaponProcessor>();
-
             camera = Modules.Depend<PlayerWeaponsCamera>();
 
             Character.Weapons.Set(this);

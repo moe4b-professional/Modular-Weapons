@@ -21,43 +21,59 @@ namespace Game
 {
     public static class Modules
     {
-        public static void Set<TReference>(TReference reference, IReference<TReference> target)
+        public static void Setup<TReference>(TReference reference, IReference<TReference> target)
+            where TReference : Component
         {
             target.Setup(reference);
         }
+
         public static void Configure<TReference>(TReference reference, IModule<TReference> target)
+            where TReference : Component
         {
             target.Configure();
         }
+
+        static List<object> init;
+
         public static void Init<TReference>(TReference reference, IModule<TReference> target)
+            where TReference : Component
         {
             target.Init();
+
+            if (init == null) init = new List<object>();
+
+            var text = AnimationUtility.CalculateTransformPath(target.transform, reference.transform);
+
+            if (init.Contains(target))
+            {
+                Debug.LogError("Duplicate Initialization of: " + text, target.transform.gameObject);
+                Debug.LogError("Initialization By: " + reference.name, reference.gameObject);
+            }
+            else
+                init.Add(target);
         }
 
         public static void Process<TReference>(TReference reference, IModule<TReference> target)
+            where TReference : Component
         {
-            Set(reference, target);
+            Setup(reference, target);
             Configure(reference, target);
             Init(reference, target);
         }
 
-        public class Collection<TReference, TModule>
+        [Serializable]
+        public class Collection<TReference> : ReferencedCollection<TReference, IReference<TReference>>
             where TReference : Component
-            where TModule : class, IReference<TReference>
         {
-            public List<TModule> List { get; protected set; }
-
-            public TReference Reference { get; protected set; }
-
-            public virtual void Set()
+            public virtual void Setup()
             {
                 ForAll(Process);
 
-                void Process(TModule instance) => Modules.Set(Reference, instance);
+                void Process(IReference<TReference> instance) => Modules.Setup(Reference, instance);
             }
             public virtual void Configure()
             {
-                Set();
+                Setup();
 
                 ForAll<IModule<TReference>>(Process);
 
@@ -69,79 +85,12 @@ namespace Game
 
                 void Process(IModule<TReference> instance) => Modules.Init(Reference, instance);
             }
-
-            public virtual void ForAll(Action<TModule> action)
-            {
-                for (int i = 0; i < List.Count; i++)
-                    action(List[i]);
-            }
-            public virtual void ForAll<TType>(Action<TType> action)
-                where TType : class
-            {
-                for (int i = 0; i < List.Count; i++)
-                    if (List[i] is TType)
-                        action(List[i] as TType);
-            }
-
-            public virtual void Register(TModule instance)
-            {
-                List.Add(instance);
-            }
-
-            public virtual TType Find<TType>()
-                where TType : class
-            {
-                for (int i = 0; i < List.Count; i++)
-                    if (List[i] is TType)
-                        return List[i] as TType;
-
-                return null;
-            }
-            public virtual List<TType> FindAll<TType>()
-                where TType : class
-            {
-                var result = new List<TType>();
-
-                for (int i = 0; i < List.Count; i++)
-                    if (List[i] is TType)
-                        result.Add(List[i] as TType);
-
-                return result;
-            }
-
-            public virtual TType Depend<TType>()
-                where TType : class
-            {
-                var target = Find<TType>();
-
-                if (target == null)
-                {
-                    var exception = Dependancy.CreateException<TType>(Reference);
-
-                    throw exception;
-                }
-
-                return target;
-            }
             
-            public Collection(TReference reference, GameObject root)
-            {
-                this.Reference = reference;
-
-                List = Dependancy.GetAll<TModule>(root);
-            }
-            public Collection(TReference reference) : this(reference, reference.gameObject) { }
-        }
-
-        public class Collection<TReference> : Collection<TReference, IReference<TReference>>
-            where TReference : Component
-        {
-            public Collection(TReference reference, GameObject root) : base(reference, root) { }
-            public Collection(TReference reference) : base(reference, reference.gameObject) { }
+            public Collection(TReference reference) : base(reference) { }
         }
     }
 
-    public interface IReference<T>
+    public interface IReference<T> : ReferenceCollection.IElement
     {
         void Setup(T reference);
     }
@@ -151,24 +100,5 @@ namespace Game
         void Configure();
 
         void Init();
-    }
-
-    public class MonoBehaviourModule<TReference> : MonoBehaviour, IModule<TReference>
-    {
-        public TReference Reference { get; protected set; }
-        public virtual void Setup(TReference reference)
-        {
-            this.Reference = reference;
-        }
-
-        public virtual void Configure()
-        {
-
-        }
-
-        public virtual void Init()
-        {
-
-        }
     }
 }

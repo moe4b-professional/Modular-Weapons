@@ -43,6 +43,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerGround>(this);
+            Modules.Register(Controller.Behaviours);
 
             Detect = Modules.Depend<ControllerGroundDetect>();
             Change = Modules.Depend<ControllerGroundChange>();

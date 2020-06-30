@@ -84,7 +84,8 @@ namespace Game
 
             Constraint = new Modifier.Constraint();
 
-            Modules = new Modules.Collection<WeaponAim>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponAim>(this);
+            Modules.Register(Weapon.Behaviours, ReferenceCollection.Scope.All);
 
             Speed = Modules.Depend<WeaponAimSpeed>();
 

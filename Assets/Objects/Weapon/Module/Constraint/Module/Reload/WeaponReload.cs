@@ -68,7 +68,8 @@ namespace Game
 
             Processor = GetProcessor<IProcessor>();
 
-            Modules = new Modules.Collection<WeaponReload>(this, Weapon.gameObject);
+            Modules = new Modules.Collection<WeaponReload>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Ammo = Weapon.Modules.Find<WeaponAmmo>();
 

@@ -21,6 +21,6 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        
+        public static bool debug = false;
     }
 }

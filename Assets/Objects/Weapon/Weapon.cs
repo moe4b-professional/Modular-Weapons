@@ -32,9 +32,7 @@ namespace Game
         public WeaponEffects Effects { get; protected set; }
         public WeaponMesh Mesh { get; protected set; }
 
-        public Modules.Collection<Weapon> Modules { get; protected set; }
-
-        public abstract class BaseModule<TReference> : MonoBehaviour, IModule<TReference>
+        public class Behaviour : MonoBehaviour, IBehaviour<Weapon>
         {
             new public bool enabled
             {
@@ -44,6 +42,12 @@ namespace Game
 
             //To force the enabled tick box on the component to show
             protected virtual void Start() { }
+        }
+        public Behaviours.Collection<Weapon> Behaviours { get; protected set; }
+        
+        public abstract class BaseModule<TReference> : Behaviour, IModule<TReference>
+        {
+            public abstract Weapon Weapon { get; }
 
             public TReference Reference { get; protected set; }
             public virtual void Setup(TReference reference)
@@ -51,24 +55,22 @@ namespace Game
                 this.Reference = reference;
             }
 
-            public abstract Weapon Weapon { get; }
-
             public IOwner Owner => Weapon.Owner;
 
             public virtual void Configure()
             {
-                
+
             }
 
             public virtual void Init()
             {
-                
+
             }
 
             public virtual TProcessor GetProcessor<TProcessor>()
                 where TProcessor : class
             {
-                var instance = Weapon.Processor.GetDependancy<TProcessor>();
+                var instance = Weapon.Processor.Find<TProcessor>();
 
                 if (instance == null)
                     ExecuteProcessorError<TProcessor>();
@@ -95,6 +97,7 @@ namespace Game
         {
             public override Weapon Weapon => Reference;
         }
+        public Modules.Collection<Weapon> Modules { get; protected set; }
 
         public AudioSource AudioSource { get; protected set; }
         
@@ -121,14 +124,18 @@ namespace Game
         {
             bool Input { get; }
 
-            T GetDependancy<T>() where T : class;
+            T Find<T>() where T : class;
         }
 
         protected virtual void Configure()
         {
             AudioSource = GetComponent<AudioSource>();
 
+            Behaviours = new Behaviours.Collection<Weapon>(this);
+            Behaviours.Register(gameObject);
+
             Modules = new Modules.Collection<Weapon>(this);
+            Modules.Register(Behaviours);
 
             Constraint = Modules.Depend<WeaponConstraint>();
             Action = Modules.Depend<WeaponAction>();

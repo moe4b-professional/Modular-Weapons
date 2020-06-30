@@ -76,6 +76,7 @@ namespace Game
             if (ActivationRewind == null) ActivationRewind = gameObject.AddComponent<ActivationRewind>();
 
             Modules = new Modules.Collection<WeaponAimSight>(this);
+            Modules.Register(Weapon.Behaviours);
 
             Modules.Configure();
         }

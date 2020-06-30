@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponCameraShakeProcessor : PlayerWeaponProcessor, WeaponCameraShake.IProcessor
+    public class PlayerWeaponCameraShakeProcessor : PlayerWeaponProcessor.Module, WeaponCameraShake.IProcessor
     {
         [SerializeField]
         protected TransformShake shake;

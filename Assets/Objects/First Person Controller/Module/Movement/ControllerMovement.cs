@@ -41,6 +41,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<ControllerMovement>(this);
+            Modules.Register(Controller.Behaviours);
 
             Input = Modules.Depend<ControllerMovementInput>();
             Speed = Modules.Depend<ControllerMovementSpeed>();

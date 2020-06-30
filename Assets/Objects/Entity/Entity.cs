@@ -33,19 +33,41 @@ namespace Game
 
         public EntityDamage Damage { get; protected set; }
 
-        public class Module : MonoBehaviourModule<Entity>
+        public class Behaviour : MonoBehaviour, IBehaviour<Entity>
         {
-            public Entity Entity => Reference;
-        }
 
+        }
+        public Behaviours.Collection<Entity> Behaviours { get; protected set; }
+
+        public class Module : Behaviour, IModule<Entity>
+        {
+            public Entity Entity { get; protected set; }
+            public virtual void Setup(Entity reference)
+            {
+                Entity = reference;
+            }
+
+            public virtual void Configure()
+            {
+
+            }
+
+            public virtual void Init()
+            {
+
+            }
+        }
         public Modules.Collection<Entity> Modules { get; protected set; }
 
         protected virtual void Awake()
         {
+            Behaviours = new Behaviours.Collection<Entity>(this);
+            Behaviours.Register(gameObject);
+
             Modules = new Modules.Collection<Entity>(this);
+            Modules.Register(Behaviours);
 
             Health = Modules.Depend<EntityHealth>();
-
             Damage = Modules.Depend<EntityDamage>();
 
             Modules.Configure();

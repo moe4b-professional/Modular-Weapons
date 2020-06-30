@@ -45,6 +45,7 @@ namespace Game
             Data = ControllerStateData.Read(Controller);
 
             Modules = new Modules.Collection<ControllerState>(this);
+            Modules.Register(Controller.Behaviours);
 
             Transition = Modules.Depend<ControllerStateTransition>();
             Sets = Modules.Depend<ControllerStateSets>();

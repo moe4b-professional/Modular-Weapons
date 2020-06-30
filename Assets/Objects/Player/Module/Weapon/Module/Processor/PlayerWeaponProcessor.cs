@@ -29,7 +29,6 @@ namespace Game
 
             public override Player Player => Reference.Player;
         }
-
         public Modules.Collection<PlayerWeaponProcessor> Modules { get; protected set; }
 
         public override void Configure()
@@ -37,7 +36,8 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<PlayerWeaponProcessor>(this);
-
+            Modules.Register(Player.Behaviours);
+            
             Modules.Configure();
         }
 
@@ -48,6 +48,6 @@ namespace Game
             Modules.Init();
         }
 
-        public T GetDependancy<T>() where T : class => Dependancy.Get<T>(gameObject);
+        public T Find<T>() where T : class => Modules.Find<T>();
     }
 }

@@ -49,6 +49,7 @@ namespace Game
             Anchor = GetComponent<ControllerTransformAnchor>();
             
             Modules = new Modules.Collection<ControllerCamera>(this);
+            Modules.Register(Controller.Behaviours);
 
             FOV = Modules.Depend<ControllerCameraFOV>();
 

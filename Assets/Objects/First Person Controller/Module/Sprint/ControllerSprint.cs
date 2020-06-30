@@ -73,6 +73,7 @@ namespace Game
             Constraint = new Modifier.Constraint();
 
             Modules = new Modules.Collection<ControllerSprint>(this);
+            Modules.Register(Controller.Behaviours);
 
             Modules.Configure();
         }

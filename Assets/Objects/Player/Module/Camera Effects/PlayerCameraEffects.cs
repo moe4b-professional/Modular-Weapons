@@ -45,6 +45,7 @@ namespace Game
             base.Configure();
 
             Modules = new Modules.Collection<PlayerCameraEffects>(this);
+            Modules.Register(Player.Behaviours);
 
             Blur = Modules.Depend<PlayerCameraBlurEffect>();
 
