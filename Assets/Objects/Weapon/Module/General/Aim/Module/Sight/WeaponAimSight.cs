@@ -26,6 +26,10 @@ namespace Game
         protected Transform point;
         public Transform Point { get { return point; } }
 
+        [SerializeField]
+        protected Coordinates offset;
+        public Coordinates Offset { get { return offset; } }
+
         public Coordinates Target { get; protected set; }
 
         public float Weight { get; protected set; } = 0f;
@@ -91,7 +95,9 @@ namespace Game
         {
             Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed.Value * Time.deltaTime);
 
-            var Offset = Coordinates.Lerp(Coordinates.Zero, Target - Pivot.AnchoredTransform.Defaults, Aim.Rate * Weight);
+            var Offset = Coordinates.Lerp(Pivot.AnchoredTransform.Defaults, Target + offset, Aim.Rate * Weight);
+
+            Offset -= Pivot.AnchoredTransform.Defaults;
 
             Context.localPosition += Offset.Position;
             Context.localRotation *= Offset.Rotation;

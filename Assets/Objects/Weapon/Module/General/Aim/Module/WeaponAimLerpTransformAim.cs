@@ -104,6 +104,16 @@ namespace Game
                 angle = (a.Rotation * Quaternion.Inverse(b.Rotation)).eulerAngles
             };
         }
+
+        public static Coordinates operator +(Coordinates a, Coordinates b)
+        {
+            return new Coordinates()
+            {
+                position = a.position + b.position,
+                angle = (a.Rotation * b.Rotation).eulerAngles
+            };
+        }
+
         public static Coordinates operator -(Coordinates a)
         {
             return new Coordinates()
