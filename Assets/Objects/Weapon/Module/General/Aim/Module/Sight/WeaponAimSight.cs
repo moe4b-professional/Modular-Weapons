@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(ActivationRewind))]
-	public class WeaponAimSight : WeaponAim.Module
+    public class WeaponAimSight : WeaponAim.Module
 	{
         [SerializeField]
         protected Transform point;

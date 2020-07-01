@@ -22,11 +22,6 @@ namespace Game
     [Serializable]
     public abstract class ReferenceCollection
     {
-        public enum Scope
-        {
-            All, Local
-        }
-
         public interface IElement
         {
             Transform transform { get; }
@@ -42,11 +37,13 @@ namespace Game
 
         public List<TInstance> List { get; protected set; }
 
+        #region Iterate
         public virtual void ForAll(Action<TInstance> action)
         {
             for (int i = 0; i < List.Count; i++)
                 action(List[i]);
         }
+
         public virtual void ForAll<TType>(Action<TType> action)
             where TType : class
         {
@@ -54,14 +51,15 @@ namespace Game
                 if (List[i] is TType)
                     action(List[i] as TType);
         }
+        #endregion
 
+        #region Register
         public virtual void Register(TInstance instance)
         {
             List.Add(instance);
         }
-
-        public virtual void Register(IList<TInstance> list) => Register(list, Scope.Local);
-        public virtual void Register(IList<TInstance> list, Scope scope)
+        
+        public virtual void Register(IList<TInstance> list, ReferenceScope scope)
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -69,6 +67,7 @@ namespace Game
                     Register(list[i]);
             }
         }
+        public virtual void Register(IList<TInstance> list) => Register(list, ReferenceScope.Local);
 
         public virtual void Register(GameObject root)
         {
@@ -77,7 +76,7 @@ namespace Game
             Register(list);
         }
 
-        public virtual void Register<TCReference, TCInstance>(ReferencedCollection<TCReference, TCInstance> collection, Scope scope)
+        public virtual void Register<TCReference, TCInstance>(ReferencedCollection<TCReference, TCInstance> collection, ReferenceScope scope)
             where TCReference : Component
             where TCInstance : class, IElement
         {
@@ -89,14 +88,15 @@ namespace Game
             where TCReference : Component
             where TCInstance : class, IElement
         {
-            Register(collection, Scope.Local);
+            Register(collection, ReferenceScope.Local);
         }
+        #endregion
 
-        protected virtual bool CheckScope(TInstance instance, Scope scope)
+        protected virtual bool CheckScope(TInstance instance, ReferenceScope scope)
         {
-            if (scope == Scope.All) return true;
+            if (scope == ReferenceScope.All) return true;
 
-            if(scope == Scope.Local)
+            if(scope == ReferenceScope.Local)
             {
                 if (instance.transform == Reference.transform) return true;
 
@@ -105,7 +105,8 @@ namespace Game
 
             throw new NotImplementedException();
         }
-        
+
+        #region Locate
         public virtual TType Find<TType>()
             where TType : class
         {
@@ -115,6 +116,7 @@ namespace Game
 
             return null;
         }
+
         public virtual List<TType> FindAll<TType>()
             where TType : class
         {
@@ -141,12 +143,18 @@ namespace Game
 
             return target;
         }
+        #endregion
 
         public ReferencedCollection(TReference reference)
         {
             this.Reference = reference;
 
-            this.List = new List<TInstance>();
+            List = new List<TInstance>();
         }
+    }
+
+    public enum ReferenceScope
+    {
+        All, Local
     }
 }

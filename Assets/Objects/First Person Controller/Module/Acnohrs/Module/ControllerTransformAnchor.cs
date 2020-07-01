@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [RequireComponent(typeof(TransformAnchor))]
-	public class ControllerTransformAnchor : ControllerAnchors.Module, ControllerAnchors.IInterface
+    public class ControllerTransformAnchor : ControllerAnchors.Module, ControllerAnchors.IInterface
 	{
         public Vector3 LocalPosition
         {
