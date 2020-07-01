@@ -437,6 +437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 5054792322282386789}
+  offset:
+    position: {x: 0, y: 0, z: 0}
+    angle: {x: 0, y: 0, z: 0}
 --- !u!114 &6338833855304265134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 8269878959837470412, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.046
+      value: -0.0458
       objectReference: {fileID: 0}
     - target: {fileID: 8269878959837470412, guid: bb1a3ed681d984f4aa1f7f2f031ee3f6,
         type: 3}

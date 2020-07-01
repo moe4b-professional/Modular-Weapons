@@ -21,6 +21,13 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        public static bool debug = false;
+        public Transform source;
+
+        public Transform target;
+
+        private void Update()
+        {
+            target.forward = source.forward;
+        }
     }
 }

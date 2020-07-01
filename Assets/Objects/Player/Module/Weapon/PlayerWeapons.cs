@@ -47,10 +47,8 @@ namespace Game
 
             List = Dependancy.GetAll<Weapon>(gameObject);
 
-            Sandbox.debug = true;
             Modules = new Modules.Collection<PlayerWeapons>(this);
             Modules.Register(Player.Behaviours);
-            Sandbox.debug = false;
 
             Processor = Modules.Depend<PlayerWeaponProcessor>();
             camera = Modules.Depend<PlayerWeaponsCamera>();
