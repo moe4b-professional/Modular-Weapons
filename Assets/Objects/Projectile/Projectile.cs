@@ -32,27 +32,57 @@ namespace Game
 
         public float Radius => (Bounds.size.x + Bounds.size.y + Bounds.size.z) / 3f;
 
-        public bool Armed { get; protected set; }
-        public virtual void Arm()
+        public class Behaviour : MonoBehaviour, IBehaviour<Projectile>
         {
-            Armed = true;
+
+        }
+        public Behaviours.Collection<Projectile> Behaviours { get; protected set; }
+
+        public class Module : Behaviour, IModule<Projectile>
+        {
+            public Projectile Projectile { get; protected set; }
+            public virtual void Setup(Projectile reference)
+            {
+                Projectile = reference;
+            }
+
+            public virtual void Configure()
+            {
+                
+            }
+
+            public virtual void Init()
+            {
+                
+            }
+        }
+        public Modules.Collection<Projectile> Modules { get; protected set; }
+
+        public virtual void Setup()
+        {
+            Configure();
+
+            Init();
         }
 
-        public virtual void DisArm()
-        {
-            Armed = false;
-        }
-
-        public virtual void Configure()
+        protected virtual void Configure()
         {
             rigidbody = GetComponent<Rigidbody>();
 
             collider = GetComponent<Collider>();
+
+            Behaviours = new Behaviours.Collection<Projectile>(this);
+            Behaviours.Register(gameObject);
+
+            Modules = new Modules.Collection<Projectile>(this);
+            Modules.Register(Behaviours);
+
+            Modules.Configure();
         }
 
-        public virtual void AddVelocity(Vector3 direction, float value)
+        protected virtual void Init()
         {
-            rigidbody.AddForce(direction * value, ForceMode.VelocityChange);
+            Modules.Init();
         }
 
         public virtual void IgnoreCollisions(GameObject target)
@@ -60,29 +90,28 @@ namespace Game
             var targets = Dependancy.GetAll<Collider>(target);
 
             for (int i = 0; i < targets.Count; i++)
-                Physics.IgnoreCollision(collider, targets[i], true);
+                IgnoreCollisions(targets[i]);
+        }
+        public virtual void IgnoreCollisions(Collider target)
+        {
+            Physics.IgnoreCollision(collider, target, true);
         }
 
+        #region Hit
         void OnCollisionEnter(Collision collision)
         {
-            if(Armed)
-            {
-                var data = new WeaponHit.Data(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
+            var data = new WeaponHit.Data(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
 
-                ProcessHit(data);
-            }
+            ProcessHit(data);
         }
 
         void OnTriggerEnter(Collider collider)
         {
-            if (Armed)
-            {
-                var contact = new WeaponHit.ContactData(transform.forward * (Radius / 2f), -transform.forward);
+            var contact = new WeaponHit.ContactData(transform.forward * (Radius / 2f), -transform.forward);
 
-                var data = new WeaponHit.Data(collider, contact, rigidbody.velocity.normalized);
+            var data = new WeaponHit.Data(collider, contact, rigidbody.velocity.normalized);
 
-                ProcessHit(data);
-            }
+            ProcessHit(data);
         }
 
         public delegate void HitDelegate(Projectile projectile, WeaponHit.Data data);
@@ -91,13 +120,13 @@ namespace Game
         {
             OnHit?.Invoke(this, data);
         }
+        #endregion
 
-        public event Action OnDestroy;
+        public delegate void DestroyCallback(Projectile projectile);
+        public event DestroyCallback OnDestroy;
         public virtual void Destroy()
         {
-            if (Armed) DisArm();
-
-            OnDestroy?.Invoke();
+            OnDestroy?.Invoke(this);
 
             Destroy(gameObject);
         }

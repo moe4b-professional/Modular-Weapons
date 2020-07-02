@@ -25,6 +25,8 @@ namespace Game
 
         public Weapon.IProcessor Processor => Interface.Processor;
 
+        public GameObject Root => Interface.Root;
+
         public IInterface Interface { get; protected set; }
         public virtual void Set(IInterface reference)
         {
@@ -34,6 +36,8 @@ namespace Game
         public interface IInterface
         {
             Weapon.IProcessor Processor { get; }
+
+            GameObject Root { get; }
         }
     }
 }

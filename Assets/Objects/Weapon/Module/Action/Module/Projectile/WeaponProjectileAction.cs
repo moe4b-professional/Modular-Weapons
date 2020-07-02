@@ -29,13 +29,27 @@ namespace Game
         protected Transform point;
         public Transform Point { get { return point; } }
 
-        [SerializeField]
-        protected float velocity = 5f;
-        public float Velocity { get { return velocity; } }
+        public class Module : Weapon.BaseModule<WeaponProjectileAction>
+        {
+            public WeaponProjectileAction Action => Reference;
+
+            public override Weapon Weapon => Reference.Weapon;
+        }
+        public Modules.Collection<WeaponProjectileAction> Modules { get; protected set; }
 
         protected virtual void Reset()
         {
             point = transform;
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Modules = new Modules.Collection<WeaponProjectileAction>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -45,38 +59,33 @@ namespace Game
             Weapon.Action.OnPerform += ActionCallback;
 
             if (point == null) point = transform;
+
+            Modules.Init();
         }
 
         void ActionCallback()
         {
-            if (enabled) Shoot();
+            if (enabled) Perform();
         }
 
-        protected virtual void Shoot()
+        public delegate void PerformDelegate(Projectile projectile);
+        public event PerformDelegate OnPerform;
+        protected virtual void Perform()
         {
-            var instance = Spawn();
+            var projectile = Instantiate();
 
-            instance.IgnoreCollisions(Weapon.Owner.gameObject);
-            instance.AddVelocity(point.forward, velocity);
-            instance.Arm();
+            projectile.IgnoreCollisions(Weapon.Owner.Root);
 
-            instance.OnHit += ProjectileHitCallback;
+            OnPerform?.Invoke(projectile);
         }
 
-        void ProjectileHitCallback(Projectile projectile, WeaponHit.Data data)
-        {
-            Weapon.Hit.Process(data);
-
-            projectile.Destroy();
-        }
-
-        public virtual Projectile Spawn()
+        public virtual Projectile Instantiate()
         {
             var instance = Instantiate(prefab, point.position, point.rotation);
 
             var script = instance.GetComponent<Projectile>();
 
-            script.Configure();
+            script.Setup();
 
             return script;
         }

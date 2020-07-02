@@ -112,7 +112,7 @@ namespace Game
         }
         public interface IOwner
         {
-            GameObject gameObject { get; }
+            GameObject Root { get; }
 
             Damage.IDamager Damager { get; }
 

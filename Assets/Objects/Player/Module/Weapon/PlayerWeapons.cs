@@ -31,6 +31,8 @@ namespace Game
         public PlayerWeaponProcessor Processor { get; protected set; }
         Weapon.IProcessor CharacterWeapons.IInterface.Processor => Processor;
 
+        public GameObject Root => Player.gameObject;
+
         public PlayerWeaponsCamera camera { get; protected set; }
 
         public class Module : Player.BaseModule<PlayerWeapons>
