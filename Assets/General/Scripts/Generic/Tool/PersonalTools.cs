@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public static class Utility
+	public static class PersonalTools
 	{
         public static void SetLayer(GameObject target, int layerIndex) => SetLayer(target.transform, layerIndex);
 		public static void SetLayer(Transform target, int layerIndex)

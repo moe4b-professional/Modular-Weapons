@@ -34,7 +34,7 @@ namespace Game
 
         void HitCallback(Projectile projectile, WeaponHit.Data data)
         {
-            Utility.SetLayer(Projectile.gameObject, layer.Index);
+            PersonalTools.SetLayer(Projectile.gameObject, layer.Index);
         }
     }
 
