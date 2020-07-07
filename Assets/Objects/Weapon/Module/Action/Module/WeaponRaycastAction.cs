@@ -44,10 +44,10 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Action.OnPerform += ActionCallback;
+            Weapon.Action.OnPerform += Action;
         }
 
-        void ActionCallback()
+        void Action()
         {
             if (enabled) Shoot();
         }

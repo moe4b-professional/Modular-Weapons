@@ -56,14 +56,14 @@ namespace Game
         {
             base.Init();
 
-            Weapon.Action.OnPerform += ActionCallback;
+            Weapon.Action.OnPerform += Action;
 
             if (point == null) point = transform;
 
             Modules.Init();
         }
 
-        void ActionCallback()
+        void Action()
         {
             if (enabled) Perform();
         }
