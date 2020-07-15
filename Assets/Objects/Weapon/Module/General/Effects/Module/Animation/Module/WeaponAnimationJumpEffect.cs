@@ -59,7 +59,12 @@ namespace Game
         void JumpCallback(int count)
         {
             if(enabled)
-                Effects.Play(Trigger, weight.Evaluate(count));
+            {
+                var eval = weight.Evaluate(count);
+
+                if(eval > 0f)
+                    Effects.Play(Trigger, eval);
+            }
         }
     }
 }

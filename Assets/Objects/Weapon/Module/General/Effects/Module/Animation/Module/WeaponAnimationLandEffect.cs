@@ -35,12 +35,17 @@ namespace Game
             AnimationCurve curve;
             public AnimationCurve Curve { get { return curve; } }
 
+            [SerializeField]
+            float min;
+            public float Min { get { return min; } }
+
             public float Evaluate(Vector3 velocity) => curve.Evaluate(-velocity.y / scale);
 
-            public WeightData(float scale, AnimationCurve curve)
+            public WeightData(float scale, AnimationCurve curve, float min)
             {
                 this.scale = scale;
                 this.curve = curve;
+                this.min = min;
             }
 
             public static WeightData Create(float scale)
@@ -54,11 +59,13 @@ namespace Game
                     },
                 };
 
-                return new WeightData(scale, curve);
+                return new WeightData(scale, curve, 0.1f);
             }
         }
 
         public const string Trigger = "Land";
+
+        public const float MinWeight = 0.1f;
 
         public override void Init()
         {
@@ -70,7 +77,12 @@ namespace Game
         void LandCallback(Vector3 relativeVelocity)
         {
             if(enabled)
-                Effects.Play(Trigger, weight.Evaluate(relativeVelocity));
+            {
+                var eval = weight.Evaluate(relativeVelocity);
+
+                if(eval >= weight.Min)
+                    Effects.Play(Trigger, weight.Evaluate(relativeVelocity));
+            }
         }
     }
 }
