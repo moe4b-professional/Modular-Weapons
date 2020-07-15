@@ -21,21 +21,26 @@ namespace Game
 {
 	public class WeaponRotationBob : WeaponBobEffect
     {
-        protected override void Reset()
-        {
-            base.Reset();
+        [SerializeField]
+        [LabeledVector(VectorLabels.Rotation)]
+        protected Vector3 range = new Vector3(1f, 0.5f, 0.5f);
+        public Vector3 Range { get { return range; } }
 
-            range = 1f;
+        protected override void CalculateOffset()
+        {
+            Offset = Vector3.zero;
+
+            Offset += Vector3.right * Processor.Delta.y;
+            Offset += Vector3.up * -Processor.Delta.x;
+            Offset += Vector3.forward * (Processor.Delta.x + Processor.Delta.y);
+
+            Offset = Vector3.Scale(Offset, range);
+
+            Offset *= Bob.Scale.Value;
         }
 
-        protected override void Process()
+        protected override void Apply()
         {
-            base.Process();
-
-            var Offset = Vector3.forward * Bob.Processor.Delta.x;
-
-            Offset *= range * Bob.Scale.Value;
-
             Context.localEulerAngles += Offset;
         }
     }

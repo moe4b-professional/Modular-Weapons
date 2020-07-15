@@ -21,21 +21,19 @@ namespace Game
 {
 	public class WeaponPositionBob : WeaponBobEffect
     {
-        protected override void Reset()
+        [SerializeField]
+        protected float range = 0.0035f;
+        public float Range { get { return range; } }
+
+        protected override void CalculateOffset()
         {
-            base.Reset();
-
-            range = 0.0035f;
-        }
-
-        protected override void Process()
-        {
-            base.Process();
-
-            var Offset = Bob.Processor.Delta;
+            Offset = Processor.Delta;
 
             Offset *= range * Bob.Scale.Value;
+        }
 
+        protected override void Apply()
+        {
             Context.localPosition += Offset;
         }
     }

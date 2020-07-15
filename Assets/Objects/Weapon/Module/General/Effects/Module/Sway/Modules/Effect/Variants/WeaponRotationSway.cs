@@ -21,21 +21,28 @@ namespace Game
 {
 	public class WeaponRotationSway : WeaponSwayEffect
 	{
+        [SerializeField]
+        [LabeledVector(VectorLabels.Rotation)]
+        protected Vector3 effect;
+        public override Vector3 Effect => effect;
+
         protected override void Reset()
         {
             base.Reset();
 
             multiplier = 1f;
-            effect = new EffectData(10, 5, 5);
+            effect = new Vector3(10, 5, 5);
         }
 
-        protected override void SampleOffset()
+        protected override void CalculateOffset()
         {
             Offset = Vector3.zero;
 
-            Offset += Vector3.forward * effect.Fordical * Sway.Value.x;
-            Offset += Vector3.right * effect.Vertical * -Sway.Value.y;
-            Offset += Vector3.up * effect.Horizontal * Sway.Value.x;
+            Offset += Vector3.right * effect.x * -Sway.Value.y;
+            Offset += Vector3.up * effect.y * Sway.Value.x;
+            Offset += Vector3.forward * effect.z * Sway.Value.x;
+
+            Offset *= multiplier * Sway.Scale.Value;
         }
 
         protected override void Apply()

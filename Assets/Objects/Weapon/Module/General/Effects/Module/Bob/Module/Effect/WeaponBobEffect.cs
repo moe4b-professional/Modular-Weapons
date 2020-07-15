@@ -21,11 +21,11 @@ namespace Game
 {
 	public abstract class WeaponBobEffect : WeaponBob.Module
 	{
-        [SerializeField]
-        protected float range;
-        public float Range { get { return range; } }
+        public Vector3 Offset { get; protected set; }
 
         public Transform Context => Bob.Context;
+
+        public WeaponBob.IProcessor Processor => Bob.Processor;
 
         protected virtual void Reset()
         {
@@ -41,7 +41,13 @@ namespace Game
 
         protected virtual void Process()
         {
+            CalculateOffset();
 
+            Apply();
         }
+
+        protected abstract void CalculateOffset();
+
+        protected abstract void Apply();
     }
 }

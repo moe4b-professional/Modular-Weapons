@@ -25,31 +25,7 @@ namespace Game
         protected float multiplier = 1f;
         public float Multiplier { get { return multiplier; } }
 
-        [SerializeField]
-        protected EffectData effect;
-        public EffectData Effect { get { return effect; } }
-        [Serializable]
-        public struct EffectData
-        {
-            [SerializeField]
-            float vertical;
-            public float Vertical { get { return vertical; } }
-
-            [SerializeField]
-            float horizontal;
-            public float Horizontal { get { return horizontal; } }
-
-            [SerializeField]
-            float fordical;
-            public float Fordical { get { return fordical; } }
-
-            public EffectData(float vertical, float horizontal, float fordical)
-            {
-                this.vertical = vertical;
-                this.horizontal = horizontal;
-                this.fordical = fordical;
-            }
-        }
+        public abstract Vector3 Effect { get; }
         
         public Vector3 Offset { get; protected set; }
 
@@ -80,21 +56,12 @@ namespace Game
 
         protected virtual void Process()
         {
-            if (enabled)
-            {
-                SampleOffset();
-
-                Offset *= multiplier * Sway.Scale.Value;
-            }
-            else
-            {
-                Offset = Vector3.zero;
-            }
+            CalculateOffset();
 
             Apply();
         }
 
-        protected abstract void SampleOffset();
+        protected abstract void CalculateOffset();
 
         protected abstract void Apply();
     }
