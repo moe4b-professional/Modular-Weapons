@@ -57,6 +57,8 @@ namespace Game
 
         public WeaponSway.IProcessor Processor => Sway.Processor;
 
+        public Transform Anchor => Processor.Anchor;
+
         protected virtual void Reset()
         {
 
@@ -78,25 +80,21 @@ namespace Game
 
         protected virtual void Process()
         {
-            SampleOffset();
+            if (enabled)
+            {
+                SampleOffset();
 
-            Offset *= Sway.Scale.Value * multiplier;
-
-            if (enabled == false) Offset = Vector3.zero;
-
-            AdjustSpace();
+                Offset *= multiplier * Sway.Scale.Value;
+            }
+            else
+            {
+                Offset = Vector3.zero;
+            }
 
             Apply();
         }
 
         protected abstract void SampleOffset();
-
-        protected virtual void AdjustSpace()
-        {
-            var localUp = Weapon.transform.InverseTransformDirection(Processor.Anchor.up);
-
-            Offset = Vector3.ProjectOnPlane(Offset, localUp);
-        }
 
         protected abstract void Apply();
     }

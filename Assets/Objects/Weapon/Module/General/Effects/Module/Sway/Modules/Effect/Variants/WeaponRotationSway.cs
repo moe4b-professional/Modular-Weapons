@@ -26,7 +26,7 @@ namespace Game
             base.Reset();
 
             multiplier = 1f;
-            effect = new EffectData(0.002f, 0.004f, 0.006f);
+            effect = new EffectData(10, 5, 5);
         }
 
         protected override void SampleOffset()
@@ -38,6 +38,11 @@ namespace Game
             Offset += Vector3.up * effect.Horizontal * Sway.Value.x;
         }
 
-        protected override void Apply() => Context.localEulerAngles += Offset;
+        protected override void Apply()
+        {
+            Context.Rotate(Anchor.up, Offset.y, Space.World);
+            Context.Rotate(Anchor.right, Offset.x, Space.World);
+            Context.Rotate(Anchor.forward, Offset.z, Space.World);
+        }
     }
 }

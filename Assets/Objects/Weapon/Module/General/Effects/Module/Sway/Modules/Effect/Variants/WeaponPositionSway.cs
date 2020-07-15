@@ -25,8 +25,8 @@ namespace Game
         {
             base.Reset();
 
-            multiplier = 1f;
-            effect = new EffectData(10, 5, 5);
+            multiplier = 0.2f;
+            effect = new EffectData(0.01f, 0.02f, 0.03f);
         }
 
         protected override void SampleOffset()
@@ -37,6 +37,9 @@ namespace Game
             Offset += Vector3.up * effect.Vertical * Sway.Value.y;
         }
 
-        protected override void Apply() => Context.localPosition += Offset;
+        protected override void Apply()
+        {
+            Context.Translate(Offset, Anchor);
+        }
     }
 }

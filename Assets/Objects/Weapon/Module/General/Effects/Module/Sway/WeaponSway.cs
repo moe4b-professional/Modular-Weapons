@@ -22,7 +22,7 @@ namespace Game
 	public class WeaponSway : Weapon.Module, WeaponEffects.IInterface
     {
         [SerializeField]
-        protected MultiplierData multiplier = new MultiplierData(1f, 1f);
+        protected MultiplierData multiplier = new MultiplierData(0.3f, 0.2f);
         public MultiplierData Multiplier { get { return multiplier; } }
         [Serializable]
         public struct MultiplierData
@@ -44,7 +44,7 @@ namespace Game
         }
 
         [SerializeField]
-        protected SpeedData speed;
+        protected SpeedData speed = new SpeedData(4, 5);
         public SpeedData Speed { get { return speed; } }
         [Serializable]
         public struct SpeedData
