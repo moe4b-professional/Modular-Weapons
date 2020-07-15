@@ -23,21 +23,22 @@ namespace Game
     {
         public Modifier.Scale Scale { get; protected set; }
 
-        [SerializeField]
-        protected float range = 0.0035f;
-        public float Range { get { return range; } }
-
-        public Transform Context => Pivot.transform;
-
-        public Vector3 Offset { get; protected set; }
-
         public WeaponPivot Pivot => Weapon.Pivot;
+        public Transform Context => Pivot.transform;
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {
             Vector3 Delta { get; }
         }
+
+        public class Module : Weapon.BaseModule<WeaponBob>
+        {
+            public WeaponBob Bob => Reference;
+
+            public override Weapon Weapon => Reference.Weapon;
+        }
+        public Modules.Collection<WeaponBob> Modules { get; protected set; }
 
         public override void Configure()
         {
@@ -46,6 +47,12 @@ namespace Game
             Processor = GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
+
+            Modules = new Modules.Collection<WeaponBob>(this);
+
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -55,13 +62,14 @@ namespace Game
             Weapon.Effects.Register(this);
 
             Pivot.OnProcess += Process;
+
+            Modules.Init();
         }
 
+        public event Action OnProcess;
         void Process()
         {
-            Offset = Processor.Delta * range * Scale.Value;
-
-            Context.localPosition += Offset;
+            OnProcess?.Invoke();
         }
 	}
 }

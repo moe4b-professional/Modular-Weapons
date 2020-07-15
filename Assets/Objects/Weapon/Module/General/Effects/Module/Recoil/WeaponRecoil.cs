@@ -19,112 +19,33 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class WeaponRecoil : Weapon.Module, WeaponEffects.IInterface
+    public class WeaponRecoil : Weapon.Module, WeaponEffects.IInterface
     {
         public Modifier.Scale Scale { get; protected set; }
 
-        public ValueRange kick;
-
-        [SerializeField]
-        protected SwayData sway;
-        public SwayData Sway { get { return sway; } }
-        [Serializable]
-        public struct SwayData
-        {
-            [SerializeField]
-            float vertical;
-            public float Vertical { get { return vertical; } }
-
-            [SerializeField]
-            float horizontal;
-            public float Horizontal { get { return horizontal; } }
-
-            public SwayData(float vertical, float horizontal)
-            {
-                this.vertical = vertical;
-                this.horizontal = horizontal;
-            }
-            public SwayData(float value) : this(value, value)
-            {
-
-            }
-        }
-
-        [SerializeField]
-        protected SpeedData speed;
-        public SpeedData Speed { get { return speed; } }
-        [Serializable]
-        public struct SpeedData
-        {
-            [SerializeField]
-            float set;
-            public float Set { get { return set; } }
-
-            [SerializeField]
-            float reset;
-            public float Reset { get { return reset; } }
-
-            public SpeedData(float set, float reset)
-            {
-                this.set = set;
-                this.reset = reset;
-            }
-        }
-
-        [SerializeField]
-        protected NoiseData noise;
-        public NoiseData Noise { get { return noise; } }
-        [Serializable]
-        public class NoiseData
-        {
-            [SerializeField]
-            protected NoiseMode mode = NoiseMode.Random;
-            public NoiseMode Mode { get { return mode; } }
-
-            public virtual float Calculate(int seed)
-            {
-                switch (mode)
-                {
-                    case NoiseMode.Perlin:
-                        return Mathf.PerlinNoise(Time.time + seed * 456, Time.time + seed + 1 * 456);
-                    case NoiseMode.Random:
-                        return Random.Range(0f, 1f);
-                }
-
-                throw new NotImplementedException();
-            }
-
-            public virtual float Lerp(int seed, float min, float max)
-            {
-                return Mathf.Lerp(min, max, Calculate(seed));
-            }
-            public virtual float Lerp(int seed, ValueRange range) => Lerp(seed, range.Min, range.Max);
-            public virtual float Lerp(int seed, float range) => Lerp(seed, -range, range);
-        }
-
-        public enum NoiseMode
-        {
-            Perlin, Random
-        }
-
-        public Vector3 Target { get; protected set; }
-
-        public Vector3 Value { get; protected set; }
-
+        public WeaponPivot Pivot => Weapon.Pivot;
         public Transform Context => Pivot.transform;
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-
-        protected virtual void Reset()
+        public class Module : Weapon.BaseModule<WeaponRecoil>
         {
+            public WeaponRecoil Recoil => Reference;
 
+            public override Weapon Weapon => Reference.Weapon;
         }
 
+        public Modules.Collection<WeaponRecoil> Modules { get; protected set; }
+        
         public override void Configure()
         {
             base.Configure();
 
             Scale = new Modifier.Scale();
+
+            Modules = new Modules.Collection<WeaponRecoil>(this);
+
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Configure();
         }
 
         public override void Init()
@@ -136,24 +57,20 @@ namespace Game
             Weapon.Action.OnPerform += Action;
 
             Pivot.OnProcess += Process;
+
+            Modules.Init();
         }
 
+        public event Action OnAction;
         void Action()
         {
-            if(enabled)
-                Target = CalculateTarget() * Scale.Value;
+            if (enabled) OnAction?.Invoke();
         }
 
-        protected abstract Vector3 CalculateTarget();
-
+        public event Action OnProcess;
         void Process()
         {
-            Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
-            Target = Vector3.Lerp(Target, Vector3.zero, speed.Reset * Time.deltaTime);
-
-            Apply(Value);
+            OnProcess?.Invoke();
         }
-
-        protected abstract void Apply(Vector3 value);
     }
 }
