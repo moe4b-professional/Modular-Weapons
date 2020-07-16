@@ -28,16 +28,20 @@ namespace Game
             kick = new ValueRange(-0.05f, -0.075f);
             sway = new SwayData(0.01f);
             speed = new SpeedData(10, 20);
+
+            noise.Weight = 0.6f;
         }
 
-        protected override Vector3 CalculateTarget()
+        protected override void CalculateTarget()
         {
-            return new Vector3()
+            Target = new Vector3()
             {
                 x = noise.Lerp(5, sway.Horizontal),
                 y = noise.Lerp(3, sway.Vertical),
                 z = noise.Lerp(1, kick),
             };
+
+            Target *= Recoil.Scale.Value;
         }
 
         protected override void Apply(Vector3 value) => Context.localPosition += value;

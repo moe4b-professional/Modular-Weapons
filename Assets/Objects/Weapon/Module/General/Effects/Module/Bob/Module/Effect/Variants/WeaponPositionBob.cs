@@ -27,9 +27,12 @@ namespace Game
 
         protected override void CalculateOffset()
         {
-            Offset = Processor.Delta;
+            if(enabled)
+            {
+                Offset = Processor.Delta;
 
-            Offset *= range * Bob.Scale.Value;
+                Offset *= range * Bob.Scale.Value;
+            }
         }
 
         protected override void Apply()

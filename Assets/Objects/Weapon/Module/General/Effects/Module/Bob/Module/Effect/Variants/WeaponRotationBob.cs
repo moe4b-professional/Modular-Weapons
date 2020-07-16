@@ -30,13 +30,16 @@ namespace Game
         {
             Offset = Vector3.zero;
 
-            Offset += Vector3.right * Processor.Delta.y;
-            Offset += Vector3.up * -Processor.Delta.x;
-            Offset += Vector3.forward * (Processor.Delta.x + Processor.Delta.y);
+            if(enabled)
+            {
+                Offset += Vector3.right * Processor.Delta.y;
+                Offset += Vector3.up * -Processor.Delta.x;
+                Offset += Vector3.forward * (Processor.Delta.x + Processor.Delta.y);
 
-            Offset = Vector3.Scale(Offset, range);
+                Offset = Vector3.Scale(Offset, range);
 
-            Offset *= Bob.Scale.Value;
+                Offset *= Bob.Scale.Value;
+            }
         }
 
         protected override void Apply()

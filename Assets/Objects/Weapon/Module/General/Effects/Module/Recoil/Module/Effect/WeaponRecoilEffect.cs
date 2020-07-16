@@ -70,45 +70,43 @@ namespace Game
         }
 
         [SerializeField]
-        protected NoiseData noise;
-        public NoiseData Noise { get { return noise; } }
+        protected NoiseProperty noise;
+        public NoiseProperty Noise { get { return noise; } }
         [Serializable]
-        public class NoiseData
+        public class NoiseProperty
         {
             [SerializeField]
-            protected NoiseMode mode = NoiseMode.Random;
-            public NoiseMode Mode { get { return mode; } }
-
-            public virtual float Calculate(int seed)
+            [WeightValue("Random", "Perlin")]
+            protected WeightValue weight = 0.6f;
+            public WeightValue Weight
             {
-                switch (mode)
-                {
-                    case NoiseMode.Perlin:
-                        return Mathf.PerlinNoise(Time.time + seed * 456, Time.time + seed + 1 * 456);
-                    case NoiseMode.Random:
-                        return Random.Range(0f, 1f);
-                }
+                get => weight;
+                set => weight = value;
+            }
 
-                throw new NotImplementedException();
+            public virtual float Sample(int seed)
+            {
+                var random = Random.Range(0f, 1f) * weight.Left;
+                var perlin = Mathf.PerlinNoise(Time.time + seed + 10, Time.time + seed + 20) * weight.Right;
+
+                var eval = random + perlin;
+
+                return eval;
             }
 
             public virtual float Lerp(int seed, float min, float max)
             {
-                return Mathf.Lerp(min, max, Calculate(seed));
+                var sample = Sample(seed);
+
+                return Mathf.Lerp(min, max, sample);
             }
             public virtual float Lerp(int seed, ValueRange range) => Lerp(seed, range.Min, range.Max);
             public virtual float Lerp(int seed, float range) => Lerp(seed, -range, range);
         }
 
-        public enum NoiseMode
-        {
-            Perlin, Random
-        }
-
         public Transform Context => Recoil.Context;
 
         public Vector3 Target { get; protected set; }
-
         public Vector3 Value { get; protected set; }
 
         protected virtual void Reset()
@@ -127,9 +125,9 @@ namespace Game
 
         void Action()
         {
-            Target = CalculateTarget() * Recoil.Scale.Value;
+            CalculateTarget();
         }
-        protected abstract Vector3 CalculateTarget();
+        protected abstract void CalculateTarget();
 
         protected virtual void Process()
         {

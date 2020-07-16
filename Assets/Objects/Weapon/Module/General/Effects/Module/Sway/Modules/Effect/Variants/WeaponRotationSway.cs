@@ -38,11 +38,14 @@ namespace Game
         {
             Offset = Vector3.zero;
 
-            Offset += Vector3.right * effect.x * -Sway.Value.y;
-            Offset += Vector3.up * effect.y * Sway.Value.x;
-            Offset += Vector3.forward * effect.z * Sway.Value.x;
+            if(enabled)
+            {
+                Offset += Vector3.right * effect.x * -Sway.Value.y;
+                Offset += Vector3.up * effect.y * Sway.Value.x;
+                Offset += Vector3.forward * effect.z * Sway.Value.x;
 
-            Offset *= multiplier * Sway.Scale.Value;
+                Offset *= multiplier * Sway.Scale.Value;
+            }
         }
 
         protected override void Apply()

@@ -21,13 +21,44 @@ namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        public Transform source;
-
-        public Transform target;
-
-        private void Update()
+        public A a;
+        [Serializable]
+        public class A
         {
-            target.forward = source.forward;
+            [WeightValue("Left", "Right")]
+            public WeightValue weight;
+
+            public float number;
+
+            public B b;
+            [Serializable]
+            public class B
+            {
+                [WeightValue("Left", "Right")]
+                public WeightValue weight;
+
+                public float number;
+
+                public C c;
+                [Serializable]
+                public class C
+                {
+                    [WeightValue("Left", "Right")]
+                    public WeightValue weight;
+
+                    public float number;
+
+                    public D d;
+                    [Serializable]
+                    public class D
+                    {
+                        [WeightValue("Left", "Right")]
+                        public WeightValue weight;
+
+                        public float number;
+                    }
+                }
+            }
         }
     }
 }
