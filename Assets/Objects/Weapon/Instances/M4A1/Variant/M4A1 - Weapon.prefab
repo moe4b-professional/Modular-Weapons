@@ -998,6 +998,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    min: 0.1
 --- !u!1 &1658015234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,7 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad41b5fe4f721f43b5e6a323d6147e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1
+  range: {x: 1, y: 0.5, z: 0.5}
 --- !u!1 &6385986739505679161
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,10 +2742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
-  effect:
-    vertical: 10
-    horizontal: 5
-    fordical: 5
+  effect: {x: 10, y: 5, z: 5}
 --- !u!1 &7297999809626568428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,10 +2787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 0.2
-  effect:
-    vertical: 0.01
-    horizontal: 0.02
-    fordical: 0.03
+  effect: {x: 0.01, y: 0.02, z: 0.03}
 --- !u!1 &7305070666689243345
 GameObject:
   m_ObjectHideFlags: 0
