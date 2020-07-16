@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponTug : Weapon.Module
+	public class WeaponTug : Weapon.Module, WeaponEffects.IInterface
 	{
         [SerializeField]
         protected float range = 0.004f;
@@ -32,6 +32,8 @@ namespace Game
         [SerializeField]
         protected float max = 3f;
         public float Max { get { return max; } }
+
+        public Modifier.Scale Scale { get; protected set; }
 
         public float Target { get; protected set; }
         public float Value { get; protected set; }
@@ -50,11 +52,15 @@ namespace Game
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
+
+            Scale = new Modifier.Scale();
         }
 
         public override void Init()
         {
             base.Init();
+
+            Weapon.Effects.Register(this);
 
             Pivot.OnProcess += Process;
         }
@@ -74,7 +80,7 @@ namespace Game
 
             Target = Mathf.Clamp(Target, 0f, max);
 
-            Target *= range;
+            Target *= range * Scale.Value;
         }
     }
 }
