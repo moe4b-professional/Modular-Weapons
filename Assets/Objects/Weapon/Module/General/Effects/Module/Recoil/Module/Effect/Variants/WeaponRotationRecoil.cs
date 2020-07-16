@@ -27,7 +27,7 @@ namespace Game
 
             kick = new ValueRange(-5, 2);
             sway = new SwayData(5);
-            speed = new SpeedData(5, 10);
+            speed = new SpeedData(3, 5);
         }
         
         protected override Vector3 CalculateTarget()

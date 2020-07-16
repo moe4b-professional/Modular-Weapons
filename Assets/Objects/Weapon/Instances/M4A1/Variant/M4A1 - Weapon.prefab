@@ -2924,8 +2924,8 @@ MonoBehaviour:
     vertical: 5
     horizontal: 5
   speed:
-    set: 5
-    reset: 10
+    set: 3
+    reset: 5
   noise:
     mode: 1
 --- !u!1 &7464089514738509876

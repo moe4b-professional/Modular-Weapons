@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4ee6492ddc2f34db94c827d5597f25, type: 3}
   m_Name: Editor Audio
   m_EditorClassIdentifier: 
-  volume: 0.283
+  volume: 0.082
