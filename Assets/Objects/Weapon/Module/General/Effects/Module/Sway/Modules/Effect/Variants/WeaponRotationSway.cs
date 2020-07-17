@@ -50,8 +50,8 @@ namespace Game
 
         protected override void Apply()
         {
-            Context.Rotate(Anchor.up, Offset.y, Space.World);
             Context.Rotate(Anchor.right, Offset.x, Space.World);
+            Context.Rotate(Anchor.up, Offset.y, Space.World);
             Context.Rotate(Anchor.forward, Offset.z, Space.World);
         }
     }
