@@ -24,7 +24,7 @@ namespace Game
         public Modifier.Scale Scale { get; protected set; }
 
         [SerializeField]
-        protected float speed = 1.2f;
+        protected float speed = 0.4f;
         public float Speed { get { return speed; } }
 
         public Vector3 Target { get; protected set; }
