@@ -27,6 +27,6 @@ Material:
     - _BlurSize: 0.04
     - _Gauss: 1
     - _Samples: 20
-    - _Scale: 0.6
+    - _Scale: 0
     - _StandardDeviation: 0.3
     m_Colors: []
