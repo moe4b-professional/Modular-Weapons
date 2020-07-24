@@ -21,9 +21,9 @@ namespace Game
 {
 	public class PlayerInput : Player.Module
 	{
-		public ButtonInput Primary { get; protected set; }
+		public SingleAxisInput Primary { get; protected set; }
 
-		public ButtonInput Secondary { get; protected set; }
+		public SingleAxisInput Secondary { get; protected set; }
 
         public ButtonInput Reload { get; protected set; }
 
@@ -35,9 +35,9 @@ namespace Game
         {
             base.Configure();
 
-            Primary = new ButtonInput();
+            Primary = new SingleAxisInput();
 
-            Secondary = new ButtonInput();
+            Secondary = new SingleAxisInput();
 
             Reload = new ButtonInput();
 
@@ -55,9 +55,9 @@ namespace Game
 
         void Process()
         {
-            Primary.Process(Input.GetKey(KeyCode.Mouse0));
+            Primary.Process(Input.GetKey(KeyCode.Mouse0) ? 1f : 0f);
 
-            Secondary.Process(Input.GetKey(KeyCode.Mouse1));
+            Secondary.Process(Input.GetKey(KeyCode.Mouse1) ? 1f : 0f);
 
             Reload.Process(Input.GetKey(KeyCode.R));
 

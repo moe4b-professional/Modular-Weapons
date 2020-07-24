@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponReloadProcessor : PlayerWeaponProcessor.Module, WeaponReload.IProcessor
+	public class PlayerWeaponReloadProcessor : PlayerWeapons.Processor, WeaponReload.IProcessor
     {
         public bool Input => Player.Input.Reload.Press;
     }

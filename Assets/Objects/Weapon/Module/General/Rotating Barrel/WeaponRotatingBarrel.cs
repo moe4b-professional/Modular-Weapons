@@ -93,8 +93,8 @@ namespace Game
 
         void Porcess()
         {
-            if (Weapon.Action.Input)
-                Rate = Mathf.MoveTowards(Rate, 1f, acceleration.Set * Time.deltaTime);
+            if (Weapon.Action.Input.Value > 0f)
+                Rate = Mathf.MoveTowards(Rate, 1f, acceleration.Set * Weapon.Action.Input.Value * Time.deltaTime);
             else
                 Rate = Mathf.MoveTowards(Rate, 0f, acceleration.Reset * Time.deltaTime);
 

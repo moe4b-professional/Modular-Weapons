@@ -28,8 +28,6 @@ namespace Game
 
         public Collider collider { get; protected set; }
 
-        public CharacterWeapons Weapons { get; protected set; }
-
         public class Behaviour : MonoBehaviour, IBehaviour<Character>
         {
 
@@ -75,8 +73,6 @@ namespace Game
 
             Modules = new Modules.Collection<Character>(this);
             Modules.Register(Behaviours);
-
-            Weapons = Modules.Depend<CharacterWeapons>();
 
             Modules.Configure();
         }

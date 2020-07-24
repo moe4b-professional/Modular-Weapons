@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponSemiActionMode : Weapon.Module, WeaponConstraint.IInterface, WeaponActionMode.IState
+	public class WeaponSingleActionMode : Weapon.Module, WeaponConstraint.IInterface, WeaponActionMode.IState
     {
 		public bool InputLock { get; protected set; }
 
@@ -38,7 +38,7 @@ namespace Game
         {
             if(enabled)
             {
-                if (Weapon.Action.Input == false)
+                if (Weapon.Action.Input.Button.Held == false)
                     InputLock = false;
             }
             else

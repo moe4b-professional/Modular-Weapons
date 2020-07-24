@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponTugProcessor : PlayerWeaponProcessor.Module, WeaponTug.IProcessor
+    public class PlayerWeaponTugProcessor : PlayerWeapons.Processor, WeaponTug.IProcessor
     {
         public Vector3 PlanarVelocity => Player.Controller.Velocity.Planar;
     }

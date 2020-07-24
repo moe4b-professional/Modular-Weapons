@@ -48,7 +48,7 @@ namespace Game
             {
                 if (enabled)
                 {
-                    if (Weapon.Action.Input == false) Stop();
+                    if (Weapon.Action.Input.Button.Held == false) Stop();
                 }
                 else
                     Stop();

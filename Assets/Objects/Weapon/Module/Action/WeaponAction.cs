@@ -34,18 +34,35 @@ namespace Game
 
         public Modules.Collection<WeaponAction> Modules { get; protected set; }
 
-        public bool Input { get; protected set; }
-        protected virtual bool CalculateInput(Weapon.IProcessor data)
+        public IProcessor Processor { get; protected set; }
+        public interface IProcessor : IContext
         {
-            if (Override.Active)
-                return Override.Value.Input;
-
-            return data.Input;
+            
         }
+
+        public interface IContext
+        {
+            float Input { get; }
+        }
+        public IContext Context
+        {
+            get
+            {
+                if (Override.Active) return Override.Value;
+
+                return Processor;
+            }
+        }
+
+        public SingleAxisInput Input { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
+
+            Processor = GetProcessor<IProcessor>();
+
+            Input = new SingleAxisInput();
 
             Modules = new Modules.Collection<WeaponAction>(this);
             Modules.Register(Weapon.Behaviours);
@@ -66,11 +83,12 @@ namespace Game
             Modules.Init();
         }
 
+        #region Process
         void Process()
         {
-            Input = CalculateInput(Weapon.Processor);
+            Input.Process(Context.Input);
 
-            if (Input)
+            if (Input.Value > 0f)
             {
                 if (Constraint.Active)
                 {
@@ -83,6 +101,17 @@ namespace Game
             }
         }
 
+        public delegate void PerformDelegate();
+        public event PerformDelegate OnPerform;
+        public virtual void Perform()
+        {
+            OnPerform?.Invoke();
+
+            LatePerformCondition = true;
+        }
+        #endregion
+
+        #region Late Process
         void LateProcess()
         {
             if (LatePerformCondition)
@@ -92,15 +121,6 @@ namespace Game
                 LatePerformCondition = false;
             }
         }
-        
-        public delegate void PerformDelegate();
-        public event PerformDelegate OnPerform;
-        public virtual void Perform()
-        {
-            OnPerform?.Invoke();
-
-            LatePerformCondition = true;
-        }
 
         bool LatePerformCondition;
 
@@ -109,5 +129,6 @@ namespace Game
         {
             OnLatePerform?.Invoke();
         }
+        #endregion
     }
 }

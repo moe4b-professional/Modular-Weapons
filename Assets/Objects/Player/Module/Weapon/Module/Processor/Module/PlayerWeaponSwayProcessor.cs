@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponSwayProcessor : PlayerWeaponProcessor.Module, WeaponSway.IProcessor
+	public class PlayerWeaponSwayProcessor : PlayerWeapons.Processor, WeaponSway.IProcessor
     {
         public Transform Anchor => Player.Controller.camera.transform;
 

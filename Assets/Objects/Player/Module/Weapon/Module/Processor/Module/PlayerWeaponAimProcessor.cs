@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponAimProcessor : PlayerWeaponProcessor.Module, WeaponAim.IProcessor
+	public class PlayerWeaponAimProcessor : PlayerWeapons.Processor, WeaponAim.IProcessor
     {
         [SerializeField]
         protected InputAggregationMode mode = InputAggregationMode.Toggle;
@@ -29,7 +29,7 @@ namespace Game
 
         public float Rate { get; set; }
 
-        public ButtonInput Button => Player.Input.Secondary;
+        public SingleAxisInput Axis => Player.Input.Secondary;
 
         public override void Init()
         {
@@ -42,11 +42,11 @@ namespace Game
         {
             if (mode == InputAggregationMode.Hold)
             {
-                Input = Button.Held;
+                Input = Axis.Button.Held;
             }
             else if (mode == InputAggregationMode.Toggle)
             {
-                if (Button.Press) Input = !Input;
+                if (Axis.Button.Press) Input = !Input;
             }
         }
 

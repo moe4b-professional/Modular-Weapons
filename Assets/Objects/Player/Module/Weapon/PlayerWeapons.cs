@@ -20,18 +20,15 @@ using Random = UnityEngine.Random;
 namespace Game
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-    public class PlayerWeapons : Player.Module, CharacterWeapons.IInterface
-	{
+    public class PlayerWeapons : Player.Module, Weapon.IOwner
+    {
         public List<Weapon> List { get; protected set; }
-
         public int Index { get; protected set; }
-
         public Weapon Current => List[Index];
 
-        public PlayerWeaponProcessor Processor { get; protected set; }
-        Weapon.IProcessor CharacterWeapons.IInterface.Processor => Processor;
-
         public GameObject Root => Player.gameObject;
+
+        public Damage.IDamager Damager => Entity;
 
         public PlayerWeaponsCamera camera { get; protected set; }
 
@@ -43,6 +40,12 @@ namespace Game
         }
         public Modules.Collection<PlayerWeapons> Modules { get; protected set; }
 
+        public class Processor : Module
+        {
+
+        }
+        public TType GetProcessor<TType>() where TType : class => Modules.Find<TType>();
+
         public override void Configure()
         {
             base.Configure();
@@ -52,10 +55,7 @@ namespace Game
             Modules = new Modules.Collection<PlayerWeapons>(this);
             Modules.Register(Player.Behaviours);
 
-            Processor = Modules.Depend<PlayerWeaponProcessor>();
             camera = Modules.Depend<PlayerWeaponsCamera>();
-
-            Character.Weapons.Set(this);
 
             Modules.Configure();
         }
@@ -67,7 +67,7 @@ namespace Game
             Player.OnProcess += Process;
 
             for (int i = 0; i < List.Count; i++)
-                List[i].Setup(Character.Weapons);
+                List[i].Setup(this);
 
             Index = List.FindIndex((Weapon instance) => instance.gameObject.activeSelf);
 

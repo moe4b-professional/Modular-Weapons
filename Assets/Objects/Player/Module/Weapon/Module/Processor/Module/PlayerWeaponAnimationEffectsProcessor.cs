@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponAnimationEffectsProcessor : PlayerWeaponProcessor.Module, WeaponAnimationEffects.IProcessor
+    public class PlayerWeaponAnimationEffectsProcessor : PlayerWeapons.Processor, WeaponAnimationEffects.IProcessor
     {
         public FirstPersonController Controller => Player.Controller;
 

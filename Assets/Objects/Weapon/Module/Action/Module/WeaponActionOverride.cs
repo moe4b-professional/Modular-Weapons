@@ -46,10 +46,8 @@ namespace Game
             Value = null;
         }
 
-        public interface IInterface
+        public interface IInterface : WeaponAction.IContext
         {
-            bool Input { get; }
-
             void Stop();
         }
     }

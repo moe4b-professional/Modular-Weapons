@@ -27,7 +27,7 @@ namespace Game
 
         public int Counter { get; protected set; }
 
-        public bool Input => Counter > 0;
+        public float Input => Counter > 0 ? 1f : 0f;
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 

@@ -21,6 +21,6 @@ namespace Game
 {
 	public class WeaponAutoActionMode : Weapon.Module, WeaponActionMode.IState
 	{
-		
+		//haha, auto mode goes brrrrrr
 	}
 }

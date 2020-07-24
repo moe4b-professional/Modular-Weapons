@@ -34,7 +34,7 @@ namespace Game
 
         void Process()
         {
-            Animator.SetBool(ID, Weapon.Action.Input);
+            Animator.SetBool(ID, Weapon.Action.Input.Button.Held);
         }
     }
 }

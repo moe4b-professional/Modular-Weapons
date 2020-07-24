@@ -67,28 +67,28 @@ namespace Game
 
             }
 
-            public virtual TProcessor GetProcessor<TProcessor>()
-                where TProcessor : class
+            public virtual TType GetProcessor<TType>()
+                where TType : class
             {
-                var instance = Weapon.Processor.Find<TProcessor>();
+                var instance = Owner.GetProcessor<TType>();
 
                 if (instance == null)
-                    ExecuteProcessorError<TProcessor>();
+                    ExecuteProcessorError<TType>();
 
                 return instance;
             }
-            public void ExecuteProcessorError<TProcessor>()
+            public void ExecuteProcessorError<TType>()
             {
-                var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TProcessor).FullName + " To function";
+                var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TType).FullName + " To function";
 
                 var exception = new InvalidOperationException(message);
 
                 throw exception;
             }
 
-            public void ExecuteDependancyError<TDependancy>()
+            public void ExecuteDependancyError<TType>()
             {
-                var exception = Dependancy.CreateException<TDependancy>(this);
+                var exception = Dependancy.CreateException<TType>(this);
 
                 throw exception;
             }
@@ -116,15 +116,7 @@ namespace Game
 
             Damage.IDamager Damager { get; }
 
-            IProcessor Processor { get; }
-        }
-
-        public IProcessor Processor => Owner.Processor;
-        public interface IProcessor
-        {
-            bool Input { get; }
-
-            T Find<T>() where T : class;
+            TType GetProcessor<TType>() where TType : class;
         }
 
         protected virtual void Configure()

@@ -20,19 +20,41 @@ using Random = UnityEngine.Random;
 namespace Game
 {
     [Serializable]
-	public class AxisInput
-	{
-        public float DeadZone => 0f;
-
+    public abstract class BaseAxisInput
+    {
         public float Value { get; protected set; }
 
+        public float DeadZone => 0f;
+
+        public float Min => -1f;
+        public float Max => 1f;
+
+        public virtual void Process(float input)
+        {
+            Value = Mathf.Clamp(input, Min, Max);
+        }
+
+        public virtual void Process(params float[] inputs)
+        {
+            var input = 0f;
+
+            for (int i = 0; i < inputs.Length; i++)
+                input += inputs[i];
+
+            Process(input);
+        }
+    }
+
+    [Serializable]
+	public class AxisInput : BaseAxisInput
+	{
         public ButtonInput Positive { get; protected set; }
 
         public ButtonInput Negative { get; protected set; }
 
-        public virtual void Process(float input)
+        public override void Process(float input)
         {
-            Value = input;
+            base.Process(input);
 
             Positive.Process(Value > DeadZone);
 
@@ -44,6 +66,24 @@ namespace Game
             Positive = new ButtonInput();
 
             Negative = new ButtonInput();
+        }
+    }
+
+    [Serializable]
+    public class SingleAxisInput : BaseAxisInput
+    {
+        public ButtonInput Button { get; protected set; }
+
+        public override void Process(float input)
+        {
+            base.Process(input);
+
+            Button.Process(Mathf.Abs(Value) > 0f);
+        }
+
+        public SingleAxisInput()
+        {
+            Button = new ButtonInput();
         }
     }
 

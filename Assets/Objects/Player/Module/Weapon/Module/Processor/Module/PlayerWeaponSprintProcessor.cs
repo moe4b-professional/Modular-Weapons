@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponSprintProcessor : PlayerWeaponProcessor.Module, WeaponSprint.IProcessor
+	public class PlayerWeaponSprintProcessor : PlayerWeapons.Processor, WeaponSprint.IProcessor
     {
         public ControllerSprint Sprint => Player.Controller.Sprint;
 

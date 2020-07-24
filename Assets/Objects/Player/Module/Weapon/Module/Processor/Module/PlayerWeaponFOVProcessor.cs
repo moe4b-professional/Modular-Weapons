@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponFOVProcessor : PlayerWeaponProcessor.Module, WeaponFOV.IProcessor, Modifier.Scale.IInterface
+	public class PlayerWeaponFOVProcessor : PlayerWeapons.Processor, WeaponFOV.IProcessor, Modifier.Scale.IInterface
     {
         public float Scale { get; set; } = 1f;
 

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponActionModeSwitchProcessor : PlayerWeaponProcessor.Module, WeaponActionMode.IProcessor
+	public class PlayerWeaponActionModeSwitchProcessor : PlayerWeapons.Processor, WeaponActionMode.IProcessor
     {
         public bool Input => Player.Input.SwitchActionMode.Press;
     }
