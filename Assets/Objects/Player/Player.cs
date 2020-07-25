@@ -26,7 +26,7 @@ namespace Game
     {
         public FirstPersonController Controller { get; protected set; }
 
-        public PlayerInput Input { get; protected set; }
+        public PlayerControls Controls { get; protected set; }
         public PlayerCameraEffects CameraEffects { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
 
@@ -80,7 +80,7 @@ namespace Game
             Modules = new Modules.Collection<Player>(this);
             Modules.Register(Behaviours);
 
-            Input = Modules.Depend<PlayerInput>();
+            Controls = Modules.Depend<PlayerControls>();
             CameraEffects = Modules.Depend<PlayerCameraEffects>();
             Weapons = Modules.Depend< PlayerWeapons>();
 

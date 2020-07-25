@@ -21,6 +21,6 @@ namespace Game
 {
     public class PlayerWeaponActionProcessor : PlayerWeapons.Processor, WeaponAction.IProcessor
     {
-        public float Input => Player.Input.Primary.Value;
+        public float Input => Player.Controls.Primary.Value;
     }
 }

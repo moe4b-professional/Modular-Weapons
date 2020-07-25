@@ -19,8 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponAimSightSwitchProcessor : PlayerWeapons.Processor, WeaponAimSightSwitch.IProcessor
-    {
-        public bool Input => Player.Controls.SwitchSight.Press;
+	public class PlayerControls : Player.Module
+	{
+		public PlayerInput Input { get; protected set; }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Input = Player.Modules.Find<PlayerInput>();
+        }
     }
 }

@@ -21,6 +21,6 @@ namespace Game
 {
 	public class PlayerWeaponActionModeSwitchProcessor : PlayerWeapons.Processor, WeaponActionMode.IProcessor
     {
-        public bool Input => Player.Input.SwitchActionMode.Press;
+        public bool Input => Player.Controls.SwitchActionMode.Press;
     }
 }

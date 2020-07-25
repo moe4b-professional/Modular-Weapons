@@ -29,7 +29,7 @@ namespace Game
 
         public float Rate { get; set; }
 
-        public SingleAxisInput Axis => Player.Input.Secondary;
+        public SingleAxisInput Axis => Player.Controls.Secondary;
 
         public override void Init()
         {
