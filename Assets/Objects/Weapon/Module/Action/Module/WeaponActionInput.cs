@@ -23,7 +23,7 @@ namespace Game
 	{
         public float Axis { get; protected set; }
 
-        public virtual float Min => 0.1f;
+        public virtual float Min => 0.05f;
 
         public virtual bool Active => Axis >= Min;
 
@@ -36,11 +36,15 @@ namespace Game
             Button = new ButtonInput();
         }
 
+        public delegate void ProcessDelegate(WeaponAction.IContext context);
+        public event ProcessDelegate OnProcess;
         public virtual void Process(WeaponAction.IContext context)
         {
             Axis = context.Input;
 
             Button.Process(Active);
+
+            OnProcess?.Invoke(context);
         }
     }
 }

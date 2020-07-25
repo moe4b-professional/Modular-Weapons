@@ -25,6 +25,17 @@ namespace Game
 
         public Animator Animator => Weapon.Mesh.Animator;
 
+        public float Blend { get; protected set; }
+
+        public float Speed => 20f;
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Blend = 0f;
+        }
+
         public override void Init()
         {
             base.Init();
@@ -34,7 +45,9 @@ namespace Game
 
         void Process()
         {
-            Animator.SetBool(ID, Weapon.Action.Input.Active);
+            Blend = Mathf.MoveTowards(Blend, Weapon.Action.Input.Axis, Speed * Time.deltaTime);
+
+            Animator.SetFloat(ID, Blend);
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Game
 
         public WeaponActionInput Input { get; protected set; }
 
+        public WeaponActionControl Control { get; protected set; }
+
         public abstract class Module : Weapon.BaseModule<WeaponAction>
         {
             public WeaponAction Action => Reference;
@@ -66,6 +68,7 @@ namespace Game
 
             Override = Modules.Depend<WeaponActionOverride>();
             Input = Modules.Depend<WeaponActionInput>();
+            Control = Modules.Depend<WeaponActionControl>();
 
             Modules.Configure();
         }
@@ -86,7 +89,7 @@ namespace Game
         {
             Input.Process(Context);
 
-            if (Input.Active)
+            if (Control.Active)
             {
                 if (Constraint.Active)
                 {
