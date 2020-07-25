@@ -25,7 +25,7 @@ namespace Game
         {
             base.Operate();
 
-            if (Input.Prone.Press)
+            if (Controls.Prone.Press)
                 Toggle(Sets.Normal);
         }
     }

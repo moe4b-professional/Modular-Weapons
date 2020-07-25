@@ -35,6 +35,6 @@ namespace Game
 
         public ControllerStateTransition Transition => State.Transition;
 
-        public ControllerInput Input => Controller.Input;
+        public ControllerControls Controls => Controller.Controls;
     }
 }

@@ -66,7 +66,7 @@ namespace Game
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
 
-        public ButtonInput Input => Controller.Input.Jump;
+        public ButtonInput Input => Controller.Controls.Jump;
 
         public override void Configure()
         {

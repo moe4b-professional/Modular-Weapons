@@ -25,13 +25,14 @@ namespace Game
 
         public WeaponActionOverride Override { get; protected set; }
 
+        public WeaponActionInput Input { get; protected set; }
+
         public abstract class Module : Weapon.BaseModule<WeaponAction>
         {
             public WeaponAction Action => Reference;
 
             public override Weapon Weapon => Action.Weapon;
         }
-
         public Modules.Collection<WeaponAction> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
@@ -53,21 +54,18 @@ namespace Game
                 return Processor;
             }
         }
-
-        public SingleAxisInput Input { get; protected set; }
-
+        
         public override void Configure()
         {
             base.Configure();
 
             Processor = GetProcessor<IProcessor>();
 
-            Input = new SingleAxisInput();
-
             Modules = new Modules.Collection<WeaponAction>(this);
             Modules.Register(Weapon.Behaviours);
 
             Override = Modules.Depend<WeaponActionOverride>();
+            Input = Modules.Depend<WeaponActionInput>();
 
             Modules.Configure();
         }
@@ -86,9 +84,9 @@ namespace Game
         #region Process
         void Process()
         {
-            Input.Process(Context.Input);
+            Input.Process(Context);
 
-            if (Input.Value > 0f)
+            if (Input.Active)
             {
                 if (Constraint.Active)
                 {

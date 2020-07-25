@@ -25,7 +25,7 @@ namespace Game
         {
             base.Operate();
 
-            if (Input.Crouch.Press)
+            if (Controls.Crouch.Press)
                 Toggle(Sets.Normal);
         }
     }

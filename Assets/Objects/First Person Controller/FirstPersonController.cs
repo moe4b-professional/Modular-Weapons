@@ -39,7 +39,7 @@ namespace Game
         }
 
         public ControllerGenericData GenericData { get; protected set; }
-        public ControllerInput Input { get; protected set; }
+        public ControllerControls Controls { get; protected set; }
         public ControllerRig Rig { get; protected set; }
         public ControllerCamera camera { get; protected set; }
         public ControllerAnchors Anchors { get; protected set; }
@@ -108,7 +108,7 @@ namespace Game
             Modules.Register(Behaviours);
 
             GenericData = Modules.Depend<ControllerGenericData>();
-            Input = Modules.Depend<ControllerInput>();
+            Controls = Modules.Depend<ControllerControls>();
             Rig = Modules.Depend<ControllerRig>();
             Anchors = Modules.Depend<ControllerAnchors>();
             camera = Modules.Depend<ControllerCamera>();

@@ -44,7 +44,7 @@ namespace Game
 
         public Modules.Collection<ControllerStateElement> Modules { get; protected set; }
 
-        public ControllerInput Input => Controller.Input;
+        public ControllerControls Controls => Controller.Controls;
         public ControllerStateTransition Transition => State.Transition;
         public ControllerStateSets Sets => State.Sets;
 

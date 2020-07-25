@@ -85,7 +85,7 @@ namespace Game
 
         public Modules.Collection<ControllerLookLean> Modules { get; protected set; }
 
-        public AxisInput Input => Controller.Input.Lean;
+        public AxisInput Input => Controller.Controls.Lean;
 
         public override void Configure()
         {

@@ -69,7 +69,7 @@ namespace Game
 
         public Modules.Collection<ControllerLook> Modules { get; protected set; }
 
-        public ControllerInput.LookInput Input => Controller.Input.Look;
+        public AxesInput Input => Controller.Controls.Look;
 
         public override void Configure()
         {

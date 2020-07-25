@@ -36,7 +36,7 @@ namespace Game
 
         void Process()
         {
-            if (Weapon.Action.Input.Button.Held == false || enabled == false) Active = false;
+            if (Weapon.Action.Input.Active == false || enabled == false) Active = false;
         }
 
         void EndCallback()

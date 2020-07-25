@@ -26,12 +26,13 @@ namespace Game
 
         public float DeadZone => 0f;
 
-        public float Min => -1f;
-        public float Max => 1f;
+        public float Range => 1f;
 
         public virtual void Process(float input)
         {
-            Value = Mathf.Clamp(input, Min, Max);
+            Value = input;
+
+            //Value = Mathf.Clamp(Value, -Range, Range);
         }
 
         public virtual void Process(params float[] inputs)
@@ -91,8 +92,9 @@ namespace Game
     public class AxesInput
     {
         public AxisInput X { get; protected set; }
-
         public AxisInput Y { get; protected set; }
+
+        public Vector2 Value => new Vector2(X.Value, Y.Value);
 
         public virtual void Process(Vector2 input) => Process(input.x, input.y);
         public virtual void Process(float xInput, float yInput)

@@ -55,7 +55,7 @@ namespace Game
             }
         }
 
-        public ControllerInput.SprintInput Input => Controller.Input.Sprint;
+        public SingleAxisInput Input => Controller.Controls.Sprint;
 
         public class Module : FirstPersonController.BaseModule<ControllerSprint>
         {
@@ -106,7 +106,7 @@ namespace Game
                 if (Input.Button.Held)
                 {
                     if (CanPerform)
-                        Target = Input.Axis;
+                        Target = Input.Value;
                 }
                 else
                 {

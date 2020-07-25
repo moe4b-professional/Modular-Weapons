@@ -31,7 +31,7 @@ namespace Game
             {
                 if (Lock) return false;
 
-                if (Weapon.Action.Input.Button.Held) return false;
+                if (Weapon.Action.Input.Active) return false;
 
                 if (Ammo.CanConsume) return false;
 

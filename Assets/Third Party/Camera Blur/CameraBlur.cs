@@ -17,16 +17,23 @@ public class CameraBlur : MonoBehaviour
     [SerializeField]
     protected Material material;
 
+    public Material Instance { get; protected set; }
+
+    void Awake()
+    {
+        Instance = Instantiate(material);
+    }
+
     //method which is automatically called by unity after the camera is done rendering
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         //draws the pixels from the source texture to the destination texture
         var renderTexture = RenderTexture.GetTemporary(source.width, source.height);
 
-        material.SetFloat("_Scale", scale);
+        Instance.SetFloat("_Scale", scale);
 
-        Graphics.Blit(source, renderTexture, material, 0);
-        Graphics.Blit(renderTexture, destination, material, 1);
+        Graphics.Blit(source, renderTexture, Instance, 0);
+        Graphics.Blit(renderTexture, destination, Instance, 1);
 
         RenderTexture.ReleaseTemporary(renderTexture);
     }
