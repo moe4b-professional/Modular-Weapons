@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerGamepadInput : ControllerInput.Context
+	public class ControllerGamepadInput : ControllerInput
 	{
         protected override void Process()
         {
@@ -37,11 +37,9 @@ namespace Game
 
             Sprint = Input.GetKey(KeyCode.JoystickButton8) ? 1f : 0f;
 
-            Crouch = Input.GetKey(KeyCode.JoystickButton1);
+            ChangeStance = Input.GetKey(KeyCode.JoystickButton1);
 
-            Prone = Input.GetKey(KeyCode.JoystickButton2);
-
-            Lean = ControllerInput.GetAxis(KeyCode.JoystickButton5, KeyCode.JoystickButton4);
+            Lean = GetAxis(KeyCode.JoystickButton5, KeyCode.JoystickButton4);
         }
     }
 }

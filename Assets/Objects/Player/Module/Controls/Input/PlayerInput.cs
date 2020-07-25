@@ -19,31 +19,32 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerInput : Player.Module
+	public abstract class PlayerInput : Player.Module
 	{
-		public SingleAxisInput Primary { get; protected set; }
+		public float Primary { get; protected set; }
+		public float Secondary { get; protected set; }
 
-		public SingleAxisInput Secondary { get; protected set; }
+        public bool Reload { get; protected set; }
 
-        public ButtonInput Reload { get; protected set; }
+        public float SwitchWeapon { get; protected set; }
+        public bool SwitchActionMode { get; protected set; }
+        public bool SwitchSight { get; protected set; }
 
-        public ButtonInput SwitchActionMode { get; protected set; }
-
-        public ButtonInput SwitchSight { get; protected set; }
-
-        public override void Configure()
+        public bool AnyInput
         {
-            base.Configure();
+            get
+            {
+                if (Primary > 0f) return true;
+                if (Secondary > 0f) return true;
 
-            Primary = new SingleAxisInput();
+                if (Reload) return true;
 
-            Secondary = new SingleAxisInput();
+                if (SwitchWeapon > 0f) return true;
+                if (SwitchActionMode) return true;
+                if (SwitchSight) return true;
 
-            Reload = new ButtonInput();
-
-            SwitchActionMode = new ButtonInput();
-
-            SwitchSight = new ButtonInput();
+                return false;
+            }
         }
 
         public override void Init()
@@ -53,17 +54,9 @@ namespace Game
             Player.OnProcess += Process;
         }
 
-        void Process()
+        protected virtual void Process()
         {
-            Primary.Process(Input.GetKey(KeyCode.Mouse0) ? 1f : 0f);
 
-            Secondary.Process(Input.GetKey(KeyCode.Mouse1) ? 1f : 0f);
-
-            Reload.Process(Input.GetKey(KeyCode.R));
-
-            SwitchActionMode.Process(Input.GetKey(KeyCode.B));
-
-            SwitchSight.Process(Input.GetKey(KeyCode.Mouse2) || Input.GetKey(KeyCode.T));
         }
     }
 }

@@ -46,6 +46,8 @@ namespace Game
         }
         public TType GetProcessor<TType>() where TType : class => Modules.Find<TType>();
 
+        public PlayerControls Controls => Player.Controls;
+
         public override void Configure()
         {
             base.Configure();
@@ -89,7 +91,8 @@ namespace Game
 
         void Process()
         {
-            if (Input.GetKeyDown(KeyCode.X)) Switch(Index + 1);
+            if(Controls.SwitchWeapon.Positive.Press) Switch(Index + 1);
+            if(Controls.SwitchWeapon.Negative.Press) Switch(Index - 1);
 
             Current.Process();
         }

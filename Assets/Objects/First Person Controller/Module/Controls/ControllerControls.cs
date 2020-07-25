@@ -31,14 +31,45 @@ namespace Game
         public ButtonInput Crouch { get; protected set; }
         public ButtonInput Prone { get; protected set; }
 
+        public ChangeStanceProperty ChangeStance { get; protected set; }
+        public class ChangeStanceProperty
+        {
+            public float Time { get; protected set; }
+
+            public float HoldTime => 0.5f;
+
+            public int Mode { get; protected set; }
+
+            public void Process(bool input)
+            {
+                if (input)
+                    Time += UnityEngine.Time.deltaTime;
+                else
+                    Time = 0f;
+
+                if (input)
+                {
+                    if (Time < HoldTime)
+                        Mode = 1;
+                    else
+                        Mode = 2;
+                }
+                else
+                    Mode = 0;
+            }
+        }
+
         public AxisInput Lean { get; protected set; }
 
+        public List<ControllerInput> Inputs { get; protected set; }
+
         public ControllerInput Input { get; protected set; }
-        public ControllerInput.Context Context => Input.Current;
 
         public override void Configure()
         {
             base.Configure();
+
+            Inputs = Controller.Modules.FindAll<ControllerInput>();
 
             Move = new AxesInput();
             Look = new AxesInput();
@@ -47,12 +78,12 @@ namespace Game
 
             Sprint = new SingleAxisInput();
 
+            ChangeStance = new ChangeStanceProperty();
+
             Crouch = new ButtonInput();
             Prone = new ButtonInput();
 
             Lean = new AxisInput();
-
-            Input = Controller.Modules.Find<ControllerInput>();
         }
 
         public override void Init()
@@ -64,19 +95,35 @@ namespace Game
 
         protected virtual void Process()
         {
-            Input.Process();
+            ProcessInput();
 
-            Move.Process(Context.Move);
-            Look.Process(Context.Look.Value);
+            Move.Process(Input.Move);
+            Look.Process(Input.Look.Value);
 
-            Jump.Process(Context.Jump);
+            Jump.Process(Input.Jump);
 
-            Sprint.Process(Context.Sprint);
+            Sprint.Process(Input.Sprint);
 
-            Crouch.Process(Context.Crouch);
-            Prone.Process(Context.Prone);
+            ChangeStance.Process(Input.ChangeStance);
 
-            Lean.Process(Context.Lean);
+            Crouch.Process(Input.Crouch | ChangeStance.Mode == 1);
+            Prone.Process(Input.Prone | ChangeStance.Mode == 2);
+            
+            Lean.Process(Input.Lean);
+        }
+
+        protected virtual void ProcessInput()
+        {
+            for (int i = 0; i < Inputs.Count; i++)
+            {
+                if (Inputs[i].AnyInput)
+                {
+                    Input = Inputs[i];
+                    continue;
+                }
+            }
+
+            if (Input == null) Input = Inputs[0];
         }
     }
 }

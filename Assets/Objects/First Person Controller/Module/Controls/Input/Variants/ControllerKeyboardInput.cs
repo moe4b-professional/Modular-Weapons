@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerKeyboardInput : ControllerInput.Context
+	public class ControllerKeyboardInput : ControllerInput
     {
         protected override void Process()
         {
@@ -27,8 +27,8 @@ namespace Game
 
             Move = new Vector2()
             {
-                x = ControllerInput.GetAxis(KeyCode.D, KeyCode.A),
-                y = ControllerInput.GetAxis(KeyCode.W, KeyCode.S)
+                x = GetAxis(KeyCode.D, KeyCode.A),
+                y = GetAxis(KeyCode.W, KeyCode.S)
             };
 
             Look.SetValue(Input.GetAxis("Mouse Delta X"), Input.GetAxis("Mouse Delta Y"));
@@ -41,7 +41,7 @@ namespace Game
 
             Prone = Input.GetKey(KeyCode.LeftControl);
 
-            Lean = ControllerInput.GetAxis(KeyCode.E, KeyCode.Q);
+            Lean = GetAxis(KeyCode.E, KeyCode.Q);
         }
     }
 }
