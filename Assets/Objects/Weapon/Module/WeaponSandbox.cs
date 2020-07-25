@@ -21,6 +21,42 @@ namespace Game
 {
 	public class WeaponSandbox : Weapon.Module
 	{
-        
+        public float offset;
+
+        public Vector3 axis;
+
+        public Transform target;
+
+        Quaternion initial;
+
+        public bool increment;
+        int iterations;
+
+        public WeaponActionControl ActionControl => Weapon.Action.Control;
+
+        public override void Init()
+        {
+            base.Init();
+
+            Weapon.OnProcess += Process;
+
+            initial = target.localRotation;
+
+            Weapon.Action.OnPerform += Action;
+        }
+
+        void Action()
+        {
+            iterations++;
+        }
+
+        void Process()
+        {
+            target.localRotation = initial;
+
+            if (increment) target.localEulerAngles += axis * iterations * offset;
+
+            target.Rotate(axis, offset * ActionControl.Weight, Space.Self);
+        }
     }
 }

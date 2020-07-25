@@ -23,9 +23,21 @@ namespace Game
 	{
         public float Weight { get; protected set; }
 
-        public virtual float Min => 0.75f;
+        [SerializeField]
+        protected FloatToggleValue min;
+        public FloatToggleValue Min { get { return min; } }
 
-        public virtual bool Active => Weight >= Min;
+        public virtual bool Active => Weight >= Min.Evaluate(0.75f);
+
+        public bool CanPerform
+        {
+            get
+            {
+                if (Weapon.Constraint.Active) return false;
+
+                return true;
+            }
+        }
 
         public WeaponActionInput Input => Action.Input;
 
@@ -43,7 +55,7 @@ namespace Game
 
         protected virtual void CalculateWeight()
         {
-            Weight = Input.Axis;
+            Weight = CanPerform ? Input.Axis : 0f;
         }
     }
 }

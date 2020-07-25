@@ -90,16 +90,7 @@ namespace Game
             Input.Process(Context);
 
             if (Control.Active)
-            {
-                if (Constraint.Active)
-                {
-
-                }
-                else
-                {
-                    Perform();
-                }
-            }
+                Perform();
         }
 
         public delegate void PerformDelegate();

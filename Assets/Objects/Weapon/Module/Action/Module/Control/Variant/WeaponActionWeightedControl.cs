@@ -22,37 +22,14 @@ namespace Game
 	public class WeaponActionWeightedControl : WeaponActionControl
 	{
         [SerializeField]
-        protected float min = 0.85f;
-        public override float Min => min;
-
-        [SerializeField]
         protected float speed;
         public float Speed { get { return speed; } }
-
-        public bool CanPerform
-        {
-            get
-            {
-                if (InputLock) return false;
-
-                return true;
-            }
-        }
-
-        public bool InputLock { get; protected set; }
 
         public override void Init()
         {
             base.Init();
 
             Action.OnPerform += ActionCallback;
-        }
-
-        protected override void Process(WeaponAction.IContext context)
-        {
-            base.Process(context);
-
-            if (Input.Active == false) InputLock = false;
         }
 
         protected override void CalculateWeight()
@@ -65,8 +42,6 @@ namespace Game
         void ActionCallback()
         {
             Weight = 0f;
-
-            InputLock = true;
         }
     }
 }

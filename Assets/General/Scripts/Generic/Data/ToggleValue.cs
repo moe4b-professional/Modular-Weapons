@@ -71,9 +71,10 @@ namespace Game
             {
                 DrawToggle(ref rect, property, label);
 
-                if (!enabled.boolValue) DrawLabel(ref rect, property, label);
-
-                if (enabled.boolValue) DrawValue(ref rect, property, label);
+                if (enabled.boolValue)
+                    DrawValue(ref rect, property, label);
+                else
+                    DrawLabel(ref rect, property, label);
             }
             protected virtual void DrawToggle(ref Rect rect, SerializedProperty property, GUIContent label)
             {
