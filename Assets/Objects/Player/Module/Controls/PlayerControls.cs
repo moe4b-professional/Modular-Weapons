@@ -22,20 +22,15 @@ namespace Game
 	public class PlayerControls : Player.Module
 	{
         public SingleAxisInput Primary { get; protected set; }
-
         public SingleAxisInput Secondary { get; protected set; }
 
         public ButtonInput Reload { get; protected set; }
 
         public AxisInput SwitchWeapon { get; protected set; }
-
         public ButtonInput SwitchActionMode { get; protected set; }
-
         public ButtonInput SwitchSight { get; protected set; }
         
         public List<PlayerInput> Inputs { get; protected set; }
-
-        public PlayerInput Input { get; protected set; }
 
         public override void Configure()
         {
@@ -62,30 +57,89 @@ namespace Game
 
         void Process()
         {
-            ProcessInput();
+            ProcessPrimary();
+            ProcessSecondary();
 
-            Primary.Process(Input.Primary);
-            Secondary.Process(Input.Secondary);
+            ProcessReload();
 
-            Reload.Process(Input.Reload);
-
-            SwitchWeapon.Process(Input.SwitchWeapon);
-            SwitchActionMode.Process(Input.SwitchActionMode);
-            SwitchSight.Process(Input.SwitchSight);
+            ProcessSwitchWeapon();
+            ProcessSwitchActionMode();
+            ProcessSwitchSight();
         }
 
-        protected virtual void ProcessInput()
+        protected virtual void ProcessPrimary()
         {
-            for (int i = 0; i < Inputs.Count; i++)
+            var value = AddAll(Inputs, GetElement);
+
+            float GetElement(PlayerInput input) => input.Primary;
+
+            Primary.Process(value);
+        }
+        protected virtual void ProcessSecondary()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            float GetElement(PlayerInput input) => input.Secondary;
+
+            Secondary.Process(value);
+        }
+
+        protected virtual void ProcessReload()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(PlayerInput input) => input.Reload;
+
+            Reload.Process(value);
+        }
+
+        protected virtual void ProcessSwitchWeapon()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            float GetElement(PlayerInput input) => input.SwitchWeapon;
+
+            SwitchWeapon.Process(value);
+        }
+        protected virtual void ProcessSwitchActionMode()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(PlayerInput input) => input.SwitchActionMode;
+
+            SwitchActionMode.Process(value);
+        }
+        protected virtual void ProcessSwitchSight()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(PlayerInput input) => input.SwitchSight;
+
+            SwitchSight.Process(value);
+        }
+
+        public static TResult AddAll<TSource, TResult>(IList<TSource> list, Func<TSource, TResult> func)
+        {
+            dynamic value = default(TResult);
+
+            var type = typeof(TResult);
+
+            for (int i = 0; i < list.Count; i++)
             {
-                if(Inputs[i].AnyInput)
-                {
-                    Input = Inputs[i];
-                    continue;
-                }
+                dynamic instance = func(list[i]);
+
+                if (type == typeof(int)) value += instance;
+
+                if (type == typeof(float)) value += instance;
+
+                if (type == typeof(Vector2)) value += instance;
+
+                if (type == typeof(Vector3)) value += instance;
+
+                if (type == typeof(bool)) value |= instance;
             }
 
-            if (Input == null) Input = Inputs[0];
+            return value;
         }
     }
 }

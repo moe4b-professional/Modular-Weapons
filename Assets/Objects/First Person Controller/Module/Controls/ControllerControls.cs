@@ -63,8 +63,6 @@ namespace Game
 
         public List<ControllerInput> Inputs { get; protected set; }
 
-        public ControllerInput Input { get; protected set; }
-
         public override void Configure()
         {
             base.Configure();
@@ -95,35 +93,117 @@ namespace Game
 
         protected virtual void Process()
         {
-            ProcessInput();
+            ProcessMove();
+            ProcessLook();
 
-            Move.Process(Input.Move);
-            Look.Process(Input.Look.Value);
+            ProcessJump();
 
-            Jump.Process(Input.Jump);
+            ProcessSprint();
 
-            Sprint.Process(Input.Sprint);
+            ProcessChangeStance();
+            ProcessCrouch();
+            ProcessProne();
 
-            ChangeStance.Process(Input.ChangeStance);
-
-            Crouch.Process(Input.Crouch | ChangeStance.Mode == 1);
-            Prone.Process(Input.Prone | ChangeStance.Mode == 2);
-            
-            Lean.Process(Input.Lean);
+            ProcessLean();
         }
 
-        protected virtual void ProcessInput()
+        protected virtual void ProcessMove()
         {
-            for (int i = 0; i < Inputs.Count; i++)
+            var value = AddAll(Inputs, GetElement);
+
+            Vector2 GetElement(ControllerInput input) => input.Move;
+
+            Move.Process(value);
+        }
+        protected virtual void ProcessLook()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            Vector2 GetElement(ControllerInput input) => input.Look.Value;
+
+            Look.Process(value);
+        }
+
+        protected virtual void ProcessJump()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(ControllerInput input) => input.Jump;
+
+            Jump.Process(value);
+        }
+
+        protected virtual void ProcessSprint()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            float GetElement(ControllerInput input) => input.Sprint;
+
+            Sprint.Process(value);
+        }
+
+        protected virtual void ProcessChangeStance()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(ControllerInput input) => input.ChangeStance;
+
+            ChangeStance.Process(value);
+        }
+
+        protected virtual void ProcessCrouch()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(ControllerInput input) => input.Crouch;
+
+            value |= ChangeStance.Mode == 1;
+
+            Crouch.Process(value);
+        }
+
+        protected virtual void ProcessProne()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            bool GetElement(ControllerInput input) => input.Prone;
+
+            value |= ChangeStance.Mode == 2;
+
+            Prone.Process(value);
+        }
+
+        protected virtual void ProcessLean()
+        {
+            var value = AddAll(Inputs, GetElement);
+
+            float GetElement(ControllerInput input) => input.Lean;
+
+            Lean.Process(value);
+        }
+
+        public static TResult AddAll<TSource, TResult>(IList<TSource> list, Func<TSource, TResult> func)
+        {
+            dynamic value = default(TResult);
+
+            var type = typeof(TResult);
+
+            for (int i = 0; i < list.Count; i++)
             {
-                if (Inputs[i].AnyInput)
-                {
-                    Input = Inputs[i];
-                    continue;
-                }
+                dynamic instance = func(list[i]);
+
+                if (type == typeof(int)) value += instance;
+
+                if (type == typeof(float)) value += instance;
+
+                if (type == typeof(Vector2)) value += instance;
+
+                if (type == typeof(Vector3)) value += instance;
+
+                if (type == typeof(bool)) value |= instance;
             }
 
-            if (Input == null) Input = Inputs[0];
+            return value;
         }
     }
 }

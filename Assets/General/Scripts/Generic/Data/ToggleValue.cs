@@ -34,6 +34,9 @@ namespace Game
             protected SerializedProperty enabled;
             protected SerializedProperty value;
 
+            public const float ToggleSize = 15f;
+            public const float ToggleSpacing = 2f;
+
             protected virtual void Init(SerializedProperty property)
             {
                 this.property = property;
@@ -52,9 +55,9 @@ namespace Game
                 return EditorGUIUtility.singleLineHeight;
             }
 
-            public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+            public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
             {
-                position = EditorGUI.IndentedRect(position);
+                rect = EditorGUI.IndentedRect(rect);
 
                 var indentLevel = EditorGUI.indentLevel;
 
@@ -62,30 +65,22 @@ namespace Game
                 {
                     Init(property);
 
-                    Draw(ref position, property, label);
+                    DrawToggle(ref rect, property, label);
+
+                    if (enabled.boolValue)
+                        DrawValue(ref rect, property, label);
+                    else
+                        DrawLabel(ref rect, property, label);
                 }
                 EditorGUI.indentLevel = indentLevel;
             }
 
-            protected virtual void Draw(ref Rect rect, SerializedProperty property, GUIContent label)
-            {
-                DrawToggle(ref rect, property, label);
-
-                if (enabled.boolValue)
-                    DrawValue(ref rect, property, label);
-                else
-                    DrawLabel(ref rect, property, label);
-            }
             protected virtual void DrawToggle(ref Rect rect, SerializedProperty property, GUIContent label)
             {
-                var size = EditorGUIUtility.singleLineHeight - 2f;
-
-                enabled.boolValue = EditorGUI.Toggle(new Rect(rect.x, rect.y, size, size), enabled.boolValue);
-
-                var offset = 5f;
-
-                rect.x += size + offset;
-                rect.width -= size + offset;
+                enabled.boolValue = EditorGUI.Toggle(new Rect(rect.x, rect.y, ToggleSize, ToggleSize), enabled.boolValue);
+                
+                rect.x += ToggleSize + ToggleSpacing;
+                rect.width -= ToggleSize + ToggleSpacing;
             }
             protected virtual void DrawLabel(ref Rect rect, SerializedProperty property, GUIContent label)
             {
@@ -102,7 +97,7 @@ namespace Game
 
                 var labelWidth = GUI.skin.label.CalcSize(label).x;
 
-                EditorGUIUtility.labelWidth = labelWidth + 5f;
+                EditorGUIUtility.labelWidth -= ToggleSize + ToggleSpacing;
 
                 if (HasExpandControl(value))
                 {
@@ -110,11 +105,11 @@ namespace Game
 
                     rect.x += offset;
                     rect.width -= offset;
-
-                    EditorGUIUtility.labelWidth += offset;
                 }
 
                 EditorGUI.PropertyField(rect, value, label, true);
+
+                EditorGUIUtility.labelWidth += ToggleSize + ToggleSpacing;
             }
 
             protected virtual bool HasExpandControl(SerializedProperty target)
