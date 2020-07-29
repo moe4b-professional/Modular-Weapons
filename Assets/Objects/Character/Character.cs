@@ -22,10 +22,10 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Rigidbody))]
-	public class Character : MonoBehaviour, IBehaviour<Entity>, IModule<Entity>
+    [RequireComponent(typeof(Collider))]
+    public class Character : MonoBehaviour, IBehaviour<Entity>, IModule<Entity>
     {
         public Rigidbody rigidbody { get; protected set; }
-
         public Collider collider { get; protected set; }
 
         public class Behaviour : MonoBehaviour, IBehaviour<Character>

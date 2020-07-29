@@ -160,7 +160,6 @@ namespace Game
         }
 
         //Static Utility
-
         public static ControllerStateData Zero => new ControllerStateData(0f, 0f, MultiplierData.Zero);
 
         public static ControllerStateData Default
@@ -206,7 +205,6 @@ namespace Game
                 multiplier = a.multiplier * b,
             };
         }
-
         public static ControllerStateData operator +(ControllerStateData a, ControllerStateData b)
         {
             return new ControllerStateData()
@@ -217,5 +215,4 @@ namespace Game
             };
         }
     }
-
 }
