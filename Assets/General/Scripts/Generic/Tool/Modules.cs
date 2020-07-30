@@ -33,24 +33,10 @@ namespace Game
             target.Configure();
         }
 
-        static List<object> init;
-
         public static void Init<TReference>(TReference reference, IModule<TReference> target)
             where TReference : Component
         {
             target.Init();
-
-            if (init == null) init = new List<object>();
-
-            var text = AnimationUtility.CalculateTransformPath(target.transform, reference.transform);
-
-            if (init.Contains(target))
-            {
-                Debug.LogError("Duplicate Initialization of: " + text, target.transform.gameObject);
-                Debug.LogError("Initialization By: " + reference.name, reference.gameObject);
-            }
-            else
-                init.Add(target);
         }
 
         public static void Process<TReference>(TReference reference, IModule<TReference> target)

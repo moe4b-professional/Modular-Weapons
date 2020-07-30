@@ -29,5 +29,5 @@ namespace Game
             for (int i = 0; i < target.childCount; i++)
                 SetLayer(target.GetChild(i), layerIndex);
         }
-	}
+    }
 }

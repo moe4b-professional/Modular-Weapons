@@ -32,11 +32,56 @@ namespace Game
         
         public List<PlayerInput> Inputs { get; protected set; }
 
+        public CollectionData Collection { get; protected set; }
+        [Serializable]
+        public class CollectionData
+        {
+            public float Primary { get; protected set; }
+            public float Secondary { get; protected set; }
+
+            public bool Reload { get; protected set; }
+
+            public float SwitchWeapon { get; protected set; }
+            public bool SwitchActionMode { get; protected set; }
+            public bool SwitchSight { get; protected set; }
+
+            public virtual void Process(IList<PlayerInput> inputs)
+            {
+                Clear();
+
+                for (int i = 0; i < inputs.Count; i++)
+                {
+                    Primary += inputs[i].Primary;
+                    Secondary += inputs[i].Secondary;
+
+                    Reload |= inputs[i].Reload;
+
+                    SwitchWeapon += inputs[i].SwitchWeapon;
+                    SwitchActionMode |= inputs[i].SwitchActionMode;
+                    SwitchSight |= inputs[i].SwitchSight;
+                }
+            }
+
+            protected virtual void Clear()
+            {
+                Primary = default;
+                Secondary = default;
+
+                Reload = default;
+
+                SwitchWeapon = default;
+                SwitchActionMode = default;
+                SwitchSight = default;
+            }
+        }
+
         public override void Configure()
         {
             base.Configure();
 
             Inputs = Player.Behaviours.FindAll<PlayerInput>();
+
+            Collection = new CollectionData();
 
             Primary = new SingleAxisInput();
             Secondary = new SingleAxisInput();
@@ -57,89 +102,16 @@ namespace Game
 
         void Process()
         {
-            ProcessPrimary();
-            ProcessSecondary();
+            Collection.Process(Inputs);
 
-            ProcessReload();
+            Primary.Process(Collection.Primary);
+            Secondary.Process(Collection.Secondary);
 
-            ProcessSwitchWeapon();
-            ProcessSwitchActionMode();
-            ProcessSwitchSight();
-        }
+            Reload.Process(Collection.Reload);
 
-        protected virtual void ProcessPrimary()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            float GetElement(PlayerInput input) => input.Primary;
-
-            Primary.Process(value);
-        }
-        protected virtual void ProcessSecondary()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            float GetElement(PlayerInput input) => input.Secondary;
-
-            Secondary.Process(value);
-        }
-
-        protected virtual void ProcessReload()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            bool GetElement(PlayerInput input) => input.Reload;
-
-            Reload.Process(value);
-        }
-
-        protected virtual void ProcessSwitchWeapon()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            float GetElement(PlayerInput input) => input.SwitchWeapon;
-
-            SwitchWeapon.Process(value);
-        }
-        protected virtual void ProcessSwitchActionMode()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            bool GetElement(PlayerInput input) => input.SwitchActionMode;
-
-            SwitchActionMode.Process(value);
-        }
-        protected virtual void ProcessSwitchSight()
-        {
-            var value = AddAll(Inputs, GetElement);
-
-            bool GetElement(PlayerInput input) => input.SwitchSight;
-
-            SwitchSight.Process(value);
-        }
-
-        public static TResult AddAll<TSource, TResult>(IList<TSource> list, Func<TSource, TResult> func)
-        {
-            dynamic value = default(TResult);
-
-            var type = typeof(TResult);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                dynamic instance = func(list[i]);
-
-                if (type == typeof(int)) value += instance;
-
-                if (type == typeof(float)) value += instance;
-
-                if (type == typeof(Vector2)) value += instance;
-
-                if (type == typeof(Vector3)) value += instance;
-
-                if (type == typeof(bool)) value |= instance;
-            }
-
-            return value;
+            SwitchWeapon.Process(Collection.SwitchWeapon);
+            SwitchActionMode.Process(Collection.SwitchActionMode);
+            SwitchSight.Process(Collection.SwitchSight);
         }
     }
 }
