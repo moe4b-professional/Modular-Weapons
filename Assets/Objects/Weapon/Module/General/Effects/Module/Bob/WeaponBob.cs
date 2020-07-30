@@ -21,10 +21,13 @@ namespace Game
 {
 	public class WeaponBob : Weapon.Module, WeaponEffects.IInterface
     {
-        public Modifier.Scale Scale { get; protected set; }
+        [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
+        public Transform Context => anchor.transform;
+
+        public Modifier.Scale Scale { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -61,15 +64,7 @@ namespace Game
 
             Weapon.Effects.Register(this);
 
-            Pivot.OnProcess += Process;
-
             Modules.Init();
-        }
-
-        public event Action OnProcess;
-        void Process()
-        {
-            OnProcess?.Invoke();
         }
 	}
 }

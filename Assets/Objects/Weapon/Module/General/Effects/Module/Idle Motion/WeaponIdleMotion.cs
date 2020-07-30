@@ -21,6 +21,12 @@ namespace Game
 {
 	public class WeaponIdleMotion : Weapon.Module, WeaponEffects.IInterface
 	{
+        [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
+
+        public Transform Context => anchor.transform;
+
         public Modifier.Scale Scale { get; protected set; }
 
         [SerializeField]
@@ -28,9 +34,6 @@ namespace Game
         public float Speed { get { return speed; } }
 
         public Vector3 Target { get; protected set; }
-
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
 
         public class Module : Weapon.BaseModule<WeaponIdleMotion>
         {
@@ -60,19 +63,15 @@ namespace Game
 
             Weapon.Effects.Register(this);
 
-            Pivot.OnProcess += Process;
+            Weapon.OnProcess += Process;
 
             Modules.Init();
         }
 
-        public event Action OnProcess;
         void Process()
         {
             CalculateTarget();
-
-            OnProcess?.Invoke();
         }
-
         protected virtual void CalculateTarget()
         {
             Target = Vector3.zero;

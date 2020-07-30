@@ -36,18 +36,17 @@ namespace Game
         {
             base.Init();
 
-            Bob.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            Bob.Anchor.OnWriteDefaults += Write;
         }
 
         protected virtual void Process()
         {
             CalculateOffset();
-
-            Apply();
         }
-
         protected abstract void CalculateOffset();
 
-        protected abstract void Apply();
+        protected abstract void Write();
     }
 }

@@ -44,10 +44,10 @@ namespace Game
 
             CalculateOffset();
 
-            Controller.Anchors.OnLateProcess += LateProcess;
+            Rig.camera.Anchor.OnWriteDefaults += Apply;
         }
 
-        void LateProcess()
+        void Apply()
         {
             Angle = Mathf.Clamp(Angle - Look.Delta.y, -range, range);
 

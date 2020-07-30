@@ -46,7 +46,7 @@ namespace Game
             }
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.Translate(Offset, Anchor);
         }

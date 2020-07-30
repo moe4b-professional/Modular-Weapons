@@ -42,7 +42,7 @@ namespace Game
             }
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.localEulerAngles += Offset;
         }

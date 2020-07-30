@@ -51,18 +51,17 @@ namespace Game
         {
             base.Init();
 
-            Sway.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            Sway.Anchor.OnWriteDefaults += Write;
         }
 
         protected virtual void Process()
         {
             CalculateOffset();
-
-            Apply();
         }
-
         protected abstract void CalculateOffset();
 
-        protected abstract void Apply();
+        protected abstract void Write();
     }
 }

@@ -58,7 +58,7 @@ namespace Game
             {
                 Shake = reference;
 
-                target.AfterWriteDefaults += AfterWriteDefaultsCallback;
+                target.OnWriteDefaults += AfterWriteDefaultsCallback;
             }
 
             void AfterWriteDefaultsCallback()

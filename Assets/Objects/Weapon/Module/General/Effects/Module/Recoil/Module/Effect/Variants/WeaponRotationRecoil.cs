@@ -44,6 +44,6 @@ namespace Game
             Target *= Recoil.Scale.Value;
         }
 
-        protected override void Apply(Vector3 value) => Context.localEulerAngles += value;
+        protected override void Write() => Context.localEulerAngles += Value;
     }
 }

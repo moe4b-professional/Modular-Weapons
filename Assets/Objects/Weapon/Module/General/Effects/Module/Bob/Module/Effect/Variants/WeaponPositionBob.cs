@@ -35,7 +35,7 @@ namespace Game
             }
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.localPosition += Offset;
         }

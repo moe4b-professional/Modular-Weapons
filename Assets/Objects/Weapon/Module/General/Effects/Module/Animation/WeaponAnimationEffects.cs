@@ -39,9 +39,7 @@ namespace Game
         }
 
         public Modules.Collection<WeaponAnimationEffects> Modules { get; protected set; }
-
-        public WeaponPivot Pivot => Weapon.Pivot;
-
+        
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {

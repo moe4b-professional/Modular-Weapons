@@ -22,6 +22,12 @@ namespace Game
 	public class WeaponSway : Weapon.Module, WeaponEffects.IInterface
     {
         [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
+
+        public Transform Context => anchor.transform;
+
+        [SerializeField]
         protected MultiplierData multiplier = new MultiplierData(0.3f, 0.2f);
         public MultiplierData Multiplier { get { return multiplier; } }
         [Serializable]
@@ -70,9 +76,6 @@ namespace Game
 
         public Modifier.Scale Scale { get; protected set; }
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
-
         public class Module : Weapon.BaseModule<WeaponSway>
         {
             public WeaponSway Sway => Reference;
@@ -113,12 +116,11 @@ namespace Game
 
             Weapon.Effects.Register(this);
 
-            Pivot.OnProcess += Process;
+            Weapon.OnProcess += Process;
 
             Modules.Init();
         }
 
-        public event Action OnProcess;
         void Process()
         {
             CalculateTarget();
@@ -126,10 +128,7 @@ namespace Game
             Value = Vector2.Lerp(Value, Target, speed.Set * Time.deltaTime);
 
             Target = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
-
-            OnProcess?.Invoke();
         }
-
         protected virtual void CalculateTarget()
         {
             Target = Vector3.zero;

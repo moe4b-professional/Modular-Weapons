@@ -33,7 +33,7 @@ namespace Game
             Offset *= IdleMotion.Scale.Value;
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.Rotate(Vector3.right, Offset.x, Space.Self);
             Context.Rotate(Vector3.up, Offset.y, Space.Self);

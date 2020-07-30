@@ -22,14 +22,13 @@ namespace Game
     [RequireComponent(typeof(TransformAnchor))]
 	public class WeaponPivot : Weapon.Module
 	{
-        public TransformAnchor AnchoredTransform { get; protected set; }
+        public TransformAnchor Anchor { get; protected set; }
 
         public override void Configure()
         {
             base.Configure();
 
-            AnchoredTransform = GetComponent<TransformAnchor>();
-            AnchoredTransform.Configure();
+            Anchor = GetComponent<TransformAnchor>();
         }
 
         public override void Init()
@@ -42,7 +41,7 @@ namespace Game
         public event Action OnProcess;
         void Process()
         {
-            AnchoredTransform.WriteDefaults();
+            Anchor.WriteDefaults();
 
             OnProcess?.Invoke();
         }

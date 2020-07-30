@@ -21,10 +21,13 @@ namespace Game
 {
     public class WeaponRecoil : Weapon.Module, WeaponEffects.IInterface
     {
-        public Modifier.Scale Scale { get; protected set; }
+        [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
+        public Transform Context => anchor.transform;
+
+        public Modifier.Scale Scale { get; protected set; }
 
         public class Module : Weapon.BaseModule<WeaponRecoil>
         {
@@ -56,8 +59,6 @@ namespace Game
 
             Weapon.Action.OnPerform += Action;
 
-            Pivot.OnProcess += Process;
-
             Modules.Init();
         }
 
@@ -65,12 +66,6 @@ namespace Game
         void Action()
         {
             if (enabled) OnAction?.Invoke();
-        }
-
-        public event Action OnProcess;
-        void Process()
-        {
-            OnProcess?.Invoke();
         }
     }
 }

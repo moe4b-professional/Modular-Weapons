@@ -19,8 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimRotationMotion : WeaponAim.Module
+	public class WeaponAimProceduralMotion : WeaponAim.Module
 	{
+        [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
+
+        public Transform Context => anchor.transform;
+
         [SerializeField]
         protected AnimationCurve curve;
         public AnimationCurve Curve { get { return curve; } }
@@ -40,56 +46,50 @@ namespace Game
             public Vector3 Rotation { get { return rotation; } }
         }
 
-        [Serializable]
-        public class AxisData
-        {
-            [SerializeField]
-            protected float scale;
-            public float Scale { get { return scale; } }
-
-            [SerializeField]
-            protected AnimationCurve curve;
-            public AnimationCurve Curve { get { return curve; } }
-
-            public float Evaluate(float rate) => curve.Evaluate(rate) * scale;
-        }
-
-        public WeaponPivot Pivot => Weapon.Pivot;
-
-        public Transform Context => Pivot.transform;
-
-        public Quaternion Offset { get; protected set; }
+        public Vector3 Position { get; protected set; }
+        public Vector3 Rotation { get; protected set; }
 
         public override void Init()
         {
             base.Init();
 
-            Pivot.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            anchor.OnWriteDefaults += Write;
         }
 
         void Process()
         {
-            Evaluate(Aim.Rate, out var position, out var angles);
-
-            Context.localPosition += position;
-            Context.localRotation *= Quaternion.Euler(angles);
+            Position = EvaluatePosition(Aim.Rate);
+            Rotation = EvaluateRotation(Aim.Rate);
         }
-
-        protected virtual void Evaluate(float rate, out Vector3 position, out Vector3 angles)
+        public virtual Vector3 EvaluatePosition(float rate)
         {
-            position = new Vector3()
+            var value = new Vector3()
             {
                 x = curve.Evaluate(rate) * scale.Position.x,
                 y = curve.Evaluate(rate) * scale.Position.y,
                 z = curve.Evaluate(rate) * scale.Position.z,
             };
 
-            angles = new Vector3()
+            return value;
+        }
+        protected virtual Vector3 EvaluateRotation(float rate)
+        {
+            var value = new Vector3()
             {
                 x = curve.Evaluate(rate) * scale.Rotation.x,
                 y = curve.Evaluate(rate) * scale.Rotation.y,
                 z = curve.Evaluate(rate) * scale.Rotation.z,
             };
+
+            return value;
+        }
+
+        protected virtual void Write()
+        {
+            Context.localPosition += Position;
+            Context.localEulerAngles += Rotation;
         }
     }
 }

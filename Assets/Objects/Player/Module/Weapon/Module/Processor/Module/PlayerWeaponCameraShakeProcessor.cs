@@ -33,10 +33,10 @@ namespace Game
         {
             base.Init();
 
-            Player.Controller.Anchors.OnLateProcess += LateProcess;
+            Player.Controller.OnProcess += Process;
         }
 
-        void LateProcess()
+        void Process()
         {
             shake.Calculate();
         }

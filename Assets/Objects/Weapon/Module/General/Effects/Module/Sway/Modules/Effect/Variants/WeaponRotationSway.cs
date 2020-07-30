@@ -48,7 +48,7 @@ namespace Game
             }
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.Rotate(Anchor.right, Offset.x, Space.World);
             Context.Rotate(Anchor.up, Offset.y, Space.World);

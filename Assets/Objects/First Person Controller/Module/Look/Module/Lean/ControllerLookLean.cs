@@ -43,35 +43,6 @@ namespace Game
             Hold, Toggle
         }
 
-        [SerializeField]
-        protected ContextData[] contexts;
-        public ContextData[] Contexts { get { return contexts; } }
-        [Serializable]
-        public class ContextData
-        {
-            [SerializeField]
-            protected ControllerTransformAnchor anchor;
-            public ControllerTransformAnchor Anchor { get { return anchor; } }
-
-            [SerializeField]
-            protected bool invert = false;
-            public bool Invert { get { return invert; } }
-
-            [SerializeField]
-            [Range(0f, 1f)]
-            protected float scale = 1f;
-            public float Scale { get { return scale; } }
-
-            public virtual void Apply(Quaternion offset)
-            {
-                if (invert) offset = Quaternion.Inverse(offset);
-
-                offset = Quaternion.Lerp(Quaternion.identity, offset, scale);
-
-                anchor.LocalRotation *= offset;
-            }
-        }
-
         public Vector3 Axis => Vector3.forward;
 
         public Quaternion Offset { get; protected set; }
@@ -82,7 +53,6 @@ namespace Game
 
             public override FirstPersonController Controller => Reference.Controller;
         }
-
         public Modules.Collection<ControllerLookLean> Modules { get; protected set; }
 
         public AxisInput Input => Controller.Controls.Lean;
@@ -91,9 +61,10 @@ namespace Game
         {
             base.Configure();
 
+            Offset = Quaternion.identity;
+
             Modules = new Modules.Collection<ControllerLookLean>(this);
             Modules.Register(Controller.Behaviours);
-
             Modules.Configure();
         }
 
@@ -101,23 +72,20 @@ namespace Game
         {
             base.Init();
 
-            CalculateOffset();
+            //CalculateOffset(); //TODO Remove if Unecessary
 
-            Controller.Anchors.OnLateProcess += LateProcess;
+            Controller.OnProcess += Process;
 
             Modules.Init();
         }
 
-        void LateProcess()
+        void Process()
         {
             CalculateTarget();
 
             Rate = Mathf.MoveTowards(Rate, Target, speed * Time.deltaTime);
 
             CalculateOffset();
-
-            for (int i = 0; i < contexts.Length; i++)
-                contexts[i].Apply(Offset);
         }
 
         protected virtual void CalculateTarget()

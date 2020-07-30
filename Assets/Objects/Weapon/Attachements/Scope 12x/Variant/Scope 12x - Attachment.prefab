@@ -241,7 +241,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2289723040092953453}
   - component: {fileID: 2289723040092953450}
-  - component: {fileID: 1083612303637336411}
   m_Layer: 9
   m_Name: Scope 12x - Attachment
   m_TagString: Untagged
@@ -280,18 +279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 2289723041154115038}
---- !u!114 &1083612303637336411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289723040092953452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  offset:
+    position: {x: 0, y: 0, z: 0}
+    angle: {x: 0, y: 0, z: 0}
 --- !u!1 &2289723040123314743
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ namespace Game
             Offset *= IdleMotion.Scale.Value;
         }
 
-        protected override void Apply()
+        protected override void Write()
         {
             Context.localPosition += Offset;
         }

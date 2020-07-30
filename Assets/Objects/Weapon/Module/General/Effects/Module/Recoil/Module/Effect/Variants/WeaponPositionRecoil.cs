@@ -44,6 +44,6 @@ namespace Game
             Target *= Recoil.Scale.Value;
         }
 
-        protected override void Apply(Vector3 value) => Context.localPosition += value;
+        protected override void Write() => Context.localPosition += Value;
     }
 }

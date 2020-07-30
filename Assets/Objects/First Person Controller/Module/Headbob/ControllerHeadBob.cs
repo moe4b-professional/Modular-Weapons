@@ -44,56 +44,40 @@ namespace Game
         protected float speed = 4f;
         public float Speed { get { return speed; } }
 
-        [SerializeField]
-        protected ContextData[] contexts;
-        public ContextData[] Contexts { get { return contexts; } }
-        [Serializable]
-        public class ContextData
+        public class Module : FirstPersonController.BaseModule<ControllerHeadBob>
         {
-            [SerializeField]
-            protected ControllerTransformAnchor anchor;
-            public ControllerTransformAnchor Anchor { get { return anchor; } }
+            public ControllerHeadBob HeadBob => Reference;
 
-            [SerializeField]
-            protected bool invert = false;
-            public bool Invert { get { return invert; } }
-
-            [SerializeField]
-            protected float scale = 1f;
-            public float Scale { get { return scale; } }
-
-            public virtual void Apply(Vector3 value)
-            {
-                if (invert) value = -value;
-
-                value *= scale;
-
-                anchor.LocalPosition += value;
-            }
+            public override FirstPersonController Controller => Reference.Controller;
         }
+        public Modules.Collection<ControllerHeadBob> Modules { get; protected set; }
 
         public Vector3 Delta { get; protected set; }
-
         public Vector3 Offset { get; protected set; }
 
         public ControllerStep Step => Controller.Step;
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Delta = Offset = Vector3.zero;
+
+            Modules = new Modules.Collection<ControllerHeadBob>(this);
+            Modules.Register(Controller.Behaviours);
+            Modules.Configure();
+        }
 
         public override void Init()
         {
             base.Init();
 
-            Controller.Anchors.OnLateProcess += LateProcess;
+            Modules.Init();
+
+            Controller.OnProcess += Process;
         }
 
-        void LateProcess()
-        {
-            Calculate();
-
-            for (int i = 0; i < contexts.Length; i++)
-                contexts[i].Apply(Offset);
-        }
-
-        protected virtual void Calculate()
+        void Process()
         {
             Delta = new Vector3()
             {

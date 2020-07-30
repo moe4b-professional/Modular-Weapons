@@ -398,7 +398,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5054792321850223448}
   - component: {fileID: 1435084469874733371}
-  - component: {fileID: 6338833855304265134}
   m_Layer: 9
   m_Name: Scope 4x - Attachment
   m_TagString: Untagged
@@ -440,18 +439,6 @@ MonoBehaviour:
   offset:
     position: {x: 0, y: 0, z: 0}
     angle: {x: 0, y: 0, z: 0}
---- !u!114 &6338833855304265134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054792321850223455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5054792321991817228
 GameObject:
   m_ObjectHideFlags: 0

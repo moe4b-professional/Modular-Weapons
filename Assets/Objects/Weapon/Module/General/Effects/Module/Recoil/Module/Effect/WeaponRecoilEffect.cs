@@ -120,22 +120,20 @@ namespace Game
 
             Recoil.OnAction += Action;
 
-            Recoil.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            Recoil.Anchor.OnWriteDefaults += Write;
         }
 
-        void Action()
-        {
-            CalculateTarget();
-        }
+        void Action() => CalculateTarget();
         protected abstract void CalculateTarget();
 
         protected virtual void Process()
         {
             Value = Vector3.Lerp(Value, Target, speed.Set * Time.deltaTime);
             Target = Vector3.Lerp(Target, Vector3.zero, speed.Reset * Time.deltaTime);
-
-            Apply(Value);
         }
-        protected abstract void Apply(Vector3 value);
+
+        protected abstract void Write();
     }
 }

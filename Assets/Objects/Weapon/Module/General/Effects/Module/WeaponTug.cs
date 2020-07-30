@@ -22,6 +22,12 @@ namespace Game
 	public class WeaponTug : Weapon.Module, WeaponEffects.IInterface
 	{
         [SerializeField]
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
+
+        public Transform Context => anchor.transform;
+
+        [SerializeField]
         protected float range = 0.004f;
         public float Range { get { return range; } }
 
@@ -43,10 +49,7 @@ namespace Game
         {
             Vector3 PlanarVelocity { get; }
         }
-
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
-
+        
         public override void Configure()
         {
             base.Configure();
@@ -62,7 +65,9 @@ namespace Game
 
             Weapon.Effects.Register(this);
 
-            Pivot.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            anchor.OnWriteDefaults += Write;
         }
 
         void Process()
@@ -70,8 +75,6 @@ namespace Game
             CalculateTarget();
 
             Value = Mathf.Lerp(Value, Target, speed * Time.deltaTime);
-
-            Context.position -= Weapon.transform.forward * Value;
         }
 
         protected virtual void CalculateTarget()
@@ -81,6 +84,11 @@ namespace Game
             Target = Mathf.Clamp(Target, 0f, max);
 
             Target *= range * Scale.Value;
+        }
+
+        void Write()
+        {
+            Context.position -= Weapon.transform.forward * Value;
         }
     }
 }

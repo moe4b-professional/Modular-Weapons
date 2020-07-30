@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateCameraRigModification : ControllerState.Module
+	public class ControllerStateRigModification : ControllerState.Module
 	{
         public Vector3 Offset { get; protected set; }
 
@@ -33,20 +33,20 @@ namespace Game
 
             Anchor = CalculateOffset(State.Data.Height);
 
-            Controller.Anchors.OnLateProcess += LateProcess;
+            Controller.OnProcess += Process;
+
+            Rig.camera.Anchor.OnWriteDefaults += WriteCamera;
+            Rig.Pivot.OnWriteDefaults += WritePivot;
         }
 
-        void LateProcess()
+        void Process()
         {
             Offset = CalculateOffset(State.Data.Height) - Anchor;
-
-            Rig.Camera.Anchor.LocalPosition += Offset / 2;
-            Rig.Pivot.LocalPosition += Offset / 2;
         }
 
-        protected virtual Vector3 CalculateOffset(float height)
-        {
-            return Vector3.up * height / 2f;
-        }
+        protected virtual Vector3 CalculateOffset(float height) => Vector3.up * height / 2f;
+
+        void WriteCamera() => Rig.Camera.Anchor.LocalPosition += Offset / 2;
+        void WritePivot() => Rig.Pivot.LocalPosition += Offset / 2;
     }
 }

@@ -23,12 +23,12 @@ namespace Game
     public class ControllerRig : FirstPersonController.Module
 	{
         [SerializeField]
-        protected ControllerTransformAnchor pivot;
-        public ControllerTransformAnchor Pivot { get { return pivot; } }
+        protected TransformAnchor pivot;
+        public TransformAnchor Pivot { get { return pivot; } }
 
         [SerializeField]
-        protected ControllerTransformAnchor anchor;
-        public ControllerTransformAnchor Anchor { get { return anchor; } }
+        protected TransformAnchor anchor;
+        public TransformAnchor Anchor { get { return anchor; } }
 
         public ControllerCamera camera => Controller.camera;
         public ControllerCamera Camera => camera; //Don't judge me, I want to maintain my PascalCase naming while still maintaining a propert override to camera

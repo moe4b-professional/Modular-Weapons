@@ -29,18 +29,14 @@ namespace Game
         {
             base.Init();
 
-            IdleMotion.OnProcess += Process;
+            Weapon.OnProcess += Process;
+
+            IdleMotion.Anchor.OnWriteDefaults += Write;
         }
 
-        void Process()
-        {
-            CalculateOffset();
-
-            Apply();
-        }
-
+        void Process() => CalculateOffset();
         protected abstract void CalculateOffset();
 
-        protected abstract void Apply();
+        protected abstract void Write();
     }
 }

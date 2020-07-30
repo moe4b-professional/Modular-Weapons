@@ -19,34 +19,18 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(ActivationRewind))]
     public class WeaponAimSight : WeaponAim.Module
 	{
         [SerializeField]
         protected Transform point;
         public Transform Point { get { return point; } }
 
-        [SerializeField]
-        protected Coordinates offset;
-        public Coordinates Offset { get { return offset; } }
-
-        public Coordinates Target { get; protected set; }
-
         public float Weight { get; protected set; } = 0f;
 
-        public ActivationRewind ActivationRewind { get; protected set; }
+        public Coordinates Inital { get; protected set; }
+        public Coordinates Target { get; protected set; }
 
-        public event ActivationRewind.Delegate EnableEvent
-        {
-            add => ActivationRewind.EnableEvent += value;
-            remove => ActivationRewind.EnableEvent -= value;
-        }
-
-        public event ActivationRewind.Delegate DisableEvent
-        {
-            add => ActivationRewind.DisableEvent += value;
-            remove => ActivationRewind.DisableEvent -= value;
-        }
+        public Coordinates Offset { get; protected set; }
 
         [Serializable]
         public class Module : Weapon.BaseModule<WeaponAimSight>
@@ -55,11 +39,10 @@ namespace Game
 
             public override Weapon Weapon => Reference.Weapon;
         }
-
         public Modules.Collection<WeaponAimSight> Modules { get; protected set; }
 
-        public WeaponPivot Pivot => Weapon.Pivot;
-        public Transform Context => Pivot.transform;
+        public TransformAnchor Anchor => Weapon.Pivot.Anchor;
+        public Transform Context => Anchor.transform;
 
         public bool ActiveInHierarchy => gameObject.activeInHierarchy;
 
@@ -72,12 +55,8 @@ namespace Game
         {
             base.Configure();
 
-            ActivationRewind = GetComponent<ActivationRewind>();
-            if (ActivationRewind == null) ActivationRewind = gameObject.AddComponent<ActivationRewind>();
-
             Modules = new Modules.Collection<WeaponAimSight>(this);
             Modules.Register(Weapon.Behaviours);
-
             Modules.Configure();
         }
 
@@ -85,9 +64,12 @@ namespace Game
         {
             base.Init();
 
-            Pivot.OnProcess += Process;
-
+            Inital = new Coordinates(Anchor.transform);
             Target = CalculateTarget(Weapon.transform, Context, point);
+
+            Offset = Target - Inital;
+
+            Weapon.OnProcess += Process;
 
             Modules.Init();
         }
@@ -95,13 +77,6 @@ namespace Game
         void Process()
         {
             Weight = Mathf.MoveTowards(Weight, enabled ? 1f : 0f, Aim.Speed.Value * Time.deltaTime);
-
-            var Offset = Coordinates.Lerp(Pivot.AnchoredTransform.Defaults, Target + offset, Aim.Rate * Weight);
-
-            Offset -= Pivot.AnchoredTransform.Defaults;
-
-            Context.localPosition += Offset.Position;
-            Context.localRotation *= Offset.Rotation;
         }
 
         public static Coordinates CalculateTarget(Transform anchor, Transform pivot, Transform point)

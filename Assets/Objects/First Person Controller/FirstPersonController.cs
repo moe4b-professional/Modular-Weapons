@@ -42,7 +42,6 @@ namespace Game
         public ControllerControls Controls { get; protected set; }
         public ControllerRig Rig { get; protected set; }
         public ControllerCamera camera { get; protected set; }
-        public ControllerAnchors Anchors { get; protected set; }
         public ControllerDirection Direction { get; protected set; }
         public ControllerGround Ground { get; protected set; }
         public ControllerAirTravel AirTravel { get; protected set; }
@@ -110,7 +109,6 @@ namespace Game
             GenericData = Modules.Depend<ControllerGenericData>();
             Controls = Modules.Depend<ControllerControls>();
             Rig = Modules.Depend<ControllerRig>();
-            Anchors = Modules.Depend<ControllerAnchors>();
             camera = Modules.Depend<ControllerCamera>();
             Direction = Modules.Depend<ControllerDirection>();
             Ground = Modules.Depend<ControllerGround>();

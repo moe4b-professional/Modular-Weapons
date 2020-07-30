@@ -19,22 +19,44 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    [DefaultExecutionOrder(-200)]
 	public class TransformAnchor : MonoBehaviour
 	{
         public Coordinates Defaults { get; protected set; }
 
-        public virtual void Configure()
+        public Vector3 LocalPosition
+        {
+            get => transform.localPosition;
+            set => transform.localPosition = value;
+        }
+        public Vector3 LocalAngles
+        {
+            get => transform.localEulerAngles;
+            set => transform.localEulerAngles = value;
+        }
+        public Quaternion LocalRotation
+        {
+            get => transform.localRotation;
+            set => transform.localRotation = value;
+        }
+
+        void Awake()
         {
             Defaults = new Coordinates(transform);
         }
 
-        public event Action AfterWriteDefaults;
+        void Update()
+        {
+            WriteDefaults();
+        }
+
+        public event Action OnWriteDefaults;
         public virtual void WriteDefaults()
         {
             transform.localPosition = Defaults.Position;
             transform.localRotation = Defaults.Rotation;
 
-            AfterWriteDefaults?.Invoke();
+            OnWriteDefaults?.Invoke();
         }
     }
 }
