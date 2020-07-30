@@ -61,7 +61,7 @@ namespace Game
         {
             if (additive) Context.localEulerAngles += axis * Iterations * range;
 
-            Context.Rotate(axis, range * ActionControl.Weight, Space.Self);
+            Context.Rotate(axis, range * ActionControl.Rate, Space.Self);
         }
     }
 }

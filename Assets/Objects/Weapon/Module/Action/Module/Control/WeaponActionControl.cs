@@ -27,7 +27,11 @@ namespace Game
         protected FloatToggleValue min;
         public FloatToggleValue Min { get { return min; } }
 
-        public virtual bool Active => Weight >= Min.Evaluate(0.75f);
+        public float MinValue => min.Evaluate(0.75f);
+
+        public float Rate => Mathf.InverseLerp(0.0f, MinValue, Weight);
+
+        public virtual bool Active => Weight >= MinValue;
 
         public bool CanPerform
         {
