@@ -25,6 +25,10 @@ namespace Game
         protected Transform point;
         public Transform Point { get { return point; } }
 
+        [SerializeField]
+        protected Coordinates additive;
+        public Coordinates Additive { get { return additive; } }
+
         public float Weight { get; protected set; } = 0f;
 
         public Coordinates Inital { get; protected set; }

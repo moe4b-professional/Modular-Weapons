@@ -46,7 +46,7 @@ namespace Game
             var offset = Coordinates.Zero;
 
             for (int i = 0; i < List.Count; i++)
-                offset += Coordinates.Lerp(Coordinates.Zero, List[i].Offset, List[i].Weight * Aim.Rate);
+                offset += Coordinates.Lerp(Coordinates.Zero, List[i].Offset + List[i].Additive, List[i].Weight * Aim.Rate);
 
             Context.localPosition += offset.Position;
             Context.localRotation *= offset.Rotation;

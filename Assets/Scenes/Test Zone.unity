@@ -1606,6 +1606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 391829175}
+  additive:
+    position: {x: 0, y: 0, z: 0}
+    angle: {x: 0, y: 0, z: 0}
 --- !u!114 &391829177
 MonoBehaviour:
   m_ObjectHideFlags: 0
