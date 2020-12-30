@@ -27,6 +27,16 @@ namespace Game
 
         public float Blend { get; protected set; }
 
+        public float Target
+        {
+            get
+            {
+                if (Weapon.Operation.Value != null) return 0f;
+
+                return Weapon.Action.Input.Axis;
+            }
+        }
+
         public float Speed => 20f;
 
         public override void Configure()
@@ -45,7 +55,7 @@ namespace Game
 
         void Process()
         {
-            Blend = Mathf.MoveTowards(Blend, Weapon.Action.Input.Axis, Speed * Time.deltaTime);
+            Blend = Mathf.MoveTowards(Blend, Target, Speed * Time.deltaTime);
 
             Animator.SetFloat(ID, Blend);
         }
