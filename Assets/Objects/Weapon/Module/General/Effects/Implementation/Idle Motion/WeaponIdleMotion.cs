@@ -35,26 +35,30 @@ namespace Game
 
         public Vector3 Target { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponIdleMotion>
+        public Modules<WeaponIdleMotion> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponIdleMotion>
         {
-            public WeaponIdleMotion IdleMotion => Reference;
+            public WeaponIdleMotion IdleMotion { get; protected set; }
+            public virtual void Set(WeaponIdleMotion value) => IdleMotion = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => IdleMotion.Weapon;
         }
 
-        public Modules.Collection<WeaponIdleMotion> Modules { get; protected set; }
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponIdleMotion>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
             Scale = new Modifier.Scale();
-
-            Modules = new Modules.Collection<WeaponIdleMotion>(this);
-
-            Modules.Register(Weapon.Behaviours);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -64,8 +68,6 @@ namespace Game
             Weapon.Effects.Register(this);
 
             Weapon.OnProcess += Process;
-
-            Modules.Init();
         }
 
         void Process()

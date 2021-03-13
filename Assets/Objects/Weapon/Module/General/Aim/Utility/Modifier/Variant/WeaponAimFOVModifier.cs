@@ -33,10 +33,7 @@ namespace Game
         {
             base.Configure();
 
-            FOV = Weapon.Modules.Find<WeaponFOV>();
-
-            if (FOV == null)
-                ExecuteDependancyError<WeaponFOV>();
+            FOV = Weapon.Modules.Depend<WeaponFOV>();
         }
 
         public override void Init()

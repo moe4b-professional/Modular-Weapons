@@ -32,6 +32,9 @@ namespace Game
         public WeaponEffects Effects { get; protected set; }
         public WeaponMesh Mesh { get; protected set; }
 
+        #region Behaviours
+        public Behaviours<Weapon> Behaviours { get; protected set; }
+
         public class Behaviour : MonoBehaviour, IBehaviour<Weapon>
         {
             new public bool enabled
@@ -42,62 +45,24 @@ namespace Game
 
             //To force the enabled tick box on the component to show
             protected virtual void Start() { }
-        }
-        public Behaviours.Collection<Weapon> Behaviours { get; protected set; }
-        
-        public abstract class BaseModule<TReference> : Behaviour, IModule<TReference>
-        {
-            public abstract Weapon Weapon { get; }
 
-            public TReference Reference { get; protected set; }
-            public virtual void Setup(TReference reference)
-            {
-                this.Reference = reference;
-            }
+            public virtual void Configure() { }
+
+            public virtual void Init() { }
+        }
+        #endregion
+
+        #region Modules
+        public Modules<Weapon> Modules { get; protected set; }
+
+        public abstract class Module : Behaviour, IModule<Weapon>
+        {
+            public Weapon Weapon { get; protected set; }
+            public virtual void Set(Weapon value) => Weapon = value;
 
             public IOwner Owner => Weapon.Owner;
-
-            public virtual void Configure()
-            {
-
-            }
-
-            public virtual void Init()
-            {
-
-            }
-
-            public virtual TType GetProcessor<TType>()
-                where TType : class
-            {
-                var instance = Owner.GetProcessor<TType>();
-
-                if (instance == null)
-                    ExecuteProcessorError<TType>();
-
-                return instance;
-            }
-            public void ExecuteProcessorError<TType>()
-            {
-                var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TType).FullName + " To function";
-
-                var exception = new InvalidOperationException(message);
-
-                throw exception;
-            }
-
-            public void ExecuteDependancyError<TType>()
-            {
-                var exception = Dependancy.CreateException<TType>(this);
-
-                throw exception;
-            }
         }
-        public abstract class Module : BaseModule<Weapon>
-        {
-            public override Weapon Weapon => Reference;
-        }
-        public Modules.Collection<Weapon> Modules { get; protected set; }
+        #endregion
 
         public AudioSource AudioSource { get; protected set; }
         
@@ -123,10 +88,9 @@ namespace Game
         {
             AudioSource = GetComponent<AudioSource>();
 
-            Behaviours = new Behaviours.Collection<Weapon>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<Weapon>(this);
 
-            Modules = new Modules.Collection<Weapon>(this);
+            Modules = new Modules<Weapon>(this);
             Modules.Register(Behaviours);
 
             Constraint = Modules.Depend<WeaponConstraint>();
@@ -139,12 +103,14 @@ namespace Game
             Effects = Modules.Depend<WeaponEffects>();
             Mesh = Modules.Depend<WeaponMesh>();
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
         protected virtual void Init()
         {
-            Modules.Init();
+            Behaviours.Init();
         }
 
         public delegate void ProcessDelegate();
@@ -173,5 +139,31 @@ namespace Game
         
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
+
+        public virtual TType GetProcessor<TType>()
+                where TType : class
+        {
+            var instance = Owner.GetProcessor<TType>();
+
+            if (instance == null)
+                ExecuteProcessorError<TType>();
+
+            return instance;
+        }
+        public void ExecuteProcessorError<TType>()
+        {
+            var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TType).FullName + " To function";
+
+            var exception = new InvalidOperationException(message);
+
+            throw exception;
+        }
+
+        public void ExecuteDependancyError<TType>()
+        {
+            var exception = Dependancy.CreateException<TType>(this);
+
+            throw exception;
+        }
     }
 }

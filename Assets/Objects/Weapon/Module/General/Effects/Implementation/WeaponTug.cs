@@ -54,7 +54,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
         }

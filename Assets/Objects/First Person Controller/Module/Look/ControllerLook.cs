@@ -58,24 +58,24 @@ namespace Game
         public ControllerCharacterLook Character { get; protected set; }
         public ControllerLookLean Lean { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerLook>
+        public Modules<ControllerLook> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerLook>
         {
-            public ControllerLook Look => Reference;
+            public ControllerLook Look { get; protected set; }
+            public virtual void Set(ControllerLook value) => Look = value;
+
+            public FirstPersonController Controller => Look.Controller;
 
             public ControllerRig Rig => Controller.Rig;
-
-            public override FirstPersonController Controller => Look.Controller;
         }
-
-        public Modules.Collection<ControllerLook> Modules { get; protected set; }
 
         public AxesInput Input => Controller.Controls.Look;
 
-        public override void Configure()
+        public override void Set(FirstPersonController value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<ControllerLook>(this);
+            Modules = new Modules<ControllerLook>(this);
             Modules.Register(Controller.Behaviours);
 
             Sensitivity = Modules.Find<ControllerLookSensitivty>();
@@ -83,7 +83,7 @@ namespace Game
             Character = Modules.Depend<ControllerCharacterLook>();
             Lean = Modules.Depend<ControllerLookLean>();
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -91,8 +91,6 @@ namespace Game
             base.Init();
 
             Controller.OnProcess += Process;
-
-            Modules.Init();
         }
 
         void Process()

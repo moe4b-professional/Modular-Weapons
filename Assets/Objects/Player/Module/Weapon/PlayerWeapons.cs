@@ -32,13 +32,14 @@ namespace Game
 
         public PlayerWeaponsCamera camera { get; protected set; }
 
-        public class Module : Player.BaseModule<PlayerWeapons>
+        public Modules<PlayerWeapons> Modules { get; protected set; }
+        public class Module : Player.Behaviour, IModule<PlayerWeapons>
         {
-            public PlayerWeapons Weapons => Reference;
+            public PlayerWeapons Weapons { get; protected set; }
+            public virtual void Set(PlayerWeapons value) => Weapons = value;
 
-            public override Player Player => Reference.Player;
+            public Player Player => Weapons.Player;
         }
-        public Modules.Collection<PlayerWeapons> Modules { get; protected set; }
 
         public class Processor : Module
         {
@@ -48,18 +49,23 @@ namespace Game
 
         public PlayerControls Controls => Player.Controls;
 
+        public override void Set(Player value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<PlayerWeapons>(this);
+            Modules.Register(Player.Behaviours);
+
+            camera = Modules.Depend<PlayerWeaponsCamera>();
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
             List = Dependancy.GetAll<Weapon>(gameObject);
-
-            Modules = new Modules.Collection<PlayerWeapons>(this);
-            Modules.Register(Player.Behaviours);
-
-            camera = Modules.Depend<PlayerWeaponsCamera>();
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -76,8 +82,6 @@ namespace Game
             if (Index < 0) Index = 0;
 
             List[Index].Equip();
-
-            Modules.Init();
         }
 
         protected virtual void Equip(int target)

@@ -21,31 +21,17 @@ namespace Game
 {
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
-    public class AI : MonoBehaviour, IBehaviour<Character>, IModule<Character>
+    public class AI : Character.Module
     {
         public Rigidbody rigidbody => Character.rigidbody;
 
         public AIController Controller { get; protected set; }
 
+        #region Behaviours
+        public Behaviours<AI> Behaviours { get; protected set; }
+
         public class Behaviour : MonoBehaviour, IBehaviour<AI>
         {
-
-        }
-        public Behaviours.Collection<AI> Behaviours { get; protected set; }
-
-        public class Module : Behaviour, IModule<AI>
-        {
-            public AI AI { get; protected set; }
-            public virtual void Setup(AI reference)
-            {
-                AI = reference;
-            }
-            
-            public Character Character => AI.Character;
-            public Entity Entity => Character.Entity;
-
-            public Rigidbody rigidbody => Character.rigidbody;
-
             public virtual void Configure()
             {
 
@@ -56,30 +42,44 @@ namespace Game
 
             }
         }
-        public Modules.Collection<AI> Modules { get; protected set; }
+        #endregion
 
-        public Character Character { get; protected set; }
-        public virtual void Setup(Character reference)
+        #region Modules
+        public Modules<AI> Modules { get; protected set; }
+        public class Module : Behaviour, IModule<AI>
         {
-            Character = reference;
+            public AI AI { get; protected set; }
+            public virtual void Set(AI reference)
+            {
+                AI = reference;
+            }
+            
+            public Character Character => AI.Character;
+            public Entity Entity => Character.Entity;
         }
+        #endregion
 
-        public virtual void Configure()
+        public override void Configure()
         {
-            Controller = Dependancy.Get<AIController>(gameObject);
+            base.Configure();
 
-            Behaviours = new Behaviours.Collection<AI>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<AI>(this);
 
-            Modules = new Modules.Collection<AI>(this);
+            Modules = new Modules<AI>(this);
             Modules.Register(Behaviours);
 
-            Modules.Configure();
+            Controller = Modules.Depend<AIController>();
+
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
-        public virtual void Init()
+        public override void Init()
         {
-            Modules.Init();
+            base.Init();
+
+            Behaviours.Init();
         }
 
         protected virtual void Update()

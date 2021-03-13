@@ -27,14 +27,14 @@ namespace Game
 
         public bool Active => Weapon.Operation.Is(this);
 
-        public abstract class Module : Weapon.BaseModule<WeaponSprint>
+        public Modules<WeaponSprint> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponSprint>
         {
-            public WeaponSprint Sprint => Reference;
+            public WeaponSprint Sprint { get; protected set; }
+            public virtual void Set(WeaponSprint value) => Sprint = value;
 
-            public override Weapon Weapon => Sprint.Weapon;
+            public Weapon Weapon => Sprint.Weapon;
         }
-
-        public Modules.Collection<WeaponSprint> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -46,16 +46,21 @@ namespace Game
             float Target { get; }
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponSprint>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
-
-            Modules = new Modules.Collection<WeaponSprint>(this);
-            Modules.Register(Weapon.Behaviours);
-
-            Modules.Configure();
+            Processor = Weapon.GetProcessor<IProcessor>();
         }
 
         public override void Init()
@@ -65,8 +70,6 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.Activation.OnDisable += DisableCallback;
-
-            Modules.Init();
         }
 
         void DisableCallback()

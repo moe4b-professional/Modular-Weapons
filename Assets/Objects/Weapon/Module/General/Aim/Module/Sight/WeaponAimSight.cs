@@ -36,14 +36,14 @@ namespace Game
 
         public Coordinates Offset { get; protected set; }
 
-        [Serializable]
-        public class Module : Weapon.BaseModule<WeaponAimSight>
+        public Modules<WeaponAimSight> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponAimSight>
         {
-            public WeaponAimSight Sight => Reference;
+            public WeaponAimSight Sight { get; protected set; }
+            public virtual void Set(WeaponAimSight value) => Sight = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => Sight.Weapon;
         }
-        public Modules.Collection<WeaponAimSight> Modules { get; protected set; }
 
         public TransformAnchor Anchor => Weapon.Pivot.Anchor;
         public Transform Context => Anchor.transform;
@@ -55,13 +55,14 @@ namespace Game
             point = transform;
         }
 
-        public override void Configure()
+        public override void Set(WeaponAim value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponAimSight>(this);
+            Modules = new Modules<WeaponAimSight>(this);
             Modules.Register(Weapon.Behaviours);
-            Modules.Configure();
+
+            Modules.Set();
         }
 
         public override void Init()
@@ -74,8 +75,6 @@ namespace Game
             Offset = Target - Inital;
 
             Weapon.OnProcess += Process;
-
-            Modules.Init();
         }
         
         void Process()

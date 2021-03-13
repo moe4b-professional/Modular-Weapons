@@ -31,23 +31,23 @@ namespace Game
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 
-        public abstract class Module : Weapon.BaseModule<WeaponBurstActionMode>
+        public Modules<WeaponBurstActionMode> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponBurstActionMode>
         {
-            public WeaponBurstActionMode Burst => Reference;
+            public WeaponBurstActionMode Burst { get; protected set; }
+            public virtual void Set(WeaponBurstActionMode value) => Burst = value;
 
-            public override Weapon Weapon => Burst.Weapon;
+            public Weapon Weapon => Burst.Weapon;
         }
 
-        public Modules.Collection<WeaponBurstActionMode> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponBurstActionMode>(this);
+            Modules = new Modules<WeaponBurstActionMode>(this);
             Modules.Register(Weapon.Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -57,8 +57,6 @@ namespace Game
             Weapon.Action.OnPerform += Action;
 
             Weapon.Activation.OnDisable += DisableCallback;
-
-            Modules.Init();
         }
 
         void DisableCallback()

@@ -29,27 +29,28 @@ namespace Game
         protected Transform point;
         public Transform Point { get { return point; } }
 
-        public class Module : Weapon.BaseModule<WeaponProjectileAction>
+        public Modules<WeaponProjectileAction> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponProjectileAction>
         {
-            public WeaponProjectileAction Action => Reference;
+            public WeaponProjectileAction Action { get; protected set; }
+            public virtual void Set(WeaponProjectileAction value) => Action = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => Action.Weapon;
         }
-        public Modules.Collection<WeaponProjectileAction> Modules { get; protected set; }
 
         protected virtual void Reset()
         {
             point = transform;
         }
 
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponProjectileAction>(this);
+            Modules = new Modules<WeaponProjectileAction>(this);
             Modules.Register(Weapon.Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -59,8 +60,6 @@ namespace Game
             Weapon.Action.OnPerform += Action;
 
             if (point == null) point = transform;
-
-            Modules.Init();
         }
 
         void Action()

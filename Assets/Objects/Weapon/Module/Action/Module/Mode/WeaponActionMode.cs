@@ -35,13 +35,14 @@ namespace Game
 
         public int Index { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponActionMode>
+        public Modules<WeaponActionMode> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponActionMode>
         {
-            public WeaponActionMode Mode => Reference;
+            public WeaponActionMode Mode { get; protected set; }
+            public virtual void Set(WeaponActionMode value) => Mode = value;
 
-            public override Weapon Weapon => Mode.Weapon;
+            public Weapon Weapon => Mode.Weapon;
         }
-        public Modules.Collection<WeaponActionMode> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -49,18 +50,23 @@ namespace Game
             bool Input { get; }
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponActionMode>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
-
-            Modules = new Modules.Collection<WeaponActionMode>(this);
-            Modules.Register(Weapon.Behaviours);
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             List = Dependancy.GetAll<IState>(gameObject);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -81,8 +87,6 @@ namespace Game
             }
 
             if(List.Count > 0) Set(Index);
-
-            Modules.Init();
         }
 
         void Process()

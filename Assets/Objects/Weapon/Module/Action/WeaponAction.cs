@@ -29,13 +29,14 @@ namespace Game
 
         public WeaponActionControl Control { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponAction>
+        public Modules<WeaponAction> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponAction>
         {
-            public WeaponAction Action => Reference;
+            public WeaponAction Action { get; protected set; }
+            public virtual void Set(WeaponAction value) => Action = value;
 
-            public override Weapon Weapon => Action.Weapon;
+            public Weapon Weapon => Action.Weapon;
         }
-        public Modules.Collection<WeaponAction> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor : IContext
@@ -56,21 +57,26 @@ namespace Game
                 return Processor;
             }
         }
-        
-        public override void Configure()
+
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Processor = GetProcessor<IProcessor>();
-
-            Modules = new Modules.Collection<WeaponAction>(this);
+            Modules = new Modules<WeaponAction>(this);
             Modules.Register(Weapon.Behaviours);
 
             Override = Modules.Depend<WeaponActionOverride>();
             Input = Modules.Depend<WeaponActionInput>();
             Control = Modules.Depend<WeaponActionControl>();
 
-            Modules.Configure();
+            Modules.Set();
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            Processor = Weapon.GetProcessor<IProcessor>();
         }
 
         public override void Init()
@@ -80,8 +86,6 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.OnLateProcess += LateProcess;
-
-            Modules.Init();
         }
 
         #region Process

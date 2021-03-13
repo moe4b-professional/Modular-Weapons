@@ -57,14 +57,15 @@ namespace Game
 
         public WeaponAimSpeed Speed { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponAim>
+        public Modules<WeaponAim> Modules { get; protected set; }
+
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponAim>
         {
-            public WeaponAim Aim => Reference;
+            public WeaponAim Aim { get; protected set; }
+            public virtual void Set(WeaponAim value) => Aim = value;
 
-            public override Weapon Weapon => Aim.Weapon;
+            public Weapon Weapon => Aim.Weapon;
         }
-
-        public Modules.Collection<WeaponAim> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -76,20 +77,25 @@ namespace Game
             void ClearInput();
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponAim>(this);
+            Modules.Register(Weapon.Behaviours, ModuleScope.Global);
+
+            Speed = Modules.Depend<WeaponAimSpeed>();
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             Constraint = new Modifier.Constraint();
-
-            Modules = new Modules.Collection<WeaponAim>(this);
-            Modules.Register(Weapon.Behaviours, ReferenceScope.All);
-
-            Speed = Modules.Depend<WeaponAimSpeed>();
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -99,8 +105,6 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.Activation.OnDisable += DisableCallback;
-
-            Modules.Init();
         }
 
         void DisableCallback()

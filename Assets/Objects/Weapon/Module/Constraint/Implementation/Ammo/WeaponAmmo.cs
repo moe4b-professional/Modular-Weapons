@@ -80,30 +80,23 @@ namespace Game
 
         public int RemainingUses => consumption == 0 ? int.MaxValue : magazine.Value / consumption;
 
-        public abstract class Module : Weapon.BaseModule<WeaponAmmo>
+        public Modules<WeaponAmmo> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponAmmo>
         {
-            public WeaponAmmo Ammo => Reference;
+            public WeaponAmmo Ammo { get; protected set; }
+            public virtual void Set(WeaponAmmo value) => Ammo = value;
 
-            public override Weapon Weapon => Ammo.Weapon;
+            public Weapon Weapon => Ammo.Weapon;
         }
 
-        public Modules.Collection<WeaponAmmo> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponAmmo>(this);
-            Modules.Register(Weapon.Behaviours, ReferenceScope.All);
+            Modules = new Modules<WeaponAmmo>(this);
+            Modules.Register(Weapon.Behaviours, ModuleScope.Global);
 
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
+            Modules.Set();
         }
 
         public event Action OnConsumption;

@@ -29,26 +29,31 @@ namespace Game
 
         public Modifier.Scale Scale { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponRecoil>
+        public class Module : Weapon.Behaviour, IModule<WeaponRecoil>
         {
-            public WeaponRecoil Recoil => Reference;
+            public WeaponRecoil Recoil { get; protected set; }
+            public virtual void Set(WeaponRecoil value) => Recoil = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => Recoil.Weapon;
         }
 
-        public Modules.Collection<WeaponRecoil> Modules { get; protected set; }
-        
+        public Modules<WeaponRecoil> Modules { get; protected set; }
+
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponRecoil>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
             Scale = new Modifier.Scale();
-
-            Modules = new Modules.Collection<WeaponRecoil>(this);
-
-            Modules.Register(Weapon.Behaviours);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -58,8 +63,6 @@ namespace Game
             Weapon.Effects.Register(this);
 
             Weapon.Action.OnPerform += Action;
-
-            Modules.Init();
         }
 
         public event Action OnAction;

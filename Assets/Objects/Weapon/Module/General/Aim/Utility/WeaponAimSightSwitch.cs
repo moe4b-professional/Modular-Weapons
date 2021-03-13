@@ -53,7 +53,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             List = Aim.Modules.FindAll<WeaponAimSight>();
         }

@@ -29,22 +29,20 @@ namespace Game
 
         public List<ControllerStateElement> Elements { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerState>
+        public Modules<ControllerState> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerState>
         {
-            public ControllerState State => Reference;
+            public ControllerState State { get; protected set; }
+            public virtual void Set(ControllerState value) => State = value;
 
-            public override FirstPersonController Controller => State.Controller;
+            public FirstPersonController Controller => State.Controller;
         }
 
-        public Modules.Collection<ControllerState> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(FirstPersonController value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Data = ControllerStateData.Read(Controller);
-
-            Modules = new Modules.Collection<ControllerState>(this);
+            Modules = new Modules<ControllerState>(this);
             Modules.Register(Controller.Behaviours);
 
             Transition = Modules.Depend<ControllerStateTransition>();
@@ -52,14 +50,14 @@ namespace Game
             HeightAdjustment = Modules.Depend<ControllerStateElevationAdjustment>();
             Elements = Modules.FindAll<ControllerStateElement>();
 
-            Modules.Configure();
+            Modules.Set();
         }
 
-        public override void Init()
+        public override void Configure()
         {
-            base.Init();
+            base.Configure();
 
-            Modules.Init();
+            Data = ControllerStateData.Read(Controller);
         }
 
         public event Action OnOperate;

@@ -28,17 +28,17 @@ namespace Game
 
         public WeaponAnimationEffectsWeight Weight { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponAnimationEffects>
+        public Modules<WeaponAnimationEffects> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponAnimationEffects>
         {
-            public WeaponAnimationEffects Effects => Reference;
+            public WeaponAnimationEffects Effects { get; protected set; }
+            public virtual void Set(WeaponAnimationEffects value) => Effects = value;
 
-            public override Weapon Weapon => Effects.Weapon;
+            public Weapon Weapon => Effects.Weapon;
 
             public WeaponMesh Mesh => Weapon.Mesh;
             public Animator Animator => Mesh.Animator;
         }
-
-        public Modules.Collection<WeaponAnimationEffects> Modules { get; protected set; }
         
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -48,20 +48,25 @@ namespace Game
             event LandDelegate OnLand;
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponAnimationEffects>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
-
-            Modules = new Modules.Collection<WeaponAnimationEffects>(this);
-            Modules.Register(Weapon.Behaviours);
-
-            Weight = Modules.Depend<WeaponAnimationEffectsWeight>();
-            
-            Modules.Configure();
         }
 
         public override void Init()
@@ -69,8 +74,6 @@ namespace Game
             base.Init();
 
             Weapon.Effects.Register(this);
-
-            Modules.Init();
         }
 
         public virtual void Play(string trigger, float weight)

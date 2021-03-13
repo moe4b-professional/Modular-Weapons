@@ -24,31 +24,32 @@ namespace Game
         public ControllerGroundDetect Detect { get; protected set; }
         public ControllerGroundChange Change { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerGround>
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerGround>
         {
-            public ControllerGround Ground => Reference;
+            public ControllerGround Ground { get; protected set; }
+            public virtual void Set(ControllerGround value) => Ground = value;
 
-            public override FirstPersonController Controller => Ground.Controller;
+            public FirstPersonController Controller => Ground.Controller;
         }
 
-        public Modules.Collection<ControllerGround> Modules { get; protected set; }
+        public Modules<ControllerGround> Modules { get; protected set; }
 
         public ControllerGroundData Data => Detect.Data;
         public bool IsDetected => Data != null;
 
         public ControllerAirTravel AirTravel => Controller.AirTravel;
 
-        public override void Configure()
+        public override void Set(FirstPersonController value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<ControllerGround>(this);
+            Modules = new Modules<ControllerGround>(this);
             Modules.Register(Controller.Behaviours);
 
             Detect = Modules.Depend<ControllerGroundDetect>();
             Change = Modules.Depend<ControllerGroundChange>();
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -57,8 +58,6 @@ namespace Game
 
             Detect.Process();
             Change.Set(Data);
-
-            Modules.Init();
         }
 
         public virtual void Check()

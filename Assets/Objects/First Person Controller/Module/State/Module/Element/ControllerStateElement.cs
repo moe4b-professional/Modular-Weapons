@@ -35,27 +35,28 @@ namespace Game
 
         public float Target => Active ? 1f : 0f;
 
-        public class Module : FirstPersonController.BaseModule<ControllerStateElement>
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerStateElement>
         {
-            public ControllerStateElement Element => Reference;
+            public ControllerStateElement Element { get; protected set; }
+            public virtual void Set(ControllerStateElement value) => Element = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public FirstPersonController Controller => Element.Controller;
         }
 
-        public Modules.Collection<ControllerStateElement> Modules { get; protected set; }
+        public Modules<ControllerStateElement> Modules { get; protected set; }
 
         public ControllerControls Controls => Controller.Controls;
         public ControllerStateTransition Transition => State.Transition;
         public ControllerStateSets Sets => State.Sets;
 
-        public override void Configure()
+        public override void Set(ControllerState value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<ControllerStateElement>(this);
+            Modules = new Modules<ControllerStateElement>(this);
             Modules.Register(Controller.Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -67,8 +68,6 @@ namespace Game
             Controller.OnProcess += Process;
 
             State.OnOperate += Operate;
-
-            Modules.Init();
         }
 
         protected virtual void Process()

@@ -33,10 +33,7 @@ namespace Game
         {
             base.Configure();
 
-            Sensitivty = Weapon.Modules.Find<WeaponSensitivty>();
-
-            if (Sensitivty == null)
-                ExecuteDependancyError<WeaponSensitivty>();
+            Sensitivty = Weapon.Modules.Depend<WeaponSensitivty>();
         }
 
         public override void Init()

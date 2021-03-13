@@ -44,35 +44,40 @@ namespace Game
         protected float speed = 4f;
         public float Speed { get { return speed; } }
 
-        public class Module : FirstPersonController.BaseModule<ControllerHeadBob>
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerHeadBob>
         {
-            public ControllerHeadBob HeadBob => Reference;
+            public ControllerHeadBob HeadBob { get; protected set; }
+            public virtual void Set(ControllerHeadBob value) => HeadBob = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public FirstPersonController Controller => HeadBob.Controller;
         }
-        public Modules.Collection<ControllerHeadBob> Modules { get; protected set; }
+        public Modules<ControllerHeadBob> Modules { get; protected set; }
 
         public Vector3 Delta { get; protected set; }
         public Vector3 Offset { get; protected set; }
 
         public ControllerStep Step => Controller.Step;
 
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerHeadBob>(this);
+            Modules.Register(Controller.Behaviours);
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
             Delta = Offset = Vector3.zero;
-
-            Modules = new Modules.Collection<ControllerHeadBob>(this);
-            Modules.Register(Controller.Behaviours);
-            Modules.Configure();
         }
 
         public override void Init()
         {
             base.Init();
-
-            Modules.Init();
 
             Controller.OnProcess += Process;
         }

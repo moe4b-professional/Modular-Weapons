@@ -33,10 +33,7 @@ namespace Game
         {
             base.Configure();
 
-            CameraBlur = Weapon.Modules.Find<WeaponCameraBlur>();
-
-            if (CameraBlur == null)
-                ExecuteDependancyError<WeaponCameraBlur>();
+            CameraBlur = Weapon.Modules.Depend<WeaponCameraBlur>();
         }
 
         public override void Init()

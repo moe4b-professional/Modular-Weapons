@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IReference<WeaponAimSight>
+    public abstract class WeaponAimPropertyModifier : WeaponAim.Module, IModule<WeaponAimSight>
     {
         public virtual float Rate
         {
@@ -45,9 +45,16 @@ namespace Game
         }
 
         public WeaponAimSight Sight { get; protected set; }
-        public virtual void Setup(WeaponAimSight reference)
+        public virtual void Set(WeaponAimSight reference)
         {
             Sight = reference;
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+
         }
 
         protected virtual void Reset()

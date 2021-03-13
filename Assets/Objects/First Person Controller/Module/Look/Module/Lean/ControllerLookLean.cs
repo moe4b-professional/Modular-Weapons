@@ -47,25 +47,32 @@ namespace Game
 
         public Quaternion Offset { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerLookLean>
+        public Modules<ControllerLookLean> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerLookLean>
         {
-            public ControllerLookLean Lean => Reference;
+            public ControllerLookLean Lean { get; protected set; }
+            public virtual void Set(ControllerLookLean value) => Lean = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public FirstPersonController Controller => Lean.Controller;
         }
-        public Modules.Collection<ControllerLookLean> Modules { get; protected set; }
 
         public AxisInput Input => Controller.Controls.Lean;
+
+        public override void Set(ControllerLook value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerLookLean>(this);
+            Modules.Register(Controller.Behaviours);
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
             Offset = Quaternion.identity;
-
-            Modules = new Modules.Collection<ControllerLookLean>(this);
-            Modules.Register(Controller.Behaviours);
-            Modules.Configure();
         }
 
         public override void Init()
@@ -75,8 +82,6 @@ namespace Game
             //CalculateOffset(); //TODO Remove if Unecessary
 
             Controller.OnProcess += Process;
-
-            Modules.Init();
         }
 
         void Process()

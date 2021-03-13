@@ -35,7 +35,7 @@ namespace Game
 
             Scale = new Modifier.Scale();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
         }
 
         public override void Init()

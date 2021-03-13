@@ -36,16 +36,17 @@ namespace Game
             OnSet?.Invoke(Current);
         }
 
-        public class Module : FirstPersonController.BaseModule<ControllerMovementProcedure>
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerMovementProcedure>
         {
-            public ControllerMovementProcedure Procedure => Reference;
+            public ControllerMovementProcedure Procedure { get; protected set; }
+            public virtual void Set(ControllerMovementProcedure value) => Procedure = value;
 
-            public ControllerMovement Movement => Reference.Movement;
+            public FirstPersonController Controller => Procedure.Controller;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public ControllerMovement Movement => Procedure.Movement;
         }
 
-        public Modules.Collection<ControllerMovementProcedure> Modules { get; protected set; }
+        public Modules<ControllerMovementProcedure> Modules { get; protected set; }
 
         public ControllerGroundMovement Ground { get; protected set; }
         public ControllerAirMovement Air { get; protected set; }
@@ -96,17 +97,17 @@ namespace Game
             }
         }
 
-        public override void Configure()
+        public override void Set(ControllerMovement value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<ControllerMovementProcedure>(this);
+            Modules = new Modules<ControllerMovementProcedure>(this);
             Modules.Register(Controller.Behaviours);
 
             Ground = Modules.Depend<ControllerGroundMovement>();
             Air = Modules.Depend<ControllerAirMovement>();
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -116,8 +117,6 @@ namespace Game
             Controller.OnProcess += Process;
 
             Controller.OnFixedProcess += FixedProcess;
-
-            Modules.Init();
         }
 
         void Process()

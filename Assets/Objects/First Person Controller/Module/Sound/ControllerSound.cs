@@ -24,42 +24,41 @@ namespace Game
 	{
         public AudioSource Source { get; protected set; }
 
-        public ControllerSoundSet Set { get; protected set; }
+        public ControllerSoundSet SoundSet { get; protected set; }
 
         public ControllerMovementSound Movement { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerSound>
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerSound>
         {
-            public ControllerSound Sound => Reference;
+            public ControllerSound Sound { get; protected set; }
+            public virtual void Set(ControllerSound value) => Sound = value;
             
-            public override FirstPersonController Controller => Sound.Controller;
+            public FirstPersonController Controller => Sound.Controller;
 
             public static T Random<T>(IList<T> list) where T : class
                 => ControllerSound.Random<T>(list);
         }
 
-        public Modules.Collection<ControllerSound> Modules { get; protected set; }
+        public Modules<ControllerSound> Modules { get; protected set; }
+
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerSound>(this);
+            Modules.Register(Controller.Behaviours);
+
+            SoundSet = Modules.Depend<ControllerSoundSet>();
+            Movement = Modules.Depend<ControllerMovementSound>();
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
             Source = GetComponent<AudioSource>();
-
-            Modules = new Modules.Collection<ControllerSound>(this);
-            Modules.Register(Controller.Behaviours);
-
-            Set = Modules.Depend<ControllerSoundSet>();
-            Movement = Modules.Depend<ControllerMovementSound>();
-
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
         }
 
         protected virtual void PlayOneShot(IList<AudioClip> list) => PlayOneShot(Random(list));

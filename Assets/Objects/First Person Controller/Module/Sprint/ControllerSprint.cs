@@ -57,25 +57,30 @@ namespace Game
 
         public SingleAxisInput Input => Controller.Controls.Sprint;
 
-        public class Module : FirstPersonController.BaseModule<ControllerSprint>
+        public Modules<ControllerSprint> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerSprint>
         {
-            public ControllerSprint Sprint => Reference;
+            public ControllerSprint Sprint { get; protected set; }
+            public virtual void Set(ControllerSprint value) => Sprint = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public FirstPersonController Controller => Sprint.Controller;
         }
 
-        public Modules.Collection<ControllerSprint> Modules { get; protected set; }
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerSprint>(this);
+            Modules.Register(Controller.Behaviours);
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
             Constraint = new Modifier.Constraint();
-
-            Modules = new Modules.Collection<ControllerSprint>(this);
-            Modules.Register(Controller.Behaviours);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -83,8 +88,6 @@ namespace Game
             base.Init();
 
             Controller.OnProcess += Process;
-
-            Modules.Init();
         }
 
         void Process()

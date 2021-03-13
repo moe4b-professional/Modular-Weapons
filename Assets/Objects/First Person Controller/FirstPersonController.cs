@@ -56,37 +56,31 @@ namespace Game
         public ControllerSprint Sprint { get; protected set; }
         public ControllerLook Look { get; protected set; }
 
+        #region Behaviours
+        public Behaviours<FirstPersonController> Behaviours { get; protected set; }
+
         public class Behaviour : MonoBehaviour, IBehaviour<FirstPersonController>
         {
-
-        }
-        public Behaviours.Collection<FirstPersonController> Behaviours { get; protected set; }
-
-        public abstract class BaseModule<TReference> : Behaviour, IModule<TReference>
-        {
-            public TReference Reference { get; protected set; }
-            public virtual void Setup(TReference reference)
-            {
-                this.Reference = reference;
-            }
-
-            public abstract FirstPersonController Controller { get; }
-
             public virtual void Configure()
             {
-                
+
             }
 
             public virtual void Init()
             {
-                
+
             }
         }
-        public abstract class Module : BaseModule<FirstPersonController>
+        #endregion
+
+        #region Modules
+        public Modules<FirstPersonController> Modules { get; protected set; }
+        public abstract class Module : Behaviour, IModule<FirstPersonController>
         {
-            public override FirstPersonController Controller => Reference;
+            public virtual FirstPersonController Controller { get; protected set; }
+            public virtual void Set(FirstPersonController value) => Controller = value;
         }
-        public Modules.Collection<FirstPersonController> Modules { get; protected set; }
+        #endregion
 
         public Vector3 Position => transform.position;
 
@@ -100,10 +94,9 @@ namespace Game
             PhysicsCallbacks = GetComponent<PhysicsRewind>();
             collider = GetComponent<CapsuleCollider>();
 
-            Behaviours = new Behaviours.Collection<FirstPersonController>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<FirstPersonController>(this);
 
-            Modules = new Modules.Collection<FirstPersonController>(this);
+            Modules = new Modules<FirstPersonController>(this);
             Modules.Register(Behaviours);
 
             GenericData = Modules.Depend<ControllerGenericData>();
@@ -125,12 +118,14 @@ namespace Game
             Sprint = Modules.Depend<ControllerSprint>();
             Look = Modules.Depend<ControllerLook>();
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
         protected virtual void Start()
         {
-            Modules.Init();
+            Behaviours.Init();
         }
 
         protected virtual void Update()

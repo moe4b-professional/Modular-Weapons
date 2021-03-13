@@ -56,23 +56,23 @@ namespace Game
 
         public float Rate { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponRotatingBarrel>
+        public Modules<WeaponRotatingBarrel> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponRotatingBarrel>
         {
-            public WeaponRotatingBarrel RotatingBarrel => Reference;
+            public WeaponRotatingBarrel RotatingBarrel { get; protected set; }
+            public virtual void Set(WeaponRotatingBarrel value) => RotatingBarrel = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => RotatingBarrel.Weapon;
         }
 
-        public Modules.Collection<WeaponRotatingBarrel> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponRotatingBarrel>(this);
+            Modules = new Modules<WeaponRotatingBarrel>(this);
             Modules.Register(Weapon.Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
         }
 
         public override void Init()
@@ -82,8 +82,6 @@ namespace Game
             Weapon.OnProcess += Porcess;
 
             Weapon.Activation.OnDisable += DisableCallback;
-
-            Modules.Init();
         }
 
         void DisableCallback()

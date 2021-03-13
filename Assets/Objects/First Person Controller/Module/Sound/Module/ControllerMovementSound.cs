@@ -24,7 +24,7 @@ namespace Game
 	{
         public AudioSource Source { get; protected set; }
 
-        public ControllerSoundSet Set => Sound.Set;
+        public ControllerSoundSet SoundSet => Sound.SoundSet;
 
         public override void Configure()
         {
@@ -58,15 +58,15 @@ namespace Game
 
         void JumpCallback()
         {
-            if (Controller.Jump.Count == 1) PlayOneShot(Set.Value.Jump);
+            if (Controller.Jump.Count == 1) PlayOneShot(SoundSet.Value.Jump);
         }
         void LandOnGroundCallback(ControllerAirTravel.Data travel)
         {
-            PlayOneShot(Set.Value.Land);
+            PlayOneShot(SoundSet.Value.Land);
         }
         void StepCallback()
         {
-            PlayOneShot(Set.Value.Step);
+            PlayOneShot(SoundSet.Value.Step);
         }
     }
 }

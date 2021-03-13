@@ -35,27 +35,32 @@ namespace Game
             Vector3 Delta { get; }
         }
 
-        public class Module : Weapon.BaseModule<WeaponBob>
+        public Modules<WeaponBob> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponBob>
         {
-            public WeaponBob Bob => Reference;
+            public WeaponBob Bob { get; protected set; }
+            public virtual void Set(WeaponBob value) => Bob = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => Bob.Weapon;
         }
-        public Modules.Collection<WeaponBob> Modules { get; protected set; }
+
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponBob>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
-
-            Modules = new Modules.Collection<WeaponBob>(this);
-
-            Modules.Register(Weapon.Behaviours);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -63,8 +68,6 @@ namespace Game
             base.Init();
 
             Weapon.Effects.Register(this);
-
-            Modules.Init();
         }
 	}
 }

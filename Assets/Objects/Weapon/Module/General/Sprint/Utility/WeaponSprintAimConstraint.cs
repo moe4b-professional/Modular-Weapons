@@ -33,10 +33,7 @@ namespace Game
         {
             base.Configure();
 
-            Aim = Weapon.Modules.Find<WeaponAim>();
-
-            if (Aim == null)
-                ExecuteDependancyError<WeaponAim>();
+            Aim = Weapon.Modules.Depend<WeaponAim>();
         }
 
         public override void Init()

@@ -31,32 +31,25 @@ namespace Game
 
         public PlayerCameraBlurEffect Blur { get; protected set; }
 
-        public class Module : Player.BaseModule<PlayerCameraEffects>
+        public Modules<PlayerCameraEffects> Modules { get; protected set; }
+        public class Module : Player.Behaviour, IModule<PlayerCameraEffects>
         {
-            public PlayerCameraEffects CameraEffects => Reference;
+            public PlayerCameraEffects CameraEffects { get; protected set; }
+            public virtual void Set(PlayerCameraEffects value) => CameraEffects = value;
 
-            public override Player Player => Reference.Player;
+            public Player Player => CameraEffects.Player;
         }
 
-        public Modules.Collection<PlayerCameraEffects> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(Player value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<PlayerCameraEffects>(this);
+            Modules = new Modules<PlayerCameraEffects>(this);
             Modules.Register(Player.Behaviours);
 
             Blur = Modules.Depend<PlayerCameraBlurEffect>();
 
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
+            Modules.Set();
         }
     }
 }

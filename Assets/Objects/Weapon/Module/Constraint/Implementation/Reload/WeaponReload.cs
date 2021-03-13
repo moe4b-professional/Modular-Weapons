@@ -42,11 +42,13 @@ namespace Game
             }
         }
 
-        public abstract class Module : Weapon.BaseModule<WeaponReload>
+        public Modules<WeaponReload> Modules { get; protected set; }
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponReload>
         {
-            public WeaponReload Reload => Reference;
+            public WeaponReload Reload { get; protected set; }
+            public virtual void Set(WeaponReload value) => Reload = value;
 
-            public override Weapon Weapon => Reload.Weapon;
+            public Weapon Weapon => Reload.Weapon;
         }
 
         public abstract class Procedure : Module
@@ -54,29 +56,29 @@ namespace Game
 
         }
 
-        public Modules.Collection<WeaponReload> Modules { get; protected set; }
-
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
         {
             bool Input { get; }
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponReload>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Ammo = Weapon.Modules.Depend<WeaponAmmo>();
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
-
-            Modules = new Modules.Collection<WeaponReload>(this);
-            Modules.Register(Weapon.Behaviours);
-
-            Ammo = Weapon.Modules.Find<WeaponAmmo>();
-
-            if (Ammo == null)
-                ExecuteDependancyError<WeaponAmmo>();
-
-            Modules.Configure();
+            Processor = Weapon.GetProcessor<IProcessor>();
         }
 
         public override void Init()
@@ -86,8 +88,6 @@ namespace Game
             Weapon.OnProcess += Process;
 
             Weapon.Activation.OnDisable += DisableCallback;
-
-            Modules.Init();
         }
 
         void DisableCallback()

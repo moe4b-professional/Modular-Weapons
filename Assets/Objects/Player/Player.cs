@@ -22,7 +22,7 @@ namespace Game
 #pragma warning disable CS0108
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(FirstPersonController))]
-    public class Player : MonoBehaviour, IBehaviour<Character>, IModule<Character>
+    public class Player : Character.Module
     {
         public FirstPersonController Controller { get; protected set; }
 
@@ -30,24 +30,11 @@ namespace Game
         public PlayerCameraEffects CameraEffects { get; protected set; }
         public PlayerWeapons Weapons { get; protected set; }
 
+        #region Behaviours
+        public Behaviours<Player> Behaviours { get; protected set; }
+
         public class Behaviour : MonoBehaviour, IBehaviour<Player>
         {
-
-        }
-        public Behaviours.Collection<Player> Behaviours { get; protected set; }
-
-        public abstract class BaseModule<TReference> : Behaviour, IModule<TReference>
-        {
-            public TReference Reference { get; protected set; }
-            public virtual void Setup(TReference reference)
-            {
-                Reference = reference;
-            }
-
-            public abstract Player Player { get; }
-            public Character Character => Player.Character;
-            public Entity Entity => Character.Entity;
-
             public virtual void Configure()
             {
 
@@ -58,38 +45,45 @@ namespace Game
 
             }
         }
-        public abstract class Module : BaseModule<Player>
-        {
-            public override Player Player => Reference;
-        }
-        public Modules.Collection<Player> Modules { get; protected set; }
+        #endregion
 
-        public Character Character { get; protected set; }
-        public virtual void Setup(Character reference)
+        #region Modules
+        public Modules<Player> Modules { get; protected set; }
+        public abstract class Module : Behaviour, IModule<Player>
         {
-            Character = reference;
-        }
+            public virtual Player Player { get; protected set; }
+            public virtual void Set(Player value) => Player = value;
 
-        public virtual void Configure()
+            public Entity Entity => Player.Entity;
+            public Character Character => Player.Character;
+        }
+        #endregion
+
+        public override void Configure()
         {
+            base.Configure();
+
             Controller = GetComponent<FirstPersonController>();
 
-            Behaviours = new Behaviours.Collection<Player>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<Player>(this);
 
-            Modules = new Modules.Collection<Player>(this);
+            Modules = new Modules<Player>(this);
             Modules.Register(Behaviours);
 
             Controls = Modules.Depend<PlayerControls>();
             CameraEffects = Modules.Depend<PlayerCameraEffects>();
-            Weapons = Modules.Depend< PlayerWeapons>();
+            Weapons = Modules.Depend<PlayerWeapons>();
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
-        public virtual void Init()
+        public override void Init()
         {
-            Modules.Init();
+            base.Init();
+
+            Behaviours.Init();
         }
 
         protected virtual void Update()

@@ -28,30 +28,24 @@ namespace Game
             OnProcess?.Invoke(data);
         }
         
-        public Modules.Collection<WeaponHit> Modules { get; protected set; }
+        public Modules<WeaponHit> Modules { get; protected set; }
 
-        public abstract class Module : Weapon.BaseModule<WeaponHit>
+        public abstract class Module : Weapon.Behaviour, IModule<WeaponHit>
         {
-            public WeaponHit Hit => Reference;
+            public WeaponHit Hit { get; protected set; }
+            public virtual void Set(WeaponHit value) => Hit = value;
 
-            public override Weapon Weapon => Hit.Weapon;
+            public Weapon Weapon => Hit.Weapon;
         }
 
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<WeaponHit>(this);
+            Modules = new Modules<WeaponHit>(this);
             Modules.Register(Weapon.Behaviours);
 
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
+            Modules.Set();
         }
 
         public struct Data

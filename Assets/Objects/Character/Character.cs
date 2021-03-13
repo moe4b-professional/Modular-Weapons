@@ -23,27 +23,13 @@ namespace Game
     [RequireComponent(typeof(Entity))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
-    public class Character : MonoBehaviour, IBehaviour<Entity>, IModule<Entity>
+    public class Character : Entity.Module
     {
         public Rigidbody rigidbody { get; protected set; }
         public Collider collider { get; protected set; }
 
         public class Behaviour : MonoBehaviour, IBehaviour<Character>
         {
-
-        }
-        public Behaviours.Collection<Character> Behaviours { get; protected set; }
-
-        public class Module : Behaviour, IModule<Character>
-        {
-            public Character Character { get; protected set; }
-            public virtual void Setup(Character reference)
-            {
-                Character = reference;
-            }
-
-            public Entity Entity => Character.Entity;
-
             public virtual void Configure()
             {
 
@@ -54,32 +40,42 @@ namespace Game
 
             }
         }
-        public Modules.Collection<Character> Modules { get; protected set; }
+        public Behaviours<Character> Behaviours { get; protected set; }
 
-        public Entity Entity { get; protected set; }
-        public virtual void Setup(Entity reference)
+        public class Module : Behaviour, IModule<Character>
         {
-            Entity = reference;
+            public Character Character { get; protected set; }
+            public virtual void Set(Character reference)
+            {
+                Character = reference;
+            }
+
+            public Entity Entity => Character.Entity;
         }
+        public Modules<Character> Modules { get; protected set; }
 
-        public virtual void Configure()
+        public override void Configure()
         {
-            rigidbody = GetComponent<Rigidbody>();
+            base.Configure();
 
+            rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<Collider>();
 
-            Behaviours = new Behaviours.Collection<Character>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<Character>(this);
 
-            Modules = new Modules.Collection<Character>(this);
+            Modules = new Modules<Character>(this);
             Modules.Register(Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
-        public virtual void Init()
+        public override void Init()
         {
-            Modules.Init();
+            base.Init();
+
+            Behaviours.Init();
         }
     }
 #pragma warning restore CS0108

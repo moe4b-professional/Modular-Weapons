@@ -19,72 +19,156 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public static class Modules
-    {
-        public static void Setup<TReference>(TReference reference, IReference<TReference> target)
-            where TReference : Component
+	public interface IModules
+	{
+		TTarget Find<TTarget>()
+			where TTarget : class;
+
+		List<TTarget> FindAll<TTarget>()
+			where TTarget : class;
+	}
+
+	[Serializable]
+	public class Modules<TReference> : Modules<TReference, IModule<TReference>>
+		where TReference : Component
+	{
+		public Modules(TReference reference) : base(reference) { }
+	}
+
+	[Serializable]
+	public abstract class Modules<TReference, TModule> : IModules
+		where TReference : Component
+		where TModule : class, IModule<TReference>
+	{
+		public TReference Reference { get; protected set; }
+
+		public List<TModule> List { get; protected set; }
+
+		public virtual void Add(TModule module)
+		{
+			List.Add(module);
+		}
+		public virtual void Remove(TModule module)
+		{
+			List.Remove(module);
+		}
+
+		public virtual void Register(IBehaviours behaviours) => Register(behaviours, ModuleScope.Local);
+		public virtual void Register(IBehaviours behaviours, ModuleScope scope)
         {
-            target.Setup(reference);
-        }
+			var selection = behaviours.FindAll<TModule>();
 
-        public static void Configure<TReference>(TReference reference, IModule<TReference> target)
-            where TReference : Component
-        {
-            target.Configure();
-        }
+			for (int i = 0; i < selection.Count; i++)
+				if (ValidateScope(Reference, selection[i], scope))
+					Add(selection[i]);
+		}
 
-        public static void Init<TReference>(TReference reference, IModule<TReference> target)
-            where TReference : Component
-        {
-            target.Init();
-        }
+		public void Set()
+		{
+			for (int i = 0; i < List.Count; i++)
+				List[i].Set(Reference);
+		}
 
-        public static void Process<TReference>(TReference reference, IModule<TReference> target)
-            where TReference : Component
-        {
-            Setup(reference, target);
-            Configure(reference, target);
-            Init(reference, target);
-        }
+		#region Iteration
+		public void ForAll(Action<TModule> action)
+		{
+			for (int i = 0; i < List.Count; i++)
+				action(List[i]);
+		}
 
-        [Serializable]
-        public class Collection<TReference> : ReferencedCollection<TReference, IReference<TReference>>
-            where TReference : Component
-        {
-            public virtual void Setup()
-            {
-                ForAll(Process);
+		public void ForAll<TTarget>(Action<TTarget> action)
+			where TTarget : class
+		{
+			for (int i = 0; i < List.Count; i++)
+				if (List[i] is TTarget target)
+					action(target);
+		}
+		#endregion
 
-                void Process(IReference<TReference> instance) => Modules.Setup(Reference, instance);
-            }
-            public virtual void Configure()
-            {
-                Setup();
+		#region Query
+		public TTarget Find<TTarget>()
+			where TTarget : class
+		{
+			ValidateQuery<TTarget>();
 
-                ForAll<IModule<TReference>>(Process);
+			for (int i = 0; i < List.Count; i++)
+				if (List[i] is TTarget target)
+					return target;
 
-                void Process(IModule<TReference> instance) => Modules.Configure(Reference, instance);
-            }
-            public virtual void Init()
-            {
-                ForAll<IModule<TReference>>(Process);
+			return null;
+		}
 
-                void Process(IModule<TReference> instance) => Modules.Init(Reference, instance);
-            }
-            
-            public Collection(TReference reference) : base(reference) { }
-        }
+		public List<TTarget> FindAll<TTarget>()
+			where TTarget : class
+		{
+			ValidateQuery<TTarget>();
+
+			var selection = new List<TTarget>();
+
+			for (int i = 0; i < List.Count; i++)
+				if (List[i] is TTarget target)
+					selection.Add(target);
+
+			return selection;
+		}
+
+		public void ValidateQuery<T>()
+		{
+#if UNITY_EDITOR
+			var type = typeof(T);
+			if (type.IsInterface) return;
+
+			var module = typeof(TModule);
+
+			if (module.IsAssignableFrom(type) == false)
+				throw new Exception($"Invalid Query For {type.Name} Within Collection of {module.Name}'s" +
+					$", Please Ensure that {type} Inherits from {module.Name}");
+#endif
+		}
+		#endregion
+
+		public TTarget Depend<TTarget>()
+			where TTarget : class
+		{
+			var target = Find<TTarget>();
+
+			if (target == null)
+				throw new NullReferenceException($"No Component of Type {typeof(TTarget)} found on {Reference}");
+
+			return target;
+		}
+
+		public Modules(TReference reference)
+		{
+			this.Reference = reference;
+
+			List = new List<TModule>();
+		}
+
+		public static bool ValidateScope(TReference reference, TModule module, ModuleScope scope)
+		{
+			switch (scope)
+			{
+				case ModuleScope.Local:
+					return module.transform.IsChildOf(reference.transform);
+
+				case ModuleScope.Global:
+					return true;
+			}
+
+			throw new NotImplementedException();
+		}
     }
 
-    public interface IReference<T> : ReferenceCollection.IElement
-    {
-        void Setup(T reference);
-    }
-    
-    public interface IModule<T> : IReference<T>
-    {
-        void Configure();
+	public enum ModuleScope
+	{
+		Local, Global
+	}
 
-        void Init();
-    }
+	public interface IModule<TReference>
+	{
+		Transform transform { get; }
+
+		void Set(TReference value);
+	}
 }

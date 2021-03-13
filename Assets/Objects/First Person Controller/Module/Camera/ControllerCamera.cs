@@ -29,16 +29,28 @@ namespace Game
 
         public ControllerCameraFOV FOV { get; protected set; }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public class Module : FirstPersonController.BaseModule<ControllerCamera>
+        public Modules<ControllerCamera> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerCamera>
         {
-            public ControllerCamera camera => Reference;
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+            public ControllerCamera camera { get; protected set; }
+            public virtual void Set(ControllerCamera value) => camera = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
-        }
+            public FirstPersonController Controller => camera.Controller;
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+        }
 
-        public Modules.Collection<ControllerCamera> Modules { get; protected set; }
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerCamera>(this);
+            Modules.Register(Controller.Behaviours);
+
+            FOV = Modules.Depend<ControllerCameraFOV>();
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
@@ -47,20 +59,6 @@ namespace Game
             Component = GetComponent<Camera>();
 
             Anchor = GetComponent<TransformAnchor>();
-            
-            Modules = new Modules.Collection<ControllerCamera>(this);
-            Modules.Register(Controller.Behaviours);
-
-            FOV = Modules.Depend<ControllerCameraFOV>();
-
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
         }
     }
 }

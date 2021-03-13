@@ -53,20 +53,33 @@ namespace Game
 
         public ControllerJumpLock Lock { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerJump>
+        public Modules<ControllerJump> Modules { get; protected set; }
+
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerJump>
         {
-            public ControllerJump Jump => Reference;
+            public ControllerJump Jump { get; protected set; }
+            public virtual void Set(ControllerJump value) => Jump = value;
 
-            public override FirstPersonController Controller => Reference.Controller;
+            public FirstPersonController Controller => Jump.Controller;
         }
-
-        public Modules.Collection<ControllerJump> Modules { get; protected set; }
 
         public ControllerGround Ground => Controller.Ground;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
 
         public ButtonInput Input => Controller.Controls.Jump;
+
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<ControllerJump>(this);
+            Modules.Register(Controller.Behaviours);
+
+            Lock = Modules.Depend<ControllerJumpLock>();
+
+            Modules.Set();
+        }
 
         public override void Configure()
         {
@@ -75,13 +88,6 @@ namespace Game
             Count = 0;
 
             Constraint = new Modifier.Constraint();
-
-            Modules = new Modules.Collection<ControllerJump>(this);
-            Modules.Register(Controller.Behaviours);
-
-            Lock = Modules.Depend<ControllerJumpLock>();
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -91,8 +97,6 @@ namespace Game
             Controller.OnProcess += Process;
 
             Ground.Change.OnLand += LandOnGroundCallback;
-
-            Modules.Init();
         }
 
         void Process()

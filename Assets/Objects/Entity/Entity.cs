@@ -33,20 +33,11 @@ namespace Game
 
         public EntityDamage Damage { get; protected set; }
 
+        #region Behaviours
+        public Behaviours<Entity> Behaviours { get; protected set; }
+
         public class Behaviour : MonoBehaviour, IBehaviour<Entity>
         {
-
-        }
-        public Behaviours.Collection<Entity> Behaviours { get; protected set; }
-
-        public class Module : Behaviour, IModule<Entity>
-        {
-            public Entity Entity { get; protected set; }
-            public virtual void Setup(Entity reference)
-            {
-                Entity = reference;
-            }
-
             public virtual void Configure()
             {
 
@@ -57,25 +48,38 @@ namespace Game
 
             }
         }
-        public Modules.Collection<Entity> Modules { get; protected set; }
+        #endregion
+
+        #region Modules
+        public Modules<Entity> Modules { get; protected set; }
+        public class Module : Behaviour, IModule<Entity>
+        {
+            public Entity Entity { get; protected set; }
+            public virtual void Set(Entity reference)
+            {
+                Entity = reference;
+            }
+        }
+        #endregion
 
         protected virtual void Awake()
         {
-            Behaviours = new Behaviours.Collection<Entity>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<Entity>(this);
 
-            Modules = new Modules.Collection<Entity>(this);
+            Modules = new Modules<Entity>(this);
             Modules.Register(Behaviours);
 
             Health = Modules.Depend<EntityHealth>();
             Damage = Modules.Depend<EntityDamage>();
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
         
         protected virtual void Start()
         {
-            Modules.Init();
+            Behaviours.Init();
         }
 
         public delegate void DeathDelegate(Damage.IDamager cause);

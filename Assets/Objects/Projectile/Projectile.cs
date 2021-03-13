@@ -32,31 +32,29 @@ namespace Game
 
         public float Radius => (Bounds.size.x + Bounds.size.y + Bounds.size.z) / 3f;
 
+        public Behaviours<Projectile> Behaviours { get; protected set; }
         public class Behaviour : MonoBehaviour, IBehaviour<Projectile>
         {
-
-        }
-        public Behaviours.Collection<Projectile> Behaviours { get; protected set; }
-
-        public class Module : Behaviour, IModule<Projectile>
-        {
-            public Projectile Projectile { get; protected set; }
-            public virtual void Setup(Projectile reference)
-            {
-                Projectile = reference;
-            }
-
             public virtual void Configure()
             {
-                
+
             }
 
             public virtual void Init()
             {
-                
+
             }
         }
-        public Modules.Collection<Projectile> Modules { get; protected set; }
+
+        public Modules<Projectile> Modules { get; protected set; }
+        public class Module : Behaviour, IModule<Projectile>
+        {
+            public Projectile Projectile { get; protected set; }
+            public virtual void Set(Projectile reference)
+            {
+                Projectile = reference;
+            }
+        }
 
         public virtual void Setup()
         {
@@ -71,18 +69,19 @@ namespace Game
 
             collider = GetComponent<Collider>();
 
-            Behaviours = new Behaviours.Collection<Projectile>(this);
-            Behaviours.Register(gameObject);
+            Behaviours = new Behaviours<Projectile>(this);
 
-            Modules = new Modules.Collection<Projectile>(this);
+            Modules = new Modules<Projectile>(this);
             Modules.Register(Behaviours);
 
-            Modules.Configure();
+            Modules.Set();
+
+            Behaviours.Configure();
         }
 
         protected virtual void Init()
         {
-            Modules.Init();
+            Behaviours.Init();
         }
 
         public virtual void IgnoreCollisions(GameObject target)

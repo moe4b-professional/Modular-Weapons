@@ -76,14 +76,14 @@ namespace Game
 
         public Modifier.Scale Scale { get; protected set; }
 
-        public class Module : Weapon.BaseModule<WeaponSway>
+        public Modules<WeaponSway> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponSway>
         {
-            public WeaponSway Sway => Reference;
+            public WeaponSway Sway { get; protected set; }
+            public virtual void Set(WeaponSway value) => Sway = value;
 
-            public override Weapon Weapon => Reference.Weapon;
+            public Weapon Weapon => Sway.Weapon;
         }
-
-        public Modules.Collection<WeaponSway> Modules { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
         public interface IProcessor
@@ -95,19 +95,23 @@ namespace Game
             Vector3 RelativeVelocity { get; }
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponSway>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modules.Set();
+        }
+
         public override void Configure()
         {
             base.Configure();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
 
             Scale = new Modifier.Scale();
-
-            Modules = new Modules.Collection<WeaponSway>(this);
-
-            Modules.Register(Weapon.Behaviours);
-
-            Modules.Configure();
         }
 
         public override void Init()
@@ -117,8 +121,6 @@ namespace Game
             Weapon.Effects.Register(this);
 
             Weapon.OnProcess += Process;
-
-            Modules.Init();
         }
 
         void Process()

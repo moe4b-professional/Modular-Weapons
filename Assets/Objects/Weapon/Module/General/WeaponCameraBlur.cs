@@ -35,7 +35,7 @@ namespace Game
 
             Average = new Modifier.Average();
 
-            Processor = GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>();
         }
 
         public override void Init()

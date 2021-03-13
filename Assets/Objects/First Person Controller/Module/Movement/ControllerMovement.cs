@@ -27,34 +27,27 @@ namespace Game
 
         public ControllerMovementProcedure Procedure { get; protected set; }
 
-        public class Module : FirstPersonController.BaseModule<ControllerMovement>
+        public Modules<ControllerMovement> Modules { get; protected set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerMovement>
         {
-            public ControllerMovement Movement => Reference;
+            public ControllerMovement Movement { get; protected set; }
+            public virtual void Set(ControllerMovement value) => Movement = value;
 
-            public override FirstPersonController Controller => Movement.Controller;
+            public FirstPersonController Controller => Movement.Controller;
         }
 
-        public Modules.Collection<ControllerMovement> Modules { get; protected set; }
-
-        public override void Configure()
+        public override void Set(FirstPersonController value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Modules = new Modules.Collection<ControllerMovement>(this);
+            Modules = new Modules<ControllerMovement>(this);
             Modules.Register(Controller.Behaviours);
 
             Input = Modules.Depend<ControllerMovementInput>();
             Speed = Modules.Depend<ControllerMovementSpeed>();
             Acceleration = Modules.Depend<ControllerMovementAcceleration>();
 
-            Modules.Configure();
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            Modules.Init();
+            Modules.Set();
         }
     }
 }

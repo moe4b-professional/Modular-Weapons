@@ -33,10 +33,7 @@ namespace Game
         {
             base.Configure();
 
-            MovementSpeed = Weapon.Modules.Find<WeaponMovementSpeed>();
-
-            if (MovementSpeed == null)
-                ExecuteDependancyError<WeaponMovementSpeed>();
+            MovementSpeed = Weapon.Modules.Depend<WeaponMovementSpeed>();
         }
 
         public override void Init()
