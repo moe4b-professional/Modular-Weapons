@@ -19,10 +19,10 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponDefaultDamage : WeaponDamage
+    public class WeaponConstantDamage : WeaponDamage
     {
         [SerializeField]
-        protected Damage.Method method = Damage.Method.Contact;
+        protected Damage.Method method = Damage.Method.Projectile;
         public Damage.Method Method { get { return method; } }
 
         [SerializeField]

@@ -22,7 +22,8 @@ namespace Game
 	public class WeaponReload : Weapon.Module, WeaponConstraint.IInterface, WeaponOperation.IInterface
 	{
         public bool IsProcessing => Weapon.Operation.Is(this);
-        bool WeaponConstraint.IInterface.Active => IsProcessing;
+
+        public bool Active => IsProcessing;
 
         public WeaponAmmo Ammo { get; protected set; }
 
@@ -57,7 +58,7 @@ namespace Game
         }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             bool Input { get; }
         }
@@ -78,7 +79,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
         }
 
         public override void Init()

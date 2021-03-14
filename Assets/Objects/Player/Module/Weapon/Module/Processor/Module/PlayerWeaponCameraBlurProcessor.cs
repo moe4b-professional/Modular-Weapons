@@ -19,15 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponCameraBlurProcessor : PlayerWeapons.Processor, WeaponCameraBlur.IProcessor, Modifier.Average.IInterface
+    public class PlayerWeaponCameraBlurProcessor : PlayerWeapons.Processor, WeaponCameraBlur.IProcessor
     {
         public float Value { get; set; }
+
+        public float Modifier() => Value;
 
         public override void Init()
         {
             base.Init();
 
-            Player.CameraEffects.Blur.Average.Register(this);
+            Player.CameraEffects.Blur.Average.Add(Modifier);
         }
     }
 }

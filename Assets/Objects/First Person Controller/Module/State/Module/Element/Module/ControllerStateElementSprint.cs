@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateElementSprint : ControllerStateElement.Module, Modifier.Constraint.IInterface
+	public class ControllerStateElementSprint : ControllerStateElement.Module
     {
         [SerializeField]
         protected InputAction action = InputAction.StandUp;
@@ -29,17 +29,18 @@ namespace Game
             Sprint, StandUp
         }
 
-        bool Modifier.Constraint.IInterface.Active => action == InputAction.StandUp && Element.Active;
+        public bool Constraint => action == InputAction.StandUp && Element.Active;
+
+        public bool Modifier() => Constraint;
 
         public ControllerSprint Sprint => Controller.Sprint;
-
         public ControllerState State => Controller.State;
 
         public override void Init()
         {
             base.Init();
 
-            Sprint.Constraint.Register(this);
+            Sprint.Constraint.Add(Modifier);
 
             Controller.OnProcess += Process;
         }

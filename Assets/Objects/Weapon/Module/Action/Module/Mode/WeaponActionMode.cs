@@ -45,7 +45,7 @@ namespace Game
         }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             bool Input { get; }
         }
@@ -64,7 +64,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
 
             List = Dependancy.GetAll<IState>(gameObject);
         }

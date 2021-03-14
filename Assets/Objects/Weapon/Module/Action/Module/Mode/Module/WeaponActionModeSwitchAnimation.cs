@@ -24,7 +24,6 @@ namespace Game
         public const string ID = "Switch Action Mode";
 
         public bool Active { get; protected set; }
-        bool WeaponConstraint.IInterface.Active => Active;
         
         public WeaponMesh Mesh => Weapon.Mesh;
         

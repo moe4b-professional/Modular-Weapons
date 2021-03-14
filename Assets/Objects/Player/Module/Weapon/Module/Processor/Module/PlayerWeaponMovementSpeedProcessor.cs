@@ -19,16 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class PlayerWeaponMovementSpeedProcessor : PlayerWeapons.Processor, WeaponMovementSpeed.IProcessor, Modifier.Scale.IInterface
+    public class PlayerWeaponMovementSpeedProcessor : PlayerWeapons.Processor, WeaponMovementSpeed.IProcessor
     {
         public float Scale { get; set; }
-        float Modifier.Scale.IInterface.Value => Scale;
+
+        public float Modifier() => Scale;
 
         public override void Init()
         {
             base.Init();
 
-            Player.Controller.Movement.Speed.Scale.Register(this);
+            Player.Controller.Movement.Speed.Scale.Add(Modifier);
         }
     }
 }

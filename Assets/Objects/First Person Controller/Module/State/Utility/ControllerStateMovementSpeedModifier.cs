@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class ControllerStateMovementSpeedModifier : ControllerState.Module, Modifier.Scale.IInterface
+	public class ControllerStateMovementSpeedModifier : ControllerState.Module
 	{
         public float Value { get; protected set; }
+
+        public float Modifier() => Value;
 
         public override void Configure()
         {
@@ -34,7 +36,7 @@ namespace Game
         {
             base.Init();
 
-            Controller.Movement.Speed.Scale.Register(this);
+            Controller.Movement.Speed.Scale.Add(Modifier);
 
             Controller.OnProcess += Process;
         }

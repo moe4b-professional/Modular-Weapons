@@ -26,6 +26,6 @@ namespace Game
         protected float minRate;
         public float MinRate { get { return minRate; } }
 
-        bool WeaponConstraint.IInterface.Active => RotatingBarrel.Rate < minRate;
+        public bool Active => RotatingBarrel.Rate < minRate;
     }
 }

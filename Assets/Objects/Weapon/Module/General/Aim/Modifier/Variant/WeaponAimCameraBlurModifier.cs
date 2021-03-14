@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimCameraBlurModifier : WeaponAimPropertyModifier, Modifier.Average.IInterface
+	public class WeaponAimCameraBlurModifier : WeaponAimPropertyModifier
 	{
         [SerializeField]
         protected float target = 0.6f;
         public float Target { get { return target; } }
 
         public virtual float Value => Mathf.Lerp(0f, target, Rate);
+
+        public float Modifier() => Value;
 
         public WeaponCameraBlur CameraBlur { get; protected set; }
 
@@ -40,7 +42,7 @@ namespace Game
         {
             base.Init();
 
-            CameraBlur.Average.Register(this);
+            CameraBlur.Average.Add(Modifier);
         }
     }
 }

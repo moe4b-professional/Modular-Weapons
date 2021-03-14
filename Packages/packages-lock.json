@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.t4.script-creation-preprocessor": {
+      "version": "file:C:/Files/Unity/Packages/Script Creation Preprocessor",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.postprocessing": {
       "version": "2.3.0",
       "depth": 0,

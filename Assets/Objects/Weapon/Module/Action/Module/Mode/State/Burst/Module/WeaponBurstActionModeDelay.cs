@@ -29,8 +29,6 @@ namespace Game
 
         public bool Active => Timer > 0f;
 
-        bool WeaponConstraint.IInterface.Active => Active;
-
         public override void Init()
         {
             base.Init();

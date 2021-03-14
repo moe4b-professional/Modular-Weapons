@@ -45,7 +45,7 @@ namespace Game
         public float Value { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
-		public interface IProcessor
+		public interface IProcessor : Weapon.IProcessor
         {
             Vector3 PlanarVelocity { get; }
         }
@@ -54,7 +54,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
 
             Scale = new Modifier.Scale();
         }

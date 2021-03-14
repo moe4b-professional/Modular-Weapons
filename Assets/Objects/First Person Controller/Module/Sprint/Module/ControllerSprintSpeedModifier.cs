@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class ControllerSprintSpeedModifier : ControllerSprint.Module, Modifier.Scale.IInterface
+    public class ControllerSprintSpeedModifier : ControllerSprint.Module
     {
         [SerializeField]
         protected ValueRange scale = new ValueRange(1f, 2f);
         public ValueRange Scale { get { return scale; } }
 
         public float Value { get; protected set; }
+
+        public float Modifier() => Value;
 
         public override void Configure()
         {
@@ -38,7 +40,7 @@ namespace Game
         {
             base.Init();
 
-            Controller.Movement.Speed.Scale.Register(this);
+            Controller.Movement.Speed.Scale.Add(Modifier);
 
             Controller.OnProcess += Process;
         }

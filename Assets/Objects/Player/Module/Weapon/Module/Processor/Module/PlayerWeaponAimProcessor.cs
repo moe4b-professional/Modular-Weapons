@@ -55,4 +55,9 @@ namespace Game
             Input = false;
         }
     }
+
+    public enum InputAggregationMode
+    {
+        Hold, Toggle
+    }
 }

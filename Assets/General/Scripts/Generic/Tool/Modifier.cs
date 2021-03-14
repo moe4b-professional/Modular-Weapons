@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class Modifier
+    public class OLDModifier
     {
         public class Constraint : Base<Constraint.IInterface>
         {
@@ -129,6 +129,94 @@ namespace Game
             public Base()
             {
                 List = new List<TInterface>();
+            }
+        }
+    }
+
+    public static class Modifier
+    {
+        public class Constraint : Base<bool>
+        {
+            public bool Active
+            {
+                get
+                {
+                    for (int i = 0; i < List.Count; i++)
+                        if (List[i].Invoke())
+                            return true;
+
+                    return false;
+                }
+            }
+        }
+
+        public class Average : Base<float>
+        {
+            public float Value
+            {
+                get
+                {
+                    if (List.Count == 0) return 0f;
+
+                    var result = 0f;
+
+                    for (int i = 0; i < List.Count; i++)
+                        result += List[i].Invoke();
+
+                    return result / List.Count;
+                }
+            }
+        }
+
+        public class Additive : Base<float>
+        {
+            public float Value
+            {
+                get
+                {
+                    if (List.Count == 0) return 0f;
+
+                    var result = 0f;
+
+                    for (int i = 0; i < List.Count; i++)
+                        result += List[i].Invoke();
+
+                    return result;
+                }
+            }
+        }
+
+        public class Scale : Base<float>
+        {
+            public float Value
+            {
+                get
+                {
+                    if (List.Count == 0) return 1f;
+
+                    var value = 1f;
+
+                    for (int i = 0; i < List.Count; i++)
+                        value *= List[i].Invoke();
+
+                    return value;
+                }
+            }
+        }
+
+        public abstract class Base<T>
+        {
+            public List<Delegate> List { get; protected set; }
+            public delegate T Delegate();
+
+            public void Add(Delegate item) => List.Add(item);
+            public void Remove(Delegate item) => List.Remove(item);
+
+            public void Clear() => List.Clear();
+
+            public Base()
+            {
+                List = new List<Delegate>();
             }
         }
     }

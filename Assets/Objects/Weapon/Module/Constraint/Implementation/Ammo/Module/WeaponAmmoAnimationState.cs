@@ -21,6 +21,8 @@ namespace Game
 {
 	public class WeaponAmmoAnimationState : WeaponAmmo.Module
 	{
+        public const string Field = "Remaining Uses";
+
         public Animator Animator => Weapon.Mesh.Animator;
 
         public override void Init()
@@ -37,7 +39,7 @@ namespace Game
 
         protected virtual void UpdateState()
         {
-            Animator.SetInteger("Remaining Uses", Ammo.RemainingUses);
+            Animator.SetInteger(Field, Ammo.RemainingUses);
         }
 
         void RefillCallback() => UpdateState();

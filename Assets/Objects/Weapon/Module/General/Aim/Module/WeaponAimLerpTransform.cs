@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimLerpTransformAim : WeaponAim.Module
+	public class WeaponAimLerpTransform : WeaponAim.Module
 	{
 		[SerializeField]
         protected Transform context;

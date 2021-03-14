@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAnimatorLayerAim : WeaponAim.Module
+	public class WeaponAimAnimatorLayer : WeaponAim.Module
     {
         public Animator Animator => Weapon.Mesh.Animator;
 
@@ -80,10 +80,5 @@ namespace Game
             AimLayer.Weight = Aim.Rate;
             HipLayer.Weight = Mathf.Lerp(1f, 0f, Aim.Rate);
         }
-    }
-
-    public enum InputAggregationMode
-    {
-        Hold, Toggle
     }
 }

@@ -56,7 +56,7 @@ namespace Game
         {
             if (Physics.Raycast(point.position, point.forward, out hit, range, mask))
             {
-                var data = new WeaponHit.Data(hit, point.forward);
+                var data = new WeaponHit.Data(ref hit, point.forward);
 
                 Weapon.Hit.Process(data);
             }

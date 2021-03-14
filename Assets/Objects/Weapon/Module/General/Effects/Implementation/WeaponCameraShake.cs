@@ -32,7 +32,7 @@ namespace Game
         public float Max { get { return max; } }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             float Value { get; }
 
@@ -43,7 +43,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
 
             Scale = new Modifier.Scale();
         }

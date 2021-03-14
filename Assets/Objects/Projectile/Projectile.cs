@@ -106,7 +106,7 @@ namespace Game
 
         void OnTriggerEnter(Collider collider)
         {
-            var contact = new WeaponHit.ContactData(transform.forward * (Radius / 2f), -transform.forward);
+            var contact = new WeaponHit.Contact(transform.forward * (Radius / 2f), -transform.forward);
 
             var data = new WeaponHit.Data(collider, contact, rigidbody.velocity.normalized);
 

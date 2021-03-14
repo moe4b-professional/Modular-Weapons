@@ -23,8 +23,6 @@ namespace Game
     {
         public bool Active { get; protected set; }
 
-        bool WeaponConstraint.IInterface.Active => Active;
-
         public override void Init()
         {
             base.Init();

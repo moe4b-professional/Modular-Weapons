@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponReloadAimConstraint : WeaponReload.Module, Modifier.Constraint.IInterface
+    public class WeaponReloadAimConstraint : WeaponReload.Module
     {
         public bool Active => enabled && Reload.IsProcessing;
+
+        public bool Modifier() => Active;
 
         public WeaponAim Aim { get; protected set; }
 
@@ -36,7 +38,7 @@ namespace Game
         {
             base.Init();
 
-            Aim.Constraint.Register(this);
+            Aim.Constraint.Add(Modifier);
         }
     }
 }

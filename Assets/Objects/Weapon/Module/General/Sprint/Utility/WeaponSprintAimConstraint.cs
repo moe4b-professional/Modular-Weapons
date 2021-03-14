@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponSprintAimConstraint : WeaponSprint.Module, Modifier.Constraint.IInterface
+    public class WeaponSprintAimConstraint : WeaponSprint.Module
     {
-        public bool Active => enabled && Sprint.Active;
-
         [SerializeField]
         protected bool clearInput = true;
         public bool ClearInput { get { return clearInput; } }
+
+        public bool Active => enabled && Sprint.Active;
+
+        public bool Modifier() => Active;
 
         public WeaponAim Aim { get; protected set; }
 
@@ -40,7 +42,7 @@ namespace Game
         {
             base.Init();
 
-            Aim.Constraint.Register(this);
+            Aim.Constraint.Add(Modifier);
 
             Sprint.OnBegin += SprintBeginCallback;
         }

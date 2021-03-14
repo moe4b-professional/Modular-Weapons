@@ -24,7 +24,7 @@ namespace Game
         public Modifier.Average Average { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             float Value { get; set; }
         }
@@ -35,7 +35,7 @@ namespace Game
 
             Average = new Modifier.Average();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
         }
 
         public override void Init()

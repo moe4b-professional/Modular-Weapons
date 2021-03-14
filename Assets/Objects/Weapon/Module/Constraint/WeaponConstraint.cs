@@ -26,8 +26,12 @@ namespace Game
         public bool CheckAny(Predicate<IInterface> predicate)
         {
             for (int i = 0; i < List.Count; i++)
+            {
+                if (List[i].isActiveAndEnabled == false) continue;
+
                 if (predicate(List[i]))
                     return true;
+            }
 
             return false;
         }
@@ -44,6 +48,8 @@ namespace Game
 
         public interface IInterface
         {
+            bool isActiveAndEnabled { get; }
+
             bool Active { get; }
         }
 

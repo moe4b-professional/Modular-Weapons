@@ -19,16 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class PlayerWeaponSensitivtyProcessor : PlayerWeapons.Processor, WeaponSensitivty.IProcessor, Modifier.Scale.IInterface
+	public class PlayerWeaponSensitivtyProcessor : PlayerWeapons.Processor, WeaponSensitivty.IProcessor
     {
         public float Scale { get; set; }
-        float Modifier.Scale.IInterface.Value => Scale;
+
+        public float Modifier() => Scale;
 
         public override void Init()
         {
             base.Init();
 
-            Player.Controller.Look.Sensitivity.Scale.Register(this);
+            Player.Controller.Look.Sensitivity.Scale.Add(Modifier);
         }
     }
 }

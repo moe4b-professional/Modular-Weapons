@@ -25,27 +25,15 @@ namespace Game
         uint value = 800;
         public uint Value
         {
-            get
-            {
-                return value;
-            }
-            set
-            {
-                this.value = value;
-            }
+            get => value;
+            set => this.value = value;
         }
 
-        public float Delay
-        {
-            get
-            {
-                return 60f / value;
-            }
-        }
+        public float Delay => 60f / value;
 
         private float timer = 0f;
 
-        public bool Active { get { return timer > 0f; } }
+        public bool Active => timer > 0f;
 
         public Modifier.Scale Scale { get; protected set; }
 

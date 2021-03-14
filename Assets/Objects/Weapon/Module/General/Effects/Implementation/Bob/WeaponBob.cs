@@ -30,7 +30,7 @@ namespace Game
         public Modifier.Scale Scale { get; protected set; }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             Vector3 Delta { get; }
         }
@@ -58,7 +58,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
 
             Scale = new Modifier.Scale();
         }

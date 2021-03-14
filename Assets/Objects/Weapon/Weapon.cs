@@ -47,8 +47,17 @@ namespace Game
             protected virtual void Start() { }
 
             public virtual void Configure() { }
-
             public virtual void Init() { }
+
+            public void CheckDependancy<TType>(TType instance)
+            {
+                if (instance == null)
+                {
+                    var exception = Dependancy.CreateException<TType>(this);
+
+                    throw exception;
+                }
+            }
         }
         #endregion
 
@@ -75,13 +84,29 @@ namespace Game
 
             Init();
         }
+
         public interface IOwner
         {
             GameObject Root { get; }
 
             Damage.IDamager Damager { get; }
 
-            TType GetProcessor<TType>() where TType : class;
+            List<IProcessor> Processors { get; }
+        }
+
+        public interface IProcessor
+        {
+
+        }
+
+        public virtual TType GetProcessor<TType>(Component dependant)
+                where TType : IProcessor
+        {
+            for (int i = 0; i < Owner.Processors.Count; i++)
+                if (Owner.Processors[i] is TType target)
+                    return target;
+
+            throw Dependancy.CreateException<TType>(dependant);
         }
 
         protected virtual void Configure()
@@ -139,31 +164,5 @@ namespace Game
         
         public virtual void Equip() => Activation.Enable();
         public virtual void UnEquip() => Activation.Disable();
-
-        public virtual TType GetProcessor<TType>()
-                where TType : class
-        {
-            var instance = Owner.GetProcessor<TType>();
-
-            if (instance == null)
-                ExecuteProcessorError<TType>();
-
-            return instance;
-        }
-        public void ExecuteProcessorError<TType>()
-        {
-            var message = "Module: " + GetType().Name + " Requires a processor of type: " + typeof(TType).FullName + " To function";
-
-            var exception = new InvalidOperationException(message);
-
-            throw exception;
-        }
-
-        public void ExecuteDependancyError<TType>()
-        {
-            var exception = Dependancy.CreateException<TType>(this);
-
-            throw exception;
-        }
     }
 }

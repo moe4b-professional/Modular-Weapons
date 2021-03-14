@@ -45,7 +45,7 @@ namespace Game
         {
 
         }
-        public TType GetProcessor<TType>() where TType : class => Modules.Find<TType>();
+        public List<Weapon.IProcessor> Processors { get; protected set; }
 
         public PlayerControls Controls => Player.Controls;
 
@@ -66,6 +66,8 @@ namespace Game
             base.Configure();
 
             List = Dependancy.GetAll<Weapon>(gameObject);
+
+            Processors = Dependancy.GetAll<Weapon.IProcessor>(gameObject);
         }
 
         public override void Init()

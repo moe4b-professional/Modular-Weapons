@@ -22,7 +22,7 @@ namespace Game
 	public class WeaponStep : Weapon.Module
 	{
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             float Rate { get; }
 
@@ -37,7 +37,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
         }
     }
 }

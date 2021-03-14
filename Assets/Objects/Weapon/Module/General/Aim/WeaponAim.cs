@@ -25,21 +25,7 @@ namespace Game
 
         public float Target => IsOn ? 1f : 0f;
 
-        private float _rate;
-        public float Rate
-        {
-            get => _rate;
-            set
-            {
-                if (value == _rate) return;
-
-                _rate = value;
-
-                Processor.Rate = Rate;
-
-                OnRateChange?.Invoke(Rate);
-            }
-        }
+        public float Rate { get; protected set; }
         public delegate void RateChangeDelegate(float rate);
         public event RateChangeDelegate OnRateChange;
 
@@ -58,7 +44,6 @@ namespace Game
         public WeaponAimSpeed Speed { get; protected set; }
 
         public Modules<WeaponAim> Modules { get; protected set; }
-
         public abstract class Module : Weapon.Behaviour, IModule<WeaponAim>
         {
             public WeaponAim Aim { get; protected set; }
@@ -68,7 +53,7 @@ namespace Game
         }
 
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             bool Input { get; }
 
@@ -93,7 +78,7 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
 
             Constraint = new Modifier.Constraint();
         }
@@ -114,7 +99,7 @@ namespace Game
 
         void Process()
         {
-            if(Processor.Input)
+            if (Processor.Input)
             {
                 if (CanPerform)
                     IsOn = Processor.Input;
@@ -127,7 +112,11 @@ namespace Game
             }
 
             if (Rate != Target)
+            {
                 Rate = Mathf.MoveTowards(Rate, Target, Speed.Value * Time.deltaTime);
+                Processor.Rate = Rate;
+                OnRateChange?.Invoke(Rate);
+            }
         }
 
         public virtual void ClearInput() => Processor.ClearInput();

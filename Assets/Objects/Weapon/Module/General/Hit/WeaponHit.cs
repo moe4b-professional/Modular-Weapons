@@ -29,7 +29,6 @@ namespace Game
         }
         
         public Modules<WeaponHit> Modules { get; protected set; }
-
         public abstract class Module : Weapon.Behaviour, IModule<WeaponHit>
         {
             public WeaponHit Hit { get; protected set; }
@@ -66,11 +65,11 @@ namespace Game
                 }
             }
 
-            public ContactData Contact { get; private set; }
+            public Contact Contact { get; private set; }
 
             public Vector3 Direction { get; private set; }
 
-            public Data(Collider collider, ContactData contact, Vector3 direction)
+            public Data(Collider collider, Contact contact, Vector3 direction)
             {
                 this.Collider = collider;
 
@@ -79,33 +78,33 @@ namespace Game
                 this.Direction = direction;
             }
             public Data(Collider collider, ContactPoint contact, Vector3 direction) :
-                this(collider, new ContactData(contact), direction)
+                this(collider, new Contact(contact), direction)
             {
 
             }
-            public Data(RaycastHit hit, Vector3 direction) : this(hit.collider, new ContactData(hit), direction)
+            public Data(ref RaycastHit hit, Vector3 direction) : this(hit.collider, new Contact(ref hit), direction)
             {
 
             }
         }
 
-        public struct ContactData
+        public struct Contact
         {
             public Vector3 Point { get; private set; }
 
             public Vector3 Normal { get; private set; }
 
-            public ContactData(Vector3 point, Vector3 normal)
+            public Contact(Vector3 point, Vector3 normal)
             {
                 this.Point = point;
 
                 this.Normal = normal;
             }
-            public ContactData(ContactPoint contact) : this(contact.point, contact.normal)
+            public Contact(ContactPoint contact) : this(contact.point, contact.normal)
             {
 
             }
-            public ContactData(RaycastHit hit) : this(hit.point, hit.normal)
+            public Contact(ref RaycastHit hit) : this(hit.point, hit.normal)
             {
 
             }

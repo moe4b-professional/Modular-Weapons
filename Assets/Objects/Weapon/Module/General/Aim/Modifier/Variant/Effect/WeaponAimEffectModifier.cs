@@ -80,24 +80,26 @@ namespace Game
 
         public List<Element> Elements { get; protected set; }
         [Serializable]
-        public class Element : Modifier.Scale.IInterface
+        public class Element
         {
-            public WeaponAimEffectModifier Modifier { get; protected set; }
+            public WeaponAimEffectModifier EffectModifier { get; protected set; }
 
             public WeaponEffects.IInterface Target { get; protected set; }
 
-            public bool Overriden => Modifier.Overrides.Detect(Target);
+            public bool Overriden => EffectModifier.Overrides.Detect(Target);
 
-            public float Value => Overriden ? 1f : Modifier.Value;
+            public float Value => Overriden ? 1f : EffectModifier.Value;
+
+            public float Modifier() => Value;
 
             protected virtual void Register()
             {
-                Target.Scale.Register(this);
+                Target.Scale.Add(Modifier);
             }
 
             public Element(WeaponAimEffectModifier modifier, WeaponEffects.IInterface target)
             {
-                this.Modifier = modifier;
+                this.EffectModifier = modifier;
 
                 this.Target = target;
 

@@ -19,13 +19,15 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimMovementSpeedModifier : WeaponAimPropertyModifier, Modifier.Scale.IInterface
+	public class WeaponAimMovementSpeedModifier : WeaponAimPropertyModifier
     {
         [SerializeField]
         protected float scale = 0.6f;
         public float Scale { get { return scale; } }
 
         public virtual float Value => Mathf.Lerp(1f, scale, Rate);
+
+        public float Modifier() => Value;
 
         public WeaponMovementSpeed MovementSpeed { get; protected set; }
 
@@ -40,7 +42,7 @@ namespace Game
         {
             base.Init();
 
-            MovementSpeed.Scale.Register(this);
+            MovementSpeed.Scale.Add(Modifier);
         }
     }
 }

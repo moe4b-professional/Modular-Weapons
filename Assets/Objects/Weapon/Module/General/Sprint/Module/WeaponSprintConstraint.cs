@@ -21,6 +21,6 @@ namespace Game
 {
 	public class WeaponSprintConstraint : WeaponSprint.Module, WeaponConstraint.IInterface
     {
-        public bool Active => enabled && Sprint.Active;
+        public bool Active => Sprint.Active;
 	}
 }

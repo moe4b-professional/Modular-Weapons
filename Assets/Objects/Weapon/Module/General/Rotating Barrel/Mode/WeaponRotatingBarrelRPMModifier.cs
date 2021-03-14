@@ -19,9 +19,9 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponRotatingBarrelRPMModifier : WeaponRotatingBarrel.Module, Modifier.Scale.IInterface
+	public class WeaponRotatingBarrelRPMModifier : WeaponRotatingBarrel.Module
     {
-        float Modifier.Scale.IInterface.Value => RotatingBarrel.Rate;
+        public float Modifier() => RotatingBarrel.Rate;
 
         public WeaponRPM RPM { get; protected set; }
 
@@ -36,7 +36,7 @@ namespace Game
         {
             base.Init();
 
-            RPM.Scale.Register(this);
+            RPM.Scale.Add(Modifier);
         }
     }
 }

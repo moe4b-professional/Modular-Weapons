@@ -23,7 +23,7 @@ namespace Game
     {
 		public bool InputLock { get; protected set; }
 
-        bool WeaponConstraint.IInterface.Active => InputLock;
+        public bool Active => InputLock;
 
         public override void Init()
         {

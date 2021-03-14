@@ -22,7 +22,7 @@ namespace Game
 	public class WeaponSensitivty : Weapon.Module
 	{
         public IProcessor Processor { get; protected set; }
-        public interface IProcessor
+        public interface IProcessor : Weapon.IProcessor
         {
             float Scale { get; set; }
         }
@@ -35,7 +35,7 @@ namespace Game
 
             Scale = new Modifier.Scale();
 
-            Processor = Weapon.GetProcessor<IProcessor>();
+            Processor = Weapon.GetProcessor<IProcessor>(this);
         }
 
         public override void Init()
