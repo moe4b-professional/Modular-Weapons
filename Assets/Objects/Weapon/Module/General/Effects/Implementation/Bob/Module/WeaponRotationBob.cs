@@ -19,25 +19,32 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponIdleMotionRotation : WeaponIdleMotionEffect
+	public class WeaponRotationBob : WeaponBob.Effect
     {
-		[SerializeField]
+        [SerializeField]
         [LabeledVector(VectorLabels.Rotation)]
-        protected Vector3 range = new Vector3(0.2f, 0.6f, 0.4f);
+        protected Vector3 range = new Vector3(1f, 0.5f, 0.5f);
         public Vector3 Range { get { return range; } }
 
         protected override void CalculateOffset()
         {
-            Offset = Vector3.Scale(IdleMotion.Target, range);
+            Offset = Vector3.zero;
 
-            Offset *= IdleMotion.Scale.Value;
+            if(enabled)
+            {
+                Offset += Vector3.right * Processor.Delta.y;
+                Offset += Vector3.up * -Processor.Delta.x;
+                Offset += Vector3.forward * (Processor.Delta.x + Processor.Delta.y);
+
+                Offset = Vector3.Scale(Offset, range);
+
+                Offset *= Bob.Scale.Value;
+            }
         }
 
         protected override void Write()
         {
-            Context.Rotate(Vector3.right, Offset.x, Space.Self);
-            Context.Rotate(Vector3.up, Offset.y, Space.Self);
-            Context.Rotate(Vector3.forward, Offset.z, Space.Self);
+            Context.localEulerAngles += Offset;
         }
     }
 }

@@ -44,12 +44,6 @@ namespace Game
                 }
                 set
                 {
-                    if(value > max)
-                    {
-                        value = max;
-                        Debug.LogWarning("Cannot set value bigger than a max of " + max);
-                    }
-
                     this.value = value;
                 }
             }
@@ -60,7 +54,7 @@ namespace Game
             protected int max;
             public int Max { get { return max; } }
 
-            public bool IsFull => value == max;
+            public bool IsFull => value >= max;
 
             public MaxValue(int value, int max)
             {
@@ -73,6 +67,10 @@ namespace Game
 
             }
         }
+
+        [SerializeField]
+        protected int chamber = 1;
+        public int Chamber => chamber;
 
         [SerializeField]
         protected int consumption = 1;
@@ -99,6 +97,13 @@ namespace Game
             Modules.Set();
         }
 
+        public override void Configure()
+        {
+            base.Configure();
+
+            if (magazine.Value == magazine.Max) magazine.Value += chamber;
+        }
+
         public event Action OnConsumption;
         public virtual void Consume()
         {
@@ -114,6 +119,7 @@ namespace Game
             if (reserve.IsEmpty) return false;
 
             var requirement = magazine.Max - magazine.Value;
+            if (magazine.Value > 0) requirement += chamber;
 
             if(reserve.Value >= requirement)
             {

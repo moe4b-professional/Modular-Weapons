@@ -74,6 +74,7 @@ namespace Game
         {
             CalculateTarget();
         }
+
         protected virtual void CalculateTarget()
         {
             Target = Vector3.zero;
@@ -81,6 +82,27 @@ namespace Game
             Target += Vector3.right * Mathf.Sin(speed * Time.time);
             Target += Vector3.up * Mathf.Sin(speed * 2f * Time.time);
             Target += Vector3.forward * Mathf.Sin(speed * 3f * Time.time);
+        }
+
+        public abstract class Effect : Module
+        {
+            public Vector3 Offset { get; protected set; }
+
+            public Transform Context => IdleMotion.Context;
+
+            public override void Init()
+            {
+                base.Init();
+
+                Weapon.OnProcess += Process;
+
+                IdleMotion.Anchor.OnWriteDefaults += Write;
+            }
+
+            void Process() => CalculateOffset();
+            protected abstract void CalculateOffset();
+
+            protected abstract void Write();
         }
     }
 }

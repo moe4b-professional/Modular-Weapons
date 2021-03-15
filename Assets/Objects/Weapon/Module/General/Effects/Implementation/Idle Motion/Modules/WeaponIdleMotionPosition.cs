@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponIdleMotionPosition : WeaponIdleMotionEffect
-	{
+	public class WeaponIdleMotionPosition : WeaponIdleMotion.Effect
+    {
         [SerializeField]
         [LabeledVector(VectorLabels.Position)]
         protected Vector3 range = new Vector3(0.002f, 0.002f, 0.001f);

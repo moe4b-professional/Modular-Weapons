@@ -19,31 +19,31 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponRotationRecoil : WeaponRecoilEffect
+	public class WeaponPositionRecoil : WeaponRecoil.Effect
     {
         protected override void Reset()
         {
             base.Reset();
 
-            kick = new ValueRange(-5, 2);
-            sway = new SwayData(5);
-            speed = new SpeedData(3, 5);
+            kick = new ValueRange(-0.05f, -0.075f);
+            sway = new SwayData(0.01f);
+            speed = new SpeedData(10, 20);
 
-            noise.Weight = 0.3f;
+            noise.Weight = 0.6f;
         }
-        
+
         protected override void CalculateTarget()
         {
             Target = new Vector3()
             {
-                x = noise.Lerp(1, kick),
+                x = noise.Lerp(5, sway.Horizontal),
                 y = noise.Lerp(3, sway.Vertical),
-                z = noise.Lerp(5, sway.Horizontal),
+                z = noise.Lerp(1, kick),
             };
 
             Target *= Recoil.Scale.Value;
         }
 
-        protected override void Write() => Context.localEulerAngles += Value;
+        protected override void Write() => Context.localPosition += Value;
     }
 }

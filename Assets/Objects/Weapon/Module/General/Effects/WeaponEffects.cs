@@ -48,5 +48,8 @@ namespace Game
 
             List = new List<IInterface>();
         }
+
+        [Serializable]
+        public class TypeSelection : MonoScriptSelection<IInterface> { }
     }
 }

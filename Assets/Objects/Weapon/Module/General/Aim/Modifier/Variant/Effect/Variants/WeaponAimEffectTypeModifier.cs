@@ -21,47 +21,10 @@ namespace Game
 {
 	public class WeaponAimEffectTypeModifier : WeaponAimEffectModifier
     {
-#if UNITY_EDITOR
         [SerializeField]
-        protected MonoScript[] types;
-        public MonoScript[] Types { get { return types; } }
-#endif
+        protected WeaponEffects.TypeSelection selection;
+        public WeaponEffects.TypeSelection Selection { get { return selection; } }
 
-        [SerializeField]
-        [HideInInspector]
-        protected string[] IDs;
-
-#if UNITY_EDITOR
-        protected virtual void OnValidate()
-        {
-            if(types == null || types.Length == 0)
-                IDs = new string[0];
-            else
-                IDs = new string[types.Length];
-
-            for (int i = 0; i < IDs.Length; i++)
-            {
-                if(types[i] == null)
-                {
-                    IDs[i] = string.Empty;
-                }
-                else
-                {
-                    var type = types[i].GetClass();
-
-                    IDs[i] = type.AssemblyQualifiedName;
-                }
-            }
-        }
-#endif
-
-        public override bool IsTarget(WeaponEffects.IInterface effect)
-        {
-            if (IDs == null) return false;
-
-            var ID = effect.GetType().AssemblyQualifiedName;
-
-            return IDs.Contains(ID);
-        }
+        public override bool IsTarget(WeaponEffects.IInterface effect) => selection.Type == effect.GetType();
     }
 }

@@ -35,7 +35,7 @@ namespace Game
             }
         }
 
-        public float FrameTime => 1f / FPS;
+        public float FrameTime => FPS >= 60 ? 0f : 1f / FPS;
 
         float timer = 0f;
 

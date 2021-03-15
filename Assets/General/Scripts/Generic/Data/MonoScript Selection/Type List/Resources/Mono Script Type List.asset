@@ -1,0 +1,1230 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a074a4231b940c343953cce76c637e3c, type: 3}
+  m_Name: Mono Script Type List
+  m_EditorClassIdentifier: 
+  list:
+  - asset: {fileID: 11500000, guid: 32e6cced14f716243b2f1cf704e9c09c, type: 3}
+    _ID: AnimationSampler, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0b4ee6492ddc2f34db94c827d5597f25, type: 3}
+    _ID: Game.EditorAudio, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 54b3acab0fa2f51429b1962010db36dc, type: 3}
+    _ID: Game.C4DIgnoreImporter, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e35306d1eb08b3743b2874cc1b95f3c3, type: 3}
+    _ID: SetBoolField, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a6d5f082916c541429b85559e92317c6, type: 3}
+    _ID: Game.StateEventMultiTrigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7160faa4606f1334bb00c0ca7c092c14, type: 3}
+    _ID: Game.StateEventSingleTrigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 568f06dada286ee46ac92805da529faa, type: 3}
+    _ID: Game.StateMachineEventsTrigger, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2091837314f0a8b4c8def46d67b6d9df, type: 3}
+    _ID: Game.AnimationTriggerRewind, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5491bf1fc79bdae469ba4b94459132b1, type: 3}
+    _ID: Game.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6eb736379b95fff469c090ad23f0dddb, type: 3}
+    _ID: Game.ForceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 310468becc2460a459fd96ef30d19174, type: 3}
+    _ID: Game.MonoScriptSelection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a074a4231b940c343953cce76c637e3c, type: 3}
+    _ID: Game.MonoScriptTypeList, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2b5725d5a3276f944bd683b8fb3b2c83, type: 3}
+    _ID: Game.ToggleValue, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ebec1f0b55718c541be50eb7ce7aa9b4, type: 3}
+    _ID: Game.Damage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8f71f2c49dae92244aa32f9079c07ceb, type: 3}
+    _ID: Game.Dependancy, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 98a4ddd21c7614343a8e9855162bf0dd, type: 3}
+    _ID: Game.Modifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1ad75e7e62a967f40a69169604f01f85, type: 3}
+    _ID: Game.PersonalTools, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
+    _ID: Game.ActivationRewind, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 34e6070ebf72f664aba85f537eb8c711, type: 3}
+    _ID: Game.TransformAnchor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ac879dc7444c7e840bfcfd2d5a30f12f, type: 3}
+    _ID: Game.TransformShake, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 14367b2c03feac34687ecbf53a5623b7, type: 3}
+    _ID: Game.VSyncToggle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1f99cd1b3f2705045bffec1ad9dc7359, type: 3}
+    _ID: Game.AxisInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b2b9fd6662ed6f14aab9259f943bfc29, type: 3}
+    _ID: Game.ButtonInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4ab6d2f70cccf1d47899c725767b7afc, type: 3}
+    _ID: Game.CursorControls, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b3b4895cce60e1a4cb6b0bb72668becf, type: 3}
+    _ID: Game.PhysicsRewind, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0504eee837268394195a15de7e0ca212, type: 3}
+    _ID: Game.AutoRenderTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 623f434be5903a747956b5ba4e9f68cd, type: 3}
+    _ID: Game.ManualCameraRender, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d3ada043a840c2840a4ae171e1ec9d2d, type: 3}
+    _ID: Game.AI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 08ae4149b65a3ed47becbaec1208a218, type: 3}
+    _ID: Game.AIController, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5ee4c16689f1fe54b94af5e01c9fc908, type: 3}
+    _ID: Game.ZombieAI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c5185917ca281b34fb16a1f0c3ddffb7, type: 3}
+    _ID: Game.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fc13f51f3441a724a9328127fd473c42, type: 3}
+    _ID: Game.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7b0b66ea0e0929c47be5a7c191eeca89, type: 3}
+    _ID: Game.EntityDamage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 92a2aeca6f7f1cc478d3538e0b64aec7, type: 3}
+    _ID: Game.EntityHealth, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f30e1d2e0ba6031419d4bbd8612dfc61, type: 3}
+    _ID: Game.FirstPersonController, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7676cb900d3a7f34d972ec2823fbb641, type: 3}
+    _ID: Game.Steps, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9779612244688124e9aaab9130ac8d21, type: 3}
+    _ID: Game.ControllerCamera, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 154a3d0e6ddb47b47960ece212c7751e, type: 3}
+    _ID: Game.ControllerCameraFOV, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 404b4244ac1d0bf4d8583d39f19e2e9c, type: 3}
+    _ID: Game.ControllerCameraRelay, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b8a2e67930c38d24ab62b3a9e184e732, type: 3}
+    _ID: Game.ControllerAirTravel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 437d19ce6d7a9014a974c44c2446c37b, type: 3}
+    _ID: Game.ControllerCollisions, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d1477efe7c51057408df427068b4d9bc, type: 3}
+    _ID: Game.ControllerDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ac1b66cc64cbd504eb274b7e69316473, type: 3}
+    _ID: Game.ControllerGenericData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cbb0bcbe99603f6488786a7d06bca84e, type: 3}
+    _ID: Game.ControllerGravity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 94b09545a93991c41937d02c26c471e8, type: 3}
+    _ID: Game.ControllerRig, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 43b431637e4ecba44a77e076ace615a4, type: 3}
+    _ID: Game.ControllerSandbox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f5339bff345715d45b2c5ac9fe81b180, type: 3}
+    _ID: Game.ControllerStep, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: de699e132d4f2ba4c8e0aaf1f19cb9e1, type: 3}
+    _ID: Game.ControllerVelocity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ced32f2393bdd064686a1205346e9251, type: 3}
+    _ID: Game.ControllerControls, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9a9123933851c7545b50a9afba374e77, type: 3}
+    _ID: Game.ControllerInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 321b9f912c544db47afc56a32e338a3c, type: 3}
+    _ID: Game.ControllerGamepadInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c73ef3dfaeddd4342b5b053be0665a29, type: 3}
+    _ID: Game.ControllerKeyboardInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f3d3719676e58bd45be19ecdb9ddf2a1, type: 3}
+    _ID: Game.ControllerGround, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4572520a4d2c3a545a2b745d5ce39a00, type: 3}
+    _ID: Game.ControllerGroundChange, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9f3ead1da77083348a442c8e41b7f4ca, type: 3}
+    _ID: Game.ControllerGroundDetect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0d85c4603c545df4a929f797321a2a54, type: 3}
+    _ID: Game.ControllerGroundSlopeDetect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7f13e4288382cf14d8cff58083a07a00, type: 3}
+    _ID: Game.ControllerGroundStepDetect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b8772f8137dd327469a56c8fecd973ff, type: 3}
+    _ID: Game.ControllerHeadBob, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 511875401d7e52d418f88b9d28277610, type: 3}
+    _ID: Game.ControllerHeadBobTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ac21f152e11988443b923af6c02abfb7, type: 3}
+    _ID: Game.ControllerJump, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 889d3d14c8458cd40a2fba14fd55442b, type: 3}
+    _ID: Game.ControllerJumpLock, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f4c107da9101e534eb299d349a4ee439, type: 3}
+    _ID: Game.ControllerJumpPush, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 65bd5daba9fd7f74995a817741f6888b, type: 3}
+    _ID: Game.ControllerLook, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9acc537f4acec4146ba70e47ac31433c, type: 3}
+    _ID: Game.ControllerCameraLook, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7b165c1a22f1b13418a8070dc75370a4, type: 3}
+    _ID: Game.ControllerCharacterLook, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: aa7b409a7bff5eb489357dc8a836a466, type: 3}
+    _ID: Game.ControllerLookSensitivty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0abdcf430aea70d4285282fa2682e77b, type: 3}
+    _ID: Game.ControllerLookLean, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7848da28b871d594fa5724cb9a122b40, type: 3}
+    _ID: Game.ControllerLookLeanCast, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9492330a04e6d2045bd71be19fc9ec60, type: 3}
+    _ID: Game.ControllerLookLeanTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5ee2343cf58c50a4a9a90e6ac35b38c6, type: 3}
+    _ID: Game.ControllerMovement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d1f1e1a47f59634419824be6167669a0, type: 3}
+    _ID: Game.ControllerMovementAcceleration, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bd10bb123cb050b46a805f94a936c62b, type: 3}
+    _ID: Game.ControllerMovementInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 302739b357ac1e640bf9b061975dd0c1, type: 3}
+    _ID: Game.ControllerMovementSpeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8426d266b732edc4282440fd2d1b9829, type: 3}
+    _ID: Game.ControllerMovementProcedure, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1976f3d1ff20c4a429f5f25ad9401028, type: 3}
+    _ID: Game.ControllerAirMovement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f95463b7984688a4ea2582c588e05b66, type: 3}
+    _ID: Game.ControllerGroundMovement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a2a5fba959332c84a8964447a0af574e, type: 3}
+    _ID: Game.ControllerSound, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e21aed002f196a84a82c5a4d753fa144, type: 3}
+    _ID: Game.ControllerSoundSetTemplate, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 763e7470ebbdcc049be725bfdc4ef493, type: 3}
+    _ID: Game.ControllerMovementSound, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: aa3db08d17e7de14c802e25db62e0d35, type: 3}
+    _ID: Game.ControllerSoundSet, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 324c8f2c8fc598644851ade600cd661a, type: 3}
+    _ID: Game.ControllerSprint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2511bdb44b1c38c4981209dce8500aff, type: 3}
+    _ID: Game.ControllerSprintAccelerationModifier, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 26f43028299b76240a197be706de50ce, type: 3}
+    _ID: Game.ControllerSprintSpeedModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 95ad17249bcd39a48b78c7d45ac1c6ea, type: 3}
+    _ID: Game.ControllerState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ed5fe8da8458a3a4097a0c9284e311a4, type: 3}
+    _ID: Game.ControllerStateElevationAdjustment, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fe7d7723ac14694409c5d953d2126d66, type: 3}
+    _ID: Game.ControllerStateRigModification, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3b157225da987db429bd7dc6df186112, type: 3}
+    _ID: Game.ControllerStateRoofCheck, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7b9ac135f32045742a34a42a699a9e78, type: 3}
+    _ID: Game.ControllerStateSets, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: acc3ec030132e6d4d98cf2993cc3fe62, type: 3}
+    _ID: Game.ControllerStateTransition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b29eb60dd79966240bb7048eb4a0dc5b, type: 3}
+    _ID: Game.ControllerStateElement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 082718ba537dbe347bd07d4b45932df2, type: 3}
+    _ID: Game.ControllerStateElementJump, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 34706c44673238f4193998761179b64d, type: 3}
+    _ID: Game.ControllerStateElementSprint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 933e53ef0dcc0234fb40067768cd4b34, type: 3}
+    _ID: Game.ControllerCrouchStateElement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c66629612b5f93c4a9c69a1d6f2604cb, type: 3}
+    _ID: Game.ControllerNormalStateElement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d2c667edf13b99047a887b49c889191c, type: 3}
+    _ID: Game.ControllerProneStateElement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fd65d444ddc3b184a8a17daf004b9d35, type: 3}
+    _ID: Game.ControllerStateMovementAccelerationModifier, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2c0a7bc3cdfa1f1459e90cb6cf29632e, type: 3}
+    _ID: Game.ControllerStateMovementSpeedModifier, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0bbfef057468e3145bcf5bf6261eaf5b, type: 3}
+    _ID: Game.AnimationSFX, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e50160b2132645d40b870c0a659a02c9, type: 3}
+    _ID: Game.AnimationSFXSet, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3c89683e7c5c9164caf467164d2eb18f, type: 3}
+    _ID: Game.SurfaceHitEffectPack, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ea3e78ab4af57134b9515dfdd0a320a2, type: 3}
+    _ID: Game.SurfaceHitEffect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 55c16445567d365428a2c51b5185c3db, type: 3}
+    _ID: Game.SurfaceMaterial, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 10e4984da724c434883ac357cd8c850b, type: 3}
+    _ID: Game.Surface, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bd37e99f282d2a946815a60fb776483d, type: 3}
+    _ID: Game.PlayerCameraBlurEffect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: acee82532550818418c28b8506910369, type: 3}
+    _ID: Game.PlayerCameraEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4563095fdf3098640940bd51535d2c61, type: 3}
+    _ID: Game.PlayerInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 72c8c23a472b5d5469db16ded157c5a2, type: 3}
+    _ID: Game.PlayerGamepadInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 917d929d8af4f124e8d58edffc67b054, type: 3}
+    _ID: Game.PlayerKeyboardInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b757edeab27185f44a8b8cd170157cb3, type: 3}
+    _ID: Game.PlayerControls, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5029c55d08137804689156042d3db37f, type: 3}
+    _ID: Game.PlayerWeaponsCamera, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 04b877bc757122b49b03f1a84c54e5b3, type: 3}
+    _ID: Game.PlayerWeaponActionModeSwitchProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 15d74204d000a1f459748fbb270f3ec1, type: 3}
+    _ID: Game.PlayerWeaponActionProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7e71f284bd6035d41876a0882fbb1157, type: 3}
+    _ID: Game.PlayerWeaponAimProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 920e3194bfc9dfd468675acf45079daa, type: 3}
+    _ID: Game.PlayerWeaponAimSightProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0b09176aed9081747a5b01b305a207d3, type: 3}
+    _ID: Game.PlayerWeaponAnimationEffectsProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7cb0ae10bf77eaa41b7ddb9a2cd83c13, type: 3}
+    _ID: Game.PlayerWeaponBobProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: de83595cfd5b2044ebd8d1323d687505, type: 3}
+    _ID: Game.PlayerWeaponCameraBlurProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d59c9a9c11f9b9f448d1a2863d54accc, type: 3}
+    _ID: Game.PlayerWeaponCameraShakeProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: af113b73939e0d84fa478d6326114b7c, type: 3}
+    _ID: Game.PlayerWeaponFOVProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1e25649c28451e947b03890ebdbc75e8, type: 3}
+    _ID: Game.PlayerWeaponMovementSpeedProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 68e8c6c7043ae67408cc563bdde2dc1b, type: 3}
+    _ID: Game.PlayerWeaponReloadProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 00235749e14f35d49aa4ec78b63963e3, type: 3}
+    _ID: Game.PlayerWeaponSensitivtyProcessor, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 770ee6cebac8d694cb72508f442dd93a, type: 3}
+    _ID: Game.PlayerWeaponSprintProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d87abc2690b995846910207f4ee56d8f, type: 3}
+    _ID: Game.PlayerWeaponStepProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b8227ea14a5b14a488c7dbab41b6e01e, type: 3}
+    _ID: Game.PlayerWeaponSwayProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 587ca5a3e531dbf4682594c0f0aa311f, type: 3}
+    _ID: Game.PlayerWeaponTugProcessor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 963ce223b36cba1448f4d1d17c16c74d, type: 3}
+    _ID: Game.PlayerWeapons, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9359e38af950f4e46955e5a030d50d46, type: 3}
+    _ID: Game.Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c656aff6d7df8bb4195673d48ec9db12, type: 3}
+    _ID: Game.ProjectileClearParentOnHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ea1c70bfba3f35d42b26ed59ab603a36, type: 3}
+    _ID: Game.ProjectileDestroyOnHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ccabaa9137686b0448ef71ab8675c993, type: 3}
+    _ID: Game.ProjectileSetLayerOnHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d0d48ece0d4051549a041605a03b2843, type: 3}
+    _ID: Game.Projectile, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 444e361b92ef8944dbd5e3d1428b4dc7, type: 3}
+    _ID: Game.WeaponProjectileForceAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b266ca6b04eb4ac489894f650fb59d41, type: 3}
+    _ID: Game.WeaponProjectileHitAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c1a4313153aa76b40a5228beef3d1af2, type: 3}
+    _ID: Game.WeaponProjectileParentAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bd532c3a6dcf05643929a43824048028, type: 3}
+    _ID: Game.WeaponProjectileRandomCoordinatesAction, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 99aaae4c19341364385bbec335478ac7, type: 3}
+    _ID: Game.WeaponProjectileAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c09ecf646e1cb704c9abef7848bc8024, type: 3}
+    _ID: Game.WeaponAnimatorTriggerAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cbe1bd8b4957c6d418bfe20dbfb5856a, type: 3}
+    _ID: Game.WeaponPlaySoundAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b4eeeda7d0a924441a91ee4c0ac022c3, type: 3}
+    _ID: Game.WeaponRaycastAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5f87ac36f3135134e8bd3ec5dc99230b, type: 3}
+    _ID: Game.WeaponActionWeightedControl, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 79ab923ab0be28c4ca5a3b299543a06e, type: 3}
+    _ID: Game.WeaponActionControl, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7daf41a436c89ad4a8e56c1718567a4b, type: 3}
+    _ID: Game.WeaponActionModeSwitchAnimation, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 525195026eb66a34388615220dc9aac3, type: 3}
+    _ID: Game.WeaponActionModeSwitchSFX, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fa210de11d13189488fadffdb14d347e, type: 3}
+    _ID: Game.WeaponBurstActionModeDelay, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 558748b4295039f4ea627fb8141ec384, type: 3}
+    _ID: Game.WeaponBurstActionModeInputLock, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 08eb7b66ce9e0d34eb4125125c27d7a8, type: 3}
+    _ID: Game.WeaponBurstActionMode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 704d0d839ad7e1c4dbd9ebb839a8d97a, type: 3}
+    _ID: Game.WeaponAutoActionMode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 80d3f531e3f48f243befc9741a43ed90, type: 3}
+    _ID: Game.WeaponSingleActionMode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 35c38c058670bb54181fd6c13858f917, type: 3}
+    _ID: Game.WeaponActionMode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bf7b7becbd441514d83e27b145b9690c, type: 3}
+    _ID: Game.WeaponActionInput, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ffc532764926f9142bcbeda395e3ec15, type: 3}
+    _ID: Game.WeaponActionOverride, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5ca27afa7ad7a314ca2c4dc6c51a432a, type: 3}
+    _ID: Game.WeaponActionInputAnimation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4e5cf7df8db400540b29bd27b861978f, type: 3}
+    _ID: Game.WeaponAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d3662f81298887e4199e28a6e3382eb7, type: 3}
+    _ID: Game.WeaponAmmoAnimationState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fea5c71ad8bffcf409e05e3289e870c6, type: 3}
+    _ID: Game.WeaponAmmoConsumption, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: dcffd1680ac72b14bb997d30daff122f, type: 3}
+    _ID: Game.WeaponAmmoUsesProcedureChange, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e1aeb2e470b7f7647a09289939a8a174, type: 3}
+    _ID: Game.WeaponAmmo, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6a57667cf2e457241896f55697a91fc4, type: 3}
+    _ID: Game.WeaponDefaultReload, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ed3180b9d4446304390d6586a5905a2d, type: 3}
+    _ID: Game.WeaponReloadAnimation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fb935d826ae2ac04e86cdd22a4a082e0, type: 3}
+    _ID: Game.WeaponAutoReload, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2d8015be3b195ff4fa4ac82d484e688b, type: 3}
+    _ID: Game.WeaponReloadAimConstraint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0a6836be05405e244ac6f2363fffef78, type: 3}
+    _ID: Game.WeaponReload, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 042f9466560dd144ca96e28b9b207fa9, type: 3}
+    _ID: Game.WeaponInputLockOnEnable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cc820f4e3389a1742aefc999f2b642d7, type: 3}
+    _ID: Game.WeaponRPM, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8dcc8b447a8e2e348bd000933035583e, type: 3}
+    _ID: Game.WeaponConstraint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ca5a3b01cafdf1a42a894777dafedcc8, type: 3}
+    _ID: Game.WeaponDrawAnimation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9de55e68649621447872b8f4648d71d7, type: 3}
+    _ID: Game.WeaponActivation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8384c11b8ee73e64aadfd2a52d064214, type: 3}
+    _ID: Game.WeaponAimEffectGameObjectModifier, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c679e70361fb1474a87ff23aeee41d60, type: 3}
+    _ID: Game.WeaponAimEffectGlobalModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3b144a031a623034899e73f48947eb02, type: 3}
+    _ID: Game.WeaponAimEffectTypeModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6ee78fa6879e93d44a8bdc4c5c8309dc, type: 3}
+    _ID: Game.WeaponAimEffectModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cb380e9a579db0a44a5aad2a558dd759, type: 3}
+    _ID: Game.WeaponAimCameraBlurModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b9ea3029dcda3e948b6d7a6e59720d68, type: 3}
+    _ID: Game.WeaponAimFOVModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7c43776961d80e84b9cc882d26bdf7c1, type: 3}
+    _ID: Game.WeaponAimMovementSpeedModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9a7549d182982464fb43faa7e8be7726, type: 3}
+    _ID: Game.WeaponAimRendererAlphaModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 957e4f288e55d3d408abce20418055e1, type: 3}
+    _ID: Game.WeaponAimSensitivtyModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0fbedc4c5d84b7240b76b92bc3ae7be4, type: 3}
+    _ID: Game.WeaponAimSpeedModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ec41a720d85a7f140a0cb57d3fca84a1, type: 3}
+    _ID: Game.WeaponAimPropertyModifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 349a4d08798571b42b20caf9ccbb2c41, type: 3}
+    _ID: Game.WeaponAimSightManualCameraRenderOptimization, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 79e566c6238e3c24b84f831b5e0459c0, type: 3}
+    _ID: Game.WeaponAimSight, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4a1d59b7bb40d8742a41278da22130e1, type: 3}
+    _ID: Game.WeaponAimSights, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 557962cacb7fe82409662add9043d040, type: 3}
+    _ID: Game.WeaponAimAnimatorLayer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a3ea9337e68422f43b6e22b79607df77, type: 3}
+    _ID: Game.WeaponAimLerpTransform, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 46fbb80936dd67748b5403a7ec4585a7, type: 3}
+    _ID: Game.WeaponAimProceduralMotion, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 39aae417f3dbc984ba7205f9f4421dc3, type: 3}
+    _ID: Game.WeaponAimSpeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1e21522d68b41524891b81e7ad54c4d6, type: 3}
+    _ID: Game.WeaponAim, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cd274275d9e73d4419d11f3065e0f4e9, type: 3}
+    _ID: Game.WeaponConstantDamage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 203fcd49044240345b652bb6d6d91c0d, type: 3}
+    _ID: Game.WeaponDamage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2c80d3adae3a7c04986a6d71f4d5e7b3, type: 3}
+    _ID: Game.WeaponAnimationEffectsWeight, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b69970121ffd912418bb8d894f4749a4, type: 3}
+    _ID: Game.WeaponAnimationJumpEffect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e37cf16d05f7a634d90e8582874a8aa8, type: 3}
+    _ID: Game.WeaponAnimationLandEffect, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c356fadee6145f64d9bceeb6e5041e5d, type: 3}
+    _ID: Game.WeaponAnimationEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: de83d53bfd477de4195f8f9c7b9ba5b7, type: 3}
+    _ID: Game.WeaponPositionBob, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9ad41b5fe4f721f43b5e6a323d6147e8, type: 3}
+    _ID: Game.WeaponRotationBob, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 51cc4f7af0d5adf42bddac5e137f46e4, type: 3}
+    _ID: Game.WeaponBob, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b9a595292d16b9441a97ae485bfe7f00, type: 3}
+    _ID: Game.WeaponIdleMotionPosition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a9d25400fe9647040b062a49c3b6b1c3, type: 3}
+    _ID: Game.WeaponIdleMotionRotation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 605180ff9975fa8409895ea232783e73, type: 3}
+    _ID: Game.WeaponIdleMotion, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4669ea6b00abd3347a84a6ebf76edf0b, type: 3}
+    _ID: Game.WeaponPositionRecoil, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 514fc94cebf30b244904bb1f467dedbd, type: 3}
+    _ID: Game.WeaponRotationRecoil, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2e2851f0e61a49245b4c056e0eaa793a, type: 3}
+    _ID: Game.WeaponRecoil, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b2cb211d3586dc84c91410f1f8163955, type: 3}
+    _ID: Game.WeaponPositionSway, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ae1ecadfa380c7147bc796d2defda601, type: 3}
+    _ID: Game.WeaponRotationSway, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d3e75cba2bbac124c9aa85f6a4f8dbf4, type: 3}
+    _ID: Game.WeaponSway, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e5902a8b18a54404685b0cb9005567ec, type: 3}
+    _ID: Game.WeaponCameraShake, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: daf27c6305220b44a9f3e20a9e1bb909, type: 3}
+    _ID: Game.WeaponTug, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2a7af8b552039b34188d7cca23df1ac6, type: 3}
+    _ID: Game.WeaponEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2cb614b2177dfd0449090df70be442e6, type: 3}
+    _ID: Game.WeaponHitEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1148ef0c97602b24fa11fc172c926c11, type: 3}
+    _ID: Game.WeaponHitForce, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 620fd30d2bae5d042b4d4dc0e4812251, type: 3}
+    _ID: Game.WeaponHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 67c6eae6e91bc544a9fed76717281310, type: 3}
+    _ID: Game.WeaponRotatingBarrelConstraint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 590771154fe5ef641bfa84a941affd32, type: 3}
+    _ID: Game.WeaponRotatingBarrelRPMModifier, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 678f22ba5c21fa34cbf390632ce2da63, type: 3}
+    _ID: Game.WeaponRotatingBarrel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f98688304f55e164bbf2258b6cc7b872, type: 3}
+    _ID: Game.WeaponSprintAnimation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 04018776d947c9e4087bc1d051fc8262, type: 3}
+    _ID: Game.WeaponSprintConstraint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 16fa69340cd34294894168014721d010, type: 3}
+    _ID: Game.WeaponSprintAimConstraint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 65fc7b10fa7a15c43a20b3b60019600a, type: 3}
+    _ID: Game.WeaponSprint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 195fbd78187ff1a43a78af7031361214, type: 3}
+    _ID: Game.WeaponCameraBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 69e3658ac1fcf1447bd04147e8d8ed32, type: 3}
+    _ID: Game.WeaponFOV, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 87304a3245ce8c047bbde8190bf12d17, type: 3}
+    _ID: Game.WeaponMesh, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f061aa2af438e8d4387d0c7851bfd6fc, type: 3}
+    _ID: Game.WeaponMovementSpeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 92d5c8030ab45c24bbce5fb1254854cd, type: 3}
+    _ID: Game.WeaponOperation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3469bca93cf6061438465090e1ca8565, type: 3}
+    _ID: Game.WeaponPivot, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e0d9cc5e37475a4439f02cbee6b356b7, type: 3}
+    _ID: Game.WeaponRotationOnControl, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b510135769c9a8d439220a2ca813f451, type: 3}
+    _ID: Game.WeaponSensitivty, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 168104add8850b3419e146a7a27463b4, type: 3}
+    _ID: Game.WeaponStep, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5363a3c9c3b779c4c94840ef12dd7289, type: 3}
+    _ID: Game.WeaponSandbox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 993bcd065a74d904ba0390a5460247eb, type: 3}
+    _ID: Game.Weapon, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9fab5783da312594e9f5f61d8094a7a9, type: 3}
+    _ID: Game.Sandbox, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 299b0c711fc70dd46affd9e0d852becd, type: 3}
+    _ID: CameraBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6a07cb4ec2db9da47b7e96efff8a880a, type: 3}
+    _ID: DitzelGames.PostProcessingTextureOverlay.ColorEffect, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 611353c75fc99fe4f85103c11ad6551d, type: 3}
+    _ID: DitzelGames.PostProcessingTextureOverlay.HardLight, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3bba290776795de40be65e06977bd97e, type: 3}
+    _ID: DitzelGames.PostProcessingTextureOverlay.TextureOverlay, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9753335d6f48da542be1c720aa07bbf5, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.DecoratorAttribute, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 70ea2ab329ffbac43a0a02daa61dbe6b, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessEditorAttribute, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6b2666165a17bbd4e851c1382898651e, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.AttributeDecorator, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 26ed99f46b86df8449003e6ec0f65144, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.TrackballDecorator, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9f9fffe306f3969418c31ee836b6ffee, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.EffectListEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 67909952e72978b4ea41880509c936ff, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.AmbientOcclusionEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3051d2fb25301fa4a81e797109712feb, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.AutoExposureEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 47feae56b7bdcf4499b96c2aa3c6ce07, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.BloomEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f8e5f5614c0d72445b292f4b16ab660b, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.ChromaticAberrationEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f79c8927d684af6499f512361e23bace, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.ColorGradingEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4b0cd5ddb61a56b4f86ea0fd0a102fe7, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.DefaultPostProcessEffectEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: eb4c0b518e013c8418135b3bd8a91b6c, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.DepthOfFieldEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7758395f983044344b2c8ea743e956c3, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.LensDistortionEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d798d5719bf3b434eafb013385f872eb, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.ScreenSpaceReflectionsEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3869d037332a74744a54736f00d62763, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.VignetteEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 75be0b76c5da33a41a2e679cfb7f453c, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessDebugEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5a7e5d36c781f1a469ea8f981b785506, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessEffectBaseEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2c89984c2a3e6cd4492c6f695f07bae6, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessLayerEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1fcb2f1e4a7d9ba42bc5940a5611f302, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessProfileEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4e487364a0cd33f4a9ef2ed93819d4d7, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.PostProcessVolumeEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4d506bd5da20d0248bfa343c6693d655, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.CubeLutAssetFactory, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3e4b5d9a1abab984cbe0cbdb31fca939, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.CubeLutAssetImporter, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 21c950a797aa518438786fc341790e14, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.DefineSetter, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ac5668592895c1742a0c6e9d111f870b, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.ProfileFactory, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d4351734f8a0aaa42a51a99db92e92e2, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.ResourceAssetFactory, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0f3902e2aa2609f47ab0c956e56ea0bf, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.VolumeFactory, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: ce0f0631fee52da41884853337cab99d, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.CurveEditor, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 09e002b759745fa499d539b9021af38e, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.EditorUtilities, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: eff4db1c9252e5247b661dec568df962, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.GlobalSettings, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 75da50dbb3034f142a31c2a182292bc8, type: 3}
+    _ID: UnityEditor.Experimental.Rendering.PostProcessShaderIncludePath, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f48a0d4b798943a448e8d2e5d891133c, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.SerializedParameterOverride, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c884467f149574e44b21c869b7fc3401, type: 3}
+    _ID: UnityEditor.Rendering.PostProcessing.Styling, Unity.Postprocessing.Editor,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 912e288507f1e724492c7c721fa1deb8, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.DisplayNameAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8c72b20f77adb59439f8eed4f25a950a, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MaxAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 63007e9c3f71cad46a59f223a8b32d46, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MinAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1d2cae9d8c54de04fab072666ddd1e57, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MinMaxAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 28cff9aae95df994e98129a9b35627de, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 44788f6e7bbf9174181bfe4689e66131, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.TrackballAttribute, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.AmbientOcclusion, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.AutoExposure, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Bloom, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ChromaticAberration, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ColorGrading, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.DepthOfField, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 75066207954ccc44aa9d134af49040de, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Dithering, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: efd3e892ff9d0b94c94e039ad5619e5d, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.FastApproximateAntialiasing, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 62e2b920ea5fcaa4982e7fc50bf690a8, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Fog, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Grain, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.LensDistortion, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MotionBlur, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f59da4cf1b7dee244bc37fa6add23b00, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MultiScaleVO, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c564cc69bd8582a48b2e0a2090d28361, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ScalableAO, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ScreenSpaceReflections, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f3b0ecb61e2f1e54ebd4572178bfd8b1, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing,
+      Unity.Postprocessing.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5a7fc26078c70a6469392d9775f433be, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.TemporalAntialiasing, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Vignette, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cce62646e6d421c41b0aa1c300fcd0fe, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.HistogramMonitor, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 322fbe1dae0fe4a4e9645768b3944aae, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.LightMeterMonitor, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5d05ae29f423ce241b6cddfe46280b4c, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Monitor, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 279b45d82a92b4d4fa0b30d03486fa68, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.VectorscopeMonitor, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d579562c49280d84cb532cd67d19da5d, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.WaveformMonitor, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bc5d8aaf03e613843a0ecaff18e0dfbd, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ParameterOverride, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 79092fbfc2fc7394aa0754682e3089f7, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessBundle, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c520d478f3d2445429bd7ac9c92b03a3, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessDebug, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 314a03e1d67d9fb4b85926a765017e02, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessDebugLayer, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5cfe6169b379ff84eb9796502a1a144d, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessEffectRenderer, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2df5c9d441da8704c8eab449a2f79d85, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessEffectSettings, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessLayer, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 18ff20fea2d39cf428e31d3e75b4ae79, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessManager, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessProfile, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b7733f6a6fd11474e8fc598901f90fab, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessRenderContext, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 30f4b897495c7ad40b2d47143e02aaba, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessResources, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PostProcessVolume, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c3c112f1ddeedfe45839158cc4b148d4, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ColorUtilities, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 599b4e72f6c212d40819cfde14826671, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.HableCurve, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 616483d5bdbf13c43ae1b005134b8c11, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.HaltonSeq, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a4b23776a3150a74ea5ad6271a3d8f15, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.LogHistogram, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4b42fa3a7c4baed49bb4f6a56dadc03f, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.MeshUtilities, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4da61023839a0604d834e6ffde67ad52, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PropertySheet, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e034505fdac568a45af53ec1cdb0fbb3, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.PropertySheetFactory, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a2ed510c13db63f4ea5749ef503a99b5, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.RuntimeUtilities, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e4026acd2810a474b9be96bbeb80b959, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.ShaderIDs, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c687cf9a3e8607a4b991e6d445a2f9bf, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.Spline, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3ae5839b763bada47af0cca23c360452, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.TargetPool, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f8baf5b99881c054d90afcd1dffd11eb, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.TextureFormatUtilities, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f85e8d04208ed5145a521dd27d174830, type: 3}
+    _ID: UnityEngine.Rendering.PostProcessing.TextureLerper, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e1dd6739d74aedc47b8bdb3d8d8a345d, type: 3}
+    _ID: ScriptCreationPreprocessor, ScriptCreationPreprocessor, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6f72aa6eab9392548b9e9d92eb6b2ef8, type: 3}
+    _ID: UnityEditor.EventSystems.EventSystemEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 37b164a494cd92a498526852ecceedef, type: 3}
+    _ID: UnityEditor.EventSystems.EventTriggerEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1143ae6bb91836f4a8f8ebfaabb9396d, type: 3}
+    _ID: UnityEditor.EventSystems.Physics2DRaycasterEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e976a5e755c7016418f66e15223c1b90, type: 3}
+    _ID: UnityEditor.EventSystems.PhysicsRaycasterEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b5f70efd2f7b286498ca6c00adbb4a13, type: 3}
+    _ID: UnityEditor.UI.AspectRatioFitterEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 472a6f18dd2f97c41af72271d22db869, type: 3}
+    _ID: UnityEditor.UI.ButtonEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3bce033ee26244e419b3bb3bba95a37d, type: 3}
+    _ID: UnityEditor.UI.CanvasScalerEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 35d143b352678294ab0f5feb97b67f88, type: 3}
+    _ID: UnityEditor.UI.ContentSizeFitterEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 05f582d4fbc8e0c40afccb76bbbe0935, type: 3}
+    _ID: UnityEditor.UI.DropdownEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c890977a36bfdc849872b9337ab89098, type: 3}
+    _ID: UnityEditor.UI.GraphicEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 6a981cd1456bec84b86e1c66773f57f5, type: 3}
+    _ID: UnityEditor.UI.GridLayoutGroupEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cb319974ad8ebd44aa1e1fbb02640b5b, type: 3}
+    _ID: UnityEditor.UI.HorizontalOrVerticalLayoutGroupEditor, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b759d61544e231c41bc88530b1d94ee8, type: 3}
+    _ID: UnityEditor.UI.ImageEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 21d2d5d6901f2ca43a8015c60ada4e2c, type: 3}
+    _ID: UnityEditor.UI.InputFieldEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 127023922adddf744b59fa7b0b0c3030, type: 3}
+    _ID: UnityEditor.Events.InterceptedEventsPreview, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7693972390a4ed841a986c0c452c1058, type: 3}
+    _ID: UnityEditor.UI.LayoutElementEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 794f3951c48395848920fdb593a2ae38, type: 3}
+    _ID: UnityEditor.Events.LayoutPropertiesPreview, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b10cb8fee5b39014d8a417bf413f5e5c, type: 3}
+    _ID: UnityEditor.UI.MaskEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f867743975592a743a3581ff042bcc25, type: 3}
+    _ID: UnityEditor.UI.MenuOptions, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a62706dc421fc9b4fa368a8050a930f7, type: 3}
+    _ID: UnityEditor.UI.PrefabLayoutRebuilder, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c18288a8d31fc9043a807ee8a9f1ae64, type: 3}
+    _ID: UnityEditor.UI.AnimationTriggersDrawer, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b825fd5f27403b84f97726dd9c5a5e6f, type: 3}
+    _ID: UnityEditor.UI.ColorBlockDrawer, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1385bc74f3945c943be16ecbb1381063, type: 3}
+    _ID: UnityEditor.UI.DropdownOptionListDrawer, UnityEditor.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fea12beeeb5a7a448b5e60f50e40975d, type: 3}
+    _ID: UnityEditor.UI.FontDataDrawer, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fb27f3049fe06c246803a4a4c5b7fda3, type: 3}
+    _ID: UnityEditor.UI.NavigationDrawer, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 728d2c19676ea3743aaa087aa28c4a16, type: 3}
+    _ID: UnityEditor.UI.SpriteStateDrawer, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e6413f4090046814d802ddbff9890878, type: 3}
+    _ID: UnityEditor.UI.RawImageEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 58e7d991249847640b1534192721c5ea, type: 3}
+    _ID: UnityEditor.UI.RectMask2DEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f700f31b2e40d7f4bb69753fdbbbc2b5, type: 3}
+    _ID: UnityEditor.UI.ScrollbarEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 56ba6cb160ebfc042b48224bd1a35614, type: 3}
+    _ID: UnityEditor.UI.ScrollRectEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e9253e696cd45794d9aec6d4de366b6e, type: 3}
+    _ID: UnityEditor.UI.SelectableEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: dcf00682bef4d264d84a5c92c8f5a40f, type: 3}
+    _ID: UnityEditor.UI.SelfControllerEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bc98484caab3b6d4facbcff38be93380, type: 3}
+    _ID: UnityEditor.UI.SliderEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 260b531edc40677429c0198d6961e448, type: 3}
+    _ID: UnityEditor.UI.SpriteDrawUtility, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1336690ece4db2740b4ba38873e00dfb, type: 3}
+    _ID: UnityEditor.UI.TextEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d36a7c7a1ed377c4b8008e53032d7dcf, type: 3}
+    _ID: UnityEditor.UI.ToggleEditor, UnityEditor.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b180fd8310805e44dbbef545d0231418, type: 3}
+    _ID: UnityEngine.EventSystems.AxisEventData, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 91f495459b6e34f419ac123740d798b1, type: 3}
+    _ID: UnityEngine.EventSystems.BaseEventData, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 75df57ccb1e44c64085399277405e1ca, type: 3}
+    _ID: UnityEngine.EventSystems.PointerEventData, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+    _ID: UnityEngine.EventSystems.EventSystem, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+    _ID: UnityEngine.EventSystems.EventTrigger, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 623c79a1e113b4941afdbfc88d19e8fd, type: 3}
+    _ID: UnityEngine.EventSystems.ExecuteEvents, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1511ccae7919cfc46b603b9b337fdc94, type: 3}
+    _ID: UnityEngine.EventSystems.BaseInput, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1ea10891dd782154ca0fb67bce9e6f72, type: 3}
+    _ID: UnityEngine.EventSystems.BaseInputModule, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cbab8835092323a4389f2dc7d8f6c781, type: 3}
+    _ID: UnityEngine.EventSystems.PointerInputModule, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+    _ID: UnityEngine.EventSystems.StandaloneInputModule, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2d49b7c1bcd2e07499844da127be038d, type: 3}
+    _ID: UnityEngine.EventSystems.TouchInputModule, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 26570be2af04195458e6f1ac1f5c48e0, type: 3}
+    _ID: UnityEngine.EventSystems.RaycasterManager, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 426106349a0ff964fa4e7178c1d3a4f5, type: 3}
+    _ID: UnityEngine.EventSystems.BaseRaycaster, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+    _ID: UnityEngine.EventSystems.Physics2DRaycaster, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+    _ID: UnityEngine.EventSystems.PhysicsRaycaster, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0aaa057ce5566e940b18a0ccd0344693, type: 3}
+    _ID: UnityEngine.EventSystems.UIBehaviour, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c67ac6e40bbb6fe47a095b949b609ce0, type: 3}
+    _ID: UnityEngine.UI.AnimationTriggers, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+    _ID: UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bfb788a43e03363419155b8af77da971, type: 3}
+    _ID: UnityEngine.UI.CanvasUpdateRegistry, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9f1026265f8e3d54fb6e9f082c43debf, type: 3}
+    _ID: UnityEngine.UI.ClipperRegistry, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 67e3583b91179094094c6a188b232262, type: 3}
+    _ID: UnityEngine.UI.Clipping, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c606041f02fc7d542b1429806872292b, type: 3}
+    _ID: UnityEngine.UI.RectangularVertexClipper, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: bf87e20fb5440ec498f441167b5291f8, type: 3}
+    _ID: UnityEngine.UI.DefaultControls, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
+    _ID: UnityEngine.UI.Dropdown, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 13cd966480ec3354bb318ee1aeccff6f, type: 3}
+    _ID: UnityEngine.UI.FontData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 39ab466162988eb4f83443f911bbf5c8, type: 3}
+    _ID: UnityEngine.UI.FontUpdateTracker, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a6238e9452bfc704f82ff36791fe1a45, type: 3}
+    _ID: UnityEngine.UI.Graphic, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+    _ID: UnityEngine.UI.GraphicRaycaster, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 445cdcfc747eba94288b97f5869aa2fb, type: 3}
+    _ID: UnityEngine.UI.GraphicRebuildTracker, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 69e3979b7029e8a4da2d96b714ba5c3a, type: 3}
+    _ID: UnityEngine.UI.GraphicRegistry, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+    _ID: UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+    _ID: UnityEngine.UI.InputField, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+    _ID: UnityEngine.UI.AspectRatioFitter, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+    _ID: UnityEngine.UI.CanvasScaler, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+    _ID: UnityEngine.UI.ContentSizeFitter, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+    _ID: UnityEngine.UI.GridLayoutGroup, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+    _ID: UnityEngine.UI.HorizontalLayoutGroup, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: a5c214e5846a99242b348c37e49b2f59, type: 3}
+    _ID: UnityEngine.UI.HorizontalOrVerticalLayoutGroup, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+    _ID: UnityEngine.UI.LayoutElement, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cb7c939a806f03341b682c180dc13f08, type: 3}
+    _ID: UnityEngine.UI.LayoutGroup, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 006633c8a6f4ae94aa9babf72234e1a2, type: 3}
+    _ID: UnityEngine.UI.LayoutRebuilder, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 82bf3f737dec0be43a60891958a8da87, type: 3}
+    _ID: UnityEngine.UI.LayoutUtility, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+    _ID: UnityEngine.UI.VerticalLayoutGroup, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+    _ID: UnityEngine.UI.Mask, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 976acc75bfafe594cb01142ba21947be, type: 3}
+    _ID: UnityEngine.UI.MaskableGraphic, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7bd96d76711152648a736c4d28d865f2, type: 3}
+    _ID: UnityEngine.UI.MaskUtilities, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 828075bc53f2de84982a943870529b7b, type: 3}
+    _ID: UnityEngine.UI.Misc, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5ebeb75bd91642048bb3f6c1939fde66, type: 3}
+    _ID: UnityEngine.UI.MultipleDisplayUtilities, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+    _ID: UnityEngine.UI.RawImage, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+    _ID: UnityEngine.UI.RectMask2D, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+    _ID: UnityEngine.UI.Scrollbar, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+    _ID: UnityEngine.UI.ScrollRect, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 7a98125502f715b4b83cfb77b434e436, type: 3}
+    _ID: UnityEngine.UI.Selectable, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: b9ba34e0b1884454fbc4257260e22b64, type: 3}
+    _ID: UnityEngine.UI.SetPropertyUtility, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+    _ID: UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 69ae55f76840b2849ba56cfb53a17df0, type: 3}
+    _ID: UnityEngine.UI.StencilMaterial, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+    _ID: UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+    _ID: UnityEngine.UI.Toggle, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+    _ID: UnityEngine.UI.ToggleGroup, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: fcae021c30eccf74790a4e816ba97c19, type: 3}
+    _ID: UnityEngine.UI.ReflectionMethodsCache, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c459424081436584c8cec10767f9ac38, type: 3}
+    _ID: UnityEngine.UI.VertexHelper, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 718966f960cb50643986195e5fe953ca, type: 3}
+    _ID: UnityEngine.UI.BaseMeshEffect, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+    _ID: UnityEngine.UI.Outline, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 020ee4c1798a3d243a4b8cbfee6cac2d, type: 3}
+    _ID: UnityEngine.UI.PositionAsUV1, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+    _ID: UnityEngine.UI.Shadow, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null

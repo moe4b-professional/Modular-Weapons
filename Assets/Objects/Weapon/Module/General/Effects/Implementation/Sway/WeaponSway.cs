@@ -76,15 +76,6 @@ namespace Game
 
         public Modifier.Scale Scale { get; protected set; }
 
-        public Modules<WeaponSway> Modules { get; protected set; }
-        public class Module : Weapon.Behaviour, IModule<WeaponSway>
-        {
-            public WeaponSway Sway { get; protected set; }
-            public virtual void Set(WeaponSway value) => Sway = value;
-
-            public Weapon Weapon => Sway.Weapon;
-        }
-
         public IProcessor Processor { get; protected set; }
         public interface IProcessor : Weapon.IProcessor
         {
@@ -93,6 +84,15 @@ namespace Game
             Vector2 LookDelta { get; }
 
             Vector3 RelativeVelocity { get; }
+        }
+
+        public Modules<WeaponSway> Modules { get; protected set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponSway>
+        {
+            public WeaponSway Sway { get; protected set; }
+            public virtual void Set(WeaponSway value) => Sway = value;
+
+            public Weapon Weapon => Sway.Weapon;
         }
 
         public override void Set(Weapon value)
@@ -131,6 +131,7 @@ namespace Game
 
             Target = Vector2.Lerp(Value, Vector2.zero, speed.Reset * Time.deltaTime);
         }
+
         protected virtual void CalculateTarget()
         {
             Target = Vector3.zero;
@@ -146,6 +147,52 @@ namespace Game
 
                 Target = -Target;
             }
+        }
+
+        public abstract class Effect : Module
+        {
+            [SerializeField]
+            protected float multiplier = 1f;
+            public float Multiplier { get { return multiplier; } }
+
+            public abstract Vector3 Scale { get; }
+
+            public Vector3 Offset { get; protected set; }
+
+            public Transform Context => Sway.Context;
+
+            public WeaponSway.IProcessor Processor => Sway.Processor;
+
+            public Transform Anchor => Processor.Anchor;
+
+            protected virtual void Reset()
+            {
+
+            }
+
+            public override void Configure()
+            {
+                base.Configure();
+
+                Offset = Vector3.zero;
+            }
+
+            public override void Init()
+            {
+                base.Init();
+
+                Weapon.OnProcess += Process;
+
+                Sway.Anchor.OnWriteDefaults += Write;
+            }
+
+            protected virtual void Process()
+            {
+                CalculateOffset();
+            }
+            protected abstract void CalculateOffset();
+
+            protected abstract void Write();
         }
     }
 }

@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponPositionBob : WeaponBobEffect
+	public class WeaponPositionBob : WeaponBob.Effect
     {
         [SerializeField]
         protected float range = 0.0035f;

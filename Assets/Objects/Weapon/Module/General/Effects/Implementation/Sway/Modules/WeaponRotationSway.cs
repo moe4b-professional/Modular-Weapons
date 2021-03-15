@@ -17,30 +17,34 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using UnityEngine.Serialization;
+
 namespace Game
 {
-	public class WeaponPositionSway : WeaponSwayEffect
+	public class WeaponRotationSway : WeaponSway.Effect
     {
         [SerializeField]
-        [LabeledVector(VectorLabels.Position)]
-        protected Vector3 effect = new Vector3(0.01f, 0.02f, 0.03f);
-        public override Vector3 Effect => effect;
+        [FormerlySerializedAs("effect")]
+        [LabeledVector(VectorLabels.Rotation)]
+        protected Vector3 scale = new Vector3(10, 5, 5);
+        public override Vector3 Scale => scale;
 
         protected override void Reset()
         {
             base.Reset();
 
-            multiplier = 0.2f;
+            multiplier = 1f;
         }
 
         protected override void CalculateOffset()
         {
             Offset = Vector3.zero;
 
-            if (enabled)
+            if(enabled)
             {
-                Offset += Vector3.right * effect.x * Sway.Value.x;
-                Offset += Vector3.up * effect.y * Sway.Value.y;
+                Offset += Vector3.right * scale.x * -Sway.Value.y;
+                Offset += Vector3.up * scale.y * Sway.Value.x;
+                Offset += Vector3.forward * scale.z * Sway.Value.x;
 
                 Offset *= multiplier * Sway.Scale.Value;
             }
@@ -48,7 +52,9 @@ namespace Game
 
         protected override void Write()
         {
-            Context.Translate(Offset, Anchor);
+            Context.Rotate(Anchor.right, Offset.x, Space.World);
+            Context.Rotate(Anchor.up, Offset.y, Space.World);
+            Context.Rotate(Anchor.forward, Offset.z, Space.World);
         }
     }
 }

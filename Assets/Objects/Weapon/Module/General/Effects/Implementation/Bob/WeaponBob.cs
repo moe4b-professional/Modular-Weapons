@@ -69,5 +69,36 @@ namespace Game
 
             Weapon.Effects.Register(this);
         }
-	}
+
+        public abstract class Effect : Module
+        {
+            public Vector3 Offset { get; protected set; }
+
+            public Transform Context => Bob.Context;
+
+            public WeaponBob.IProcessor Processor => Bob.Processor;
+
+            protected virtual void Reset()
+            {
+
+            }
+
+            public override void Init()
+            {
+                base.Init();
+
+                Weapon.OnProcess += Process;
+
+                Bob.Anchor.OnWriteDefaults += Write;
+            }
+
+            protected virtual void Process()
+            {
+                CalculateOffset();
+            }
+            protected abstract void CalculateOffset();
+
+            protected abstract void Write();
+        }
+    }
 }

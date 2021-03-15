@@ -16,49 +16,12 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using System.Reflection;
 
 namespace Game
 {
 	public class Sandbox : MonoBehaviour
 	{
-        public A a;
-        [Serializable]
-        public class A
-        {
-            [WeightValue("Left", "Right")]
-            public WeightValue weight;
-
-            public float number;
-
-            public B b;
-            [Serializable]
-            public class B
-            {
-                [WeightValue("Left", "Right")]
-                public WeightValue weight;
-
-                public float number;
-
-                public C c;
-                [Serializable]
-                public class C
-                {
-                    [WeightValue("Left", "Right")]
-                    public WeightValue weight;
-
-                    public float number;
-
-                    public D d;
-                    [Serializable]
-                    public class D
-                    {
-                        [WeightValue("Left", "Right")]
-                        public WeightValue weight;
-
-                        public float number;
-                    }
-                }
-            }
-        }
+        
     }
 }
