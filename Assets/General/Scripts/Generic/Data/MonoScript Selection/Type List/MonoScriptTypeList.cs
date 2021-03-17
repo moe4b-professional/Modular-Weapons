@@ -19,16 +19,41 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	[CreateAssetMenu]
-	public class MonoScriptTypeList : ScriptableObject
-	{
+    [CreateAssetMenu]
+    public class MonoScriptTypeList : ScriptableObject
+    {
         public static MonoScriptTypeList Instance { get; protected set; }
+
+#if UNITY_EDITOR
+        [InitializeOnLoadMethod]
+#else
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+#endif
+        static void OnLoad()
+        {
+            var list = Resources.LoadAll<MonoScriptTypeList>("");
+
+            if (list.Length == 0)
+            {
+                Debug.LogError($"No {nameof(MonoScriptTypeList)} Asset Found");
+                return;
+            }
+            else
+            {
+                Instance = list[0];
+
+                if (list.Length > 1)
+                    Debug.LogWarning($"Multiple {nameof(MonoScriptTypeList)}s Found, Please Ensure That Only One Exists");
+            }
+
+            Instance.Configure();
+        }
 
         [SerializeField]
         List<Element> list = default;
         public List<Element> List => list;
         [Serializable]
-		public class Element
+        public class Element
         {
             [SerializeField]
             Object asset;
@@ -60,20 +85,14 @@ namespace Game
 
         public Glossary<Type, Object> Glossary { get; protected set; }
 
+        public Object this[Type type] => Glossary[type];
         public bool Contains(Type type) => Glossary.Contains(type);
+
+        public Type this[Object script] => Glossary[script];
         public bool Contains(Object script) => Glossary.Contains(script);
 
-        public Object this[Type type] => Glossary[type];
-        public Type this[Object script] => Glossary[script];
-
-        void OnEnable()
+        void Configure()
         {
-            if (Instance != this)
-            {
-                Debug.LogWarning("Duplicate MonoScript Type Lists Found");
-                return;
-            }
-
 #if UNITY_EDITOR
             Refresh();
 #endif
@@ -133,18 +152,6 @@ namespace Game
             }
 
             OnRegister?.Invoke();
-        }
-
-        public MonoScriptTypeList()
-        {
-            Instance = this;
-        }
-
-        [RuntimeInitializeOnLoadMethod]
-        void OnLoad()
-        {
-            //To ensure that the scriptable object is force loaded and kept in builds
-            Resources.LoadAll<MonoScriptTypeList>("");
         }
     }
 }
