@@ -139,5 +139,12 @@ namespace Game
         {
             Instance = this;
         }
+
+        [RuntimeInitializeOnLoadMethod]
+        void OnLoad()
+        {
+            //To ensure that the scriptable object is force loaded and kept in builds
+            Resources.LoadAll<MonoScriptTypeList>("");
+        }
     }
 }

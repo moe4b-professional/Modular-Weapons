@@ -67,16 +67,16 @@ namespace Game
 			}
 
 			static TypeCache()
-            {
+			{
 				Dictionary = new Dictionary<Object, Type>();
-            }
+			}
 		}
 
 		public static MonoScriptTypeList TypeList => MonoScriptTypeList.Instance;
 
 #if UNITY_EDITOR
 		public static class Bindings
-        {
+		{
 			public static Dictionary<Type, Element> Dictionary { get; private set; }
 
 			public class Element
@@ -88,18 +88,29 @@ namespace Game
 
 				public GUIContent[] Content { get; protected set; }
 
-                public Element(Glossary<int, Type> glossary, GUIContent[] content)
-                {
+				public Element(Glossary<int, Type> glossary, GUIContent[] content)
+				{
 					this.Glossary = glossary;
 					this.Content = content;
-                }
+				}
 			}
 
-			static Bindings()
-            {
-				Dictionary = new Dictionary<Type, Element>();
-            }
+			public static bool Contains(Type argument) => Dictionary.ContainsKey(argument);
 
+			public static void Register<T>() => Register(typeof(T));
+			public static void Register(Type argument)
+            {
+				var list = new List<Type>();
+
+				for (int i = 0; i < TypeList.Count; i++)
+				{
+					if (argument.IsAssignableFrom(TypeList[i].Type) == false) continue;
+
+					list.Add(TypeList[i].Type);
+				}
+
+				Register(argument, list);
+			}
 			public static void Register(Type argument, IList<Type> list)
 			{
 				var glossary = new Glossary<int, Type>(list.Count);
@@ -118,10 +129,15 @@ namespace Game
 
 				Dictionary[argument] = new Element(glossary, content);
 			}
+
+			static Bindings()
+			{
+				Dictionary = new Dictionary<Type, Element>();
+			}
 		}
 
 		public static class Arguments
-        {
+		{
 			public static Dictionary<string, Type> Cache { get; private set; }
 
 			public static Type Load(SerializedProperty property)
@@ -165,9 +181,9 @@ namespace Game
 			}
 
 			static Arguments()
-            {
+			{
 				Cache = new Dictionary<string, Type>();
-            }
+			}
 		}
 
 		[CustomPropertyDrawer(typeof(MonoScriptSelection), true)]
@@ -188,6 +204,8 @@ namespace Game
 				property = reference;
 
 				argument = Arguments.Load(property);
+
+				if (Bindings.Contains(argument) == false) Bindings.Register(argument);
 
 				binding = Bindings.Dictionary[argument];
 
@@ -272,47 +290,11 @@ namespace Game
 
 			return builder.ToString();
 		}
-
-		static MonoScriptSelection()
-        {
-			
-        }
-
-		[RuntimeInitializeOnLoadMethod]
-		static void OnLoad()
-        {
-			Resources.LoadAll<MonoScriptTypeList>("");
-		}
 	}
 
 	[Serializable]
 	public abstract class MonoScriptSelection<T> : MonoScriptSelection
 	{
 		public override Type Argument => typeof(T);
-
-		static MonoScriptSelection()
-		{
-#if UNITY_EDITOR
-			MonoScriptTypeList.OnRegister += Register;
-#endif
-		}
-
-#if UNITY_EDITOR
-		static void Register()
-		{
-			var argument = typeof(T);
-
-			var list = new List<Type>();
-
-			for (int i = 0; i < TypeList.Count; i++)
-			{
-				if (argument.IsAssignableFrom(TypeList[i].Type) == false) continue;
-
-				list.Add(TypeList[i].Type);
-			}
-
-			Bindings.Register(argument, list);
-		}
-#endif
 	}
 }

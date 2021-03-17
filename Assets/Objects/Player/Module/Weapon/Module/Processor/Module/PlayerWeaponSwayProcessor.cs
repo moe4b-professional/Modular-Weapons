@@ -21,7 +21,7 @@ namespace Game
 {
 	public class PlayerWeaponSwayProcessor : PlayerWeapons.Processor, WeaponSway.IProcessor
     {
-        public Transform Anchor => Player.Controller.camera.transform;
+        public Transform Axis => Player.Controller.camera.transform;
 
         public Vector2 LookDelta => Player.Controller.Look.Delta;
 

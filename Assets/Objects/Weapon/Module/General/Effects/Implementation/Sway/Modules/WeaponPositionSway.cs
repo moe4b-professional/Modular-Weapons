@@ -42,8 +42,8 @@ namespace Game
 
             if (enabled)
             {
-                Offset += Vector3.right * scale.x * Sway.Value.x;
-                Offset += Vector3.up * scale.y * Sway.Value.y;
+                Offset += Vector3.left * scale.x * Sway.Value.x;
+                Offset += Vector3.down * scale.y * Sway.Value.y;
 
                 Offset *= multiplier * Sway.Scale.Value;
             }
@@ -51,7 +51,7 @@ namespace Game
 
         protected override void Write()
         {
-            Context.Translate(Offset, Anchor);
+            Anchor.transform.Translate(Offset, Axis);
         }
     }
 }

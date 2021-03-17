@@ -52,9 +52,9 @@ namespace Game
 
         protected override void Write()
         {
-            Context.Rotate(Anchor.right, Offset.x, Space.World);
-            Context.Rotate(Anchor.up, Offset.y, Space.World);
-            Context.Rotate(Anchor.forward, Offset.z, Space.World);
+            Anchor.transform.Rotate(Axis.right, Offset.x, Space.World);
+            Anchor.transform.Rotate(Axis.up, Offset.y, Space.World);
+            Anchor.transform.Rotate(Axis.forward, Offset.z, Space.World);
         }
     }
 }

@@ -25,8 +25,6 @@ namespace Game
         protected TransformAnchor anchor;
         public TransformAnchor Anchor { get { return anchor; } }
 
-        public Transform Context => anchor.transform;
-
         [SerializeField]
         protected MultiplierData multiplier = new MultiplierData(0.3f, 0.2f);
         public MultiplierData Multiplier { get { return multiplier; } }
@@ -79,7 +77,7 @@ namespace Game
         public IProcessor Processor { get; protected set; }
         public interface IProcessor : Weapon.IProcessor
         {
-            Transform Anchor { get; }
+            Transform Axis { get; }
 
             Vector2 LookDelta { get; }
 
@@ -153,17 +151,15 @@ namespace Game
         {
             [SerializeField]
             protected float multiplier = 1f;
-            public float Multiplier { get { return multiplier; } }
+            public float Multiplier => multiplier;
 
             public abstract Vector3 Scale { get; }
 
             public Vector3 Offset { get; protected set; }
 
-            public Transform Context => Sway.Context;
+            public TransformAnchor Anchor => Sway.Anchor;
 
-            public WeaponSway.IProcessor Processor => Sway.Processor;
-
-            public Transform Anchor => Processor.Anchor;
+            public Transform Axis => Sway.Processor.Axis;
 
             protected virtual void Reset()
             {

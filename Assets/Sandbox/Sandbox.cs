@@ -20,8 +20,8 @@ using System.Reflection;
 
 namespace Game
 {
-	public class Sandbox : MonoBehaviour
-	{
-        
+    public class Sandbox : MonoBehaviour
+    {
+
     }
 }
