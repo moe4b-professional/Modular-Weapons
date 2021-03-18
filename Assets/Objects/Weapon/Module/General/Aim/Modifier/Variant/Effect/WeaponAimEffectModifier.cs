@@ -51,6 +51,12 @@ namespace Game
 
         protected virtual void Register(WeaponEffects.IInterface effect)
         {
+            if (Targets.Contains(effect))
+            {
+                Debug.LogWarning($"Duplicate Effect Registeration for {effect} in {this}, Ignored");
+                return;
+            }
+
             Targets.Add(effect);
 
             effect.Scale.Add(Modifier);

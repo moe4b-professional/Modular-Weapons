@@ -26,6 +26,9 @@ namespace Game
         {
             bool enabled { get; set; }
 
+            GameObject gameObject { get; }
+            Transform transform { get; }
+
             Modifier.Scale Scale { get; }
         }
 

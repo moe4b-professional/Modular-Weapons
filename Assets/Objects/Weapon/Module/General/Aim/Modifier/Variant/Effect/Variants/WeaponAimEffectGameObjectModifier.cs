@@ -22,21 +22,9 @@ namespace Game
 	public class WeaponAimEffectGameObjectModifier : WeaponAimEffectModifier
     {
         [SerializeField]
-        protected GameObject[] source;
-        public GameObject[] Source { get { return source; } }
+        protected GameObject source;
+        public GameObject Source { get { return source; } }
 
-        public override void Configure()
-        {
-            base.Configure();
-
-            for (int i = 0; i < source.Length; i++)
-            {
-                var instances = Dependancy.GetAll<WeaponEffects.IInterface>(source[i]);
-
-                Targets.AddRange(instances);
-            }
-        }
-
-        public override bool IsTarget(WeaponEffects.IInterface effect) => Targets.Contains(effect);
+        public override bool IsTarget(WeaponEffects.IInterface effect) => effect.transform.IsChildOf(source.transform);
     }
 }
