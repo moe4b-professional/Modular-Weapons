@@ -22,6 +22,6 @@ namespace Game
 {
     public class Sandbox : MonoBehaviour
     {
-
+        public WeaponEffects.TypeSelection selection;
     }
 }

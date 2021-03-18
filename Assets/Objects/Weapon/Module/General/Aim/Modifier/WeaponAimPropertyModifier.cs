@@ -50,13 +50,6 @@ namespace Game
             Sight = reference;
         }
 
-        public override void Configure()
-        {
-            base.Configure();
-
-
-        }
-
         protected virtual void Reset()
         {
 
