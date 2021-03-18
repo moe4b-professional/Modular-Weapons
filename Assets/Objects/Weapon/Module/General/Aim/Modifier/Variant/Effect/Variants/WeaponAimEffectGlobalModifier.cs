@@ -19,8 +19,26 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponAimEffectGlobalModifier : WeaponAimEffectModifier
+    public class WeaponAimEffectGlobalModifier : WeaponAimEffectModifier
     {
-        public override bool IsTarget(WeaponEffects.IInterface effect) => true;
+        public List<WeaponAimEffectModifier> Overrides { get; protected set; }
+
+        public override void Init()
+        {
+            base.Init();
+
+            Overrides = Aim.Modules.FindAll<WeaponAimEffectModifier>();
+
+            Overrides.RemoveAll(x => x is WeaponAimEffectGlobalModifier);
+        }
+
+        public override bool IsTarget(WeaponEffects.IInterface effect)
+        {
+            for (int i = 0; i < Overrides.Count; i++)
+                if (Overrides[i].IsTarget(effect))
+                    return false;
+
+            return true;
+        }
     }
 }
