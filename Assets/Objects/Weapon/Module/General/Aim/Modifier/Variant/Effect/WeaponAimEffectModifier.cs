@@ -25,34 +25,11 @@ namespace Game
         protected ValueRange range = new ValueRange(0.3f, 1f);
         public ValueRange Range { get { return range; } }
 
-        public List<Element> Elements { get; protected set; }
-        [Serializable]
-        public class Element
-        {
-            public WeaponAimEffectModifier EffectModifier { get; protected set; }
-
-            public WeaponEffects.IInterface Target { get; protected set; }
-
-            public float Value => EffectModifier.Value;
-
-            public float Modifier() => Value;
-
-            protected virtual void Register()
-            {
-                Target.Scale.Add(Modifier);
-            }
-
-            public Element(WeaponAimEffectModifier modifier, WeaponEffects.IInterface target)
-            {
-                this.EffectModifier = modifier;
-
-                this.Target = target;
-
-                Register();
-            }
-        }
+        public List<WeaponEffects.IInterface> Targets { get; protected set; }
 
         public virtual float Value => Mathf.Lerp(range.Max, range.Min, Rate);
+
+        float Modifier() => Value;
 
         public WeaponEffects Effects => Weapon.Effects;
 
@@ -60,7 +37,7 @@ namespace Game
         {
             base.Configure();
 
-            Elements = new List<Element>();
+            Targets = new List<WeaponEffects.IInterface>();
 
             Effects.OnRegister += EffectRegisterCallback;
         }
@@ -70,13 +47,13 @@ namespace Game
             if (IsTarget(effect)) Register(effect);
         }
 
+        public abstract bool IsTarget(WeaponEffects.IInterface effect);
+
         protected virtual void Register(WeaponEffects.IInterface effect)
         {
-            var element = new Element(this, effect);
+            Targets.Add(effect);
 
-            Elements.Add(element);
+            effect.Scale.Add(Modifier);
         }
-
-        public abstract bool IsTarget(WeaponEffects.IInterface effect);
     }
 }

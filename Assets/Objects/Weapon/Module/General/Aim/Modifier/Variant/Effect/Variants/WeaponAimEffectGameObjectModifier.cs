@@ -25,13 +25,9 @@ namespace Game
         protected GameObject[] source;
         public GameObject[] Source { get { return source; } }
 
-        public List<WeaponEffects.IInterface> Targets { get; protected set; }
-
         public override void Configure()
         {
             base.Configure();
-
-            Targets = new List<WeaponEffects.IInterface>();
 
             for (int i = 0; i < source.Length; i++)
             {

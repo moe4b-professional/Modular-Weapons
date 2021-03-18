@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.t4.script-creation-preprocessor": {
-      "version": "file:C:/Files/Unity/Packages/Script Creation Preprocessor",
+      "version": "https://github.com/moe4b-packages/Script-Creation-Preprocessor.git",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "cce8ac2edc2d332b31cbc30400c5bec7fc98eb65"
     },
     "com.unity.postprocessing": {
       "version": "2.3.0",
