@@ -1,11 +1,18 @@
 {
   "dependencies": {
+    "com.t4.assembly-symbol-define": {
+      "version": "https://github.com/moe4b-packages/Assembly-Symbol-Define.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0bb5fa19b6c2b648265703c166c7a473679f631d"
+    },
     "com.t4.script-creation-preprocessor": {
       "version": "https://github.com/moe4b-packages/Script-Creation-Preprocessor.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "cce8ac2edc2d332b31cbc30400c5bec7fc98eb65"
+      "hash": "f9ef34385cea17beded26d45e8b855a17047389a"
     },
     "com.unity.postprocessing": {
       "version": "2.3.0",

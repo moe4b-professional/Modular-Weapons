@@ -667,6 +667,9 @@ MonoBehaviour:
   - asset: {fileID: 11500000, guid: 3bba290776795de40be65e06977bd97e, type: 3}
     _ID: DitzelGames.PostProcessingTextureOverlay.TextureOverlay, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e62e0b06f5f06ff4f9a86d0f946b8b42, type: 3}
+    _ID: AssemblySymbolDefine, Assembly-Symbol-Define, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 9753335d6f48da542be1c720aa07bbf5, type: 3}
     _ID: UnityEditor.Rendering.PostProcessing.DecoratorAttribute, Unity.Postprocessing.Editor,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -925,8 +928,8 @@ MonoBehaviour:
   - asset: {fileID: 11500000, guid: f85e8d04208ed5145a521dd27d174830, type: 3}
     _ID: UnityEngine.Rendering.PostProcessing.TextureLerper, Unity.Postprocessing.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - asset: {fileID: 11500000, guid: e1dd6739d74aedc47b8bdb3d8d8a345d, type: 3}
-    _ID: ScriptCreationPreprocessor, ScriptCreationPreprocessor, Version=0.0.0.0,
+  - asset: {fileID: 11500000, guid: 54a3e478e716b924bbe3c15d79ae0eea, type: 3}
+    _ID: ScriptCreationPreprocessor, Script-Creation-Preprocessor, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 6f72aa6eab9392548b9e9d92eb6b2ef8, type: 3}
     _ID: UnityEditor.EventSystems.EventSystemEditor, UnityEditor.UI, Version=1.0.0.0,
