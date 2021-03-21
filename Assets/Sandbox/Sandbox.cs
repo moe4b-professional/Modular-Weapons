@@ -24,5 +24,8 @@ namespace Game
     public class Sandbox : MonoBehaviour
     {
         public WeaponEffects.TypeSelection selection;
+
+        public Dictionary dictionary;
+        [Serializable] public class Dictionary : UCollections.UDictionary<string, string> { }
     }
 }

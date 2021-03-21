@@ -931,6 +931,20 @@ MonoBehaviour:
   - asset: {fileID: 11500000, guid: 54a3e478e716b924bbe3c15d79ae0eea, type: 3}
     _ID: ScriptCreationPreprocessor, Script-Creation-Preprocessor, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 07de25cd41656bf4e9b87ebb24ccf754, type: 3}
+    _ID: UCollections.UDictionaryExample, UCollections, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 52c3fbe9d47f88d45966137c46834c27, type: 3}
+    _ID: UCollections.UHashSetExample, UCollections, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 09a0d5b11708b8c4490ec43d5ba6254a, type: 3}
+    _ID: UCollections.UCollection, UCollections, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: c81d2184dcf7ccd43b766cdcca7b84ec, type: 3}
+    _ID: UCollections.UDictionary, UCollections, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: dc64a5d32d0b45645965e1c52e0027f4, type: 3}
+    _ID: UCollections.UHashSet, UCollections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 6f72aa6eab9392548b9e9d92eb6b2ef8, type: 3}
     _ID: UnityEditor.EventSystems.EventSystemEditor, UnityEditor.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null

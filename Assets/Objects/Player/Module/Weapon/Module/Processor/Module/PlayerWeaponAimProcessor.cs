@@ -22,6 +22,9 @@ namespace Game
 	public class PlayerWeaponAimProcessor : PlayerWeapons.Processor, WeaponAim.IProcessor
     {
         [SerializeField]
+        CanvasGroup crosshair = default;
+
+        [SerializeField]
         protected InputAggregationMode mode = InputAggregationMode.Toggle;
         public InputAggregationMode Mode { get { return mode; } }
 
@@ -48,6 +51,8 @@ namespace Game
             {
                 if (Axis.Button.Press) Input = !Input;
             }
+
+            crosshair.alpha = Mathf.Lerp(1f, 0f, Rate);
         }
 
         public virtual void ClearInput()
