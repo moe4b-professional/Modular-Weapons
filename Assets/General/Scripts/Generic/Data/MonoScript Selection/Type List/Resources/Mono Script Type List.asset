@@ -56,6 +56,8 @@ MonoBehaviour:
     _ID: Game.Modifier, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 1ad75e7e62a967f40a69169604f01f85, type: 3}
     _ID: Game.PersonalTools, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: f0aa0b56d9df74c41a3124de70f3103e, type: 3}
+    _ID: Game.ReadOnly, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: a157058bbed27f04981297947bbcacaa, type: 3}
     _ID: Game.ActivationRewind, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

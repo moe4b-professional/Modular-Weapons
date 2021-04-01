@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c89683e7c5c9164caf467164d2eb18f, type: 3}
-  m_Name: Surface Hit Effect Pack
+  m_Name: Default Surface Hit Effect Pack
   m_EditorClassIdentifier: 
   _default:
     prefab: {fileID: 100008, guid: 3a46e13d0a80774488ee04bd42f08c14, type: 3}

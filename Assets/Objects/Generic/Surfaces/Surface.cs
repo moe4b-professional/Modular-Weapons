@@ -25,6 +25,14 @@ namespace Game
         protected SurfaceMaterial material;
         public SurfaceMaterial Material { get { return material; } }
 
+        [SerializeField]
+        float density = 1f;
+        public float Desnity => density;
+
+        public float Hardness => material.Hardness * density;
+
+        //Static Utility
+
         public static Surface Get(Collider collider)
         {
             Surface surface;

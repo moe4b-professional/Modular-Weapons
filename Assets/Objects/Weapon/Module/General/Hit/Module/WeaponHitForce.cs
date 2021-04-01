@@ -23,7 +23,7 @@ namespace Game
 	{
         [SerializeField]
         protected float value = 20f;
-        public float Value { get { return value; } }
+        public float Value => value;
 
         [SerializeField]
         protected ForceMode mode = ForceMode.Impulse;
@@ -40,7 +40,7 @@ namespace Game
         {
             if(data.HasRigidbody)
             {
-                data.Rigidbody.AddForceAtPosition(data.Direction * value, data.Contact.Point, mode);
+                data.Rigidbody.AddForceAtPosition(data.Direction * value, data.Point, mode);
             }
         }
     }

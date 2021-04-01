@@ -43,7 +43,7 @@ namespace Game
 
         protected virtual GameObject Spawn(SurfaceHitEffect effect, WeaponHit.Data data)
         {
-            return effect.Spawn(data.Contact.Point, data.Contact.Normal, data.Collider.transform);
+            return effect.Spawn(data.Point, data.Normal, data.Collider.transform);
         }
     }
 }

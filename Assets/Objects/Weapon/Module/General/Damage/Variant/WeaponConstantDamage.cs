@@ -31,7 +31,7 @@ namespace Game
 
         public override Damage.Request SampleRequest(Damage.IDamagable target, WeaponHit.Data hit)
         {
-            return new Damage.Request(value, method);
+            return new Damage.Request(value * hit.Power, method);
         }
     }
 }

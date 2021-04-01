@@ -65,48 +65,35 @@ namespace Game
                 }
             }
 
-            public Contact Contact { get; private set; }
-
-            public Vector3 Direction { get; private set; }
-
-            public Data(Collider collider, Contact contact, Vector3 direction)
-            {
-                this.Collider = collider;
-
-                this.Contact = contact;
-
-                this.Direction = direction;
-            }
-            public Data(Collider collider, ContactPoint contact, Vector3 direction) :
-                this(collider, new Contact(contact), direction)
-            {
-
-            }
-            public Data(ref RaycastHit hit, Vector3 direction) : this(hit.collider, new Contact(ref hit), direction)
-            {
-
-            }
-        }
-
-        public struct Contact
-        {
             public Vector3 Point { get; private set; }
 
             public Vector3 Normal { get; private set; }
 
-            public Contact(Vector3 point, Vector3 normal)
+            public Vector3 Direction { get; private set; }
+
+            public float Power { get; private set; }
+
+            public Data(Collider collider, Vector3 point, Vector3 normal, Vector3 direction, float power)
             {
+                this.Collider = collider;
                 this.Point = point;
-
                 this.Normal = normal;
+                this.Direction = direction;
+                this.Power = power;
             }
-            public Contact(ContactPoint contact) : this(contact.point, contact.normal)
-            {
 
+            public static Data From(Collider collider, ContactPoint contact, Vector3 direction, float power)
+            {
+                var data = new Data(collider, contact.point, contact.normal, direction, power);
+
+                return data;
             }
-            public Contact(ref RaycastHit hit) : this(hit.point, hit.normal)
-            {
 
+            public static Data From(ref RaycastHit hit, Vector3 direction, float power)
+            {
+                var data = new Data(hit.collider, hit.point, hit.normal, direction, power);
+
+                return data;
             }
         }
     }

@@ -19,9 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [CreateAssetMenu]
+	[CreateAssetMenu]
 	public class SurfaceMaterial : ScriptableObject
 	{
-		
+		[SerializeField]
+		float hardness = 5f;
+		public float Hardness => hardness;
 	}
 }

@@ -99,16 +99,18 @@ namespace Game
         #region Hit
         void OnCollisionEnter(Collision collision)
         {
-            var data = new WeaponHit.Data(collision.collider, collision.contacts[0], rigidbody.velocity.normalized);
+            var data = WeaponHit.Data.From(collision.collider, collision.contacts[0], rigidbody.velocity.normalized, 1f);
 
             ProcessHit(data);
         }
 
         void OnTriggerEnter(Collider collider)
         {
-            var contact = new WeaponHit.Contact(transform.forward * (Radius / 2f), -transform.forward);
+            var point = transform.forward * (Radius / 2f);
+            var normal = -transform.forward;
+            var direction = rigidbody.velocity.normalized;
 
-            var data = new WeaponHit.Data(collider, contact, rigidbody.velocity.normalized);
+            var data = new WeaponHit.Data(collider, point, normal, direction, 1f);
 
             ProcessHit(data);
         }

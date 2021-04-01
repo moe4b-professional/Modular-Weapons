@@ -33,11 +33,24 @@ namespace Game
         protected LayerMask mask = Physics.DefaultRaycastLayers;
         public LayerMask Mask { get { return mask; } }
 
-        RaycastHit hit;
+        [SerializeField]
+        float maxPower = 20f;
+        public float MaxPower => maxPower;
+
+        public const int MaxPeneterations = 40;
+
+        RaycastHit[] hits;
 
         protected virtual void Reset()
         {
             point = transform;
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
+
+            hits = new RaycastHit[MaxPeneterations];
         }
 
         public override void Init()
@@ -54,15 +67,37 @@ namespace Game
 
         protected virtual void Shoot()
         {
-            if (Physics.Raycast(point.position, point.forward, out hit, range, mask))
+            var count = Physics.RaycastNonAlloc(point.position, point.forward, hits, range, Mask);
+
+            Array.Sort(hits, 0, count, HitComparison.Instance);
+
+            var power = maxPower;
+
+            for (int i = 0; i < count; i++)
             {
-                var data = new WeaponHit.Data(ref hit, point.forward);
+                var surface = Surface.Get(hits[i].collider);
+
+                var rate = power / maxPower;
+
+                var data = WeaponHit.Data.From(ref hits[i], point.forward, rate);
 
                 Weapon.Hit.Process(data);
-            }
-            else
-            {
 
+                if (surface == null) break;
+
+                power -= surface.Hardness;
+            }
+        }
+
+        public class HitComparison : IComparer<RaycastHit>
+        {
+            public int Compare(RaycastHit x, RaycastHit y) => x.distance.CompareTo(y.distance);
+
+            public static HitComparison Instance { get; protected set; }
+
+            static HitComparison()
+            {
+                Instance = new HitComparison();
             }
         }
     }
