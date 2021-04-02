@@ -19,18 +19,12 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(Collider))]
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     public class Projectile : MonoBehaviour
 	{
-        public Rigidbody rigidbody { get; protected set; }
-
         public Collider collider { get; protected set; }
 
-        public Bounds Bounds => collider.bounds;
-
-        public float Radius => (Bounds.size.x + Bounds.size.y + Bounds.size.z) / 3f;
+        public ProjectileMotor Motor { get; protected set; }
 
         public Behaviours<Projectile> Behaviours { get; protected set; }
         public class Behaviour : MonoBehaviour, IBehaviour<Projectile>
@@ -65,8 +59,6 @@ namespace Game
 
         protected virtual void Configure()
         {
-            rigidbody = GetComponent<Rigidbody>();
-
             collider = GetComponent<Collider>();
 
             Behaviours = new Behaviours<Projectile>(this);
@@ -74,14 +66,33 @@ namespace Game
             Modules = new Modules<Projectile>(this);
             Modules.Register(Behaviours);
 
-            Modules.Set();
+            Motor = Modules.Find<ProjectileMotor>();
 
+            Modules.Set();
             Behaviours.Configure();
         }
 
         protected virtual void Init()
         {
             Behaviours.Init();
+        }
+
+        void Update()
+        {
+            Process();
+        }
+
+        public event Action OnProcess;
+        protected virtual void Process()
+        {
+            OnProcess?.Invoke();
+        }
+
+        public delegate void HitDelegate(Projectile projectile, WeaponHit.Data data);
+        public event HitDelegate OnHit;
+        internal virtual void ProcessHit(WeaponHit.Data data)
+        {
+            OnHit?.Invoke(this, data);
         }
 
         public virtual void IgnoreCollisions(GameObject target)
@@ -93,35 +104,14 @@ namespace Game
         }
         public virtual void IgnoreCollisions(Collider target)
         {
+            if(collider == null)
+            {
+                Debug.LogWarning($"No Collider Attached to {this}");
+                return;
+            }
+
             Physics.IgnoreCollision(collider, target, true);
         }
-
-        #region Hit
-        void OnCollisionEnter(Collision collision)
-        {
-            var data = WeaponHit.Data.From(collision.collider, collision.contacts[0], rigidbody.velocity.normalized, 1f);
-
-            ProcessHit(data);
-        }
-
-        void OnTriggerEnter(Collider collider)
-        {
-            var point = transform.forward * (Radius / 2f);
-            var normal = -transform.forward;
-            var direction = rigidbody.velocity.normalized;
-
-            var data = new WeaponHit.Data(collider, point, normal, direction, 1f);
-
-            ProcessHit(data);
-        }
-
-        public delegate void HitDelegate(Projectile projectile, WeaponHit.Data data);
-        public event HitDelegate OnHit;
-        protected virtual void ProcessHit(WeaponHit.Data data)
-        {
-            OnHit?.Invoke(this, data);
-        }
-        #endregion
 
         public delegate void DestroyCallback(Projectile projectile);
         public event DestroyCallback OnDestroy;

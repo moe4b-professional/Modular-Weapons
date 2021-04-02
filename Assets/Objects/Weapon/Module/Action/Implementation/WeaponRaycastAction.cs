@@ -19,8 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponRaycastAction : Weapon.Module
-	{
+    public class WeaponRaycastAction : Weapon.Module
+    {
         [SerializeField]
         protected float range = 400;
         public float Range { get { return range; } }
@@ -33,11 +33,7 @@ namespace Game
         protected LayerMask mask = Physics.DefaultRaycastLayers;
         public LayerMask Mask { get { return mask; } }
 
-        [SerializeField]
-        float maxPower = 20f;
-        public float MaxPower => maxPower;
-
-        public const int MaxPeneterations = 40;
+        public WeaponPenetration Penetration { get; protected set; }
 
         RaycastHit[] hits;
 
@@ -50,7 +46,9 @@ namespace Game
         {
             base.Configure();
 
-            hits = new RaycastHit[MaxPeneterations];
+            Penetration = Weapon.Modules.Find<WeaponPenetration>();
+
+            hits = new RaycastHit[Penetration == null ? 20 : Penetration.Iterations];
         }
 
         public override void Init()
@@ -71,13 +69,13 @@ namespace Game
 
             Array.Sort(hits, 0, count, HitComparison.Instance);
 
-            var power = maxPower;
+            var power = Penetration.Power;
 
             for (int i = 0; i < count; i++)
             {
                 var surface = Surface.Get(hits[i].collider);
 
-                var rate = power / maxPower;
+                var rate = power / Penetration.Power;
 
                 var data = WeaponHit.Data.From(ref hits[i], point.forward, rate);
 
@@ -85,7 +83,7 @@ namespace Game
 
                 if (surface == null) break;
 
-                power -= surface.Hardness;
+                power = Penetration.Evaluate(power, surface);
             }
         }
 

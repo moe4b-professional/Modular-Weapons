@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponProjectileRandomCoordinatesAction : WeaponProjectileAction.Module
+	public class WeaponProjectileRandomCoordinates : WeaponProjectileAction.Module
 	{
         [SerializeField]
         protected ValueRange position;

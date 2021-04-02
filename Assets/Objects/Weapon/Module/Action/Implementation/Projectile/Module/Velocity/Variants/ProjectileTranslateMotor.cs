@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Collections;
@@ -19,27 +19,25 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponProjectileParentAction : WeaponProjectileAction.Module
-    {
-        [SerializeField]
-        protected Transform parent;
-        public Transform Parent { get { return parent; } }
-
-        protected virtual void Reset()
+	public class ProjectileTranslateMotor : ProjectileMotor
+	{
+        Vector3 velocity;
+        public override Vector3 Velocity
         {
-            parent = transform;
+            get => velocity;
+            set => velocity = value;
         }
 
         public override void Init()
         {
             base.Init();
 
-            Action.OnPerform += Callback;
+            Projectile.OnProcess += Process;
         }
 
-        void Callback(Projectile projectile)
+        void Process()
         {
-            projectile.transform.SetParent(parent);
+            Projectile.transform.position += velocity * Time.deltaTime;
         }
     }
 }

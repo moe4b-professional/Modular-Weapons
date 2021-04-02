@@ -379,22 +379,34 @@ MonoBehaviour:
   - asset: {fileID: 11500000, guid: ea1c70bfba3f35d42b26ed59ab603a36, type: 3}
     _ID: Game.ProjectileDestroyOnHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e5f56a2baab365c45a99cc58fcf19f80, type: 3}
+    _ID: Game.ProjectileGravity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 675461f6fb8f7124d942dddfc93be984, type: 3}
+    _ID: Game.ProjectileRaycastScan, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - asset: {fileID: 11500000, guid: ccabaa9137686b0448ef71ab8675c993, type: 3}
     _ID: Game.ProjectileSetLayerOnHit, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - asset: {fileID: 11500000, guid: d0d48ece0d4051549a041605a03b2843, type: 3}
     _ID: Game.Projectile, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: e828bfec1d6e61449bf78d3b76fddf52, type: 3}
+    _ID: Game.ProjectileMotor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: eacf9f30939b0f247a99f5bdb0ae4e13, type: 3}
+    _ID: Game.ProjectileTranslateMotor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 444e361b92ef8944dbd5e3d1428b4dc7, type: 3}
-    _ID: Game.WeaponProjectileForceAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    _ID: Game.WeaponProjectileForce, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - asset: {fileID: 11500000, guid: b266ca6b04eb4ac489894f650fb59d41, type: 3}
-    _ID: Game.WeaponProjectileHitAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    _ID: Game.WeaponProjectileHitRegisteration, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: c1a4313153aa76b40a5228beef3d1af2, type: 3}
     _ID: Game.WeaponProjectileParentAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - asset: {fileID: 11500000, guid: bd532c3a6dcf05643929a43824048028, type: 3}
-    _ID: Game.WeaponProjectileRandomCoordinatesAction, Assembly-CSharp, Version=0.0.0.0,
+    _ID: Game.WeaponProjectileRandomCoordinates, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 99aaae4c19341364385bbec335478ac7, type: 3}
     _ID: Game.WeaponProjectileAction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -641,6 +653,9 @@ MonoBehaviour:
       PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 92d5c8030ab45c24bbce5fb1254854cd, type: 3}
     _ID: Game.WeaponOperation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - asset: {fileID: 11500000, guid: 74fe07ca1936fdf449fd234d7ba52b5e, type: 3}
+    _ID: Game.WeaponPenetration, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - asset: {fileID: 11500000, guid: 3469bca93cf6061438465090e1ca8565, type: 3}
     _ID: Game.WeaponPivot, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

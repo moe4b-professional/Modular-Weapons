@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponProjectileForceAction : WeaponProjectileAction.Module
+	public class WeaponProjectileForce : WeaponProjectileAction.Module
 	{
         [SerializeField]
         protected float value = 5f;
@@ -48,7 +48,7 @@ namespace Game
 
             Debug.DrawRay(Action.Point.position, direction * 20, Color.red, 4f);
 
-            projectile.rigidbody.AddForce(value * direction, mode);
+            projectile.Motor.Velocity = value * direction;
         }
     }
 }

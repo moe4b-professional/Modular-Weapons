@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-	public class WeaponProjectileHitAction : WeaponProjectileAction.Module
+	public class WeaponProjectileHitRegisteration : WeaponProjectileAction.Module
 	{
         public override void Init()
         {
@@ -30,21 +30,21 @@ namespace Game
 
         void ActionCallback(Projectile projectile)
         {
-            projectile.OnHit += ProjectileHitCallback;
+            projectile.OnHit += HitCallback;
 
-            projectile.OnDestroy += ProjectileDestroyCallback;
+            projectile.OnDestroy += DestoryCallback;
         }
 
-        void ProjectileHitCallback(Projectile projectile, WeaponHit.Data data)
+        void HitCallback(Projectile projectile, WeaponHit.Data data)
         {
             Weapon.Hit.Process(data);
         }
 
-        void ProjectileDestroyCallback(Projectile projectile)
+        void DestoryCallback(Projectile projectile)
         {
-            projectile.OnHit -= ProjectileHitCallback;
+            projectile.OnHit -= HitCallback;
 
-            projectile.OnDestroy -= ProjectileDestroyCallback;
+            projectile.OnDestroy -= DestoryCallback;
         }
     }
 }
