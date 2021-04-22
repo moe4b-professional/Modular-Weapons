@@ -56,7 +56,7 @@ namespace Game
         public class Element
         {
             [SerializeField]
-            Object asset;
+            Object asset = default;
             public Object Asset => asset;
 
             public Type Type { get; protected set; }
@@ -70,11 +70,18 @@ namespace Game
                 set => _ID = value;
             }
 
-#if UNITY_EDITOR
-            public Element(MonoScript script)
+            public Element(Object asset, string ID)
             {
-                asset = script;
-                ID = script.GetClass().AssemblyQualifiedName;
+                this.asset = asset;
+                this._ID = ID;
+            }
+
+#if UNITY_EDITOR
+            public static Element From(MonoScript script)
+            {
+                var id = script.GetClass().AssemblyQualifiedName;
+
+                return new Element(script, id);
             }
 #endif
         }
@@ -115,7 +122,7 @@ namespace Game
 
                 if (type == null) continue;
 
-                var element = new Element(script);
+                var element = Element.From(script);
 
                 list.Add(element);
             }
