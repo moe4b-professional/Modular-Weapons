@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponEffects : Weapon.Module
@@ -51,8 +53,5 @@ namespace Game
 
             List = new List<IInterface>();
         }
-
-        [Serializable]
-        public class TypeSelection : MonoScriptSelection<IInterface> { }
     }
 }

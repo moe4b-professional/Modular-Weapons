@@ -1,25 +1,27 @@
 {
   "dependencies": {
-    "com.t4.assembly-symbol-define": {
-      "version": "https://github.com/moe4b-packages/Assembly-Symbol-Define.git",
+    "com.moe-baker.toolbox": {
+      "version": "https://github.com/moe4b-packages/Toolbox.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0bb5fa19b6c2b648265703c166c7a473679f631d"
+      "hash": "3bf1e7c28904155a814f890877ffe85d7baf60ac"
     },
-    "com.t4.script-creation-preprocessor": {
-      "version": "https://github.com/moe4b-packages/Script-Creation-Preprocessor.git",
-      "depth": 0,
-      "source": "git",
+    "com.unity.ext.nunit": {
+      "version": "1.0.6",
+      "depth": 2,
+      "source": "registry",
       "dependencies": {},
-      "hash": "f9ef34385cea17beded26d45e8b855a17047389a"
+      "url": "https://packages.unity.com"
     },
-    "com.t4.ucollections": {
-      "version": "https://github.com/moe4b-packages/UCollections.git",
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.7",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "3ed20d3e7dfd056f176210fbbf3b73df416571a3"
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.postprocessing": {
       "version": "2.3.0",
@@ -28,12 +30,24 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.test-framework": {
+      "version": "1.1.24",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ext.nunit": "1.0.6",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.modules.ui": "1.0.0"
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0"
       }
     },
     "com.unity.modules.ai": {
@@ -169,6 +183,18 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.uielementsnative": "1.0.0"
+      }
+    },
+    "com.unity.modules.uielementsnative": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }

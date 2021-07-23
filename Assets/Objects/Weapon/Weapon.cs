@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
@@ -53,7 +55,7 @@ namespace Game
             {
                 if (instance == null)
                 {
-                    var exception = Dependancy.CreateException<TType>(this);
+                    var exception = MUtility.FormatDependencyException<TType>(this);
 
                     throw exception;
                 }
@@ -106,7 +108,7 @@ namespace Game
                 if (Owner.Processors[i] is TType target)
                     return target;
 
-            throw Dependancy.CreateException<TType>(dependant);
+            throw MUtility.FormatDependencyException<TType>(dependant);
         }
 
         protected virtual void Configure()

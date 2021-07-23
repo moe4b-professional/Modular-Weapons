@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class WeaponBurstActionMode : Weapon.Module, WeaponActionOverride.IInterface, WeaponActionMode.IState

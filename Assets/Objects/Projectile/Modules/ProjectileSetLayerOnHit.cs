@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class ProjectileSetLayerOnHit : Projectile.Module
@@ -34,7 +36,7 @@ namespace Game
 
         void HitCallback(Projectile projectile, WeaponHit.Data data)
         {
-            PersonalTools.SetLayer(Projectile.gameObject, layer.Index);
+            MUtility.SetLayer(Projectile, layer.Index);
         }
     }
 

@@ -17,14 +17,16 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
-    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(PhysicsRewind))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(CollisionRewind))]
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     public class FirstPersonController : MonoBehaviour
     {
         public Rigidbody rigidbody { get; protected set; }
-        public PhysicsRewind PhysicsCallbacks { get; protected set; }
+        public CollisionRewind CollisionRewind { get; protected set; }
 
         public CapsuleCollider collider { get; protected set; }
         public float Height
@@ -91,7 +93,7 @@ namespace Game
         protected virtual void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
-            PhysicsCallbacks = GetComponent<PhysicsRewind>();
+            CollisionRewind = GetComponent<CollisionRewind>();
             collider = GetComponent<CapsuleCollider>();
 
             Behaviours = new Behaviours<FirstPersonController>(this);

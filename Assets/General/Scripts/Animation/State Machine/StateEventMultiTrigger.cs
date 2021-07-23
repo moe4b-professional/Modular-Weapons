@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using MB;
+
 namespace Game
 {
     public class StateEventMultiTrigger : AnimationTriggerRewind.StateMachine
@@ -13,11 +15,13 @@ namespace Game
         public string ID { get { return _ID; } }
 
         [SerializeField]
-        protected AnimationCurveToggleValue curve;
-        public AnimationCurveToggleValue Curve { get { return curve; } }
+        protected ToggleValue<AnimationCurve> curve;
+        public ToggleValue<AnimationCurve> Curve { get { return curve; } }
         protected virtual void SetCurve(float time)
         {
-            Rewind.Curves.Set(ID, curve.Evaluate(time));
+            var evaluation = curve.Enabled ? curve.Value.Evaluate(time) : time;
+
+            Rewind.Curves.Set(ID, evaluation);
         }
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAim : Weapon.Module
@@ -35,7 +37,7 @@ namespace Game
         {
             get
             {
-                if (Constraint.Active) return false;
+                if (Constraint.Value) return false;
 
                 return true;
             }

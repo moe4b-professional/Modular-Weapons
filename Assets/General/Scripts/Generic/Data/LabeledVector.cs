@@ -21,7 +21,7 @@ namespace Game
 {
     public static class VectorLabels
     {
-        public const string Seperator = "`";
+        public const string Seperator = "-";
 
         public const string Tilt = "Tilt";
         public const string Pan = "Pan";
@@ -48,12 +48,13 @@ namespace Game
             return Names[index];
         }
 
+        public LabeledVectorAttribute(string label)
+        {
+            Names = label.Split(VectorLabels.Seperator[0]);
+        }
         public LabeledVectorAttribute(params string[] names)
         {
-            if(names.Length > 0 && names[0].Contains(VectorLabels.Seperator))
-                this.Names = names[0].Split(VectorLabels.Seperator[0]);
-            else
-                this.Names = names;
+            this.Names = names;
         }
     }
 

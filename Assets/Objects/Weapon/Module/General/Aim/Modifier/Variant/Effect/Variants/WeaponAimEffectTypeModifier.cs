@@ -17,13 +17,15 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAimEffectTypeModifier : WeaponAimEffectModifier
     {
         [SerializeField]
-        protected WeaponEffects.TypeSelection selection;
-        public WeaponEffects.TypeSelection Selection { get { return selection; } }
+        protected MonoScriptSelection<WeaponEffects.IInterface> selection;
+        public MonoScriptSelection<WeaponEffects.IInterface> Selection { get { return selection; } }
 
         public override bool IsTarget(WeaponEffects.IInterface effect) => selection.Type == effect.GetType();
     }

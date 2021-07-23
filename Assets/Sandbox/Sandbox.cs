@@ -19,13 +19,17 @@ using Random = UnityEngine.Random;
 
 using System.Reflection;
 
+using MB;
+
 namespace Game
 {
     public class Sandbox : MonoBehaviour
     {
-        public WeaponEffects.TypeSelection selection;
+        public MonoScriptSelection<WeaponEffects.IInterface> selection;
 
-        public Dictionary dictionary;
-        [Serializable] public class Dictionary : UCollections.UDictionary<string, string> { }
+        void Start()
+        {
+
+        }
     }
 }

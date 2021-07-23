@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class ControllerLookLean : ControllerLook.Module
@@ -106,7 +108,7 @@ namespace Game
             {
                 if (button.Press)
                     Target = value;
-                if (button.Up)
+                if (button.Lift)
                     Target = 0f;
             }
 

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     [DefaultExecutionOrder(-200)]
@@ -42,7 +44,7 @@ namespace Game
 
         void Awake()
         {
-            Defaults = new Coordinates(transform);
+            Defaults = Coordinates.From(transform);
         }
 
         void Update()

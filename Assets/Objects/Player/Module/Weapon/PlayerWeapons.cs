@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
@@ -65,9 +67,9 @@ namespace Game
         {
             base.Configure();
 
-            List = Dependancy.GetAll<Weapon>(gameObject);
+            List = QueryComponents.In<Weapon>(gameObject);
 
-            Processors = Dependancy.GetAll<Weapon.IProcessor>(gameObject);
+            Processors = QueryComponents.In<Weapon.IProcessor>(gameObject);
         }
 
         public override void Init()

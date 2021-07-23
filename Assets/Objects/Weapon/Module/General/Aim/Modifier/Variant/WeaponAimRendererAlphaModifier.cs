@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAimRendererAlphaModifier : WeaponAimPropertyModifier
@@ -35,15 +37,15 @@ namespace Game
             {
                 var lerp = Mathf.Lerp(range.Max, range.Min, Rate);
 
-                var eval = curve.Evaluate(lerp);
+                var eval = curve.Enabled ? curve.Value.Evaluate(lerp) : lerp;
 
                 return eval;
             }
         }
 
         [SerializeField]
-        protected AnimationCurveToggleValue curve;
-        public AnimationCurveToggleValue Curve { get { return curve; } }
+        protected ToggleValue<AnimationCurve> curve;
+        public ToggleValue<AnimationCurve> Curve { get { return curve; } }
 
         protected override void Reset()
         {

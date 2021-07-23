@@ -1,8 +1,7 @@
 {
   "dependencies": {
-    "com.t4.assembly-symbol-define": "https://github.com/moe4b-packages/Assembly-Symbol-Define.git",
-    "com.t4.script-creation-preprocessor": "https://github.com/moe4b-packages/Script-Creation-Preprocessor.git",
-    "com.t4.ucollections": "https://github.com/moe4b-packages/UCollections.git",
+    "com.moe-baker.toolbox": "https://github.com/moe4b-packages/Toolbox.git",
+    "com.unity.ide.visualstudio": "2.0.7",
     "com.unity.postprocessing": "2.3.0",
     "com.unity.ugui": "1.0.0",
     "com.unity.modules.ai": "1.0.0",

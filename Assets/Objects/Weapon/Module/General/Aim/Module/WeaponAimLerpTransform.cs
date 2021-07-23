@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAimLerpTransform : WeaponAim.Module
@@ -38,8 +40,8 @@ namespace Game
         {
             context = transform;
 
-            Idle = new Coordinates(context);
-            target = new Coordinates(context);
+            Idle = Coordinates.From(context);
+            target = Coordinates.From(context);
         }
 
         public override void Init()
@@ -48,7 +50,7 @@ namespace Game
 
             Weapon.OnLateProcess += LateProcess;
 
-            Idle = new Coordinates(context);
+            Idle = Coordinates.From(context);
 
             Offset = new Coordinates(Vector3.zero, Vector3.zero);
         }

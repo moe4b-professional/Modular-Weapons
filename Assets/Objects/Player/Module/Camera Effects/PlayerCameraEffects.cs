@@ -19,6 +19,8 @@ using Random = UnityEngine.Random;
 
 using UnityEngine.Rendering.PostProcessing;
 
+using MB;
+
 namespace Game
 {
 	public class PlayerCameraEffects : Player.Module

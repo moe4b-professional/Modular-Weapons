@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class ControllerSprint : FirstPersonController.Module
@@ -47,7 +49,7 @@ namespace Game
             {
                 if (Vector3.Dot(Controller.Movement.Input.Relative, Vector3.forward) < 0.5f) return false;
 
-                if (Constraint.Active) return false;
+                if (Constraint.Value) return false;
 
                 if (Active == false && Controller.IsGrounded == false) return false;
 
@@ -106,7 +108,7 @@ namespace Game
         {
             if (mode == InputMode.Hold)
             {
-                if (Input.Button.Held)
+                if (Input.Button.Hold)
                 {
                     if (CanPerform)
                         Target = Input.Value;

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponActionControl : WeaponAction.Module
@@ -24,8 +26,8 @@ namespace Game
         public float Weight { get; protected set; }
 
         [SerializeField]
-        protected FloatToggleValue min;
-        public FloatToggleValue Min { get { return min; } }
+        protected ToggleValue<float> min;
+        public ToggleValue<float> Min { get { return min; } }
 
         public float MinValue => min.Evaluate(0.75f);
 

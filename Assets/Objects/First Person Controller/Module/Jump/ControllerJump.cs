@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class ControllerJump : FirstPersonController.Module
@@ -43,7 +45,7 @@ namespace Game
 
                 if (Count == 0 && Ground.IsDetected == false) return false;
 
-                if (Constraint.Active) return false;
+                if (Constraint.Value) return false;
 
                 return true;
             }

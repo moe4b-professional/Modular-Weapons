@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
@@ -97,10 +99,10 @@ namespace Game
 
         public virtual void IgnoreCollisions(GameObject target)
         {
-            var targets = Dependancy.GetAll<Collider>(target);
+            var targets = QueryComponents.In<Collider>(target);
 
-            for (int i = 0; i < targets.Count; i++)
-                IgnoreCollisions(targets[i]);
+            foreach (var entry in targets)
+                IgnoreCollisions(entry);
         }
         public virtual void IgnoreCollisions(Collider target)
         {

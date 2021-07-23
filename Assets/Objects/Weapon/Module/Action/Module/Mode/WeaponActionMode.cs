@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class WeaponActionMode : Weapon.Module
@@ -66,7 +68,7 @@ namespace Game
 
             Processor = Weapon.GetProcessor<IProcessor>(this);
 
-            List = Dependancy.GetAll<IState>(gameObject);
+            List = QueryComponents.In<IState>(gameObject);
         }
 
         public override void Init()

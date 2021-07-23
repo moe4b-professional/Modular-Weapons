@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class PlayerWeaponAimProcessor : PlayerWeapons.Processor, WeaponAim.IProcessor
@@ -45,7 +47,7 @@ namespace Game
         {
             if (mode == InputAggregationMode.Hold)
             {
-                Input = Axis.Button.Held;
+                Input = Axis.Button.Hold;
             }
             else if (mode == InputAggregationMode.Toggle)
             {

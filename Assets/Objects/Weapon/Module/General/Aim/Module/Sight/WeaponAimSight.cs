@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class WeaponAimSight : WeaponAim.Module
@@ -69,7 +71,7 @@ namespace Game
         {
             base.Init();
 
-            Inital = new Coordinates(Anchor.transform);
+            Inital = Coordinates.From(Anchor.transform);
             Target = CalculateTarget(Weapon.transform, Context, point);
 
             Offset = Target - Inital;
@@ -105,7 +107,7 @@ namespace Game
 
             iContext.SetParent(pivot.parent);
 
-            var result = new Coordinates(iContext);
+            var result = Coordinates.From(iContext);
 
             Destroy(iPoint.gameObject);
             Destroy(iContext.gameObject);

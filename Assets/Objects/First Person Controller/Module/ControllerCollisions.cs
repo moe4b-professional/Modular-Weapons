@@ -120,9 +120,9 @@ namespace Game
         {
             base.Init();
 
-            Controller.PhysicsCallbacks.CollisionEnterEvent += Set;
-            Controller.PhysicsCallbacks.CollisionStayEvent += Set;
-            Controller.PhysicsCallbacks.CollisionExitEvent += Remove;
+            Controller.CollisionRewind.OnEnter.AddListener(Set);
+            Controller.CollisionRewind.OnStay.AddListener(Set);
+            Controller.CollisionRewind.OnExit.AddListener(Remove);
 
             Controller.OnProcess += Process;
         }

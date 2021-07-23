@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class ControllerGroundDetect : ControllerGround.Module
@@ -67,9 +69,9 @@ namespace Game
         {
             base.Configure();
 
-            Slope = Dependancy.Get<ControllerGroundSlopeDetect>(Controller.gameObject);
+            Slope = QueryComponent.In<ControllerGroundSlopeDetect>(Controller.gameObject, QueryComponent.Self, QueryComponent.Children);
 
-            Step = Dependancy.Get<ControllerGroundStepDetect>(Controller.gameObject);
+            Step = QueryComponent.In<ControllerGroundStepDetect>(Controller.gameObject);
         }
 
         public delegate void ProcessDelegate(ControllerGroundData hit);
