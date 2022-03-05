@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bee45bf67c69db4983c71ca35b3022c, type: 3}
-  m_Name: Scenes Collection
+  m_Name: M Scenes Collection
   m_EditorClassIdentifier: 
   list:
   - asset: {fileID: 102900000, guid: cd29a0e4e450dc348acb700fed9fa6c4, type: 3}
