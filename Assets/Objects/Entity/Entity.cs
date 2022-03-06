@@ -21,10 +21,15 @@ using MB;
 
 namespace Game
 {
-	public class Entity : MonoBehaviour,
+	public class Entity : MonoBehaviour, PreAwake.IInterface,
         Damage.IDamagable, Damage.IDamager
     {
+        #region Modules
+        [field: SerializeField, DebugOnly]
+        public EntityDamage Damage { get; protected set; }
+
         #region Health
+        [field: SerializeField, DebugOnly]
         public EntityHealth Health { get; protected set; }
 
         public bool HasHealth => Health != null;
@@ -33,11 +38,8 @@ namespace Game
         public bool IsAlive => Health.Value > 0f;
         #endregion
 
-        public EntityDamage Damage { get; protected set; }
-
-        #region Behaviours
+        [field: SerializeField, DebugOnly]
         public Behaviours<Entity> Behaviours { get; protected set; }
-
         public class Behaviour : MonoBehaviour, IBehaviour<Entity>
         {
             public virtual void Configure()
@@ -45,18 +47,19 @@ namespace Game
 
             }
 
-            public virtual void Init()
+            public virtual void Initialize()
             {
 
             }
         }
-        #endregion
 
-        #region Modules
+        [field: SerializeField, DebugOnly]
         public Modules<Entity> Modules { get; protected set; }
         public class Module : Behaviour, IModule<Entity>
         {
+            [field: SerializeField, DebugOnly]
             public Entity Entity { get; protected set; }
+
             public virtual void Set(Entity reference)
             {
                 Entity = reference;
@@ -64,7 +67,7 @@ namespace Game
         }
         #endregion
 
-        protected virtual void Awake()
+        public void PreAwake()
         {
             Behaviours = new Behaviours<Entity>(this);
 
@@ -75,13 +78,15 @@ namespace Game
             Damage = Modules.Depend<EntityDamage>();
 
             Modules.Set();
+        }
 
+        protected virtual void Awake()
+        {
             Behaviours.Configure();
         }
-        
         protected virtual void Start()
         {
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         public delegate void DeathDelegate(Damage.IDamager cause);

@@ -36,9 +36,9 @@ namespace Game
 
         public SingleAxisInput Axis => Player.Controls.Secondary;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Player.OnProcess += Process;
         }
@@ -51,7 +51,7 @@ namespace Game
             }
             else if (mode == InputAggregationMode.Toggle)
             {
-                if (Axis.Button.Press) Input = !Input;
+                if (Axis.Button.Click) Input = !Input;
             }
 
             crosshair.alpha = Mathf.Lerp(1f, 0f, Rate);

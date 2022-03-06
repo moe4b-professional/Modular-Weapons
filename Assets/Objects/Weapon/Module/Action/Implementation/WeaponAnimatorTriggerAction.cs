@@ -27,9 +27,9 @@ namespace Game
         protected string trigger;
         public string Trigger { get { return trigger; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Action.OnPerform += Action;
         }

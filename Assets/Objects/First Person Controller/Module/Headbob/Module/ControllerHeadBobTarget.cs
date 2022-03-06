@@ -33,9 +33,9 @@ namespace Game
         protected float scale = 1f;
         public float Scale { get { return scale; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             anchor.OnWriteDefaults += Write;
         }

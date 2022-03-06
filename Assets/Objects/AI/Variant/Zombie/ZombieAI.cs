@@ -21,9 +21,9 @@ namespace Game
 {
 	public class ZombieAI : AIController
 	{
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             var target = FindObjectOfType<Player>().Character.Entity;
 

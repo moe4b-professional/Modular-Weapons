@@ -21,6 +21,6 @@ namespace Game
 {
     public class PlayerWeaponAimSightProcessor : PlayerWeapons.Processor, WeaponAimSights.IProcessor
     {
-        public bool Switch => Player.Controls.SwitchSight.Press;
+        public bool Switch => Player.Controls.SwitchSight.Click;
     }
 }

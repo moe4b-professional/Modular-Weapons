@@ -38,9 +38,9 @@ namespace Game
             FOV = Weapon.Modules.Depend<WeaponFOV>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             FOV.Scale.Add(Modifier);
         }

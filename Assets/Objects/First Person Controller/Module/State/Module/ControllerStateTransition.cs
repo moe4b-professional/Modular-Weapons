@@ -36,10 +36,9 @@ namespace Game
             if (target == null && Elements.Count > 0)
                 target = Elements[0];
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

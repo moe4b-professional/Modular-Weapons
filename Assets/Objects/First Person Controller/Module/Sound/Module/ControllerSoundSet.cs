@@ -50,10 +50,9 @@ namespace Game
 
             Value = Default;
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.Ground.Detect.OnProcess += GroundDetectCallback;
         }

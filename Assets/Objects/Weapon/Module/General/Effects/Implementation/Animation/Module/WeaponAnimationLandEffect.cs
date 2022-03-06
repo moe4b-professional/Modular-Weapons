@@ -67,9 +67,9 @@ namespace Game
 
         public const float MinWeight = 0.1f;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Effects.Processor.OnLand += LandCallback;
         }

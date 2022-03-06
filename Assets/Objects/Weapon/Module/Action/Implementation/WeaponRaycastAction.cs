@@ -51,9 +51,9 @@ namespace Game
             hits = new RaycastHit[Penetration == null ? 20 : Penetration.Iterations];
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Action.OnPerform += Action;
         }

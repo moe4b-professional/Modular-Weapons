@@ -52,26 +52,42 @@ namespace Game
 
         public ControllerGroundData Data { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerGroundSlopeDetect Slope { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerGroundStepDetect Step { get; protected set; }
 
         public const int MaxIterations = 3;
 
-        public class Module : ControllerGround.Module
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerGroundDetect> Modules { get; private set; }
+        public class Module : FirstPersonController.Behaviour, IModule<ControllerGroundDetect>
         {
-            public ControllerGroundDetect Detect => Ground.Detect;
+            [field: SerializeField, DebugOnly]
+            public ControllerGroundDetect Detect { get; private set; }
+
+            public FirstPersonController Controller => Detect.Controller; 
+
+            public virtual void Set(ControllerGroundDetect reference)
+            {
+                Detect = reference;
+            }
         }
 
         public ControllerDirection Direction => Controller.Direction;
 
-        public override void Configure()
+        public override void Set(ControllerGround value)
         {
-            base.Configure();
+            base.Set(value);
 
-            Slope = QueryComponent.In<ControllerGroundSlopeDetect>(Controller.gameObject, QueryComponent.Self, QueryComponent.Children);
+            Modules = new Modules<ControllerGroundDetect>(this);
+            Modules.Register(Controller.Behaviours);
 
-            Step = QueryComponent.In<ControllerGroundStepDetect>(Controller.gameObject);
+            Slope = Modules.Depend<ControllerGroundSlopeDetect>();
+            Step = Modules.Depend<ControllerGroundStepDetect>();
+
+            Modules.Set();
         }
 
         public delegate void ProcessDelegate(ControllerGroundData hit);

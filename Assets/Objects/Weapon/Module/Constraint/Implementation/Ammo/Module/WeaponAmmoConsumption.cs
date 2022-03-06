@@ -21,9 +21,9 @@ namespace Game
 {
 	public class WeaponAmmoConsumption : WeaponAmmo.Module
 	{
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Action.OnLatePerform += LateAction;
         }

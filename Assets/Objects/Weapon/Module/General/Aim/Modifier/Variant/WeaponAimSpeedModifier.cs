@@ -33,9 +33,9 @@ namespace Game
 
         public WeaponAimSpeed Speed => Aim.Speed;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Speed.Scale.Add(Modifier);
         }

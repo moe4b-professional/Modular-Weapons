@@ -16,26 +16,28 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using MB;
 
 namespace Game
 {
     [RequireComponent(typeof(AudioSource))]
     public class ControllerMovementSound : ControllerSound.Module
 	{
+        [field: SerializeField, DebugOnly]
         public AudioSource Source { get; protected set; }
 
         public ControllerSoundSet SoundSet => Sound.SoundSet;
 
-        public override void Configure()
+        public override void Set(ControllerSound value)
         {
-            base.Configure();
+            base.Set(value);
 
             Source = GetComponent<AudioSource>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.Jump.OnPerform += JumpCallback;
 

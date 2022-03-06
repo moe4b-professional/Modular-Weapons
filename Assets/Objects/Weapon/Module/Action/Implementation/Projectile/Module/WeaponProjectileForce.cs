@@ -33,9 +33,9 @@ namespace Game
         protected ForceMode mode = ForceMode.VelocityChange;
         public ForceMode Mode { get { return mode; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Action.OnPerform += ActionCallback;
         }

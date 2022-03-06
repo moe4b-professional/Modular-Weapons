@@ -24,14 +24,20 @@ namespace Game
     [RequireComponent(typeof(AudioSource))]
 	public class ControllerSound : FirstPersonController.Module
 	{
+        [field: SerializeField, DebugOnly]
         public AudioSource Source { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerSoundSet SoundSet { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerMovementSound Movement { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerSound> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerSound>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerSound Sound { get; protected set; }
             public virtual void Set(ControllerSound value) => Sound = value;
             
@@ -41,11 +47,11 @@ namespace Game
                 => ControllerSound.Random<T>(list);
         }
 
-        public Modules<ControllerSound> Modules { get; protected set; }
-
         public override void Set(FirstPersonController value)
         {
             base.Set(value);
+
+            Source = GetComponent<AudioSource>();
 
             Modules = new Modules<ControllerSound>(this);
             Modules.Register(Controller.Behaviours);
@@ -54,13 +60,6 @@ namespace Game
             Movement = Modules.Depend<ControllerMovementSound>();
 
             Modules.Set();
-        }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Source = GetComponent<AudioSource>();
         }
 
         protected virtual void PlayOneShot(IList<AudioClip> list) => PlayOneShot(Random(list));

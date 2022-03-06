@@ -37,9 +37,9 @@ namespace Game
             conditions = new IntegerCondition[] { new IntegerCondition() };
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Ammo.OnRefill += RefillCallback;
             Ammo.OnConsumption += ConsumptionCallback;

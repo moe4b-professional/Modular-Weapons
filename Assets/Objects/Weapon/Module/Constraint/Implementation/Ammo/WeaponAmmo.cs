@@ -94,7 +94,7 @@ namespace Game
             base.Set(value);
 
             Modules = new Modules<WeaponAmmo>(this);
-            Modules.Register(Weapon.Behaviours, ModuleScope.Global);
+            Modules.Register(Weapon.Behaviours, SegmentScope.Global);
 
             Modules.Set();
         }

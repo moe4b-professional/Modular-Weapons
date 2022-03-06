@@ -31,7 +31,6 @@ namespace Game
         public TransformAnchor Anchor { get { return anchor; } }
 
         public ControllerCamera camera => Controller.camera;
-        public ControllerCamera Camera => camera; //Don't judge me, I want to maintain my PascalCase naming while still maintaining a propert override to camera
     }
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 }

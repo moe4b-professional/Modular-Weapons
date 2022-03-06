@@ -21,6 +21,6 @@ namespace Game
 {
 	public class PlayerWeaponReloadProcessor : PlayerWeapons.Processor, WeaponReload.IProcessor
     {
-        public bool Input => Player.Controls.Reload.Press;
+        public bool Input => Player.Controls.Reload.Click;
     }
 }

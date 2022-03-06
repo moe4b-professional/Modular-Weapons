@@ -25,9 +25,9 @@ namespace Game
         protected AudioClip clip;
         public AudioClip Clip { get { return clip; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Mode.OnChange += ChangeCallback;
         }

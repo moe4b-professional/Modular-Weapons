@@ -55,20 +55,29 @@ namespace Game
 
         public Vector2 Delta { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerLookSensitivty Sensitivity { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerCameraLook Camera { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerCharacterLook Character { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerLookLean Lean { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerLook> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerLook>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerLook Look { get; protected set; }
-            public virtual void Set(ControllerLook value) => Look = value;
 
             public FirstPersonController Controller => Look.Controller;
-
             public ControllerRig Rig => Controller.Rig;
+
+            public virtual void Set(ControllerLook value) => Look = value;
         }
 
         public AxesInput Input => Controller.Controls.Look;
@@ -88,9 +97,9 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

@@ -25,19 +25,28 @@ namespace Game
     {
         public ControllerStateData Data { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerStateTransition Transition { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerStateSets Sets { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerStateElevationAdjustment HeightAdjustment { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public List<ControllerStateElement> Elements { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerState> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerState>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerState State { get; protected set; }
-            public virtual void Set(ControllerState value) => State = value;
 
             public FirstPersonController Controller => State.Controller;
+
+            public virtual void Set(ControllerState value) => State = value;
         }
 
         public override void Set(FirstPersonController value)

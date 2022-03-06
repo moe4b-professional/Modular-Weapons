@@ -34,9 +34,9 @@ namespace Game
 
         public WeaponActionControl ActionControl => Weapon.Action.Control;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

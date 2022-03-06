@@ -36,7 +36,7 @@ namespace Game
 
             }
 
-            public virtual void Init()
+            public virtual void Initialize()
             {
 
             }
@@ -76,7 +76,7 @@ namespace Game
 
         protected virtual void Init()
         {
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         void Update()
@@ -99,7 +99,7 @@ namespace Game
 
         public virtual void IgnoreCollisions(GameObject target)
         {
-            var targets = QueryComponents.In<Collider>(target);
+            var targets = ComponentQuery.Collection.In<Collider>(target);
 
             foreach (var entry in targets)
                 IgnoreCollisions(entry);

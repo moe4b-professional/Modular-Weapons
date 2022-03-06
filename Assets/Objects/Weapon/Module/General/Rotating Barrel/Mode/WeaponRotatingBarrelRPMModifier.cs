@@ -32,9 +32,9 @@ namespace Game
             RPM = Weapon.Modules.Depend<WeaponRPM>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             RPM.Scale.Add(Modifier);
         }

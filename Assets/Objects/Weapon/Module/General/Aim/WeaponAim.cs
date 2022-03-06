@@ -69,7 +69,7 @@ namespace Game
             base.Set(value);
 
             Modules = new Modules<WeaponAim>(this);
-            Modules.Register(Weapon.Behaviours, ModuleScope.Global);
+            Modules.Register(Weapon.Behaviours, SegmentScope.Global);
 
             Speed = Modules.Depend<WeaponAimSpeed>();
 
@@ -85,9 +85,9 @@ namespace Game
             Constraint = new Modifier.Constraint();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

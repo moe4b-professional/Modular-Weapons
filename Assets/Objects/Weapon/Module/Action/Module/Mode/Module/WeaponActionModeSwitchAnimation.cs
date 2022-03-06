@@ -27,9 +27,9 @@ namespace Game
         
         public WeaponMesh Mesh => Weapon.Mesh;
         
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Activation.OnDisable += DisableCallback;
 

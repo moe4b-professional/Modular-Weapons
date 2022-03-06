@@ -37,15 +37,17 @@ namespace Game
 
         public float Target => Active ? 1f : 0f;
 
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerStateElement> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerStateElement>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerStateElement Element { get; protected set; }
-            public virtual void Set(ControllerStateElement value) => Element = value;
 
             public FirstPersonController Controller => Element.Controller;
-        }
 
-        public Modules<ControllerStateElement> Modules { get; protected set; }
+            public virtual void Set(ControllerStateElement value) => Element = value;
+        }
 
         public ControllerControls Controls => Controller.Controls;
         public ControllerStateTransition Transition => State.Transition;
@@ -61,9 +63,9 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weight = Target;
 

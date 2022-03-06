@@ -28,12 +28,11 @@ namespace Game
         public ForceData Force { get { return force; } }
 
         public ControllerGround Ground => Controller.Ground;
-
         public ControllerVelocity Velocity => Controller.Velocity;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Jump.OnPerform += JumpCallback;
         }

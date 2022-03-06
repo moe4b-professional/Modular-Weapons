@@ -23,18 +23,23 @@ namespace Game
 {
 	public class ControllerGround : FirstPersonController.Module
 	{
+        [field: SerializeField, DebugOnly]
         public ControllerGroundDetect Detect { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerGroundChange Change { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerGround> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerGround>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerGround Ground { get; protected set; }
-            public virtual void Set(ControllerGround value) => Ground = value;
 
             public FirstPersonController Controller => Ground.Controller;
-        }
 
-        public Modules<ControllerGround> Modules { get; protected set; }
+            public virtual void Set(ControllerGround value) => Ground = value;
+        }
 
         public ControllerGroundData Data => Detect.Data;
         public bool IsDetected => Data != null;
@@ -54,14 +59,13 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Detect.Process();
             Change.Set(Data);
         }
-
         public virtual void Check()
         {
             Detect.Process();

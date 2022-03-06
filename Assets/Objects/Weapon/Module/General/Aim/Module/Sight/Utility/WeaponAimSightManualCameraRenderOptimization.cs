@@ -51,9 +51,9 @@ namespace Game
             MaxFPS = Render.FPS;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
         }

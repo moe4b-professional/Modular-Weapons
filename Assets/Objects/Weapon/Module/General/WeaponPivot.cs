@@ -31,9 +31,9 @@ namespace Game
             Anchor = GetComponent<TransformAnchor>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
         }

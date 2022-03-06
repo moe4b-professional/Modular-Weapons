@@ -23,9 +23,9 @@ namespace Game
     {
         public List<WeaponAimEffectModifier> Overrides { get; protected set; }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Overrides = Aim.Modules.FindAll<WeaponAimEffectModifier>();
 

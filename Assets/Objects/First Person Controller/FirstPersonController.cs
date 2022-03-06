@@ -21,14 +21,99 @@ using MB;
 
 namespace Game
 {
-    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(CollisionRewind))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(PhysicsCollisionRewind))]
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : MonoBehaviour, PreAwake.IInterface
     {
+        [field: SerializeField, DebugOnly]
         public Rigidbody rigidbody { get; protected set; }
-        public CollisionRewind CollisionRewind { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public CapsuleCollider collider { get; protected set; }
+        
+        #region Modules
+        [field: SerializeField, DebugOnly]
+        public PhysicsCollisionRewind CollisionRewind { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerGenericData GenericData { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerControls Controls { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerRig Rig { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerCamera camera { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerDirection Direction { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerGround Ground { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerAirTravel AirTravel { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerCollisions Collisions { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerGravity Gravity { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerStep Step { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerHeadBob HeadBob { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerSound Sound { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerJump Jump { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerState State { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerMovement Movement { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerSprint Sprint { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerLook Look { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public ControllerVelocity Velocity { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
+        public Behaviours<FirstPersonController> Behaviours { get; protected set; }
+        public class Behaviour : MonoBehaviour, IBehaviour<FirstPersonController>
+        {
+            public virtual void Configure()
+            {
+
+            }
+            public virtual void Initialize()
+            {
+
+            }
+        }
+
+        [field: SerializeField, DebugOnly]
+        public Modules<FirstPersonController> Modules { get; protected set; }
+        public abstract class Module : Behaviour, IModule<FirstPersonController>
+        {
+            [field: SerializeField, DebugOnly]
+            public virtual FirstPersonController Controller { get; protected set; }
+
+            public virtual void Set(FirstPersonController value) => Controller = value;
+        }
+        #endregion
+
         public float Height
         {
             get => collider.height;
@@ -40,60 +125,13 @@ namespace Game
             set => collider.radius = value;
         }
 
-        public ControllerGenericData GenericData { get; protected set; }
-        public ControllerControls Controls { get; protected set; }
-        public ControllerRig Rig { get; protected set; }
-        public ControllerCamera camera { get; protected set; }
-        public ControllerDirection Direction { get; protected set; }
-        public ControllerGround Ground { get; protected set; }
-        public ControllerAirTravel AirTravel { get; protected set; }
-        public ControllerCollisions Collisions { get; protected set; }
-        public ControllerGravity Gravity { get; protected set; }
-        public ControllerStep Step { get; protected set; }
-        public ControllerHeadBob HeadBob { get; protected set; }
-        public ControllerSound Sound { get; protected set; }
-        public ControllerJump Jump { get; protected set; }
-        public ControllerState State { get; protected set; }
-        public ControllerMovement Movement { get; protected set; }
-        public ControllerSprint Sprint { get; protected set; }
-        public ControllerLook Look { get; protected set; }
-
-        #region Behaviours
-        public Behaviours<FirstPersonController> Behaviours { get; protected set; }
-
-        public class Behaviour : MonoBehaviour, IBehaviour<FirstPersonController>
-        {
-            public virtual void Configure()
-            {
-
-            }
-
-            public virtual void Init()
-            {
-
-            }
-        }
-        #endregion
-
-        #region Modules
-        public Modules<FirstPersonController> Modules { get; protected set; }
-        public abstract class Module : Behaviour, IModule<FirstPersonController>
-        {
-            public virtual FirstPersonController Controller { get; protected set; }
-            public virtual void Set(FirstPersonController value) => Controller = value;
-        }
-        #endregion
-
         public Vector3 Position => transform.position;
-
         public bool IsGrounded => Ground.IsDetected;
 
-        public ControllerVelocity Velocity { get; protected set; }
-
-        protected virtual void Awake()
+        public virtual void PreAwake()
         {
             rigidbody = GetComponent<Rigidbody>();
-            CollisionRewind = GetComponent<CollisionRewind>();
+            CollisionRewind = GetComponent<PhysicsCollisionRewind>();
             collider = GetComponent<CapsuleCollider>();
 
             Behaviours = new Behaviours<FirstPersonController>(this);
@@ -121,13 +159,15 @@ namespace Game
             Look = Modules.Depend<ControllerLook>();
 
             Modules.Set();
-
-            Behaviours.Configure();
         }
 
+        protected virtual void Awake()
+        {
+            Behaviours.Configure();
+        }
         protected virtual void Start()
         {
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         protected virtual void Update()

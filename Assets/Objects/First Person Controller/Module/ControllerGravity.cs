@@ -33,9 +33,9 @@ namespace Game
 
         public ControllerGround Ground => Controller.Ground;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.rigidbody.useGravity = false;
         }

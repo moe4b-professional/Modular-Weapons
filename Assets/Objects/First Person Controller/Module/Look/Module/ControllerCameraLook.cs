@@ -38,9 +38,9 @@ namespace Game
 
         public Quaternion Offset { get; protected set; }
         
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             CalculateOffset();
 
@@ -53,7 +53,7 @@ namespace Game
 
             CalculateOffset();
 
-            Rig.Camera.Anchor.LocalRotation *= Offset;
+            Rig.camera.Anchor.LocalRotation *= Offset;
         }
 
         protected virtual void CalculateOffset()

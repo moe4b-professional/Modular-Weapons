@@ -38,9 +38,9 @@ namespace Game
             CameraBlur = Weapon.Modules.Depend<WeaponCameraBlur>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             CameraBlur.Average.Add(Modifier);
         }

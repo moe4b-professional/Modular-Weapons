@@ -115,21 +115,13 @@ namespace Game
 
             List = new List<Collision>();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
-            Controller.CollisionRewind.OnEnter.AddListener(Set);
-            Controller.CollisionRewind.OnStay.AddListener(Set);
-            Controller.CollisionRewind.OnExit.AddListener(Remove);
-
-            Controller.OnProcess += Process;
-        }
-
-        void Process()
-        {
-            
+            Controller.CollisionRewind.EnterEvent += Set;
+            Controller.CollisionRewind.StayEvent += Set;
+            Controller.CollisionRewind.ExitEvent += Remove;
         }
 
         void OnDrawGizmosSelected()

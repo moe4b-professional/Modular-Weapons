@@ -27,7 +27,6 @@ namespace Game
             get => rigidbody.velocity;
             set => rigidbody.velocity = value;
         }
-
         public Vector3 Relative
         {
             get => Controller.transform.InverseTransformDirection(Absolute);

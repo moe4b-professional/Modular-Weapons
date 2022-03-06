@@ -25,45 +25,46 @@ namespace Game
     [RequireComponent(typeof(Character))]
     public class AI : Character.Module
     {
-        public Rigidbody rigidbody => Character.rigidbody;
-
+        [field: SerializeField, DebugOnly]
         public AIController Controller { get; protected set; }
 
-        #region Behaviours
+        #region Modules
+        [field: SerializeField, DebugOnly]
         public Behaviours<AI> Behaviours { get; protected set; }
-
         public class Behaviour : MonoBehaviour, IBehaviour<AI>
         {
             public virtual void Configure()
             {
 
             }
-
-            public virtual void Init()
+            public virtual void Initialize()
             {
 
             }
         }
-        #endregion
 
-        #region Modules
+        [field: SerializeField, DebugOnly]
         public Modules<AI> Modules { get; protected set; }
         public class Module : Behaviour, IModule<AI>
         {
+            [field: SerializeField, DebugOnly]
             public AI AI { get; protected set; }
+
+            public Character Character => AI.Character;
+            public Entity Entity => Character.Entity;
+
             public virtual void Set(AI reference)
             {
                 AI = reference;
             }
-            
-            public Character Character => AI.Character;
-            public Entity Entity => Character.Entity;
         }
         #endregion
 
-        public override void Configure()
+        public Rigidbody rigidbody => Character.rigidbody;
+
+        public override void Set(Character reference)
         {
-            base.Configure();
+            base.Set(reference);
 
             Behaviours = new Behaviours<AI>(this);
 
@@ -73,15 +74,19 @@ namespace Game
             Controller = Modules.Depend<AIController>();
 
             Modules.Set();
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
 
             Behaviours.Configure();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         protected virtual void Update()

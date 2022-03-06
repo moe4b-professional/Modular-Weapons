@@ -38,9 +38,9 @@ namespace Game
             Value = 1f;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.Movement.Acceleration.Scale.Add(Modifier);
 

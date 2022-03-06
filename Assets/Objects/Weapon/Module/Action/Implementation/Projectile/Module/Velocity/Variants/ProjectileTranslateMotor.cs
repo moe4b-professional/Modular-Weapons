@@ -28,9 +28,9 @@ namespace Game
             set => velocity = value;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Projectile.OnProcess += Process;
         }

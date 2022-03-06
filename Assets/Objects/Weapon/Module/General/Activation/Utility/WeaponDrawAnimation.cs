@@ -29,9 +29,9 @@ namespace Game
 
         public bool Active => IsProcessing;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Activation.OnEnable += Perform;
 

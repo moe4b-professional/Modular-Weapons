@@ -27,9 +27,9 @@ namespace Game
         protected Layer layer = 0;
         public Layer Layer { get { return layer; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Projectile.OnHit += HitCallback;
         }

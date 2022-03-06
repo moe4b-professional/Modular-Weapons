@@ -23,9 +23,9 @@ namespace Game
     {
         public abstract Damage.Request SampleRequest(Damage.IDamagable target, WeaponHit.Data hit);
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Hit.OnProcess += HitCallback;
         }

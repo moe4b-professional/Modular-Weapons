@@ -29,9 +29,9 @@ namespace Game
 
         public const string Trigger = ID + " Trigger";
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
             
             Sprint.OnBegin += BeginCallback;
             Sprint.OnStop += StopCallback;

@@ -35,9 +35,9 @@ namespace Game
             TriggerRewind = Animator.GetComponent<AnimationTriggerRewind>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
         }

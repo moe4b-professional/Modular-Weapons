@@ -23,19 +23,28 @@ namespace Game
 {
 	public class ControllerMovement : FirstPersonController.Module
     {
+        [field: SerializeField, DebugOnly]
         public ControllerMovementInput Input { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerMovementSpeed Speed { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerMovementAcceleration Acceleration { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerMovementProcedure Procedure { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerMovement> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerMovement>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerMovement Movement { get; protected set; }
-            public virtual void Set(ControllerMovement value) => Movement = value;
 
             public FirstPersonController Controller => Movement.Controller;
+
+            public virtual void Set(ControllerMovement value) => Movement = value;
         }
 
         public override void Set(FirstPersonController value)
@@ -48,6 +57,7 @@ namespace Game
             Input = Modules.Depend<ControllerMovementInput>();
             Speed = Modules.Depend<ControllerMovementSpeed>();
             Acceleration = Modules.Depend<ControllerMovementAcceleration>();
+            Procedure = Modules.Depend<ControllerMovementProcedure>();
 
             Modules.Set();
         }

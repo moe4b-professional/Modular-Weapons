@@ -31,15 +31,19 @@ namespace Game
 
         public PostProcessProfile Profile => volume.profile;
 
+        [field: SerializeField, DebugOnly]
         public PlayerCameraBlurEffect Blur { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<PlayerCameraEffects> Modules { get; protected set; }
         public class Module : Player.Behaviour, IModule<PlayerCameraEffects>
         {
+            [field: SerializeField, DebugOnly]
             public PlayerCameraEffects CameraEffects { get; protected set; }
-            public virtual void Set(PlayerCameraEffects value) => CameraEffects = value;
 
             public Player Player => CameraEffects.Player;
+
+            public virtual void Set(PlayerCameraEffects value) => CameraEffects = value;
         }
 
         public override void Set(Player value)

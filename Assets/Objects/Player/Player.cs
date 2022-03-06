@@ -26,15 +26,21 @@ namespace Game
     [RequireComponent(typeof(FirstPersonController))]
     public class Player : Character.Module
     {
+        #region Modules
+        [field: SerializeField, DebugOnly]
         public FirstPersonController Controller { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public PlayerControls Controls { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public PlayerCameraEffects CameraEffects { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public PlayerWeapons Weapons { get; protected set; }
 
-        #region Behaviours
+        [field: SerializeField, DebugOnly]
         public Behaviours<Player> Behaviours { get; protected set; }
-
         public class Behaviour : MonoBehaviour, IBehaviour<Player>
         {
             public virtual void Configure()
@@ -42,28 +48,29 @@ namespace Game
 
             }
 
-            public virtual void Init()
+            public virtual void Initialize()
             {
 
             }
         }
-        #endregion
 
-        #region Modules
+        [field: SerializeField, DebugOnly]
         public Modules<Player> Modules { get; protected set; }
         public abstract class Module : Behaviour, IModule<Player>
         {
+            [field: SerializeField, DebugOnly]
             public virtual Player Player { get; protected set; }
-            public virtual void Set(Player value) => Player = value;
 
             public Entity Entity => Player.Entity;
             public Character Character => Player.Character;
+
+            public virtual void Set(Player value) => Player = value;
         }
         #endregion
 
-        public override void Configure()
+        public override void Set(Character reference)
         {
-            base.Configure();
+            base.Set(reference);
 
             Controller = GetComponent<FirstPersonController>();
 
@@ -77,15 +84,19 @@ namespace Game
             Weapons = Modules.Depend<PlayerWeapons>();
 
             Modules.Set();
+        }
+
+        public override void Configure()
+        {
+            base.Configure();
 
             Behaviours.Configure();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         protected virtual void Update()

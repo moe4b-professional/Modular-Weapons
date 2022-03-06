@@ -77,9 +77,9 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Porcess;
 

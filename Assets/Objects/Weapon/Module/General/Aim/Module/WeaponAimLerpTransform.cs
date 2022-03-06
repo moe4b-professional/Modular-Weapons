@@ -44,9 +44,9 @@ namespace Game
             target = Coordinates.From(context);
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnLateProcess += LateProcess;
 

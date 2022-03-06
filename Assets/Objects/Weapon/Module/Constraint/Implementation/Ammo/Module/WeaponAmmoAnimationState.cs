@@ -25,9 +25,9 @@ namespace Game
 
         public Animator Animator => Weapon.Mesh.Animator;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Ammo.OnRefill += RefillCallback;
             Ammo.OnConsumption += ConsumptionCallback;

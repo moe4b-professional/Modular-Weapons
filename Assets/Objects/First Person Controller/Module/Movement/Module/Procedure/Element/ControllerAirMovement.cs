@@ -42,7 +42,6 @@ namespace Game
                 State.Operate();
             }
         }
-
         protected override void FixedProcess()
         {
             base.FixedProcess();

@@ -42,9 +42,9 @@ namespace Game
         public const string LayerName = "Effects";
         public int LayerIndex { get; protected set; }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Activation.OnEnable += EnableCallback;
 

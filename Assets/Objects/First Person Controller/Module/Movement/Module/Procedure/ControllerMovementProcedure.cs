@@ -38,19 +38,23 @@ namespace Game
             OnSet?.Invoke(Current);
         }
 
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerMovementProcedure> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerMovementProcedure>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerMovementProcedure Procedure { get; protected set; }
-            public virtual void Set(ControllerMovementProcedure value) => Procedure = value;
 
             public FirstPersonController Controller => Procedure.Controller;
-
             public ControllerMovement Movement => Procedure.Movement;
+
+            public virtual void Set(ControllerMovementProcedure value) => Procedure = value;
         }
 
-        public Modules<ControllerMovementProcedure> Modules { get; protected set; }
-
+        [field: SerializeField, DebugOnly]
         public ControllerGroundMovement Ground { get; protected set; }
+
+        [field: SerializeField, DebugOnly]
         public ControllerAirMovement Air { get; protected set; }
 
         public class Element : Module
@@ -69,12 +73,11 @@ namespace Game
 
             public bool Active => Procedure.Current == this;
 
-            public override void Init()
+            public override void Initialize()
             {
-                base.Init();
+                base.Initialize();
 
                 Controller.OnProcess += Process;
-
                 Controller.OnFixedProcess += FixedProcess;
             }
 
@@ -87,7 +90,6 @@ namespace Game
             {
 
             }
-
             protected virtual void FixedProcess()
             {
 
@@ -112,12 +114,11 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
-
             Controller.OnFixedProcess += FixedProcess;
         }
 
@@ -125,7 +126,6 @@ namespace Game
         {
             
         }
-
         void FixedProcess()
         {
             Controller.Ground.Check();

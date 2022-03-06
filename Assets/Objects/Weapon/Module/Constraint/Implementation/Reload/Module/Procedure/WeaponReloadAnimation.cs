@@ -31,9 +31,9 @@ namespace Game
 
         public string FillTrigger => AnimationTrigger.Combine(ID, nameof(Fill));
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Mesh.TriggerRewind.OnTrigger += AnimationEventCallback;
 

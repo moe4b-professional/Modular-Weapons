@@ -29,9 +29,9 @@ namespace Game
 
         public event WeaponAnimationEffects.LandDelegate OnLand;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.Jump.OnPerform += JumpCallback;
             Controller.Ground.Change.OnLeave += LeaveGroundCallback;

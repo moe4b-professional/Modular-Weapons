@@ -27,9 +27,9 @@ namespace Game
 
         public bool IsOn => Coroutine != null;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Jump.OnPerform += JumpCallback;
 

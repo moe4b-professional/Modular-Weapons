@@ -68,12 +68,12 @@ namespace Game
 
             Processor = Weapon.GetProcessor<IProcessor>(this);
 
-            List = QueryComponents.In<IState>(gameObject);
+            List = ComponentQuery.Collection.In<IState>(gameObject);
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

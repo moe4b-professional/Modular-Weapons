@@ -16,28 +16,34 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using MB;
 
 namespace Game
 {
     [RequireComponent(typeof(Camera))]
 	public class ControllerCameraRelay : ControllerCamera.Module
 	{
+        [field: SerializeField, DebugOnly]
 		public Camera Component { get; protected set; }
 
         public float InitialFOV { get; protected set; }
+
+        public override void Set(ControllerCamera value)
+        {
+            base.Set(value);
+
+            Component = GetComponent<Camera>();
+        }
 
         public override void Configure()
         {
             base.Configure();
 
-            Component = GetComponent<Camera>();
-
             InitialFOV = Component.fieldOfView;
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

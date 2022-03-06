@@ -54,9 +54,9 @@ namespace Game
             range = new ValueRange(0.2f, 1f);
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

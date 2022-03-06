@@ -25,9 +25,9 @@ namespace Game
 
         public float Modifier() => Scale;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Player.Controller.camera.FOV.Scale.Add(Modifier);
         }

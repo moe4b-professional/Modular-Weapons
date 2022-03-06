@@ -25,9 +25,9 @@ namespace Game
         Vector3 force = new Vector3(0f, 1f, 0f);
         public Vector3 Force => force;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Projectile.OnProcess += Process;
         }

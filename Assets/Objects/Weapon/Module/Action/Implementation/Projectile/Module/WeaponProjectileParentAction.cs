@@ -30,9 +30,9 @@ namespace Game
             parent = transform;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Action.OnPerform += Callback;
         }

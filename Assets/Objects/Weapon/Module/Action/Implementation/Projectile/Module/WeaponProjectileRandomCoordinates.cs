@@ -31,9 +31,9 @@ namespace Game
         protected ValueRange rotation;
         public ValueRange Rotation { get { return rotation; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Action.OnPerform += ActionCallback;
         }

@@ -51,16 +51,13 @@ namespace Game
 
         public float Delta { get; protected set; }
 
-
         public ControllerVelocity Velocity => Controller.Velocity;
-
         public ControllerMovement Movement => Controller.Movement;
-
         public ControllerMovementSpeed Speed => Movement.Speed;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

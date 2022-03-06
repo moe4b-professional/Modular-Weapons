@@ -34,9 +34,9 @@ namespace Game
             hash = new HashSet<Collider>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             anchor = Projectile.transform.position;
 

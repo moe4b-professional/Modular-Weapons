@@ -53,22 +53,24 @@ namespace Game
 
         public Modifier.Constraint Constraint { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerJumpLock Lock { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerJump> Modules { get; protected set; }
-
         public class Module : FirstPersonController.Behaviour, IModule<ControllerJump>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerJump Jump { get; protected set; }
-            public virtual void Set(ControllerJump value) => Jump = value;
 
             public FirstPersonController Controller => Jump.Controller;
+
+            public virtual void Set(ControllerJump value) => Jump = value;
         }
 
         public ControllerGround Ground => Controller.Ground;
         public ControllerVelocity Velocity => Controller.Velocity;
         public ControllerState State => Controller.State;
-
         public ButtonInput Input => Controller.Controls.Jump;
 
         public override void Set(FirstPersonController value)
@@ -92,9 +94,9 @@ namespace Game
             Constraint = new Modifier.Constraint();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
 
@@ -108,7 +110,7 @@ namespace Game
 
         public virtual void Operate()
         {
-            if (Input.Press)
+            if (Input.Click)
             {
                 if (CanPerform) Perform();
             }

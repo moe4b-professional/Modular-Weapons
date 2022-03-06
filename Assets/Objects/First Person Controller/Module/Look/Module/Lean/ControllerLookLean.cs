@@ -49,13 +49,16 @@ namespace Game
 
         public Quaternion Offset { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerLookLean> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerLookLean>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerLookLean Lean { get; protected set; }
-            public virtual void Set(ControllerLookLean value) => Lean = value;
 
             public FirstPersonController Controller => Lean.Controller;
+
+            public virtual void Set(ControllerLookLean value) => Lean = value;
         }
 
         public AxisInput Input => Controller.Controls.Lean;
@@ -77,9 +80,9 @@ namespace Game
             Offset = Quaternion.identity;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             //CalculateOffset(); //TODO Remove if Unecessary
 
@@ -106,7 +109,7 @@ namespace Game
         {
             if(mode == InputMode.Hold)
             {
-                if (button.Press)
+                if (button.Click)
                     Target = value;
                 if (button.Lift)
                     Target = 0f;
@@ -114,7 +117,7 @@ namespace Game
 
             if(mode == InputMode.Toggle)
             {
-                if(button.Press)
+                if(button.Click)
                 {
                     if (Target == value)
                         Target = 0f;

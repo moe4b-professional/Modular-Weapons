@@ -46,14 +46,17 @@ namespace Game
         protected float speed = 4f;
         public float Speed { get { return speed; } }
 
+        [field: SerializeField, DebugOnly]
+        public Modules<ControllerHeadBob> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerHeadBob>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerHeadBob HeadBob { get; protected set; }
-            public virtual void Set(ControllerHeadBob value) => HeadBob = value;
 
             public FirstPersonController Controller => HeadBob.Controller;
+
+            public virtual void Set(ControllerHeadBob value) => HeadBob = value;
         }
-        public Modules<ControllerHeadBob> Modules { get; protected set; }
 
         public Vector3 Delta { get; protected set; }
         public Vector3 Offset { get; protected set; }
@@ -77,9 +80,9 @@ namespace Game
             Delta = Offset = Vector3.zero;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

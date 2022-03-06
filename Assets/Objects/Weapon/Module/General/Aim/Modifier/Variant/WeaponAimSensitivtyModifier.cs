@@ -38,9 +38,9 @@ namespace Game
             Sensitivty = Weapon.Modules.Depend<WeaponSensitivty>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Sensitivty.Scale.Add(Modifier);
         }

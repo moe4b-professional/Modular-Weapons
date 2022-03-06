@@ -38,9 +38,9 @@ namespace Game
             MovementSpeed = Weapon.Modules.Depend<WeaponMovementSpeed>();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             MovementSpeed.Scale.Add(Modifier);
         }

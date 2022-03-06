@@ -40,9 +40,9 @@ namespace Game
             Calculate();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
         }

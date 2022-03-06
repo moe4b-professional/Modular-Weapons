@@ -21,9 +21,9 @@ namespace Game
 {
 	public class ProjectileDestroyOnHit : Projectile.Module
 	{
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Projectile.OnHit += HitCallback;
         }

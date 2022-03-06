@@ -40,6 +40,10 @@ namespace Game
             Initial = Value;
 
             Scale = new Modifier.Scale();
+        }
+        public override void Initialize()
+        {
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

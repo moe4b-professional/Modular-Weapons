@@ -25,20 +25,26 @@ namespace Game
     [RequireComponent(typeof(TransformAnchor))]
 	public class ControllerCamera : FirstPersonController.Module
 	{
-		public Camera Component { get; protected set; }
+        [field: SerializeField, DebugOnly]
+        public Camera Component { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public TransformAnchor Anchor { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public ControllerCameraFOV FOV { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerCamera> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerCamera>
         {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+            [field: SerializeField, DebugOnly]
             public ControllerCamera camera { get; protected set; }
-            public virtual void Set(ControllerCamera value) => camera = value;
 
             public FirstPersonController Controller => camera.Controller;
+
+            public virtual void Set(ControllerCamera value) => camera = value;
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         }
 
@@ -46,21 +52,15 @@ namespace Game
         {
             base.Set(value);
 
+            Component = GetComponent<Camera>();
+            Anchor = GetComponent<TransformAnchor>();
+
             Modules = new Modules<ControllerCamera>(this);
             Modules.Register(Controller.Behaviours);
 
             FOV = Modules.Depend<ControllerCameraFOV>();
 
             Modules.Set();
-        }
-
-        public override void Configure()
-        {
-            base.Configure();
-
-            Component = GetComponent<Camera>();
-
-            Anchor = GetComponent<TransformAnchor>();
         }
     }
 }

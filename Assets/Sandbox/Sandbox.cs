@@ -25,8 +25,6 @@ namespace Game
 {
     public class Sandbox : MonoBehaviour
     {
-        public MonoScriptSelection<WeaponEffects.IInterface> selection;
-
         void Start()
         {
 

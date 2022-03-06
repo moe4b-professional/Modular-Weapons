@@ -25,9 +25,9 @@ namespace Game
 
         public bool Active => InputLock;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

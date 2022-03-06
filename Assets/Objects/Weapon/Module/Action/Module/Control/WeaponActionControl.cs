@@ -47,9 +47,9 @@ namespace Game
 
         public WeaponActionInput Input => Action.Input;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Action.Input.OnProcess += Process;
         }

@@ -67,9 +67,9 @@ namespace Game
 
         public IList<ControllerStateElement> Elements => State.Elements;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnFixedProcess += Process;
         }

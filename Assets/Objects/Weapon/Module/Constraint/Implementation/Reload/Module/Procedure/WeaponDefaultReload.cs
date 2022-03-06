@@ -25,9 +25,9 @@ namespace Game
         protected float delay = 1f;
         public float Delay { get { return delay; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Reload.OnPerform += PerformCallback;
         }

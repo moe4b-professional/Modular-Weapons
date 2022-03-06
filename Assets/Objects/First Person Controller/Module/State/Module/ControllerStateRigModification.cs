@@ -27,9 +27,9 @@ namespace Game
 
         public ControllerRig Rig => Controller.Rig;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Anchor = CalculateOffset(State.Data.Height);
 
@@ -46,7 +46,7 @@ namespace Game
 
         protected virtual Vector3 CalculateOffset(float height) => Vector3.up * height / 2f;
 
-        void WriteCamera() => Rig.Camera.Anchor.LocalPosition += Offset / 2;
+        void WriteCamera() => Rig.camera.Anchor.LocalPosition += Offset / 2;
         void WritePivot() => Rig.Pivot.LocalPosition += Offset / 2;
     }
 }

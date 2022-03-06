@@ -28,16 +28,14 @@ namespace Game
         public float Offset { get { return offset; } }
 
         public ControllerRig Rig => Controller.Rig;
-
         public ControllerDirection Direction => Controller.Direction;
 
         public Vector3 Origin => Rig.Pivot.transform.position;
+        public Vector3 End => Rig.camera.transform.position + Direction.Right * Lean.Target * offset;
 
-        public Vector3 End => Rig.Camera.transform.position + Direction.Right * Lean.Target * offset;
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

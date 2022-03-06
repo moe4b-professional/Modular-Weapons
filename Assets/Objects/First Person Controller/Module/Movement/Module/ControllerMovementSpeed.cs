@@ -36,7 +36,6 @@ namespace Game
         public float Rate => Max == 0f ? 0f : Current / Max;
 
         public ControllerVelocity Velocity => Controller.Velocity;
-
         public ControllerGround Ground => Controller.Ground;
 
         public override void Configure()

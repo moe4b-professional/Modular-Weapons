@@ -36,9 +36,9 @@ namespace Game
         public ControllerSprint Sprint => Controller.Sprint;
         public ControllerState State => Controller.State;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Sprint.Constraint.Add(Modifier);
 
@@ -49,7 +49,7 @@ namespace Game
         {
             if(Element.Active && action == InputAction.StandUp)
             {
-                if(Sprint.Input.Button.Press)
+                if(Sprint.Input.Button.Click)
                     State.Transition.Set(State.Sets.Normal);
             }
         }

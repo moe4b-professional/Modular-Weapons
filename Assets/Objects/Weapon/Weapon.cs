@@ -49,7 +49,7 @@ namespace Game
             protected virtual void Start() { }
 
             public virtual void Configure() { }
-            public virtual void Init() { }
+            public virtual void Initialize() { }
 
             public void CheckDependancy<TType>(TType instance)
             {
@@ -137,7 +137,7 @@ namespace Game
 
         protected virtual void Init()
         {
-            Behaviours.Init();
+            Behaviours.Initialize();
         }
 
         public delegate void ProcessDelegate();

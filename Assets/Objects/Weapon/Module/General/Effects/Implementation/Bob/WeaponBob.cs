@@ -65,9 +65,9 @@ namespace Game
             Scale = new Modifier.Scale();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.Effects.Register(this);
         }
@@ -85,9 +85,9 @@ namespace Game
 
             }
 
-            public override void Init()
+            public override void Initialize()
             {
-                base.Init();
+                base.Initialize();
 
                 Weapon.OnProcess += Process;
 

@@ -63,6 +63,7 @@ namespace Game
 
         public AxisInput Lean { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public List<ControllerInput> Inputs { get; protected set; }
 
         public CollectionData Collection { get; protected set; }
@@ -120,11 +121,16 @@ namespace Game
             }
         }
 
+        public override void Set(FirstPersonController value)
+        {
+            base.Set(value);
+
+            Inputs = Controller.Modules.FindAll<ControllerInput>();
+        }
+
         public override void Configure()
         {
             base.Configure();
-
-            Inputs = Controller.Modules.FindAll<ControllerInput>();
 
             Collection = new CollectionData();
 
@@ -142,10 +148,9 @@ namespace Game
 
             Lean = new AxisInput();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

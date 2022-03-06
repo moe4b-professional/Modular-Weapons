@@ -59,13 +59,16 @@ namespace Game
 
         public SingleAxisInput Input => Controller.Controls.Sprint;
 
+        [field: SerializeField, DebugOnly]
         public Modules<ControllerSprint> Modules { get; protected set; }
         public class Module : FirstPersonController.Behaviour, IModule<ControllerSprint>
         {
+            [field: SerializeField, DebugOnly]
             public ControllerSprint Sprint { get; protected set; }
-            public virtual void Set(ControllerSprint value) => Sprint = value;
 
             public FirstPersonController Controller => Sprint.Controller;
+
+            public virtual void Set(ControllerSprint value) => Sprint = value;
         }
 
         public override void Set(FirstPersonController value)
@@ -84,10 +87,9 @@ namespace Game
 
             Constraint = new Modifier.Constraint();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }
@@ -122,7 +124,7 @@ namespace Game
 
             if (mode == InputMode.Toggle)
             {
-                if (Input.Button.Press)
+                if (Input.Button.Click)
                 {
                     if (Active)
                         Stop();

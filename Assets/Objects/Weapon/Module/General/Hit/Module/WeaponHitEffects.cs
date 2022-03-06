@@ -25,9 +25,9 @@ namespace Game
         protected SurfaceHitEffectPack pack;
         public SurfaceHitEffectPack Pack { get { return pack; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Hit.OnProcess += Process;
         }

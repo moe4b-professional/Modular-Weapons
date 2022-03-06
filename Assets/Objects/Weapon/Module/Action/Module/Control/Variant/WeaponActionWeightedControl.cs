@@ -25,9 +25,9 @@ namespace Game
         protected float speed;
         public float Speed { get { return speed; } }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Action.OnPerform += ActionCallback;
         }

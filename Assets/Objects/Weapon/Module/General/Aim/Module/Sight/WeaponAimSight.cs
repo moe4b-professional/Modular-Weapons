@@ -67,9 +67,9 @@ namespace Game
             Modules.Set();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Inital = Coordinates.From(Anchor.transform);
             Target = CalculateTarget(Weapon.transform, Context, point);

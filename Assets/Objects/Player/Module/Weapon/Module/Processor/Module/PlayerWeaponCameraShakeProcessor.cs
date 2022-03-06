@@ -29,9 +29,9 @@ namespace Game
 
         public virtual void Add(float target) => shake.Add(target);
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Player.Controller.OnProcess += Process;
         }

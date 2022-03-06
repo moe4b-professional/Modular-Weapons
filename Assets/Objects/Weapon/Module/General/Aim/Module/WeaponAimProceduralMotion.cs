@@ -49,9 +49,9 @@ namespace Game
         public Vector3 Position { get; protected set; }
         public Vector3 Rotation { get; protected set; }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Weapon.OnProcess += Process;
 

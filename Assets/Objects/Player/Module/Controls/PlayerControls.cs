@@ -31,7 +31,8 @@ namespace Game
         public AxisInput SwitchWeapon { get; protected set; }
         public ButtonInput SwitchActionMode { get; protected set; }
         public ButtonInput SwitchSight { get; protected set; }
-        
+
+        [field: SerializeField, DebugOnly]
         public List<PlayerInput> Inputs { get; protected set; }
 
         public CollectionData Collection { get; protected set; }
@@ -77,11 +78,16 @@ namespace Game
             }
         }
 
+        public override void Set(Player value)
+        {
+            base.Set(value);
+
+            Inputs = Player.Behaviours.FindAll<PlayerInput>();
+        }
+
         public override void Configure()
         {
             base.Configure();
-
-            Inputs = Player.Behaviours.FindAll<PlayerInput>();
 
             Collection = new CollectionData();
 
@@ -94,10 +100,9 @@ namespace Game
             SwitchActionMode = new ButtonInput();
             SwitchSight = new ButtonInput();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Player.OnProcess += Process;
         }

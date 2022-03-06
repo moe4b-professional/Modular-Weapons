@@ -37,10 +37,9 @@ namespace Game
 
             Average = new Modifier.Average();
         }
-
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
             
             Player.OnProcess += Process;
         }

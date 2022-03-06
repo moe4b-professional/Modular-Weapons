@@ -78,9 +78,9 @@ namespace Game
 			List = Aim.Modules.FindAll<WeaponAimSight>();
 		}
 
-		public override void Init()
+		public override void Initialize()
 		{
-			base.Init();
+			base.Initialize();
 
 			Index = 0;
 

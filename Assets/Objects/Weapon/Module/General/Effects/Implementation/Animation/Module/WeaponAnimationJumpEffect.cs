@@ -49,9 +49,9 @@ namespace Game
 
         public const string Trigger = "Jump";
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Effects.Processor.OnJump += JumpCallback;
         }

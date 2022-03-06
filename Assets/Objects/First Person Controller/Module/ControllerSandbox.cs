@@ -21,9 +21,9 @@ namespace Game
 {
 	public class ControllerSandbox : FirstPersonController.Module
 	{
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Controller.OnProcess += Process;
         }

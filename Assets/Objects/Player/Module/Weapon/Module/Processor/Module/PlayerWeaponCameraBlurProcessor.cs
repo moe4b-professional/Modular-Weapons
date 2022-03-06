@@ -25,9 +25,9 @@ namespace Game
 
         public float Modifier() => Value;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Player.CameraEffects.Blur.Average.Add(Modifier);
         }

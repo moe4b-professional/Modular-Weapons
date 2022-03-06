@@ -34,12 +34,11 @@ namespace Game
         public bool Modifier() => Constraint;
 
         public ControllerJump Jump => Controller.Jump;
-
         public ControllerState State => Controller.State;
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
 
             Jump.Constraint.Add(Modifier);
 
@@ -50,7 +49,7 @@ namespace Game
         {
             if(Element.Active && action == InputAction.StandUp)
             {
-                if(Jump.Input.Press)
+                if(Jump.Input.Click)
                     State.Transition.Set(State.Sets.Normal);
             }
         }
