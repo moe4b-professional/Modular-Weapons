@@ -27,6 +27,7 @@ namespace Game
 
         public bool Active => IsProcessing;
 
+        [field: SerializeField, DebugOnly]
         public WeaponAmmo Ammo { get; protected set; }
 
         public bool CanPerform
@@ -45,13 +46,16 @@ namespace Game
             }
         }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponReload> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponReload>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponReload Reload { get; protected set; }
-            public virtual void Set(WeaponReload value) => Reload = value;
 
             public Weapon Weapon => Reload.Weapon;
+
+            public virtual void Set(WeaponReload value) => Reload = value;
         }
 
         public abstract class Procedure : Module

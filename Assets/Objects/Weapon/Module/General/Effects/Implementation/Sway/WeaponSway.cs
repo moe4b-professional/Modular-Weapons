@@ -86,13 +86,16 @@ namespace Game
             Vector3 RelativeVelocity { get; }
         }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponSway> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponSway>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponSway Sway { get; protected set; }
-            public virtual void Set(WeaponSway value) => Sway = value;
 
             public Weapon Weapon => Sway.Weapon;
+
+            public virtual void Set(WeaponSway value) => Sway = value;
         }
 
         public override void Set(Weapon value)

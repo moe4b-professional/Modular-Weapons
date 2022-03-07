@@ -30,7 +30,6 @@ namespace Game
 
             Anchor = GetComponent<TransformAnchor>();
         }
-
         public override void Initialize()
         {
             base.Initialize();

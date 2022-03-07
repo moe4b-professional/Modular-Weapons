@@ -29,13 +29,16 @@ namespace Game
 
         public bool Active => Weapon.Operation.Is(this);
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponSprint> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponSprint>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponSprint Sprint { get; protected set; }
-            public virtual void Set(WeaponSprint value) => Sprint = value;
 
             public Weapon Weapon => Sprint.Weapon;
+
+            public virtual void Set(WeaponSprint value) => Sprint = value;
         }
 
         public IProcessor Processor { get; protected set; }

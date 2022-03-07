@@ -47,7 +47,6 @@ namespace Game
 
             Lock = false;
         }
-
         public override void Initialize()
         {
             base.Initialize();

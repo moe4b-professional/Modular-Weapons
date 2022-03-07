@@ -33,13 +33,16 @@ namespace Game
 
         public bool IsProcessing => Weapon.Action.Override.Is(this);
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponBurstActionMode> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponBurstActionMode>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponBurstActionMode Burst { get; protected set; }
-            public virtual void Set(WeaponBurstActionMode value) => Burst = value;
 
             public Weapon Weapon => Burst.Weapon;
+
+            public virtual void Set(WeaponBurstActionMode value) => Burst = value;
         }
 
         public override void Set(Weapon value)

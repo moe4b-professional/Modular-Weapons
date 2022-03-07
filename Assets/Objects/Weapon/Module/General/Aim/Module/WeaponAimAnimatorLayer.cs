@@ -56,7 +56,6 @@ namespace Game
             base.Initialize();
 
             HipLayer = new LayerController(Animator, "Hip");
-
             AimLayer = new LayerController(Animator, "Aim");
 
             Aim.OnRateChange += RateChangeCallback;

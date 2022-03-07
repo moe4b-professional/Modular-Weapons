@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class WeaponRaycastAction : Weapon.Module
@@ -33,6 +35,7 @@ namespace Game
         protected LayerMask mask = Physics.DefaultRaycastLayers;
         public LayerMask Mask { get { return mask; } }
 
+        [field: SerializeField, DebugOnly]
         public WeaponPenetration Penetration { get; protected set; }
 
         RaycastHit[] hits;
@@ -42,11 +45,16 @@ namespace Game
             point = transform;
         }
 
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Penetration = Weapon.Modules.Find<WeaponPenetration>();
+        }
+
         public override void Configure()
         {
             base.Configure();
-
-            Penetration = Weapon.Modules.Find<WeaponPenetration>();
 
             hits = new RaycastHit[Penetration == null ? 20 : Penetration.Iterations];
         }

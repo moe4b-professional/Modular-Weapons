@@ -22,7 +22,6 @@ namespace Game
 	public class WeaponOperation : Weapon.Module
 	{
         public IInterface Value { get; protected set; }
-
         public interface IInterface
         {
             void Stop();

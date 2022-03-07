@@ -31,13 +31,16 @@ namespace Game
         protected Transform point;
         public Transform Point { get { return point; } }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponProjectileAction> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponProjectileAction>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponProjectileAction Action { get; protected set; }
-            public virtual void Set(WeaponProjectileAction value) => Action = value;
 
             public Weapon Weapon => Action.Weapon;
+
+            public virtual void Set(WeaponProjectileAction value) => Action = value;
         }
 
         protected virtual void Reset()

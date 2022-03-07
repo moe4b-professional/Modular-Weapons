@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAimFOVModifier : WeaponAimPropertyModifier
@@ -29,11 +31,12 @@ namespace Game
 
         public float Modifier() => Value;
 
+        [field: SerializeField, DebugOnly]
         public WeaponFOV FOV { get; protected set; }
 
-        public override void Configure()
+        public override void Set(WeaponAim value)
         {
-            base.Configure();
+            base.Set(value);
 
             FOV = Weapon.Modules.Depend<WeaponFOV>();
         }

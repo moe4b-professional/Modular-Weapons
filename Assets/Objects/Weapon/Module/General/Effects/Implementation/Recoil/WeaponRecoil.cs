@@ -31,15 +31,17 @@ namespace Game
 
         public Modifier.Scale Scale { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
+        public Modules<WeaponRecoil> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponRecoil>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponRecoil Recoil { get; protected set; }
-            public virtual void Set(WeaponRecoil value) => Recoil = value;
 
             public Weapon Weapon => Recoil.Weapon;
-        }
 
-        public Modules<WeaponRecoil> Modules { get; protected set; }
+            public virtual void Set(WeaponRecoil value) => Recoil = value;
+        }
 
         public override void Set(Weapon value)
         {
@@ -57,7 +59,6 @@ namespace Game
 
             Scale = new Modifier.Scale();
         }
-
         public override void Initialize()
         {
             base.Initialize();

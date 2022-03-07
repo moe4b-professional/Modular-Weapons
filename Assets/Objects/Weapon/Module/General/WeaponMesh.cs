@@ -17,18 +17,22 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     [RequireComponent(typeof(Animator), typeof(AnimationTriggerRewind))]
 	public class WeaponMesh : Weapon.Module
 	{
+        [field: SerializeField, DebugOnly]
         public Animator Animator { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public AnimationTriggerRewind TriggerRewind { get; protected set; }
 
-        public override void Configure()
+        public override void Set(Weapon value)
         {
-            base.Configure();
+            base.Set(value);
 
             Animator = GetComponent<Animator>();
 

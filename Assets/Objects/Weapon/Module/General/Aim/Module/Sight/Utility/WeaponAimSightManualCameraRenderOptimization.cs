@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     [RequireComponent(typeof(ManualCameraRender))]
@@ -40,13 +42,19 @@ namespace Game
             }
         }
 
+        [field: SerializeField, DebugOnly]
         public ManualCameraRender Render { get; protected set; }
+
+        public override void Set(WeaponAimSight value)
+        {
+            base.Set(value);
+
+            Render = GetComponent<ManualCameraRender>();
+        }
 
         public override void Configure()
         {
             base.Configure();
-
-            Render = GetComponent<ManualCameraRender>();
 
             MaxFPS = Render.FPS;
         }

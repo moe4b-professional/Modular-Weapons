@@ -17,12 +17,15 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponRotatingBarrelRPMModifier : WeaponRotatingBarrel.Module
     {
         public float Modifier() => RotatingBarrel.Rate;
 
+        [field: SerializeField, DebugOnly]
         public WeaponRPM RPM { get; protected set; }
 
         public override void Configure()
@@ -31,7 +34,6 @@ namespace Game
 
             RPM = Weapon.Modules.Depend<WeaponRPM>();
         }
-
         public override void Initialize()
         {
             base.Initialize();

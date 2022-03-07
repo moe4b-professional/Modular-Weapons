@@ -37,13 +37,16 @@ namespace Game
             Vector3 Delta { get; }
         }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponBob> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponBob>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponBob Bob { get; protected set; }
-            public virtual void Set(WeaponBob value) => Bob = value;
 
             public Weapon Weapon => Bob.Weapon;
+
+            public virtual void Set(WeaponBob value) => Bob = value;
         }
 
         public override void Set(Weapon value)
@@ -64,7 +67,6 @@ namespace Game
 
             Scale = new Modifier.Scale();
         }
-
         public override void Initialize()
         {
             base.Initialize();

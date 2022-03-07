@@ -23,6 +23,7 @@ namespace Game
 {
 	public class WeaponAimSights : WeaponAim.Module
 	{
+		[field: SerializeField, DebugOnly]
 		public List<WeaponAimSight> List { get; protected set; }
 
 		public int Index { get; protected set; }
@@ -51,10 +52,13 @@ namespace Game
 			bool Switch { get; }
 		}
 
+		[field: SerializeField, DebugOnly]
 		public Modules<WeaponAimSights> Modules { get; protected set; }
 		public class Module : Weapon.Behaviour, IModule<WeaponAimSights>
 		{
+			[field: SerializeField, DebugOnly]
 			public WeaponAimSights Sights { get; protected set; }
+
 			public virtual void Set(WeaponAimSights value) => Sights = value;
 		}
 
@@ -65,6 +69,8 @@ namespace Game
         {
             base.Set(value);
 
+			List = Aim.Modules.FindAll<WeaponAimSight>();
+
 			Modules = new Modules<WeaponAimSights>(this);
 			Modules.Register(Weapon.Behaviours);
         }
@@ -74,8 +80,6 @@ namespace Game
             base.Configure();
 
 			Processor = Weapon.GetProcessor<IProcessor>(this);
-
-			List = Aim.Modules.FindAll<WeaponAimSight>();
 		}
 
 		public override void Initialize()

@@ -38,13 +38,16 @@ namespace Game
 
         public Coordinates Offset { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponAimSight> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponAimSight>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponAimSight Sight { get; protected set; }
-            public virtual void Set(WeaponAimSight value) => Sight = value;
 
             public Weapon Weapon => Sight.Weapon;
+
+            public virtual void Set(WeaponAimSight value) => Sight = value;
         }
 
         public TransformAnchor Anchor => Weapon.Pivot.Anchor;

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
 	public class WeaponAimMovementSpeedModifier : WeaponAimPropertyModifier
@@ -29,11 +31,12 @@ namespace Game
 
         public float Modifier() => Value;
 
+        [field: SerializeField, DebugOnly]
         public WeaponMovementSpeed MovementSpeed { get; protected set; }
 
-        public override void Configure()
+        public override void Set(WeaponAim value)
         {
-            base.Configure();
+            base.Set(value);
 
             MovementSpeed = Weapon.Modules.Depend<WeaponMovementSpeed>();
         }

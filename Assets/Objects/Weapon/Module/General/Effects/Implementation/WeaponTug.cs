@@ -56,9 +56,9 @@ namespace Game
         {
             base.Configure();
 
-            Processor = Weapon.GetProcessor<IProcessor>(this);
-
             Scale = new Modifier.Scale();
+
+            Processor = Weapon.GetProcessor<IProcessor>(this);
         }
 
         public override void Initialize()

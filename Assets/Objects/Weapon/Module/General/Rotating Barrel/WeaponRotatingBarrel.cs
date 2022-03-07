@@ -58,13 +58,16 @@ namespace Game
 
         public float Rate { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponRotatingBarrel> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponRotatingBarrel>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponRotatingBarrel RotatingBarrel { get; protected set; }
-            public virtual void Set(WeaponRotatingBarrel value) => RotatingBarrel = value;
 
             public Weapon Weapon => RotatingBarrel.Weapon;
+
+            public virtual void Set(WeaponRotatingBarrel value) => RotatingBarrel = value;
         }
 
         public override void Set(Weapon value)

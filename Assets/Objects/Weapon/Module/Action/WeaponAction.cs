@@ -23,21 +23,25 @@ namespace Game
 {
 	public class WeaponAction : Weapon.Module
 	{
-        public WeaponConstraint Constraint => Weapon.Constraint;
-
+        [field: SerializeField, DebugOnly]
         public WeaponActionOverride Override { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public WeaponActionInput Input { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public WeaponActionControl Control { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponAction> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponAction>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponAction Action { get; protected set; }
-            public virtual void Set(WeaponAction value) => Action = value;
 
             public Weapon Weapon => Action.Weapon;
+
+            public virtual void Set(WeaponAction value) => Action = value;
         }
 
         public IProcessor Processor { get; protected set; }
@@ -59,6 +63,8 @@ namespace Game
                 return Processor;
             }
         }
+
+        public WeaponConstraint Constraint => Weapon.Constraint;
 
         public override void Set(Weapon value)
         {

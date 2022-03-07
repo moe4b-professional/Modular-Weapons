@@ -29,14 +29,17 @@ namespace Game
         {
             OnProcess?.Invoke(data);
         }
-        
+
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponHit> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponHit>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponHit Hit { get; protected set; }
-            public virtual void Set(WeaponHit value) => Hit = value;
 
             public Weapon Weapon => Hit.Weapon;
+
+            public virtual void Set(WeaponHit value) => Hit = value;
         }
 
         public override void Set(Weapon value)

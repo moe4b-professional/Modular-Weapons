@@ -37,13 +37,16 @@ namespace Game
 
         public int Index { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponActionMode> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponActionMode>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponActionMode Mode { get; protected set; }
-            public virtual void Set(WeaponActionMode value) => Mode = value;
 
             public Weapon Weapon => Mode.Weapon;
+
+            public virtual void Set(WeaponActionMode value) => Mode = value;
         }
 
         public IProcessor Processor { get; protected set; }
@@ -70,7 +73,6 @@ namespace Game
 
             List = ComponentQuery.Collection.In<IState>(gameObject);
         }
-
         public override void Initialize()
         {
             base.Initialize();

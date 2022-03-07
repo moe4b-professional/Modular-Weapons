@@ -26,7 +26,6 @@ namespace Game
         public string ID { get { return _ID; } }
 
         public WeaponMesh Mesh => Weapon.Mesh;
-
         public Animator Animator => Mesh.Animator;
 
         public string FillTrigger => AnimationTrigger.Combine(ID, nameof(Fill));

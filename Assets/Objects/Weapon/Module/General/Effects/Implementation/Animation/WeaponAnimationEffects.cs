@@ -28,20 +28,24 @@ namespace Game
         public WeaponMesh Mesh => Weapon.Mesh;
         public Animator Animator => Mesh.Animator;
 
+        [field: SerializeField, DebugOnly]
         public WeaponAnimationEffectsWeight Weight { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponAnimationEffects> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponAnimationEffects>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponAnimationEffects Effects { get; protected set; }
-            public virtual void Set(WeaponAnimationEffects value) => Effects = value;
 
             public Weapon Weapon => Effects.Weapon;
 
             public WeaponMesh Mesh => Weapon.Mesh;
             public Animator Animator => Mesh.Animator;
+
+            public virtual void Set(WeaponAnimationEffects value) => Effects = value;
         }
-        
+
         public IProcessor Processor { get; protected set; }
         public interface IProcessor : Weapon.IProcessor
         {

@@ -16,19 +16,20 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using MB;
 
 namespace Game
 {
     public class WeaponAimEffectGlobalModifier : WeaponAimEffectModifier
     {
+        [field: SerializeField, DebugOnly]
         public List<WeaponAimEffectModifier> Overrides { get; protected set; }
 
-        public override void Initialize()
+        public override void Set(WeaponAim value)
         {
-            base.Initialize();
+            base.Set(value);
 
             Overrides = Aim.Modules.FindAll<WeaponAimEffectModifier>();
-
             Overrides.RemoveAll(x => x is WeaponAimEffectGlobalModifier);
         }
 

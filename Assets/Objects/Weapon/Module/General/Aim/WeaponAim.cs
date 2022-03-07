@@ -43,15 +43,19 @@ namespace Game
             }
         }
 
+        [field: SerializeField, DebugOnly]
         public WeaponAimSpeed Speed { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponAim> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponAim>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponAim Aim { get; protected set; }
-            public virtual void Set(WeaponAim value) => Aim = value;
 
             public Weapon Weapon => Aim.Weapon;
+
+            public virtual void Set(WeaponAim value) => Aim = value;
         }
 
         public IProcessor Processor { get; protected set; }

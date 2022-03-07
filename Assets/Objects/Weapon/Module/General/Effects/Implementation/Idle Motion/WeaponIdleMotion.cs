@@ -37,13 +37,16 @@ namespace Game
 
         public Vector3 Target { get; protected set; }
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponIdleMotion> Modules { get; protected set; }
         public class Module : Weapon.Behaviour, IModule<WeaponIdleMotion>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponIdleMotion IdleMotion { get; protected set; }
-            public virtual void Set(WeaponIdleMotion value) => IdleMotion = value;
 
             public Weapon Weapon => IdleMotion.Weapon;
+
+            public virtual void Set(WeaponIdleMotion value) => IdleMotion = value;
         }
 
         public override void Set(Weapon value)
@@ -62,7 +65,6 @@ namespace Game
 
             Scale = new Modifier.Scale();
         }
-
         public override void Initialize()
         {
             base.Initialize();

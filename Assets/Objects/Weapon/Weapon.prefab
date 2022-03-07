@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8610352653392758387}
   - {fileID: 8025957072639348001}
@@ -59,6 +60,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444433546360656313}
   m_RootOrder: 1
@@ -91,6 +93,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 444433546360656313}
   - {fileID: 8025957073964381491}
@@ -109,6 +112,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993bcd065a74d904ba0390a5460247eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Constraint>k__BackingField: {fileID: 0}
+  <Action>k__BackingField: {fileID: 0}
+  <Hit>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: {fileID: 0}
+  <Operation>k__BackingField: {fileID: 0}
+  <Activation>k__BackingField: {fileID: 0}
+  <Pivot>k__BackingField: {fileID: 0}
+  <Effects>k__BackingField: {fileID: 0}
+  <Mesh>k__BackingField: {fileID: 0}
+  <Behaviours>k__BackingField:
+    components: []
+  <Modules>k__BackingField:
+    components: []
+  <AudioSource>k__BackingField: {fileID: 8025957073649349318}
 --- !u!82 &8025957073649349318
 AudioSource:
   m_ObjectHideFlags: 0
@@ -231,6 +248,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8025957073566884415}
   m_RootOrder: 1
@@ -261,6 +279,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444433546360656313}
   m_RootOrder: 2
@@ -291,6 +310,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444433546360656313}
   m_RootOrder: 0

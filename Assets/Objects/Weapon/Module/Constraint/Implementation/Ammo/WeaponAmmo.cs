@@ -80,13 +80,16 @@ namespace Game
 
         public int RemainingUses => consumption == 0 ? int.MaxValue : magazine.Value / consumption;
 
+        [field: SerializeField, DebugOnly]
         public Modules<WeaponAmmo> Modules { get; protected set; }
         public abstract class Module : Weapon.Behaviour, IModule<WeaponAmmo>
         {
+            [field: SerializeField, DebugOnly]
             public WeaponAmmo Ammo { get; protected set; }
-            public virtual void Set(WeaponAmmo value) => Ammo = value;
 
             public Weapon Weapon => Ammo.Weapon;
+
+            public virtual void Set(WeaponAmmo value) => Ammo = value;
         }
 
         public override void Set(Weapon value)

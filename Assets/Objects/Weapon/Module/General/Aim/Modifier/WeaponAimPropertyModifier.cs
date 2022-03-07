@@ -46,6 +46,7 @@ namespace Game
             Scaled, Constant
         }
 
+        [field: SerializeField, DebugOnly]
         public WeaponAimSight Sight { get; protected set; }
         public virtual void Set(WeaponAimSight reference)
         {

@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Game
 {
     public class WeaponSprintAimConstraint : WeaponSprint.Module
@@ -29,11 +31,12 @@ namespace Game
 
         public bool Modifier() => Active;
 
+        [field: SerializeField, DebugOnly]
         public WeaponAim Aim { get; protected set; }
 
-        public override void Configure()
+        public override void Set(WeaponSprint value)
         {
-            base.Configure();
+            base.Set(value);
 
             Aim = Weapon.Modules.Depend<WeaponAim>();
         }
