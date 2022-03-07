@@ -20,14 +20,25 @@ using Random = UnityEngine.Random;
 using System.Reflection;
 
 using MB;
+using UnityEngine.Serialization;
 
 namespace Game
 {
     public class Sandbox : MonoBehaviour
     {
+        //[field: SerializeField]
+        //public float Number { get; private set; } = 10;
+
+        [SerializeField]
+        [FormerlySerializedAs("<Number>k__BackingField")]
+        float number;
+        public float Number => number;
+
         void Start()
         {
 
         }
+
+        static string GetAutoPropertyBackingFieldName(string name) => $"<{name}>k__BackingField";
     }
 }
