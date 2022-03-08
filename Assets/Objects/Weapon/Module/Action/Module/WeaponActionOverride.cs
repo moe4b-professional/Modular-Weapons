@@ -22,6 +22,10 @@ namespace Game
 	public class WeaponActionOverride : WeaponAction.Module
 	{
         public IInterface Value { get; protected set; }
+        public interface IInterface : WeaponAction.IContext
+        {
+            void Stop();
+        }
 
         public bool Active => Value != null;
 
@@ -44,11 +48,6 @@ namespace Game
         public virtual void Clear()
         {
             Value = null;
-        }
-
-        public interface IInterface : WeaponAction.IContext
-        {
-            void Stop();
         }
     }
 }
