@@ -33,7 +33,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            Mesh.TriggerRewind.OnTrigger += AnimationTriggerCallback;
+            Mesh.TriggerRewind.Register("${ID} End", End);
 
             Mode.OnChange += ChangeCallback;
         }
@@ -41,11 +41,6 @@ namespace Game
         void DisableCallback()
         {
             if (Active) End();
-        }
-
-        void AnimationTriggerCallback(string trigger)
-        {
-            if (AnimationTrigger.End.Is(trigger, ID)) End();
         }
 
         void ChangeCallback(int index, WeaponActionMode.IState module) => Begin();
@@ -56,7 +51,6 @@ namespace Game
 
             Mesh.Animator.SetTrigger(ID);
         }
-
         protected virtual void End()
         {
             Active = false;

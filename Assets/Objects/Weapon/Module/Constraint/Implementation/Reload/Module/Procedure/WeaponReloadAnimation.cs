@@ -28,13 +28,12 @@ namespace Game
         public WeaponMesh Mesh => Weapon.Mesh;
         public Animator Animator => Mesh.Animator;
 
-        public string FillTrigger => AnimationTrigger.Combine(ID, nameof(Fill));
-
         public override void Initialize()
         {
             base.Initialize();
 
-            Mesh.TriggerRewind.OnTrigger += AnimationEventCallback;
+            Mesh.TriggerRewind.Register($"{ID} Fill", Fill);
+            Mesh.TriggerRewind.Register($"{ID} End", End);
 
             Reload.OnPerform += PerformCallback;
         }
@@ -44,23 +43,16 @@ namespace Game
             Animator.SetTrigger(ID);
         }
 
-        void AnimationEventCallback(string trigger)
-        {
-            if (trigger == FillTrigger) Fill();
-
-            if (AnimationTrigger.End.Is(trigger, ID)) End();
-        }
-
         protected virtual void Fill()
         {
-            Animator.SetTrigger(FillTrigger);
+            Animator.SetTrigger($"{ID} Fill");
 
             Reload.Refill();
         }
 
         protected virtual void End()
         {
-            Animator.ResetTrigger(FillTrigger);
+            Animator.ResetTrigger($"{ID} Fill");
 
             Reload.Complete();
         }

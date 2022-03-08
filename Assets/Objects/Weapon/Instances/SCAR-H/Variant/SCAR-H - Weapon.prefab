@@ -2318,7 +2318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2269433901495267523}
   m_LocalRotation: {x: 0.0032993087, y: -0.0010236988, z: 0.00000019425876, w: 0.99999404}
-  m_LocalPosition: {x: -0.0067249164, y: -0.07839665, z: 0.0717771}
+  m_LocalPosition: {x: -0.0067249164, y: -0.07839668, z: 0.07177701}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4837,20 +4837,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2868483197004140217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2171877939184494685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9124298308658669121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2091837314f0a8b4c8def46d67b6d9df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curves:
-    list: []
 --- !u!114 &4161986846130169331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4879,7 +4865,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Weapon>k__BackingField: {fileID: 3649277155045429754}
   <Animator>k__BackingField: {fileID: 9124298308668184025}
-  <TriggerRewind>k__BackingField: {fileID: 2171877939184494685}
+  <TriggerRewind>k__BackingField: {fileID: 7746135448351643122}
+--- !u!114 &7746135448351643122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124298308658669121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177beda53e7868c45a6c13ebcef8bbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6291249821221600554
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1702,7 +1702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2269433902672309472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000000052154064, z: -0.000000014901161}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5060,8 +5060,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Weapon>k__BackingField: {fileID: 5312234498593786002}
   <Animator>k__BackingField: {fileID: 4605479449542762935}
-  <TriggerRewind>k__BackingField: {fileID: 3724672043002448536}
---- !u!114 &3724672043002448536
+  <TriggerRewind>k__BackingField: {fileID: 5440970347887936557}
+--- !u!114 &5440970347887936557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5070,8 +5070,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7437880816075144926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2091837314f0a8b4c8def46d67b6d9df, type: 3}
+  m_Script: {fileID: 11500000, guid: 177beda53e7868c45a6c13ebcef8bbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curves:
-    list: []
