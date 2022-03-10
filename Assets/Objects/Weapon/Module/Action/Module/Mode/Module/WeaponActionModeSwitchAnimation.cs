@@ -33,7 +33,7 @@ namespace Game
 
             Weapon.Activation.OnDisable += DisableCallback;
 
-            Mesh.TriggerRewind.Register("${ID} End", End);
+            Mesh.TriggerRewind.Register($"{ID} End", End);
 
             Mode.OnChange += ChangeCallback;
         }

@@ -7251,21 +7251,6 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 390984476}
-    - target: {fileID: 1254596320573620785, guid: a58bb4d88a2d9194181c59a077d65af5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269433902738252934, guid: a58bb4d88a2d9194181c59a077d65af5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.07839665
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269433902738252934, guid: a58bb4d88a2d9194181c59a077d65af5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.0717771
-      objectReference: {fileID: 0}
     - target: {fileID: 2320855819288787902, guid: a58bb4d88a2d9194181c59a077d65af5,
         type: 3}
       propertyPath: m_Name
