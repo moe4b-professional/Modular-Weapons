@@ -16,12 +16,48 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using MB;
 
 namespace Game
 {
-    public abstract class WeaponDamage : Weapon.Module
+    public class WeaponDamage : Weapon.Module
     {
-        public abstract Damage.Request SampleRequest(Damage.IDamagable target, WeaponHit.Data hit);
+        [field: SerializeField, DebugOnly]
+        public List<Modifier> Modifiers { get; private set; }
+        public abstract class Modifier : Module
+        {
+            public abstract int Order { get; }
+
+            public abstract void Sample(ref Damage.Request request, Damage.IDamagable target, WeaponHit.Data hit);
+
+            public static int Sort(Modifier x, Modifier y) => x.Order.CompareTo(y.Order);
+        }
+
+        [field: SerializeField, DebugOnly]
+        public Modules<WeaponDamage> Modules { get; private set; }
+        public class Module : Weapon.Behaviour, IModule<WeaponDamage>
+        {
+            [field: SerializeField, DebugOnly]
+            public WeaponDamage Damage { get; private set; }
+
+            public virtual void Set(WeaponDamage reference)
+            {
+                Damage = reference;
+            }
+        }
+
+        public override void Set(Weapon value)
+        {
+            base.Set(value);
+
+            Modules = new Modules<WeaponDamage>(this);
+            Modules.Register(Weapon.Behaviours);
+
+            Modifiers = Modules.FindAll<Modifier>();
+            Modifiers.Sort(Modifier.Sort);
+
+            Modules.Set();
+        }
 
         public override void Initialize()
         {
@@ -40,7 +76,10 @@ namespace Game
 
         public virtual Damage.Result Perform(Damage.IDamagable target, WeaponHit.Data hit)
         {
-            var request = SampleRequest(target, hit);
+            var request = new Damage.Request();
+
+            for (int i = 0; i < Modifiers.Count; i++)
+                Modifiers[i].Sample(ref request, target, hit);
 
             var result = Owner.Damager.Perform(target, request);
 

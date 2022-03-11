@@ -19,19 +19,17 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponConstantDamage : WeaponDamage
+    public class WeaponConstantDamageModifier : WeaponDamage.Modifier
     {
-        [SerializeField]
-        protected Damage.Method method = Damage.Method.Projectile;
-        public Damage.Method Method { get { return method; } }
+        public override int Order => -200;
 
         [SerializeField]
         protected float value = 25f;
         public float Value { get { return value; } }
 
-        public override Damage.Request SampleRequest(Damage.IDamagable target, WeaponHit.Data hit)
+        public override void Sample(ref Damage.Request request, Damage.IDamagable target, WeaponHit.Data hit)
         {
-            return new Damage.Request(value * hit.Power, method);
+            request.Value += value;
         }
     }
 }

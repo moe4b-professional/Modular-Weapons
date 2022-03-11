@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c16445567d365428a2c51b5185c3db, type: 3}
   m_Name: Metal
   m_EditorClassIdentifier: 
-  hardness: 5
+  hardness: 25

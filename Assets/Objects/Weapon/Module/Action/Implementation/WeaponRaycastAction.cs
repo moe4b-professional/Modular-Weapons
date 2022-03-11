@@ -56,9 +56,12 @@ namespace Game
         {
             base.Configure();
 
-            hits = new RaycastHit[Penetration == null ? 20 : Penetration.Iterations];
+            //Penetration
+            {
+                var iterations = Penetration == null ? 20 : Penetration.Iterations;
+                hits = new RaycastHit[iterations];
+            }
         }
-
         public override void Initialize()
         {
             base.Initialize();
@@ -68,25 +71,28 @@ namespace Game
 
         void Action()
         {
-            if (enabled) Shoot();
+            if (enabled == false)
+                return;
+
+            Shoot();
         }
 
         protected virtual void Shoot()
         {
             var count = Physics.RaycastNonAlloc(point.position, point.forward, hits, range, Mask);
 
-            Array.Sort(hits, 0, count, HitComparison.Instance);
+            Array.Sort(hits, 0, count, HitComparer);
 
             var power = Penetration.Power;
 
             for (int i = 0; i < count; i++)
             {
+                var rate = power / Penetration.Power;
+                if (rate <= 0f) break;
+
                 var surface = Surface.Get(hits[i].collider);
 
-                var rate = power / Penetration.Power;
-
-                var data = WeaponHit.Data.From(ref hits[i], point.forward, rate);
-
+                var data = WeaponHit.Data.From(ref hits[i], point.forward, surface, rate);
                 Weapon.Hit.Process(data);
 
                 if (surface == null) break;
@@ -95,16 +101,14 @@ namespace Game
             }
         }
 
-        public class HitComparison : IComparer<RaycastHit>
+        //Static Utility
+
+        public static GenericComparer<RaycastHit> HitComparer { get; }
+
+        static WeaponRaycastAction()
         {
-            public int Compare(RaycastHit x, RaycastHit y) => x.distance.CompareTo(y.distance);
-
-            public static HitComparison Instance { get; protected set; }
-
-            static HitComparison()
-            {
-                Instance = new HitComparison();
-            }
+            HitComparer = new GenericComparer<RaycastHit>(Compare);
+            static int Compare(RaycastHit x, RaycastHit y) => x.distance.CompareTo(y.distance);
         }
     }
 }

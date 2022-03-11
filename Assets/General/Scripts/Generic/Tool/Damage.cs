@@ -43,9 +43,8 @@ namespace Game
 
         public struct Request
         {
-            public float Value { get; private set; }
-
-            public Method Method { get; private set; }
+            public float Value { get; set; }
+            public Method Method { get; set; }
 
             public Request(float value, Method method)
             {

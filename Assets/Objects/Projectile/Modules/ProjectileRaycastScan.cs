@@ -21,10 +21,12 @@ namespace Game
 {
 	public class ProjectileRaycastScan : Projectile.Module
 	{
-        public LayerMask mask;
+        [SerializeField]
+        LayerMask mask;
+        public LayerMask Mask => mask;
 
+        Vector3 origin;
         Vector3 anchor;
-
         HashSet<Collider> hash;
 
         public override void Configure()
@@ -33,11 +35,11 @@ namespace Game
 
             hash = new HashSet<Collider>();
         }
-
         public override void Initialize()
         {
             base.Initialize();
 
+            origin = Projectile.transform.position;
             anchor = Projectile.transform.position;
 
             Projectile.OnProcess += Process;
@@ -57,7 +59,8 @@ namespace Game
 
                 hash.Add(hits[i].collider);
 
-                var data = WeaponHit.Data.From(ref hits[i], Projectile.Motor.Velocity.normalized, 1f);
+                var distance = Vector3.Distance(origin, hits[i].point);
+                var data = WeaponHit.Data.From(ref hits[i], Projectile.Motor.Velocity.normalized, null, 1f, distance);
 
                 Projectile.ProcessHit(data);
             }

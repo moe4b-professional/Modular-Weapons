@@ -52,9 +52,9 @@ namespace Game
             Modules.Set();
         }
 
-        public struct Data
+        public readonly struct Data
         {
-            public Collider Collider { get; private set; }
+            public Collider Collider { get; }
 
             public Rigidbody Rigidbody => Collider.attachedRigidbody;
             public bool HasRigidbody => Rigidbody != null;
@@ -70,33 +70,36 @@ namespace Game
                 }
             }
 
-            public Vector3 Point { get; private set; }
+            public Vector3 Point { get; }
+            public Vector3 Normal { get; }
+            public Vector3 Direction { get; }
 
-            public Vector3 Normal { get; private set; }
+            public float Power { get; }
+            public Surface Surface { get; }
 
-            public Vector3 Direction { get; private set; }
+            public float Distance { get; }
 
-            public float Power { get; private set; }
-
-            public Data(Collider collider, Vector3 point, Vector3 normal, Vector3 direction, float power)
+            public Data(Collider collider, Vector3 point, Vector3 normal, Vector3 direction, Surface surface, float power, float distance)
             {
                 this.Collider = collider;
+
                 this.Point = point;
                 this.Normal = normal;
                 this.Direction = direction;
+
+                this.Surface = surface;
                 this.Power = power;
+
+                this.Distance = distance;
             }
 
-            public static Data From(Collider collider, ContactPoint contact, Vector3 direction, float power)
+            public static Data From(ref RaycastHit hit, Vector3 direction, Surface surface, float power)
             {
-                var data = new Data(collider, contact.point, contact.normal, direction, power);
-
-                return data;
+                return From(ref hit, direction, surface, power, hit.distance);
             }
-
-            public static Data From(ref RaycastHit hit, Vector3 direction, float power)
+            public static Data From(ref RaycastHit hit, Vector3 direction, Surface surface, float power, float distance)
             {
-                var data = new Data(hit.collider, hit.point, hit.normal, direction, power);
+                var data = new Data(hit.collider, hit.point, hit.normal, direction, surface, power, distance);
 
                 return data;
             }

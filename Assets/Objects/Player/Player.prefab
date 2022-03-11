@@ -5028,11 +5028,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SCAR-H
       objectReference: {fileID: 0}
-    - target: {fileID: 3649277155045429752, guid: fb197a07c72de2845bffdbc7cafae8ab,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3649277155045429753, guid: fb197a07c72de2845bffdbc7cafae8ab,
         type: 3}
       propertyPath: m_RootOrder
