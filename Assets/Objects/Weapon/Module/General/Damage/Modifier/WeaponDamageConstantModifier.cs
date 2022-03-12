@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
-    public class WeaponConstantDamageModifier : WeaponDamage.Modifier
+    public class WeaponDamageConstantModifier : WeaponDamage.Modifier
     {
         public override int Order => -200;
 

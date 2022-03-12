@@ -5,7 +5,7 @@ using UnityEngine.Experimental.AI;
 
 namespace Game
 {
-    public class WeaponDistanceDamageModifier : WeaponDamage.Modifier
+    public class WeaponDamageDistanceModifier : WeaponDamage.Modifier
     {
         [SerializeField]
         AnimationCurve falloff;
@@ -18,7 +18,7 @@ namespace Game
             request.Value *= falloff.Evaluate(hit.Distance);
         }
 
-        public WeaponDistanceDamageModifier()
+        public WeaponDamageDistanceModifier()
         {
             falloff = new AnimationCurve()
             {
