@@ -103,6 +103,8 @@ namespace Game
 
             if (Control.Active)
                 Perform();
+            else
+                Idle();
         }
 
         public delegate void PerformDelegate();
@@ -112,6 +114,13 @@ namespace Game
             OnPerform?.Invoke();
 
             LatePerformCondition = true;
+        }
+
+        public delegate void IdleDelegate();
+        public event IdleDelegate OnIdle;
+        public virtual void Idle()
+        {
+            OnIdle?.Invoke();
         }
         #endregion
 
